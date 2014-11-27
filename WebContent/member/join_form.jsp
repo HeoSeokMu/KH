@@ -4,7 +4,7 @@
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="script/member.js"></script>
 
-<form action="insert.jsp" method="post" name="user_input">
+<form action="#" method="post" name="user_input">
 		<table border=1 align="center">
 			<tr bgcolor="77CC55" height=50>
 				<td colspan=4 align=center><font size=6 face="휴먼엽서체"><b>회원가입 양식</b></font>

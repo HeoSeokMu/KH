@@ -116,53 +116,6 @@ window.onload = function(){
 	function phone_CHECK(phone) {
 		phone.phonenumber.value = phone.phone_number_sel.value + phone.phone_num1.value + phone.phone_num2.value;
 	}
-	
-	function checkIt() {
-        var user_input = eval("document.user_input");
-        if(!user_input.id.value) {
-            alert("ID를 입력하세요");
-            return false;
-        }
-        
-        if(!user_input.passwd.value ) {
-            alert("비밀번호를 입력하세요");
-            return false;
-        }
-        if(user_input.passwd.value != user_input.passwd2.value)
-        {
-            alert("비밀번호를 동일하게 입력하세요");
-            return false;
-        }
-       
-        if(!user_input.username.value) {
-            alert("사용자 이름을 입력하세요");
-            return false;
-        }
-        if(!user_input.jumin1.value  || !user_input.jumin2.value )
-        {
-            alert("주민등록번호를 입력하세요");
-            return false;
-        }
-    }
-
-    // 아이디 중복 여부를 판단
-    function openConfirmid(user_input) {
-        // 아이디를 입력했는지 검사
-        if (user_input.id.value == "") {
-            alert("아이디를 입력하세요");
-            return;
-        }
-        
-        // url과 사용자 입력 id를 조합합니다.
-        // url을 사용하여 ConfirmId.jsp 에 접근 후 중복체크를 한다.
-        url = "ConfirmId.jsp?id=" + user_input.id.value ;
-        
-        // 새로운 윈도우를 엽니다.
-        open(url, "confirm", 
-        "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300, height=200");
-    }
-	
-//
 
 function hideDefaultPic(){
 	var i = document.getElementById("def_img");
