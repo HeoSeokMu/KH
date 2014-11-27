@@ -20,7 +20,7 @@
 			-->
 			
 			<tr bgcolor="BBEE99" height=40>
-				<th width=130 align=center>번호</th>
+				<th width=130 align=center>번 호</th>
 				<td width=360>
 					&nbsp;&nbsp;
 					<input type="text" name="num">
