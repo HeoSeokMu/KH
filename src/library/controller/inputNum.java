@@ -17,9 +17,10 @@ import dto.rentDTO;
 @Controller
 public class inputNum{
 	
-	
-	@RequestMapping("/inputNumForm.do")
-	public ModelAndView formPro(@ModelAttribute rentDTO dto) throws Exception{
+	@RequestMapping(value="/inputNumForm.kh", method=RequestMethod.POST)
+	public ModelAndView formPro(MultipartHttpServletRequest req, @ModelAttribute rentDTO dto) throws Exception{
+		
+		System.out.println(req.getParameter("b_name"));
 		List list = new ArrayList();
 		/*session.setAttribute("memId", dto.getId());
 		session.removeAttribute(arg0);

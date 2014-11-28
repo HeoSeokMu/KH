@@ -8,6 +8,6 @@
 
 	<servlet-mapping>
 		<servlet-name>springController</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.kh</url-pattern>
 	</servlet-mapping>
 </web-app>
