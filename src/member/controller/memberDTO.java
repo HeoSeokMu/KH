@@ -1,4 +1,4 @@
-package member;
+package member.controller;
 
 public class memberDTO {
 
