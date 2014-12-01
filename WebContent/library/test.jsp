@@ -2,6 +2,7 @@
     pageEncoding="EUC-KR"%>
 
 <form action="inputNumForm.kh" name="userinput" method="post">
-	<input type="text" name="b_num" />
+	책번호<input type="text" name="b_num" /><br/>
+	책제목<input type="text" name="b_name" /><br/>
 	<input type="submit" value="책번호 입력"/>
 </form>

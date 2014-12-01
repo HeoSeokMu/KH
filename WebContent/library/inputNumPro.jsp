@@ -1,26 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="inputNumPro.kh" method="post" name="userinput" onsubmit="return checkit()">
-		<table>	
+<table>	
 			<tr>
 				<td>
 					책번호
 				</td>
 				<td>
-					<input type="text" name="b_num" value="${b_num}" readonly="readonly"/>
+					${dto.b_num}
 				</td>
 				<td>
 					책제목
 				</td>
 				<td>
-					<input type="text" name="b_name" value="${b_name}" readonly="readonly"/>
+					${b_name}
 				</td>
 			</tr>
 			<tr>
@@ -28,13 +28,13 @@
 					학번
 				</td>
 				<td>
-					<input type="text" name="s_num" onkeydown="return selectUser()"/>
+					${dto.s_num}
 				</td>
 				<td>
 					이름
 				</td>
 				<td>
-					<input type="text" name="s_name" value="${s_name}" />
+					${s_name}
 				</td>
 			</tr>
 			<tr>
@@ -42,11 +42,19 @@
 					전화번호
 				</td>
 				<td colspan="3">
-					<input type="text" name="s_phone" value="${s_phone}" readonly="readonly"/>
+					${s_phone}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					반납날짜
+				</td>
+				<td>
+					<fmt:formatDate value="${tDate}" pattern="yyyy년 MM월 dd일 hh시" />
 				</td>
 			</tr>
 		</table>
-		<input type="submit" value="대여완료"/>
-	</form>
+			<br/>
+			<input type="button" class="next" value="도서관 홈" onclick="javascript:window.location='test.kh'"/>
 </body>
 </html>
