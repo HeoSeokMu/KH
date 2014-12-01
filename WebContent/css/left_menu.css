@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+
+body	{padding:0; margin:0; font-size:12px; font-family:dotum; color:#666;}
+a {color:#666; text-decoration:none;}
+a:hover	{color:#333; text-decoration:none;}
+p,ul,li,ol,h2,dl,dt,dd	{margin:0; padding:0; list-style:none;}
+#tab_menu {width:190px; border:1px solid #bbb; overflow:hidden;}
+#tab_menu li.btn	{display:block; overflow:hidden;}
+#tab_menu .menu1,
+#tab_menu .menu2,
+#tab_menu .menu3,
+#tab_menu .menu4,
+#tab_menu .menu5,
+#tab_menu .menu6,
+#tab_menu .menu7,
+#tab_menu .menu8{width:190px; cursor:pointer; height:35px; display:block; overflow:hidden; text-indent:-999px; background:url("../main/main_img/tab_stu.png") no-repeat;}
+#tab_menu .on a {cursor:default;}
+#tab_menu .menu1{background-position:-190px top;}
+#tab_menu .menu2 {background-position:-190px -35px;}
+#tab_menu .menu3 {background-position:-190px -70px;}
+#tab_menu .menu4 {background-position:-190px -105px;}
+#tab_menu .menu5 {background-position:-190px -140px;}
+#tab_menu .menu6 {background-position:-190px -175px;}
+#tab_menu .menu7 {background-position:-190px -210px;}
+#tab_menu .menu8 {background-position:-190px -245px;}
+#tab_menu .menu1:hover {background-position:-380px top;}
+#tab_menu .menu2:hover {background-position:-380px -35px;}
+#tab_menu .menu3:hover {background-position:-380px -70px;}
+#tab_menu .menu4:hover {background-position:-380px -105px;}
+#tab_menu .menu5:hover {background-position:-380px -140px;}
+#tab_menu .menu6:hover {background-position:-380px -175px;}
+#tab_menu .menu7:hover {background-position:-380px -210px;}
+#tab_menu .menu8:hover {background-position:-380px -245px;}
+#tab_menu .on a.menu1 {background-position:left top;}
+#tab_menu .on a.menu2 {background-position:left -35px;}
+#tab_menu .on a.menu3 {background-position:left -70px;}
+#tab_menu .on a.menu4 {background-position:left -105px;}
+#tab_menu .on a.menu5 {background-position:left -140px;}
+#tab_menu .on a.menu6 {background-position:left -175px;}
+#tab_menu .on a.menu7 {background-position:left -210px;}
+#tab_menu .on a.menu8 {background-position:left -245px;}
+#tab_menu li.ly,
+#tab_menu dt{display:none;}
+#tab_menu dl{padding:5px 0;}
+#tab_menu dl a {padding:3px 20px 1px 20px; display:block;}
+#tab_menu dl a:hover	{background:#eee;}
+#tab_menu dd {line-height:17px;}

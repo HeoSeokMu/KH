@@ -17,8 +17,9 @@
        		<property name="profix" value="/test/" />
        		<property name="subfix" value=".jsp" />
        </bean> -->
-       <context:component-scan base-package="rent.controller" />
+       <context:component-scan base-package="library.controller" />
        <context:component-scan base-package="member.controller" />
+       <context:component-scan base-package="main.controller" />
        
        <!-- 파일정보 설정 -->
        <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
