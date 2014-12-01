@@ -1,19 +1,18 @@
 
-$(document).ready(function()
-		   {
-		 $('#upload').change(function(evt) {
-		     var files = evt.target.files; 
+$(document).ready(function() {
+	$('#upload').change(function(evt) {
+	     var files = evt.target.files; 
 
-		       var reader = new FileReader();
-		       reader.onload = (function(theFile) {
-		         return function(e) {
-		               $('#preView').attr('src',e.target.result);
-		         }; 
-		       })(files[0]);
+	     var reader = new FileReader();
+	     reader.onload = (function(theFile) {
+	    	 return function(e) {
+	    		 $('#preView').attr('src',e.target.result);
+	    	 }; 
+	     })(files[0]);
 
-		       reader.readAsDataURL(files[0]);
-		  });
-		   });
+	     reader.readAsDataURL(files[0]);
+	});
+});
     
     function enter() {
         var Input = eval("document.user_input");
@@ -117,11 +116,11 @@ window.onload = function(){
 		phone.phonenumber.value = phone.phone_number_sel.value + phone.phone_num1.value + phone.phone_num2.value;
 	}
 
-function hideDefaultPic(){
-	var i = document.getElementById("def_img");
-	i.style.display = 'none';
-	document.getElementById("pre_div").style.display = '';
-}
+	function hideDefaultPic(){
+		var i = document.getElementById("def_img");
+		i.style.display = 'none';
+		document.getElementById("pre_div").style.display = '';
+	}
 
 function coverPic(){
 	var i = document.getElementById("def_img");
