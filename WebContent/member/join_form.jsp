@@ -6,7 +6,7 @@
 <script src="/KH_School/member/script/member.js"></script>
 
 
-<form action="#" method="post" name="user_input">
+<form action="#" method="post" name="user_input" enctype="multipart/form-data">
 		<table border=1 align="center">
 			<tr bgcolor="77CC55" height=50>
 				<td colspan=4 align=center><font size=6 face="휴먼엽서체"><b>회원가입 양식</b></font>
@@ -223,7 +223,7 @@
 				<th width = 130 align=center>프로필 사진</th>
 				<td>
 					&nbsp;&nbsp;
-					<input type="file" name="pro_img" id="upload" accept="image/*" onChange="hideDefaultPic()">
+					<input type="file" name="upload" id="upload" accept="image/*" onChange="hideDefaultPic()">
 					<br />
 					&nbsp;&nbsp;
 					<input type="button" name="delPic" value="사진 삭제" onClick="delpic(); coverPic()">
