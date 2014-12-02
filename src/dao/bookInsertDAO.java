@@ -80,6 +80,34 @@ public class bookInsertDAO {
 			        }
 			        
 			    }
+		public void bookInserta(libraryDTO library) throws Exception {
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        
+	        try {
+	            conn = getConnection();
+	            
+	            pstmt = conn.prepareStatement(
+	            	"insert into KH_LIBRARY values (?,?,?,?,?,?,?,?,?,?)");
+	            pstmt.setInt(1, library.getBook_id());
+	            pstmt.setString(2, library.getBook_title());
+	            pstmt.setString(3, library.getBook_location());
+	            pstmt.setString(4, library.getBook_writer());
+	            pstmt.setString(5, library.getBook_publisher());
+	            pstmt.setInt(6, library.getBook_year());
+	            pstmt.setString(7, library.getBook_supplement());
+	            pstmt.setString(8, library.getFile_orgname());
+	            pstmt.setTimestamp(9, library.getInsert_year());
+	            pstmt.setInt(10, library.getIsbn());
+	            pstmt.executeUpdate();
+	        } catch(Exception ex) {
+	            ex.printStackTrace();
+	        } finally {
+	            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+	            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+	        }
+	        
+	    }
 		
 }
 

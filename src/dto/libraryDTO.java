@@ -19,7 +19,7 @@ public class libraryDTO {
 	private int return_year;		//π›≥≥ ¿œ
 	private int isbn;			//isbn
 	private int lent;			//øπæ‡
-	
+	private int aaa;
 	
 	public int getBook_id() {
 		return book_id;
