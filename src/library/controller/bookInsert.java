@@ -1,10 +1,13 @@
 package library.controller;
 
-import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.bookInsertDAO;
@@ -13,30 +16,16 @@ import dto.libraryDTO;
 @Controller
 public class bookInsert{
 	
-	
-	@RequestMapping(value="/bookInsertForm.kh")
-	public String form(){
-		return "/library/bookInsertForm.jsp";
-	}
-	
-	
-	@RequestMapping("/bookInsertFormPro.kh")
-	public ModelAndView formPro(@ModelAttribute libraryDTO dto) throws Exception{
+	@RequestMapping(value="/bookInsertFormPro.kh", method=RequestMethod.POST)
+	public ModelAndView formPro(MultipartHttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
 		
-		/*session.setAttribute("memId", dto.getId());
-		session.removeAttribute(arg0);
-		session.invalidate();*/
+		bookInsertDAO abc = bookInsertDAO.getInstance();
 		
+		String str = "abc";
 		
-		
-	
-		bookInsertDAO library_dao = bookInsertDAO.getInstance();
-		dto.setInsert_year(new Timestamp(System.currentTimeMillis()));
-		library_dao.bookInsert(dto);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("dto", dto);
-		
-		mv.setViewName("/library/bookInsertInfo.jsp");
+		mv.addObject("string", str);
+		mv.setViewName("/library/inputNumForm.jsp");
 		return mv;
 	}
 }
