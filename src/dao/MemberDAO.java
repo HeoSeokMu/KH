@@ -1,0 +1,158 @@
+package dao;
+
+import java.sql.*;
+
+import javax.sql.*;
+import javax.naming.*;
+
+import dto.memberDTO;
+
+import java.util.*;
+
+public class MemberDAO {
+
+	private static MemberDAO instance = new MemberDAO();
+
+	public static MemberDAO getInstance() {
+		return instance;
+
+	}
+
+	private Connection getConnection() throws Exception {
+		Context initCtx = new InitialContext();
+		Context envCtx = (Context) initCtx.lookup("java:comp/env");
+		DataSource ds = (DataSource) envCtx.lookup("jdbc/orcl");
+		return ds.getConnection();
+	}
+
+	public List<String> getNum() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> articleList = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from kh_member");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				articleList = new ArrayList<String>();
+				do {
+					articleList.add(rs.getString("name"));
+				} while (rs.next());
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+			}
+		}
+
+		return articleList;
+	}
+
+	public void insertMember(memberDTO member) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+
+			pstmt = conn
+					.prepareStatement("insert into KH_MEMBER values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			pstmt.setString(1, member.getType());
+			pstmt.setString(2, member.getNum());
+			pstmt.setString(3, member.getPassword());
+			pstmt.setString(4, member.getName());
+			pstmt.setString(5, member.getSex());
+			pstmt.setString(6, member.getE_mail());
+			pstmt.setString(7, member.getS_phone());
+			pstmt.setString(8, member.getP_phone());
+			pstmt.setTimestamp(9, member.getReg_date());
+			pstmt.setString(10, member.getBirth_yy());
+			pstmt.setString(11, member.getBirth_mm());
+			pstmt.setString(12, member.getBirth_dd());
+			pstmt.setString(13, member.getPro_img());
+			pstmt.setString(14, member.getAddress());
+			pstmt.setString(15, member.getPost());
+			pstmt.setString(16, member.getMajor());
+			pstmt.setString(17, member.getEnter_way());
+			pstmt.setString(18, member.getBefore_school());
+			pstmt.executeUpdate();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+			}
+		}
+	}
+	
+	public int Login_check(String id, String pw) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String dbPassword = "";
+		int x = -1;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select Password from KH_MEMBER where id = ?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dbPassword = rs.getString("Password");
+				if (dbPassword.equals(pw)){
+					x = 1; // 인증 성공
+				}else{
+					x = 0; // 비밀번호 틀림
+				}
+			}else{
+				x = -1;// 해당 아이디 없음
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) { }
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException ex) { }
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException ex) { }
+			}
+		}
+		return x;
+	}
+}

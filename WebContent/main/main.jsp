@@ -1,14 +1,64 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<head>
-<title>KH ÅëÇÕÁ¤º¸½Ã½ºÅÛ</title>
+<title>KH í†µí•©ì •ë³´ì‹œìŠ¤í…œ</title>
 	<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
 	<link rel="stylesheet" href="css/left_menu.css"></link>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/leftMenu_jquery.js"></script>
+	<style>
+		.login{
+			background-color:#7eb813;
+			color:#ffffff;
+			border:1px #dddddd dashed;
+			width:70px;
+			height:60px;
+			text-align:center;
+			padding:3px;
+		}
+		.trTitle {
+			height:15px;
+		}
+		.input{
+			size: 15px;
+		}
+		
+		.lineX {
+			border-bottom: 1px solid #dddddd;
+		}
+		.tablepadding {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	</style>
+	<script language="javascript">
+	
+		function checkIt() {
+			inputForm = eval("document.inform");
+			if (!inputForm.id.value) {
+				alert("ì•„ì´ë””ë¥¼ ìž…ë ¥í•˜ì„¸ìš”..");
+				inputForm.id.focus();
+				return false;
+			}
+			if (!inputForm.passwd.value) {
+				alert("íŒ¨ìŠ¤ì›Œë“œë¥¼ ìž…ë ¥í•˜ì„¸ìš”..");
+				inputForm.passwd.focus();
+				return false;
+			}
+			return ture;
+		}
+		function bbusic_main() {
+	        document.bbu.action = "bbusic.action";
+			document.bbu.submit();
+	    }
+	</script>
 </head>
 
 <body>
@@ -48,86 +98,115 @@
 	<div id="box">
 		<div id="box2">
 	    	<div id="content">
-	    		<div id="tab_menu">					
-					<ul>
-						<li class="btn"><a class="menu1">°øÁö»çÇ×</a></li>
-						<li class="ly" style="display:list-item;">
-							<dl>
-								<dt>°øÁö»çÇ×</dt>
-								<dd><a href="#">°øÁö»çÇ×</a></dd>
-							</dl>
-						</li>
-						<li class="btn"><a class="menu2">ÇÐÀû</a></li>
-						<li class="ly">
-							<dl>
-								<dt>ÇÐÀû</dt>
-								<dd><a href="#">ÇÐÀû±âº»»çÇ×Á¶È¸ ¹× ¼öÁ¤</a></dd>
-							</dl>
-						</li>
-						<li class="btn"><a class="menu3">ÈÞÇÐ/º¹ÇÐ</a></li>
-						<li class="ly">
-							<dl>
-								<dt>ÈÞÇÐ/º¹ÇÐ</dt>
-								<dd><a href="#">ÈÞÇÐ½ÅÃ»</a></dd>
-								<dd><a href="#">º¹ÇÐ½ÅÃ»</a></dd>
-							</dl>
-						</li>
-						<li class="btn"><a class="menu4">±³°ú/¼ö°­</a></li>
-						<li class="ly">
-							<dl>
-								<dt>±³°ú/¼ö°­</dt>
-								<dd><a href="#">±³°ú°úÁ¤</a></dd>
-								<dd><a href="#">¼ö°­½ÅÃ»</a></dd>
-								<dd><a href="#">°³¼³°ú¸ñ Á¶È¸</a></dd>
-								<dd><a href="#">¼ö°­½ÅÃ» ³»¿ªÁ¶È¸</a></dd>
-								<dd><a href="#">°³ÀÎ ½Ã°£Ç¥ Á¶È¸</a></dd>
-							</dl>
-						</li>
-						<li class="btn"><a class="menu5">¼ö¾÷/¼ºÀû</a></li>
-						<li class="ly">
-							<dl>
-								<dt>¼ö¾÷/¼ºÀû</dt>
-								<dd><a href="#">°­ÀÇÆò°¡</a></dd>
-								<dd><a href="#">±ÝÇÐ±â ¼ºÀûÁ¶È¸</a></dd>
-								<dd><a href="#">ÀüÃ¼ ¼ºÀûÁ¶È¸</a></dd>
-								<dd><a href="#">Ãâ¼®Á¶È¸</a></dd>
-							</dl>
-						</li>
-						<li class="btn"><a class="menu6">µî·Ï/ÀåÇÐ</a></li>
-						<li class="ly">
-							<dl>
-								<dt>µî·Ï/ÀåÇÐ</dt>
-								<dd><a href="#">±ÝÇÐ±â ÀåÇÐ³»¿ª</a></dd>
-								<dd><a href="#">±Ù·ÎÀåÇÐ ½ÅÃ»</a></dd>
-								<dd><a href="#">±Ù·ÎÀåÇÐ °á°ú</a></dd>
-								<dd><a href="#">±³À°ºñ ³³ÀÔ Áõ¸í¼­</a></dd>
-								<dd><a href="#">µî·Ï±Ý °íÁö¼­</a></dd>
-								<dd><a href="#">ºÐ³³µî·Ï±Ý °íÁö¼­</a></dd>
-							</dl>
-						</li>
-						<li class="btn"><a class="menu7">µµ¼­°ü</a></li>
-						<li class="ly">
-							<dl>
-								<dt>µµ¼­°ü</dt>
-								<dd><a href="#">Ã¥ ´ë¿© ½ÅÃ»</a></dd>
-								<dd><a href="#">Ã¥ ´ë¿© ¸®½ºÆ®</a></dd>
-								<dd><a href="#">Ã¥ ¿¹¾à Ãë¼Ò</a></dd>
-							</dl>
-						</li>
-						<li class="btn"><a class="menu8">¿¹ºñ±º</a></li>
-						<li class="ly">
-							<dl>
-								<dt>¿¹ºñ±º</dt>
-								<dd><a href="#">¿¹ºñ±º ½ÅÃ»</a></dd>
-								<dd><a href="#">ÈÆ·ÃÀÏÀÚ Á¶È¸</a></dd>
-								<dd><a href="#">ÈÆ·Ã°á°ú Á¶È¸</a></dd>
-							</dl>
-						</li>
-					</ul>
-				</div>
-	    	</div>
+	    		<c:if test="${session.memId != null}">
+		    		<div id="tab_menu">					
+						<ul>
+							<li class="btn"><a class="menu1">ê³µì§€ì‚¬í•­</a></li>
+							<li class="ly" style="display:list-item;">
+								<dl>
+									<dt>ê³µì§€ì‚¬í•­</dt>
+									<dd><a href="#">ê³µì§€ì‚¬í•­</a></dd>
+								</dl>
+							</li>
+							<li class="btn"><a class="menu2">í•™ì </a></li>
+							<li class="ly">
+								<dl>
+									<dt>í•™ì </dt>
+									<dd><a href="#">í•™ì ê¸°ë³¸ì‚¬í•­ì¡°íšŒ ë° ìˆ˜ì •</a></dd>
+								</dl>
+							</li>
+							<li class="btn"><a class="menu3">íœ´í•™/ë³µí•™</a></li>
+							<li class="ly">
+								<dl>
+									<dt>íœ´í•™/ë³µí•™</dt>
+									<dd><a href="#">íœ´í•™ì‹ ì²­</a></dd>
+									<dd><a href="#">ë³µí•™ì‹ ì²­</a></dd>
+								</dl>
+							</li>
+							<li class="btn"><a class="menu4">êµê³¼/ìˆ˜ê°•</a></li>
+							<li class="ly">
+								<dl>
+									<dt>êµê³¼/ìˆ˜ê°•</dt>
+									<dd><a href="#">êµê³¼ê³¼ì •</a></dd>
+									<dd><a href="#">ìˆ˜ê°•ì‹ ì²­</a></dd>
+									<dd><a href="#">ê°œì„¤ê³¼ëª© ì¡°íšŒ</a></dd>
+									<dd><a href="#">ìˆ˜ê°•ì‹ ì²­ ë‚´ì—­ì¡°íšŒ</a></dd>
+									<dd><a href="#">ê°œì¸ ì‹œê°„í‘œ ì¡°íšŒ</a></dd>
+								</dl>
+							</li>
+							<li class="btn"><a class="menu5">ìˆ˜ì—…/ì„±ì </a></li>
+							<li class="ly">
+								<dl>
+									<dt>ìˆ˜ì—…/ì„±ì </dt>
+									<dd><a href="#">ê°•ì˜í‰ê°€</a></dd>
+									<dd><a href="#">ê¸ˆí•™ê¸° ì„±ì ì¡°íšŒ</a></dd>
+									<dd><a href="#">ì „ì²´ ì„±ì ì¡°íšŒ</a></dd>
+									<dd><a href="#">ì¶œì„ì¡°íšŒ</a></dd>
+								</dl>
+							</li>
+							<li class="btn"><a class="menu6">ë“±ë¡/ìž¥í•™</a></li>
+							<li class="ly">
+								<dl>
+									<dt>ë“±ë¡/ìž¥í•™</dt>
+									<dd><a href="#">ê¸ˆí•™ê¸° ìž¥í•™ë‚´ì—­</a></dd>
+									<dd><a href="#">ê·¼ë¡œìž¥í•™ ì‹ ì²­</a></dd>
+									<dd><a href="#">ê·¼ë¡œìž¥í•™ ê²°ê³¼</a></dd>
+									<dd><a href="#">êµìœ¡ë¹„ ë‚©ìž… ì¦ëª…ì„œ</a></dd>
+									<dd><a href="#">ë“±ë¡ê¸ˆ ê³ ì§€ì„œ</a></dd>
+									<dd><a href="#">ë¶„ë‚©ë“±ë¡ê¸ˆ ê³ ì§€ì„œ</a></dd>
+								</dl>
+							</li>
+							<li class="btn"><a class="menu7">ë„ì„œê´€</a></li>
+							<li class="ly">
+								<dl>
+									<dt>ë„ì„œê´€</dt>
+									<dd><a href="#">ì±… ëŒ€ì—¬ ì‹ ì²­</a></dd>
+									<dd><a href="#">ì±… ëŒ€ì—¬ ë¦¬ìŠ¤íŠ¸</a></dd>
+									<dd><a href="#">ì±… ì˜ˆì•½ ì·¨ì†Œ</a></dd>
+								</dl>
+							</li>
+							<li class="btn"><a class="menu8">ì˜ˆë¹„êµ°</a></li>
+							<li class="ly">
+								<dl>
+									<dt>ì˜ˆë¹„êµ°</dt>
+									<dd><a href="#">ì˜ˆë¹„êµ° ì‹ ì²­</a></dd>
+									<dd><a href="#">í›ˆë ¨ì¼ìž ì¡°íšŒ</a></dd>
+									<dd><a href="#">í›ˆë ¨ê²°ê³¼ ì¡°íšŒ</a></dd>
+								</dl>
+							</li>
+						</ul>
+					</div>
+		    	</div>
+			</div>
+		</c:if>
+		<div id="box3">
+			<c:if test="${session.memId == null}">
+				<form name="inform" method="post" action="loginPro.kh"	onSubmit="return checkIt();">
+					<table class="tablepadding" align="center" cellspacing="10">
+						<tr>
+							<td>
+								<input type="text" name="id" value="${cooId}" class="input" placeholder="ì•„ì´ë””" maxlength="10"/>
+							</td>
+							<td rowspan="2">
+								<input type="submit" class="login" name="Submit" value="ë¡œê·¸ì¸"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="password" name="passwd" placeholder="íŒ¨ìŠ¤ì›Œë“œ" class="input" maxlength="10"/>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="lineX">
+								<font style="font-size: 8pt">
+								&nbsp;<a href="findIdForm.action" title="ì•„ì´ë””/ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°" style="color: gray;">ì•„ì´ë””/ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</a>
+								</font>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</c:if>
 		</div>
-		<div id="box3"> </div>
 		<div id="box4"> <center><br/><br/></center> </div>
 	</div>
 </body>

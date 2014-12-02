@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import dao.MemberJoinDAO;
+import dao.MemberDAO;
 import dto.memberDTO;
 
 @Controller
@@ -66,6 +66,26 @@ public class memCon{
 		
 		
 		//DB에 insert.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		join_dao.insertMember(dto);
 		
 		ModelAndView mv = new ModelAndView();

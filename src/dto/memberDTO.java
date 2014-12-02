@@ -153,5 +153,9 @@ public class memberDTO {
 	public void setNum3(int num3) {
 		this.num3 = num3;
 	}
+<<<<<<< HEAD
 	
 }
+=======
+}
+>>>>>>> edf3ac8aa580472aaecc3a4ef6b8f20e5dbb6564
