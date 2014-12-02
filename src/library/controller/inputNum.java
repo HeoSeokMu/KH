@@ -17,9 +17,9 @@ import dto.rentDTO;
 @Controller
 public class inputNum{
 	
-	
 	@RequestMapping("/inputNumForm.do")
 	public ModelAndView formPro(@ModelAttribute rentDTO dto) throws Exception{
+		
 		List list = new ArrayList();
 		/*session.setAttribute("memId", dto.getId());
 		session.removeAttribute(arg0);
@@ -32,6 +32,8 @@ public class inputNum{
 		}
 		
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("dto", dto);
+		mv.addObject("list", list);
 		mv.setViewName("/library/inputNumForm.jsp");
 		return mv;
 	}
