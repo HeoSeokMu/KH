@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class Main {
 	
-	@RequestMapping("/sugang.do")
+	@RequestMapping("/sugang.kh")
 	public ModelAndView sugangForm(){
 			
 		ModelAndView mv = new ModelAndView();
