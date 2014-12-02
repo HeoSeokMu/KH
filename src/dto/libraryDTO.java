@@ -1,5 +1,7 @@
 package dto;
 
+import java.sql.Timestamp;
+
 public class libraryDTO {
 
 	private int book_id;			//책등록 번호
@@ -11,11 +13,11 @@ public class libraryDTO {
 	private String book_supplement;	//부록
 	private String file_orgname;	//책 이미지 
 	private String file_savname;	//책 이미지
-	private int insert_year;		//등록 일
+	private Timestamp insert_year;		//등록 일
 	private String book_lent;		//책 대출표시
 	private int lent_year;			//빌린 일
 	private int return_year;		//반납 일
-	private String isbn;			//isbn
+	private int isbn;			//isbn
 	private int lent;			//예약
 	
 	
@@ -73,10 +75,11 @@ public class libraryDTO {
 	public void setFile_savname(String file_savname) {
 		this.file_savname = file_savname;
 	}
-	public int getInsert_year() {
+
+	public Timestamp getInsert_year() {
 		return insert_year;
 	}
-	public void setInsert_year(int insert_year) {
+	public void setInsert_year(Timestamp insert_year) {
 		this.insert_year = insert_year;
 	}
 	public String getBook_lent() {
@@ -97,10 +100,11 @@ public class libraryDTO {
 	public void setReturn_year(int return_year) {
 		this.return_year = return_year;
 	}
-	public String getIsbn() {
+
+	public int getIsbn() {
 		return isbn;
 	}
-	public void setIsbn(String isbn) {
+	public void setIsbn(int isbn) {
 		this.isbn = isbn;
 	}
 	public int getLent() {
