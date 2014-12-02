@@ -1,5 +1,10 @@
 package library.controller;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +23,15 @@ import dto.libraryDTO;
 @Controller
 public class bookInsert{
 	
-	@RequestMapping(value="/bookInsertForm.kh", method=RequestMethod.POST)
+	
+	
+	
+	@RequestMapping(value="bookInsertForm.kh")
+	public String form(){
+		return "/library/bookInsertForm.jsp";
+	}
+	
+	/*@RequestMapping(value="/bookInsertForm.kh", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView form(HttpServletRequest req) throws Exception{
 		String id = req.getParameter("book_id"); 
 		int book_id = Integer.parseInt(id);
@@ -41,10 +54,29 @@ public class bookInsert{
 		mv.setViewName("/library/bookInsertForm.jsp");
 		return mv;
 	}
-
-	@RequestMapping(value="/bookInsertFormPro.kh", method=RequestMethod.POST)
+*/
+	@RequestMapping(value="/bookInsertFormPro.kh")
 	public ModelAndView formPro(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
 		
-		return null;
+		
+	
+		dto.setReg_date(new Timestamp(System.currentTimeMillis()));
+		
+		
+		bookInsertDAO book_dao = bookInsertDAO.getInstance();
+		book_dao.bookInsert(dto);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("dto", dto);
+		mv.addObject("book_id", req.getParameter("book_id"));
+		mv.addObject("book_title", req.getParameter("book_title"));
+		mv.addObject("book_location", req.getParameter("book_location"));
+		mv.addObject("book_writer", req.getParameter("book_writer"));
+		mv.addObject("book_publisher", req.getParameter("book_publisher"));
+		mv.addObject("book_supplment", req.getParameter("book_supplement"));
+		
+		mv.setViewName("/library/bookInsertFormPro.jsp");
+		
+		return mv;
 	}
 }

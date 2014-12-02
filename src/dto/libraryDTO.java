@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class libraryDTO {
 
-	private int book_id;			//책등록 번호
+	private String book_id;			//책등록 번호
 	private String book_title;		//책 제목
 	private String book_location;	//책 위치
 	private String book_writer;		//저자
@@ -13,18 +13,18 @@ public class libraryDTO {
 	private String book_supplement;	//부록
 	private String file_orgname;	//책 이미지 
 	private String file_savname;	//책 이미지
-	private Timestamp insert_year;		//등록 일
+	private Timestamp reg_date;	//등록 일
 	private String book_lent;		//책 대출표시
 	private int lent_year;			//빌린 일
 	private int return_year;		//반납 일
 	private int isbn;			//isbn
 	private int lent;			//예약
-	private int aaa;
+
 	
-	public int getBook_id() {
+	public String getBook_id() {
 		return book_id;
 	}
-	public void setBook_id(int book_id) {
+	public void setBook_id(String book_id) {
 		this.book_id = book_id;
 	}
 	public String getBook_title() {
@@ -76,11 +76,12 @@ public class libraryDTO {
 		this.file_savname = file_savname;
 	}
 
-	public Timestamp getInsert_year() {
-		return insert_year;
+	
+	public Timestamp getReg_date() {
+		return reg_date;
 	}
-	public void setInsert_year(Timestamp insert_year) {
-		this.insert_year = insert_year;
+	public void setReg_date(Timestamp reg_date) {
+		this.reg_date = reg_date;
 	}
 	public String getBook_lent() {
 		return book_lent;
@@ -113,7 +114,6 @@ public class libraryDTO {
 	public void setLent(int lent) {
 		this.lent = lent;
 	}
-	
 	
 	
 }

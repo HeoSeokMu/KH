@@ -17,11 +17,22 @@ public class bookInsertDAO {
 			return instance;
 		
 		}
-		private Connection getConnection() throws Exception {
-			Context initCtx = new InitialContext();
-			Context envCtx = (Context) initCtx.lookup("java:comp/env");
-			DataSource ds = (DataSource)envCtx.lookup("jdbc/orcl");
-			return ds.getConnection();
+		private Connection conn = null;
+		private PreparedStatement pstmt = null;
+		private ResultSet rs = null;
+		
+		private Connection getConnection(){
+			try{
+				Class.forName("oracle.jdbc.driver.OracleDriver");
+				String url = "jdbc:oracle:thin:@khjob.iptime.org:7000:xe";
+				String user = "java09";
+				String password = "java09";
+				
+				conn = DriverManager.getConnection(url, user, password);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return conn;
 		}
 
 		public List<String> getNum() throws Exception {
@@ -61,7 +72,7 @@ public class bookInsertDAO {
 			            
 			            pstmt = conn.prepareStatement(
 			            	"insert into KH_LIBRARY values (?,?,?,?,?,?,?,?,?,?)");
-			            pstmt.setInt(1, library.getBook_id());
+			            pstmt.setString(1, library.getBook_id());
 			            pstmt.setString(2, library.getBook_title());
 			            pstmt.setString(3, library.getBook_location());
 			            pstmt.setString(4, library.getBook_writer());
@@ -69,7 +80,7 @@ public class bookInsertDAO {
 			            pstmt.setInt(6, library.getBook_year());
 			            pstmt.setString(7, library.getBook_supplement());
 			            pstmt.setString(8, library.getFile_orgname());
-			            pstmt.setTimestamp(9, library.getInsert_year());
+			            pstmt.setTimestamp(9, library.getReg_date());
 			            pstmt.setInt(10, library.getIsbn());
 			            pstmt.executeUpdate();
 			        } catch(Exception ex) {

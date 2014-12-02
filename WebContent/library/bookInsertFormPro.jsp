@@ -16,7 +16,7 @@
 </tr>
 <tr>
 	<td>부록 : ${dto.book_supplement}</td>
-	<td>책이미지 </td>
+	<td>책이미지: ${dto.file_orgname } </td>
 	</tr>
 	</table>
 </font>
