@@ -14,6 +14,7 @@ import dao.rentDAO;
 import dto.rentDTO;
 
 
+
 @Controller
 public class inputNum{
 	
@@ -22,14 +23,15 @@ public class inputNum{
 		String b_num = req.getParameter("b_num");
 		String b_name = req.getParameter("b_name");
 		System.out.println(b_num);
-		
+
 		ModelAndView mv = new ModelAndView();
+
 		mv.addObject("b_num", b_num);		//책번호와 제목을 파라미터로 보네줌
 		mv.addObject("b_name", b_name);
 		mv.setViewName("/library/inputNumForm.jsp");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="/inputNumPro.kh", method=RequestMethod.POST)
 	public ModelAndView formPro(HttpServletRequest req, @ModelAttribute rentDTO dto) throws Exception{
 		System.out.println(dto.getS_num());
