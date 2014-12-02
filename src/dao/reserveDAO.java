@@ -2,19 +2,16 @@ package dao;
 
 import java.sql.*;
 import java.sql.Date;
-
 import javax.sql.*;
 import javax.naming.*;
-
-import dto.rentDTO;
-
+import dto.reserveDTO;
 import java.util.*; 
 
-public class rentDAO {
+public class reserveDAO {
 
-		private static rentDAO instance = new rentDAO();
+		private static reserveDAO instance = new reserveDAO();
 		
-		public static rentDAO getInstance() {
+		public static reserveDAO getInstance() {
 			return instance;
 		
 		}
@@ -53,7 +50,7 @@ public class rentDAO {
 		}
 		
 		//대여내용 저장
-		public void insertRent(rentDTO dto) throws Exception {
+		public void insertReserve(reserveDTO dto) throws Exception {
 		        Connection conn = null;
 		        PreparedStatement pstmt = null;
 		        
@@ -61,11 +58,10 @@ public class rentDAO {
 		            conn = getConnection();
 		            
 		            pstmt = conn.prepareStatement(
-		            	"insert into KH_RENT values (?,?,?,?)");
+		            	"insert into KH_RESERVE values (?,?,?)");
 		            pstmt.setString(1, dto.getB_num());
 		            pstmt.setString(2, dto.getS_num());
-		            pstmt.setTimestamp(3, dto.getTurnin());
-		            pstmt.setInt(4, dto.getExtension());
+		            pstmt.setDate(3, dto.getRent());
 		            pstmt.executeUpdate();
 		        } catch(Exception ex) {
 		            ex.printStackTrace();
@@ -82,12 +78,12 @@ public class rentDAO {
 			String date = null;
 			try {
 				conn = getConnection();
-				pstmt = conn.prepareStatement("select RETURN from kh_member where B_NAME = ?");
+				pstmt = conn.prepareStatement("select RENT from kh_reserve where B_NAME = ?");
 				pstmt.setString(1, b_num);
 						rs = pstmt.executeQuery();
 						if (rs.next()) {
-							do{					
-								date = rs.getDate("RETURN").toString();
+							do{
+								date = rs.getDate("RENT").toString();
 							}while(rs.next());
 						}
 			} catch(Exception ex) {
@@ -99,5 +95,4 @@ public class rentDAO {
 			}
 			return date;
 		}
-		
 }
