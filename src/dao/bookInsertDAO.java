@@ -1,20 +1,19 @@
 package dao;
 
 import java.sql.*;
-import java.sql.Date;
 
 import javax.sql.*;
 import javax.naming.*;
 
-import dto.rentDTO;
+import dto.libraryDTO;
 
 import java.util.*; 
 
-public class rentDAO {
+public class bookInsertDAO {
 
-		private static rentDAO instance = new rentDAO();
+		private static bookInsertDAO instance = new bookInsertDAO();
 		
-		public static rentDAO getInstance() {
+		public static bookInsertDAO getInstance() {
 			return instance;
 		
 		}
@@ -24,9 +23,7 @@ public class rentDAO {
 			DataSource ds = (DataSource)envCtx.lookup("jdbc/orcl");
 			return ds.getConnection();
 		}
-		
-		
-		//전체 학번 리스트
+
 		public List<String> getNum() throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -34,12 +31,12 @@ public class rentDAO {
 			List<String> articleList=null;
 			try {
 				conn = getConnection();
-				pstmt = conn.prepareStatement("select num from kh_member");
+				pstmt = conn.prepareStatement("select * from kh_library");
 						rs = pstmt.executeQuery();
 						if (rs.next()) {
 							articleList = new ArrayList<String>();
 							do{					
-								articleList.add(rs.getString("num"));
+								articleList.add(rs.getString("name"));
 							}while(rs.next());
 						}
 			} catch(Exception ex) {
@@ -49,12 +46,13 @@ public class rentDAO {
 				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			}
+
+			
 			return articleList;
 		}
 		
-		//대여내용 저장
-		public void insertRent(rentDTO dto) 
-			    throws Exception {
+		
+		public void bookInsert(libraryDTO library) throws Exception {
 			        Connection conn = null;
 			        PreparedStatement pstmt = null;
 			        
@@ -62,11 +60,17 @@ public class rentDAO {
 			            conn = getConnection();
 			            
 			            pstmt = conn.prepareStatement(
-			            	"insert into KH_RENT values (?,?,?,?)");
-			            pstmt.setString(1, dto.getB_num());
-			            pstmt.setString(2, dto.getS_num());
-			            pstmt.setTimestamp(3, dto.getTurnin());
-			            pstmt.setInt(4, dto.getExtension());
+			            	"insert into KH_LIBRARY values (?,?,?,?,?,?,?,?,?,?)");
+			            pstmt.setInt(1, library.getBook_id());
+			            pstmt.setString(2, library.getBook_title());
+			            pstmt.setString(3, library.getBook_location());
+			            pstmt.setString(4, library.getBook_writer());
+			            pstmt.setString(5, library.getBook_publisher());
+			            pstmt.setInt(6, library.getBook_year());
+			            pstmt.setString(7, library.getBook_supplement());
+			            pstmt.setString(8, library.getFile_orgname());
+			            pstmt.setTimestamp(9, library.getInsert_year());
+			            pstmt.setInt(10, library.getIsbn());
 			            pstmt.executeUpdate();
 			        } catch(Exception ex) {
 			            ex.printStackTrace();
@@ -74,6 +78,7 @@ public class rentDAO {
 			            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 			            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			        }
+			        
 			    }
 		
 }
