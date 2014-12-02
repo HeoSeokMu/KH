@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import dao.MemberJoinDAO;
+import dao.MemberDAO;
 import dto.memberDTO;
 
 @Controller
@@ -49,7 +49,7 @@ public class memCon{
 		System.out.println(dto.getBefore_school());
 		
 		
-		MemberJoinDAO join_dao = MemberJoinDAO.getInstance();
+		MemberDAO join_dao = MemberDAO.getInstance();
 		dto.setReg_date(new Timestamp(System.currentTimeMillis()));
 		join_dao.insertMember(dto);
 		

@@ -1,102 +1,83 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<html>
 <head>
-<title>·Î±×ÀÎ</title>
-
-<style>
-	.login{
-		background-color:#7eb813;
-		color:#ffffff;
-		border:1px #dddddd dashed;
-		width:70px;
-		height:60px;
-		text-align:center;
-		padding:3px;
-	}
-	.trTitle {
-		height:15px;
-	}
-	.input{
-		size: 15px;
-	}
+<title>ë¡œê·¸ì¸</title>
+	<style>
+		.login{
+			background-color:#7eb813;
+			color:#ffffff;
+			border:1px #dddddd dashed;
+			width:70px;
+			height:60px;
+			text-align:center;
+			padding:3px;
+		}
+		.trTitle {
+			height:15px;
+		}
+		.input{
+			size: 15px;
+		}
+		
+		.lineX {
+			border-bottom: 1px solid #dddddd;
+		}
+		.tablepadding {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	</style>
+	<script language="javascript">
 	
-	.lineX {
-		border-bottom: 1px solid #dddddd;
-	}
-	.tablepadding {
-		padding-left: 15px;
-		padding-right: 15px;
-	}
-</style>
+		function checkIt() {
+			inputForm = eval("document.inform");
+			if (!inputForm.id.value) {
+				alert("ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”..");
+				inputForm.id.focus();
+				return false;
+			}
+			if (!inputForm.passwd.value) {
+				alert("íŒ¨ìŠ¤ì›Œë“œë¥¼ ì…ë ¥í•˜ì„¸ìš”..");
+				inputForm.passwd.focus();
+				return false;
+			}
+			return ture;
+		}
+		function bbusic_main() {
+	        document.bbu.action = "bbusic.action";
+			document.bbu.submit();
+	    }
+	
+	</script>
 </head>
-
-<script language="javascript">
-	function focusIt() {
-		if("${cooId}"==""){
-			document.inform.loginCheck.checked = false;
-		}else{
-			document.inform.loginCheck.checked = true;
-			
-		}
-		if("${check}"==1){
-			alert("¾ÆÀÌµğ ¶Ç´Â ÆĞ½º¿öµå°¡ Æ²·È½À´Ï´Ù.");
-		}else if("${check}"=="delete"){
-			alert("È¸¿øÅ»Åğ µÇ¼Ì½À´Ï´Ù.");
-		}else{
-			document.inform.id.focus();
-		}
-	}
-
-	function checkIt() {
-		inputForm = eval("document.inform");
-		if (!inputForm.id.value) {
-			alert("¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä..");
-			inputForm.id.focus();
-			return false;
-		}
-		if (!inputForm.passwd.value) {
-			alert("ÆĞ½º¿öµå¸¦ ÀÔ·ÂÇÏ¼¼¿ä..");
-			inputForm.passwd.focus();
-			return false;
-		}
-		return ture;
-	}
-	function bbusic_main() {
-        document.bbu.action = "bbusic.action";
-        document.bbu.submit();
-     }
-
-</script>
-</head>
-<body onLoad="focusIt();">
+<body>
 	<c:if test="${session.memId == null}">
 		<form name="inform" method="post" action="loginPro.action"	onSubmit="return checkIt();">
 			<table class="tablepadding" align="center" cellspacing="10">
 				<tr>
 					<td>
-						<input type="text" name="id" value="${cooId}" class="input" placeholder="¾ÆÀÌµğ" maxlength="10"/>
+						<input type="text" name="id" value="${cooId}" class="input" placeholder="ì•„ì´ë””" maxlength="10"/>
 					</td>
 					<td rowspan="2">
-						<input type="submit" class="login" name="Submit" value="·Î±×ÀÎ"/>
+						<input type="submit" class="login" name="Submit" value="ë¡œê·¸ì¸"/>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="password" name="passwd" placeholder="ÆĞ½º¿öµå" class="input" maxlength="10"/>
+						<input type="password" name="passwd" placeholder="íŒ¨ìŠ¤ì›Œë“œ" class="input" maxlength="10"/>
 					</td>
 				</tr>
 				<tr>
-						<td colspan="2" class="lineX">
+					<td colspan="2" class="lineX">
 						<font style="font-size: 8pt">
-						<input type="checkbox" name="loginCheck" value="check"/>¾ÆÀÌµğÀúÀå
-						&nbsp;<a href="findIdForm.action" title="¾ÆÀÌµğ/ºñ¹Ğ¹øÈ£ Ã£±â" style="color: gray;">¾ÆÀÌµğ/ºñ¹Ğ¹øÈ£ Ã£±â</a>
-						&nbsp;<a href="agreement.action" title="È¸¿ø°¡ÀÔ" style="color: gray;"><strong>È¸¿ø°¡ÀÔ</strong></a>
+						&nbsp;<a href="findIdForm.action" title="ì•„ì´ë””/ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°" style="color: gray;">ì•„ì´ë””/ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</a>
 						</font>
 					</td>
 				</tr>
@@ -108,30 +89,30 @@
 		<table class="tablepadding" cellspacing="10" style="height: 135px;" align="center">
 			<tr>
 				<td>
-					<strong><a href="javascript:window.location='modify.action'" style="color: black;"><c:out value="${session.memId}"/></a>´Ô</strong>
+					<strong><a href="javascript:window.location='modify.action'" style="color: black;"><c:out value="${session.memId}"/></a>ë‹˜</strong>
 				</td>
 				<td>
-					<a href="javascript:window.location='modify.action'" style="color: gray;">³»Á¤º¸</a>
-					<a href="javascript:window.location='logout.action'" style="color: gray;">·Î±×¾Æ¿ô</a>
+					<a href="javascript:window.location='modify.action'" style="color: gray;">ë‚´ì •ë³´</a>
+					<a href="javascript:window.location='logout.action'" style="color: gray;">ë¡œê·¸ì•„ì›ƒ</a>
 					<br/>
 				</td>
 			</tr>
 			<tr>
 				<td align="center" colspan="2">
-	 								<c:if test="${myinfo_DTO.delete_payname == null}">º¸À¯ÇÑ »óÇ°ÀÌ ¾ø½À´Ï´Ù.</c:if>
+	 								<c:if test="${myinfo_DTO.delete_payname == null}">ë³´ìœ í•œ ìƒí’ˆì´ ì—†ìŠµë‹ˆë‹¤.</c:if>
 					   				<c:if test="${myinfo_DTO.delete_payname != null}">${myinfo_DTO.delete_payname}</c:if>
-					<a href="#"><img value="»óÇ°±¸¸Å" name="payment" /></a><br/>
+					<a href="#"><img value="ìƒí’ˆêµ¬ë§¤" name="payment" /></a><br/>
 				</td>
 			</tr>
 			<tr>
 				<td>
-				Ä³½¬ 
+				ìºì‰¬ 
 	 					<c:if test="${myinfo_DTO.delete_cash == null}">0</c:if>
 					   	<c:if test="${myinfo_DTO.delete_cash != null}">${myinfo_DTO.delete_cash}</c:if>
 				</td>
 				<c:if test="${session.memId == 'admin1'}">
 					<td align="right">
-						<a href="javascript:window.location='admin.action'">°ü¸®ÀÚ ÆäÀÌÁö</a>
+						<a href="javascript:window.location='admin.action'">ê´€ë¦¬ì í˜ì´ì§€</a>
 					</td>
 				</c:if>
 			</tr>
