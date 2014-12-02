@@ -1,6 +1,6 @@
 package dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class reserveDTO {
 	private String s_num;
