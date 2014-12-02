@@ -4,31 +4,40 @@ import java.sql.Timestamp;
 
 public class memberDTO {
 	
-	private String type;
-	private String num;
-	private String password;
-	private String name;
-	private String sex;
-	private String e_mail;
-	private String s_phone;
-	private String p_phone;
-	private Timestamp reg_date;
-	private String birth_yy;
-	private String birth_mm;
-	private String birth_dd;
-	private String pro_img;
-	private String address;
-	private String post;
-	private String major;
-	private String enter_way;
-	private String before_school;
+	private String type;//회원유형. 학생인가 교수인가 교직원인가
+	private String num1;//등록년도
+	private String num2;//학과 및 직원 업무처 구분
+	private int num3;//자동증가번호
+	private String s_num;//학번, 교번, 교직원번호 통합. 아이디로도 사용.
+	private String password;//비밀번호
+	private String name;//이름
+	private String sex;//성별
+	private String e_mail;//이메일
+	private String s_phone;//본인 연락처
+	private String p_phone;//보호자 연락처
+	private Timestamp reg_date;//등록일자
+	private String birth_yy;//생년
+	private String birth_mm;//생월
+	private String birth_dd;//생일
+	private String pro_img;//프로필 사진
+	private String address;//주소
+	private String post;//우편번호
+	private String major;//전공
+	private String enter_way;//정시입학인가 수시입학인가 편입학인가
+	private String before_school;//출신학교
 	
 	
 	public String getType() {
 		return type;
 	}
-	public String getNum() {
-		return num;
+	public String getNum1() {
+		return num1;
+	}
+	public String getNum2() {
+		return num2;
+	}
+	public String getS_num() {
+		return s_num;
 	}
 	public String getPassword() {
 		return password;
@@ -63,6 +72,9 @@ public class memberDTO {
 	public String getPro_img() {
 		return pro_img;
 	}
+	public String getAddress() {
+		return address;
+	}
 	public String getPost() {
 		return post;
 	}
@@ -78,8 +90,14 @@ public class memberDTO {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public void setNum(String num) {
-		this.num = num;
+	public void setNum1(String num1) {
+		this.num1 = num1;
+	}
+	public void setNum2(String num2) {
+		this.num2 = num2;
+	}
+	public void setS_num(String s_num) {
+		this.s_num = s_num;
 	}
 	public void setPassword(String password) {
 		this.password = password;
@@ -114,6 +132,9 @@ public class memberDTO {
 	public void setPro_img(String pro_img) {
 		this.pro_img = pro_img;
 	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public void setPost(String post) {
 		this.post = post;
 	}
@@ -126,10 +147,11 @@ public class memberDTO {
 	public void setBefore_school(String before_school) {
 		this.before_school = before_school;
 	}
-	public String getAddress() {
-		return address;
+	public int getNum3() {
+		return num3;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setNum3(int num3) {
+		this.num3 = num3;
 	}
+	
 }
