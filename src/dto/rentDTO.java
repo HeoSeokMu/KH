@@ -1,11 +1,11 @@
 package dto;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class rentDTO {
 	private String s_num;
 	private String b_num;
-	private Date turnin;
+	private Timestamp turnin;
 	private int extension;
 	
 	public String getS_num() {
@@ -20,10 +20,10 @@ public class rentDTO {
 	public void setB_num(String b_num) {
 		this.b_num = b_num;
 	}
-	public Date getTurnin() {
+	public Timestamp getTurnin() {
 		return turnin;
 	}
-	public void setTurnin(Date turnin) {
+	public void setTurnin(Timestamp turnin) {
 		this.turnin = turnin;
 	}
 	public int getExtension() {

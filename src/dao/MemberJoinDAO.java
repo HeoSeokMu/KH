@@ -1,20 +1,19 @@
 package dao;
 
 import java.sql.*;
-import java.sql.Date;
 
 import javax.sql.*;
 import javax.naming.*;
 
-import dto.rentDTO;
+import dto.memberDTO;
 
 import java.util.*; 
 
-public class rentDAO {
+public class MemberJoinDAO {
 
-		private static rentDAO instance = new rentDAO();
+		private static MemberJoinDAO instance = new MemberJoinDAO();
 		
-		public static rentDAO getInstance() {
+		public static MemberJoinDAO getInstance() {
 			return instance;
 		
 		}
@@ -24,9 +23,7 @@ public class rentDAO {
 			DataSource ds = (DataSource)envCtx.lookup("jdbc/orcl");
 			return ds.getConnection();
 		}
-		
-		
-		//전체 학번 리스트
+
 		public List<String> getNum() throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -34,12 +31,12 @@ public class rentDAO {
 			List<String> articleList=null;
 			try {
 				conn = getConnection();
-				pstmt = conn.prepareStatement("select num from kh_member");
+				pstmt = conn.prepareStatement("select * from kh_member");
 						rs = pstmt.executeQuery();
 						if (rs.next()) {
 							articleList = new ArrayList<String>();
 							do{					
-								articleList.add(rs.getString("num"));
+								articleList.add(rs.getString("name"));
 							}while(rs.next());
 						}
 			} catch(Exception ex) {
@@ -49,12 +46,13 @@ public class rentDAO {
 				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			}
+
+			
 			return articleList;
 		}
 		
-		//대여내용 저장
-		public void insertRent(rentDTO dto) 
-			    throws Exception {
+		
+		public void insertMember(memberDTO member) throws Exception {
 			        Connection conn = null;
 			        PreparedStatement pstmt = null;
 			        
@@ -62,11 +60,25 @@ public class rentDAO {
 			            conn = getConnection();
 			            
 			            pstmt = conn.prepareStatement(
-			            	"insert into KH_RENT values (?,?,?,?)");
-			            pstmt.setString(1, dto.getB_num());
-			            pstmt.setString(2, dto.getS_num());
-			            pstmt.setTimestamp(3, dto.getTurnin());
-			            pstmt.setInt(4, dto.getExtension());
+			            	"insert into KH_MEMBER values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			            pstmt.setString(1, member.getType());
+			            pstmt.setString(2, member.getNum());
+			            pstmt.setString(3, member.getPassword());
+			            pstmt.setString(4, member.getName());
+			            pstmt.setString(5, member.getSex());
+			            pstmt.setString(6, member.getE_mail());
+			            pstmt.setString(7, member.getS_phone());
+			            pstmt.setString(8, member.getP_phone());
+			            pstmt.setTimestamp(9, member.getReg_date());
+			            pstmt.setString(10, member.getBirth_yy());
+			            pstmt.setString(11, member.getBirth_mm());
+			            pstmt.setString(12, member.getBirth_dd());
+			            pstmt.setString(13, member.getPro_img());
+			            pstmt.setString(14, member.getAddress());
+			            pstmt.setString(15, member.getPost());
+			            pstmt.setString(16, member.getMajor());
+			            pstmt.setString(17, member.getEnter_way());
+			            pstmt.setString(18, member.getBefore_school());
 			            pstmt.executeUpdate();
 			        } catch(Exception ex) {
 			            ex.printStackTrace();
@@ -74,6 +86,7 @@ public class rentDAO {
 			            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 			            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			        }
+			        
 			    }
 		
 }
