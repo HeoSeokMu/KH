@@ -18,7 +18,7 @@ public class libraryDTO {
 	private int lent_year;			//∫Ù∏∞ ¿œ
 	private int return_year;		//π›≥≥ ¿œ
 	private int isbn;			//isbn
-	private int lent;			//øπæ‡
+	private int lent;			//øπæ‡.
 	
 	
 	public int getBook_id() {
