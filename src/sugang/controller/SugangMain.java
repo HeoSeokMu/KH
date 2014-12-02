@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class Main {
+public class SugangMain {
 	
-	@RequestMapping("/sugang.do")
+	@RequestMapping("/sugang.kh")
 	public ModelAndView sugangForm(){
 			
 		ModelAndView mv = new ModelAndView();
