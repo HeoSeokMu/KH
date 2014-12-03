@@ -7,8 +7,10 @@ public class memberDTO {
 	private String type;//회원 유형. 학생인가 교수인가 교직원인가.
 	private String num1;//등록년도
 	private String num2;//학과 또는 업무부서
+	//학생, 교수의 경우. 01.영어영문학과 02.국어국문학과 03.경제경역학과 04.컴퓨터공학과 05.정보보안학과
+	//교직원의 경우. 10.재정과 11.총무과 12.인사과
 	private int num3;//자동증가 번호
-	private String s_num;//num123 을 합친 통합 학번 및 교번
+	private String id;//num123 을 합친 통합 학번 및 교번
 	private String password;//비밀번호
 	private String name;//이름
 	private String sex;//성별
@@ -23,7 +25,8 @@ public class memberDTO {
 	private String address;//주소
 	private String post;//우편번호
 	private String major;//전공
-	private String enter_way;//입학구분. 정시입학인가 수시입학인가 편입학인가.
+	private String enter_way;//입학구분. 학생의 경우. 정시입학인가 수시입학인가 편입학인가.
+	//교수의 경우. 정교수인가 시간강사인가.
 	private String before_school;//출신고등학교
 	
 	
@@ -35,9 +38,6 @@ public class memberDTO {
 	}
 	public String getNum2() {
 		return num2;
-	}
-	public String getS_num() {
-		return s_num;
 	}
 	public String getPassword() {
 		return password;
@@ -96,9 +96,6 @@ public class memberDTO {
 	public void setNum2(String num2) {
 		this.num2 = num2;
 	}
-	public void setS_num(String s_num) {
-		this.s_num = s_num;
-	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -152,6 +149,12 @@ public class memberDTO {
 	}
 	public void setNum3(int num3) {
 		this.num3 = num3;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

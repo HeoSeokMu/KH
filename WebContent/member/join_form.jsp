@@ -26,7 +26,7 @@
 				<td>
 					&nbsp;&nbsp;
 					<input type="radio" name="type" value="student" checked onClick="student();">학생
-					&nbsp;<input type="radio" name="type" value="prof" onClick="student();">교수
+					&nbsp;<input type="radio" name="type" value="prof" onClick="prof();">교수
 					&nbsp;<input type="radio" name="type" id="employee" value="employee" onClick="emplo();">교직원
 				</td>
 			</tr>
@@ -40,11 +40,11 @@
 					
 				<div id="maj">
 					&nbsp;&nbsp;&nbsp;<select name="num2">
-						<option value="01">영어영문학과</option>
-						<option value="02">국어국문학과</option>
-						<option value="03">경제경영학과</option>
-						<option value="04">컴퓨터공학과</option>
-						<option value="05">정보보안학과</option>
+						<option value="001">영어영문학과</option>
+						<option value="002">국어국문학과</option>
+						<option value="003">경제경영학과</option>
+						<option value="004">컴퓨터공학과</option>
+						<option value="005">정보보안학과</option>
 					</select>
 				</div>
 				
@@ -60,14 +60,6 @@
 				</td>
 			</tr>
 			
-			<tr bgcolor="BBEE99" height=40>
-				<th width=130 align=center>번 호</th>
-				<td width=360>
-					&nbsp;&nbsp;
-					<input type="text" name="num">
-					<input type="button" name="id_check" value="중복검사" OnClick="openConfirmid(this.form)">
-				</td>
-			</tr>
 			<tr bgcolor="BBEE99" height=40>
 				<th width = 130 align=center>비밀번호</th>
 				<td>
@@ -128,19 +120,41 @@
 					</select>
 			</td>
 		</tr>
-			
 			<tr bgcolor="BBEE99" height=40>
-				<th width = 130 align=center>입학유형</th>
+				<th width = 130 align=center>
+				<div id="way">입학유형</div>
+				<div id="proflevel" style="display:none;">교수 구분</div>
+				<div id="emplevel" style="display:none;">직원 구분</div>
+				</th>
 				<td>
+					<div id="studway">
 					&nbsp;&nbsp;
 					<select name="enter_way">
-						<option value="정시" selected>정시입학</option>
+						<option value="정시">정시입학</option>
 						<option value="수시">수시입학</option>
 						<option value="편입">편입학</option>
 					</select>
+					</div>
+					
+					<div id="profwho" style="display:none;">
+					&nbsp;&nbsp;
+					<select name="enter_way">
+						<option value="정교수">정교수</option>
+						<option value="시간 강사">시간제 강사</option>
+					</select>
+					</div>
+					
+					<div id="empwho" style="display:none;">
+					&nbsp;&nbsp;
+					<select name="enter_way">
+						<option value="정직원">정직원</option>
+						<option value="계약직">계약직 직원</option>
+					</select>
+					</div>
 				</td>
 			</tr>
-			<tr bgcolor="BBEE99" height=40>
+
+			<tr bgcolor="BBEE99" height=40 id="hschool">
 				<th width = 130 align=center>고등학교</th>
 				<td>
 					&nbsp;&nbsp;
@@ -203,7 +217,7 @@
 					<input type="hidden" name="s_phone">
 				</td>
 			</tr>
-			<tr bgcolor="BBEE99" height=40>
+			<tr bgcolor="BBEE99" height=40 id="bohoja">
 				<th width = 130 align=center>보호자 연락처</th>
 				<td>
 					&nbsp;&nbsp;

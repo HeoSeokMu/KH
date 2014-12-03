@@ -25,7 +25,7 @@ public class MemberDAO {
 		return ds.getConnection();
 	}
 
-	public List<String> getNum() throws Exception {
+	public List<String> getId() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -79,7 +79,7 @@ public class MemberDAO {
             pstmt.setString(2, member.getNum1());
             pstmt.setString(3, member.getNum2());
             pstmt.setInt(4, member.getNum3());
-            pstmt.setString(5, member.getS_num());
+            pstmt.setString(5, member.getId());
             pstmt.setString(6, member.getPassword());
             pstmt.setString(7, member.getName());
             pstmt.setString(8, member.getSex());
@@ -106,21 +106,23 @@ public class MemberDAO {
         
     }
 	
-	public int plusNum() throws Exception {
+	public int plusNum3(String num2, String type) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<String> articleList=null;
+		int x = 0;
+
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select num from kh_member where num = ?");
-					rs = pstmt.executeQuery();
-					if (rs.next()) {
-						articleList = new ArrayList<String>();
-						do{					
-							articleList.add(rs.getString("name"));
-						}while(rs.next());
-					}
+			pstmt = conn.prepareStatement("select max(num3) from kh_member where num2 = ? and type = ?");
+			pstmt.setString(1, num2);
+			pstmt.setString(2, type);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				x= rs.getInt(1); 
+			}
+			
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -128,9 +130,7 @@ public class MemberDAO {
 			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
-
-		
-		return plusNum();
+		return x;
 	}
 	
 	public int Login_check(String id, String pw) throws Exception {
