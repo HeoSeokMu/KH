@@ -1,5 +1,6 @@
 package dto;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class libraryDTO {
@@ -18,8 +19,11 @@ public class libraryDTO {
 	private int lent_year;			//빌린 일
 	private int return_year;		//반납 일
 	private int isbn;			//isbn
-	private int lent;			//예약
-
+	private String loan;		// 대출여부
+	private String s_num;		// 학번
+	private int extension;		// 연장 횟수
+	private Date turnin;		// 반납날
+	
 	
 	public String getBook_id() {
 		return book_id;
@@ -108,12 +112,30 @@ public class libraryDTO {
 	public void setIsbn(int isbn) {
 		this.isbn = isbn;
 	}
-	public int getLent() {
-		return lent;
+	public String getLoan() {
+		return loan;
 	}
-	public void setLent(int lent) {
-		this.lent = lent;
+	public void setLoan(String loan) {
+		this.loan = loan;
 	}
-	
+	public String getS_num() {
+		return s_num;
+	}
+	public void setS_num(String s_num) {
+		this.s_num = s_num;
+	}
+	public int getExtension() {
+		return extension;
+	}
+	public void setExtension(int extension) {
+		this.extension = extension;
+	}
+	public Date getTurnin() {
+		return turnin;
+	}
+	public void setTurnin(Date turnin) {
+		this.turnin = turnin;
+	}
+
 	
 }
