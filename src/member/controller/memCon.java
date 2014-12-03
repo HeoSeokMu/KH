@@ -20,7 +20,7 @@ import dto.memberDTO;
 @Controller
 public class memCon{
 	
-	private String FileUploadPath = "D://GeunWoo/Project/git/KH/WebContent/member/mem_img";
+	private String FileUploadPath = "D://GeunWoo/Project/git/KH/member/mem_img";
 	
 	
 	@RequestMapping(value="/joinForm.kh")
@@ -38,23 +38,23 @@ public class memCon{
 		session.removeAttribute(arg0);
 		session.invalidate();*/
 		
-		MemberJoinDAO join_dao = MemberJoinDAO.getInstance();
+		MemberDAO join_dao = MemberDAO.getInstance();
 		
-		//í•™ë²ˆ, êµë²ˆ ë“± ë²ˆí˜¸ ìë™ì¦ê°€.
+		//È¸¿øµî·Ï ÄÁÆ®·Ñ·¯
 		
 		
-		//ë‚ ì§œ, ì‹œê°„ ì‚½ì…
+		//°¡ÀÔÀÏÀÚ µî·Ï
 		dto.setReg_date(new Timestamp(System.currentTimeMillis()));
 		Timestamp a = new Timestamp(System.currentTimeMillis());
 		dto.setNum1(a.toString().substring(0, 4));
 		
 		
 		
-		//ì´ë¯¸ì§€ ì—…ë¡œë“œ ë¶€ë¶„.
+		//ÇÁ·ÎÇÊ »çÁø ÆÄÀÏ ¾÷·Îµå ºÎºĞ
 		if(req.getFile("upload") != null){
 			MultipartFile file = req.getFile("upload");
 			String fileName = file.getOriginalFilename();
-			File saveFile = new File("d://save//"+fileName);
+			File saveFile = new File(FileUploadPath+fileName);
 			try{
 				file.transferTo(saveFile);
 			}catch(Exception e){
@@ -64,27 +64,7 @@ public class memCon{
 			dto.setPro_img(fileName);
 			}
 		
-		
-		//DBì— insert.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		//DB¿¡ insert.
 
 		join_dao.insertMember(dto);
 		

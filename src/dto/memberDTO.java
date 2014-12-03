@@ -4,27 +4,27 @@ import java.sql.Timestamp;
 
 public class memberDTO {
 	
-	private String type;//íšŒì›ìœ í˜•. í•™ìƒì¸ê°€ êµìˆ˜ì¸ê°€ êµì§ì›ì¸ê°€
-	private String num1;//ë“±ë¡ë…„ë„
-	private String num2;//í•™ê³¼ ë° ì§ì› ì—…ë¬´ì²˜ êµ¬ë¶„
-	private int num3;//ìë™ì¦ê°€ë²ˆí˜¸
-	private String s_num;//í•™ë²ˆ, êµë²ˆ, êµì§ì›ë²ˆí˜¸ í†µí•©. ì•„ì´ë””ë¡œë„ ì‚¬ìš©.
-	private String password;//ë¹„ë°€ë²ˆí˜¸
-	private String name;//ì´ë¦„
-	private String sex;//ì„±ë³„
-	private String e_mail;//ì´ë©”ì¼
-	private String s_phone;//ë³¸ì¸ ì—°ë½ì²˜
-	private String p_phone;//ë³´í˜¸ì ì—°ë½ì²˜
-	private Timestamp reg_date;//ë“±ë¡ì¼ì
-	private String birth_yy;//ìƒë…„
-	private String birth_mm;//ìƒì›”
-	private String birth_dd;//ìƒì¼
-	private String pro_img;//í”„ë¡œí•„ ì‚¬ì§„
-	private String address;//ì£¼ì†Œ
-	private String post;//ìš°í¸ë²ˆí˜¸
-	private String major;//ì „ê³µ
-	private String enter_way;//ì •ì‹œì…í•™ì¸ê°€ ìˆ˜ì‹œì…í•™ì¸ê°€ í¸ì…í•™ì¸ê°€
-	private String before_school;//ì¶œì‹ í•™êµ
+	private String type;//È¸¿ø À¯Çü. ÇĞ»ıÀÎ°¡ ±³¼öÀÎ°¡ ±³Á÷¿øÀÎ°¡.
+	private String num1;//µî·Ï³âµµ
+	private String num2;//ÇĞ°ú ¶Ç´Â ¾÷¹«ºÎ¼­
+	private int num3;//ÀÚµ¿Áõ°¡ ¹øÈ£
+	private String s_num;//num123 À» ÇÕÄ£ ÅëÇÕ ÇĞ¹ø ¹× ±³¹ø
+	private String password;//ºñ¹Ğ¹øÈ£
+	private String name;//ÀÌ¸§
+	private String sex;//¼ºº°
+	private String e_mail;//ÀÌ¸ŞÀÏ
+	private String s_phone;//ÇĞ»ı ¿¬¶ôÃ³
+	private String p_phone;//º¸È£ÀÚ ¿¬¶ôÃ³
+	private Timestamp reg_date;//µî·ÏÀÏÀÚ
+	private String birth_yy;//»ı³â
+	private String birth_mm;//»ı¿ù
+	private String birth_dd;//»ıÀÏ
+	private String pro_img;//ÇÁ·ÎÇÊ »çÁø
+	private String address;//ÁÖ¼Ò
+	private String post;//¿ìÆí¹øÈ£
+	private String major;//Àü°ø
+	private String enter_way;//ÀÔÇĞ±¸ºĞ. Á¤½ÃÀÔÇĞÀÎ°¡ ¼ö½ÃÀÔÇĞÀÎ°¡ ÆíÀÔÇĞÀÎ°¡.
+	private String before_school;//Ãâ½Å°íµîÇĞ±³
 	
 	
 	public String getType() {
@@ -153,9 +153,5 @@ public class memberDTO {
 	public void setNum3(int num3) {
 		this.num3 = num3;
 	}
-<<<<<<< HEAD
 	
 }
-=======
-}
->>>>>>> edf3ac8aa580472aaecc3a4ef6b8f20e5dbb6564

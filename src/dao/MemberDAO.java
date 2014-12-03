@@ -67,49 +67,70 @@ public class MemberDAO {
 	}
 
 	public void insertMember(memberDTO member) throws Exception {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try {
+            conn = getConnection();
+            
+            pstmt = conn.prepareStatement(
+            	"insert into KH_MEMBER values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pstmt.setString(1, member.getType());
+            pstmt.setString(2, member.getNum1());
+            pstmt.setString(3, member.getNum2());
+            pstmt.setInt(4, member.getNum3());
+            pstmt.setString(5, member.getS_num());
+            pstmt.setString(6, member.getPassword());
+            pstmt.setString(7, member.getName());
+            pstmt.setString(8, member.getSex());
+            pstmt.setString(9, member.getE_mail());
+            pstmt.setString(10, member.getS_phone());
+            pstmt.setString(11, member.getP_phone());
+            pstmt.setTimestamp(12, member.getReg_date());
+            pstmt.setString(13, member.getBirth_yy());
+            pstmt.setString(14, member.getBirth_mm());
+            pstmt.setString(15, member.getBirth_dd());
+            pstmt.setString(16, member.getPro_img());
+            pstmt.setString(17, member.getAddress());
+            pstmt.setString(18, member.getPost());
+            pstmt.setString(19, member.getMajor());
+            pstmt.setString(20, member.getEnter_way());
+            pstmt.setString(21, member.getBefore_school());
+            pstmt.executeUpdate();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+        
+    }
+	
+	public int plusNum() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-
+		ResultSet rs = null;
+		List<String> articleList=null;
 		try {
 			conn = getConnection();
-
-			pstmt = conn
-					.prepareStatement("insert into KH_MEMBER values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-			pstmt.setString(1, member.getType());
-			pstmt.setString(2, member.getNum());
-			pstmt.setString(3, member.getPassword());
-			pstmt.setString(4, member.getName());
-			pstmt.setString(5, member.getSex());
-			pstmt.setString(6, member.getE_mail());
-			pstmt.setString(7, member.getS_phone());
-			pstmt.setString(8, member.getP_phone());
-			pstmt.setTimestamp(9, member.getReg_date());
-			pstmt.setString(10, member.getBirth_yy());
-			pstmt.setString(11, member.getBirth_mm());
-			pstmt.setString(12, member.getBirth_dd());
-			pstmt.setString(13, member.getPro_img());
-			pstmt.setString(14, member.getAddress());
-			pstmt.setString(15, member.getPost());
-			pstmt.setString(16, member.getMajor());
-			pstmt.setString(17, member.getEnter_way());
-			pstmt.setString(18, member.getBefore_school());
-			pstmt.executeUpdate();
-		} catch (Exception ex) {
+			pstmt = conn.prepareStatement("select num from kh_member where num = ?");
+					rs = pstmt.executeQuery();
+					if (rs.next()) {
+						articleList = new ArrayList<String>();
+						do{					
+							articleList.add(rs.getString("name"));
+						}while(rs.next());
+					}
+		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-				}
-			}
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
+
+		
+		return plusNum();
 	}
 	
 	public int Login_check(String id, String pw) throws Exception {
