@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import dao.MemberJoinDAO;
+import dao.MemberDAO;
 import dto.memberDTO;
 
 @Controller
@@ -39,8 +39,17 @@ public class memCon{
 		session.invalidate();*/
 		
 		MemberJoinDAO join_dao = MemberJoinDAO.getInstance();
+		
+		//학번, 교번 등 번호 자동증가.
+		
+		
 		//날짜, 시간 삽입
 		dto.setReg_date(new Timestamp(System.currentTimeMillis()));
+		Timestamp a = new Timestamp(System.currentTimeMillis());
+		dto.setNum1(a.toString().substring(0, 4));
+		
+		
+		
 		//이미지 업로드 부분.
 		if(req.getFile("upload") != null){
 			MultipartFile file = req.getFile("upload");
@@ -57,6 +66,26 @@ public class memCon{
 		
 		
 		//DB에 insert.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		join_dao.insertMember(dto);
 		
 		ModelAndView mv = new ModelAndView();
