@@ -10,6 +10,7 @@ import java.util.Calendar;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -79,4 +80,31 @@ public class bookInsert{
 		
 		return mv;
 	}
+	
+	@RequestMapping(value="/bookInsertList.kh")
+	public ModelAndView formPrp(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
+
+		dto.setReg_date(new Timestamp(System.currentTimeMillis()));
+		
+		
+		bookInsertDAO book_dao = bookInsertDAO.getInstance();
+		book_dao.bookInsert(dto);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("dto", dto);
+		mv.addObject("book_id", req.getParameter("book_id"));
+		mv.addObject("book_title", req.getParameter("book_title"));
+		mv.addObject("book_location", req.getParameter("book_location"));
+		mv.addObject("book_writer", req.getParameter("book_writer"));
+		mv.addObject("book_publisher", req.getParameter("book_publisher"));
+		mv.addObject("book_year", req.getParameter("book_year"));
+		mv.addObject("book_supplment", req.getParameter("book_supplement"));
+		mv.addObject("file_orgname", req.getParameter("file_orgname"));
+		
+		
+		mv.setViewName("/library/bookInsertList.jsp");
+		
+		return mv;
+	}
+	
 }

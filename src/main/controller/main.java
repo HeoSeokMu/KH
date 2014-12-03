@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class main{
 	
 	@RequestMapping("/KHInfo.kh")
-	public String main(){
+	public String KH_info(){
 		return "/main/main.jsp";
 	}
 }

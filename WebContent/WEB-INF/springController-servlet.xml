@@ -19,8 +19,10 @@
        </bean> -->
        
 
-	   <context:component-scan base-package="library.controller" />       <context:component-scan base-package="member.controller" />
-  	   <context:component-scan base-package="main.controller" />	   <context:component-scan base-package="sugang.controller" />       
+	   <context:component-scan base-package="library.controller" /> 
+	   <context:component-scan base-package="member.controller" />
+  	   <context:component-scan base-package="main.controller" />
+  	   <context:component-scan base-package="sugang.controller" />       
 
        <!-- 파일정보 설정 -->
        <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

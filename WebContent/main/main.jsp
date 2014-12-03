@@ -54,10 +54,6 @@
 			}
 			return ture;
 		}
-		function bbusic_main() {
-	        document.bbu.action = "bbusic.action";
-			document.bbu.submit();
-	    }
 	</script>
 </head>
 
@@ -86,10 +82,13 @@
 			</div>
 			<div id="header_2">
 				<center>
-					<form name="bbu" method="post">
-						<input type="hidden" name="id" value=""/>
-						<a href="#"><img src="main/bbu_main_img/BBuMainLogo.png" name="bbuMain" border="0" onclick="bbusic_main()"/></a>
-					</form>
+					<c:if test="${memId != null}">
+						${memId} 님 어서오세요 ~~~ 
+					
+						<form name="logout" method="post" action="LoginOut.kh">
+							<input type="submit" name="logout" value="로그아웃"/>
+						</form>
+					</c:if>
 				</center>
 			</div>
 		</div>
@@ -98,7 +97,7 @@
 	<div id="box">
 		<div id="box2">
 	    	<div id="content">
-	    		<c:if test="${session.memId != null}">
+	    		<c:if test="${memId != null}">
 		    		<div id="tab_menu">					
 						<ul>
 							<li class="btn"><a class="menu1">공지사항</a></li>
@@ -176,12 +175,13 @@
 							</li>
 						</ul>
 					</div>
-		    	</div>
-			</div>
-		</c:if>
+				</c:if>
+		   	</div>
+		</div>
+		 
 		<div id="box3">
-			<c:if test="${session.memId == null}">
-				<form name="inform" method="post" action="loginPro.kh"	onSubmit="return checkIt();">
+			<c:if test="${memId == null}">
+				<form name="inform" method="post" action="LoginPro.kh"	onsubmit="return checkIt();">
 					<table class="tablepadding" align="center" cellspacing="10">
 						<tr>
 							<td>

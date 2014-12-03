@@ -17,6 +17,8 @@ public class bookInsertDAO {
 			return instance;
 		
 		}
+		private bookInsertDAO(){}
+		
 		private Connection conn = null;
 		private PreparedStatement pstmt = null;
 		private ResultSet rs = null;
@@ -35,32 +37,7 @@ public class bookInsertDAO {
 			return conn;
 		}
 
-		public List<String> getNum() throws Exception {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			List<String> articleList=null;
-			try {
-				conn = getConnection();
-				pstmt = conn.prepareStatement("select * from kh_library");
-						rs = pstmt.executeQuery();
-						if (rs.next()) {
-							articleList = new ArrayList<String>();
-							do{					
-								articleList.add(rs.getString("name"));
-							}while(rs.next());
-						}
-			} catch(Exception ex) {
-				ex.printStackTrace();
-			} finally {
-				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-			}
-
-			
-			return articleList;
-		}
+		
 		
 		
 		public void bookInsert(libraryDTO library) throws Exception {
@@ -92,5 +69,76 @@ public class bookInsertDAO {
 			        
 			    }
 
-}
+		
 
+		public List getArticles(int start, int end) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List articleList=null;
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement(
+						"select book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,file_orgname,reg_date,isbn,r "
+						+
+						"from (select book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,file_orgname,reg_date,isbn,rownum r " +
+						"from (select book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,file_orgname,reg_date,isbn " +
+						"from kh_library order by ref desc, re_step asc) order by ref desc, re_step asc ) where r >= ? and r <= ? ");
+						pstmt.setInt(1, start); 
+						pstmt.setInt(2, end); 
+
+						rs = pstmt.executeQuery();
+						if (rs.next()) {
+							articleList = new ArrayList(end); 
+							do{ 
+								libraryDTO library= new libraryDTO();
+								library.setBook_id(rs.getString("book_id"));
+								library.setBook_title(rs.getString("book_title"));
+								library.setBook_location(rs.getString("book_location"));
+								library.setBook_writer(rs.getString("book_writer"));
+								library.setBook_publisher(rs.getString("book_publisher"));
+								library.setBook_year(rs.getInt("book_year"));
+								library.setBook_supplement(rs.getString("book_supplement"));
+								library.setFile_orgname(rs.getString("file_orgname"));
+								library.setReg_date(rs.getTimestamp("reg_date"));
+								library.setIsbn(rs.getInt("isbn"));
+								articleList.add(library); 
+							}while(rs.next());
+						}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+
+			
+			return articleList;
+		}
+		
+		public List<String> getNum() throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<String> bookInsertList=null;
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement("select * from kh_member");
+						rs = pstmt.executeQuery();
+						if (rs.next()) {
+							bookInsertList = new ArrayList<String>();
+							do{					
+								bookInsertList.add(rs.getString("num"));
+							}while(rs.next());
+						}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			return bookInsertList;
+		}
+}
