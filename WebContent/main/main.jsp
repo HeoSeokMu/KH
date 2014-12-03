@@ -111,7 +111,7 @@
 							<li class="ly">
 								<dl>
 									<dt>학적</dt>
-									<dd><a href="#">학적기본사항조회 및 수정</a></dd>
+									<dd><a href="myInfo.kh">학적기본사항조회 및 수정</a></dd>
 								</dl>
 							</li>
 							<li class="btn"><a class="menu3">휴학/복학</a></li>
