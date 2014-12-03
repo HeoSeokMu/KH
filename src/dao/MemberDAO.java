@@ -139,14 +139,18 @@ public class MemberDAO {
 		ResultSet rs = null;
 		String dbPassword = "";
 		int x = -1;
+		
+		System.out.println("Login_check ==========================");
+		
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select Password from KH_MEMBER where id = ?");
+			pstmt = conn.prepareStatement("select pw from KH_MEMBER where id = ?");
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
-
+			System.out.println("id : " + id);
 			if (rs.next()) {
-				dbPassword = rs.getString("Password");
+				dbPassword = rs.getString("pw");
+				System.out.println("dbPassword : " + dbPassword + " / pw : " +pw);
 				if (dbPassword.equals(pw)){
 					x = 1; // 인증 성공
 				}else{
