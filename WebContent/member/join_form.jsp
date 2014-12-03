@@ -6,7 +6,7 @@
 <script src="/KH_School/member/script/member.js"></script>
 
 
-<form action="#" method="post" name="user_input">
+<form action="#" method="post" name="user_input" enctype="multipart/form-data">
 		<table border=1 align="center">
 			<tr bgcolor="77CC55" height=50>
 				<td colspan=4 align=center><font size=6 face="휴먼엽서체"><b>회원가입 양식</b></font>
@@ -25,9 +25,38 @@
 				<th width = 130 align=center>등록 유형</th>
 				<td>
 					&nbsp;&nbsp;
-					<input type="radio" name="type" value="student" checked>학생
-					&nbsp;<input type="radio" name="type" value="prof">교수
-					&nbsp;<input type="radio" name="type" value="employee">교직원
+					<input type="radio" name="type" value="student" checked onClick="student();">학생
+					&nbsp;<input type="radio" name="type" value="prof" onClick="student();">교수
+					&nbsp;<input type="radio" name="type" id="employee" value="employee" onClick="emplo();">교직원
+				</td>
+			</tr>
+			
+			<tr bgcolor="BBEE99" height=40>
+				<th width = 130 align=center>
+				<div id="stu">전공</div>
+				<div id="emp" style="display:none;">업무부처</div>
+				</th>
+				<td>
+					
+				<div id="maj">
+					&nbsp;&nbsp;&nbsp;<select name="num2">
+						<option value="01">영어영문학과</option>
+						<option value="02">국어국문학과</option>
+						<option value="03">경제경영학과</option>
+						<option value="04">컴퓨터공학과</option>
+						<option value="05">정보보안학과</option>
+					</select>
+				</div>
+				
+				<div id="work" style="display:none;">
+					&nbsp;&nbsp;&nbsp;<select name="num2">
+						
+						<option value="10">재정과</option>
+						<option value="11">총무과</option>
+						<option value="12">인사과</option>
+						
+					</select>
+				</div>
 				</td>
 			</tr>
 			
@@ -100,13 +129,6 @@
 			</td>
 		</tr>
 			
-			<tr bgcolor="BBEE99" height=40>
-				<th width = 130 align=center>전공</th>
-				<td>
-					&nbsp;&nbsp;
-					<input type="text" name="major">
-				</td>
-			</tr>
 			<tr bgcolor="BBEE99" height=40>
 				<th width = 130 align=center>입학유형</th>
 				<td>
@@ -223,7 +245,7 @@
 				<th width = 130 align=center>프로필 사진</th>
 				<td>
 					&nbsp;&nbsp;
-					<input type="file" name="pro_img" id="upload" accept="image/*" onChange="hideDefaultPic()">
+					<input type="file" name="upload" id="upload" accept="image/*" onChange="hideDefaultPic()">
 					<br />
 					&nbsp;&nbsp;
 					<input type="button" name="delPic" value="사진 삭제" onClick="delpic(); coverPic()">
