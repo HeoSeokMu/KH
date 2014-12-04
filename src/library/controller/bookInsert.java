@@ -54,9 +54,9 @@ public class bookInsert{
 public static Reader reader;
 	
 	public bookInsert() throws Exception{
-	reader = Resources.getResourceAsReader("sqlMapConfig.xml");
+	/*reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 	sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
-	reader.close();
+	reader.close();*/
 	}
 	
 	@RequestMapping(value="libraryInsertList.kh")

@@ -133,31 +133,33 @@ public class MemberDAO {
 		return x;
 	}
 	
-	public int Login_check(String id, String pw) throws Exception {
+	public int Login_check(String id, String pw, String type) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String dbPassword = "";
-		int x = -1;
+		int x = 3;
 		
 		System.out.println("Login_check ==========================");
 		
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select pw from KH_MEMBER where id = ?");
+			pstmt = conn.prepareStatement("select pw from KH_MEMBER where id = ? and type = ?");
 			pstmt.setString(1, id);
+			pstmt.setString(2, type);
 			rs = pstmt.executeQuery();
 			System.out.println("id : " + id);
+			System.out.println("type : " + type);
 			if (rs.next()) {
 				dbPassword = rs.getString("pw");
 				System.out.println("dbPassword : " + dbPassword + " / pw : " +pw);
 				if (dbPassword.equals(pw)){
 					x = 1; // 인증 성공
 				}else{
-					x = 0; // 비밀번호 틀림
+					x = 2; // 비밀번호 틀림
 				}
 			}else{
-				x = -1;// 해당 아이디 없음
+				x = 3;// 해당 아이디 없음
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
