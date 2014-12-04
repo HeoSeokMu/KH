@@ -1,6 +1,5 @@
 package library.controller;
 
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,14 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import dao.bookInsertDAO;
-import dao.rentDAO;
+import dao.bookDAO;
 import dto.rentDTO;
 
 @Controller	
 public class bookList{//글목록 처리
 
-		@RequestMapping(value="/inputNumPro.kh", method=RequestMethod.POST)
+		@RequestMapping(value="/bookList.kh", method=RequestMethod.POST)
 		public ModelAndView formPro(HttpServletRequest req, @ModelAttribute rentDTO dto) throws Exception{
 			
 			String pageNum = req.getParameter("pageNum");//페이지 번호
@@ -35,7 +33,7 @@ public class bookList{//글목록 처리
 	        int number=0;
 	        
 	        List articleList = null;
-	        bookInsertDAO dbPro = bookInsertDAO.getInstance();//DB연동
+	        bookDAO dbPro = bookDAO.getInstance();//DB연동
 	        //count = dbPro.getArticleCount();//전체 글의 수
 	        
 	        
@@ -56,7 +54,7 @@ public class bookList{//글목록 처리
 			mv.addObject("pageSize", new Integer(pageSize));
 			mv.addObject("number", new Integer(number));
 			
-			mv.setViewName("/library/.jsp");
+			mv.setViewName("/library/bookList.jsp");
 			return mv;
 		}
 }

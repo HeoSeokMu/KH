@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.*;
-import java.sql.Date;
 
 import javax.sql.*;
 import javax.naming.*;

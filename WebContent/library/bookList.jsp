@@ -33,42 +33,54 @@
       <td align="center"  width="100" >위치</td>
       <td align="center"  width="100" >등록번호</td>
       <td align="center"  width="100" >대출여부</td>
-      <td align="center"  width="100" >대출</td>
+      <c:if test="${memId}=='book_admin'">
+      	<td align="center"  width="100" >대출</td>
+      </c:if>
+      <c:if test="${memId}!='book_admin'">
+      	<td align="center"  width="100" >알림서비스</td>
+      </c:if>
     </tr>
 
    <c:forEach var="article" items="${articleList}">
-   <tr height="30">
-    <td align="center"  width="50" >
-	  <img src="/KH_School/book_image/${article.}" width="100%" height="100%"/>
+   <tr height="60">
+    <td align="center"  width="100" >
+	  <img src="/KH_School/book_image/${article.imagename}" width="100%" height="100%"/>
 	</td>
-    <td  width="250" >
-	  <c:if test="${article.re_level > 0}">
-	  	<img src="images/level.gif" width="${5 * article.re_level}" height="16">
-	    <img src="images/re.gif">
-	  </c:if>
-	  <c:if test="${article.re_level == 0}">
-	    <img src="images/level.gif" width="${5 * article.re_level}" height="16">
-	  </c:if>
-          
-      <c:if test="${memId=='admin'}"> 
-     	<a href="/framework/ch19/content.do?num=${article.num}&pageNum=${currentPage}">
-          ${article.subject}</a>
-      </c:if>
-      <c:if test="${memId!='admin'}">
-      	<a href="/framework/ch19/contentScr.do?num=${article.num}&pageNum=${currentPage}">
-          ${article.subject}</a>
-      </c:if>
-          <c:if test="${article.readcount >= 20}">
-            <img src="images/hot.gif" border="0"  height="16">
-		  </c:if>
+    <td align="center" width="100" >
+		<c:out value="${article.book_title}"/>
 	</td>
     <td align="center"  width="100"> 
-       <a href="mailto:${article.email}">${article.writer}</a>
+       <c:out value="${article.book_writer}"/>
 	</td>
-    <td align="center"  width="150">${article.reg_date}
+    <td align="center"  width="100">
+    	<c:out value="${article.book_publisher}"/>
 	</td>
-    <td align="center"  width="50">${article.readcount}</td>
-    <td align="center" width="100" >${article.ip}</td>
+    <td align="center"  width="100">
+    	<c:out value="${article.book_year}"/>
+    </td>
+    <td align="center"  width="100">
+    	<c:out value="${article.book_supplement}"/>
+    </td>
+    <td align="center"  width="100">
+    	<c:out value="${article.book_location}"/>
+    </td>
+    <td align="center"  width="100">
+    	<c:out value="${article.book_id}"/>
+    </td>
+    <td align="center"  width="100">
+    	<c:out value="${article.loan}"/>
+    </td>
+    <td align="center" width="100" >
+    	<c:if test="${article.loan}=='보관중'">
+    		<c:if test="${memId}=='book_admin'">
+      			<a href="/KH_School/numInputForm.kh">대출</a>
+      		</c:if>
+      		<c:out value=""/>
+    	</c:if>
+    	<c:if test="${article.loan}=='대출중'">
+    		<a href="/KH_School/noticeForm.kh">반납알림받기</a>
+    	</c:if>
+    </td>
   </tr>
   </c:forEach>
 </table>
@@ -85,15 +97,15 @@
    </c:if> 
 
    <c:if test="${startPage > 10}">
-        <a href="/framework/ch19/list.do?pageNum=${startPage - 10 }">[이전]</a>
+        <a href="/KH_School/bookList.kh?pageNum=${startPage - 10 }">[이전]</a>
    </c:if>
 
    <c:forEach var="i" begin="${startPage}" end="${endPage}">
-       <a href="/framework/ch19/list.do?pageNum=${i}">[${i}]</a>
+       <a href="/KH_School/bookList.kh?pageNum=${i}">[${i}]</a>
    </c:forEach>
 
    <c:if test="${endPage < pageCount}">
-        <a href="/framework/ch19/list.do?pageNum=${startPage + 10}">[다음]</a>
+        <a href="/KH_School/bookList.kh?pageNum=${startPage + 10}">[다음]</a>
    </c:if>
 </c:if>
 
