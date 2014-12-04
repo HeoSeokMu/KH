@@ -258,7 +258,7 @@
 				<th width = 130 align=center>미리보기
 				<td>
 					<div id="def_img" align="center">
-						<img src="/KH_School/member/mem_img/pro2.jpg" style="width:130; height:150;">
+						<img src="/KH_School/upload/mem_img/pro2.jpg" style="width:130; height:150;">
 					</div>
 					<div id="pre_div" align="center" style="display:none;">
 						<img id="preView" class="preView" style="width:130; height:150;">

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import dao.bookDAO;
+import dao.bookInsertDAO;
 import dto.rentDTO;
 
 @Controller	
@@ -33,7 +33,7 @@ public class bookList{//글목록 처리
 	        int number=0;
 	        
 	        List articleList = null;
-	        bookDAO dbPro = bookDAO.getInstance();//DB연동
+	        bookInsertDAO dbPro = bookInsertDAO.getInstance();//DB연동
 	        //count = dbPro.getArticleCount();//전체 글의 수
 	        
 	        
