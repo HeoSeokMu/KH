@@ -20,9 +20,6 @@ import dto.memberDTO;
 @Controller
 public class memCon{
 	
-	private String FileUploadPath = "D://GeunWoo/Project/git/KH/WebContent/member/mem_img/";
-	
-	
 	@RequestMapping(value="/joinForm.kh")
 	public String form2(){
 		return "/member/join_form.jsp";
@@ -38,9 +35,13 @@ public class memCon{
 		session.removeAttribute(arg0);
 		session.invalidate();*/
 		
-		String num2 = request.getParameter("num2");
-		String type = request.getParameter("type");
 		String numbering = null;
+		
+		String [] test = dto.getNum2().split(",");
+		dto.setNum2(test[0]);
+		dto.setMajor(test[1]);
+		
+		String FileUploadPath = "/KH_School/WebContent/upload/mem_img/";
 		
 		MemberDAO join_dao = MemberDAO.getInstance();
 		
@@ -55,10 +56,8 @@ public class memCon{
 		dto.setNum1(a.toString().substring(0, 4));
 		
 		//num3 회원번호 자동증가 등록
-		int num3 = join_dao.plusNum3(num2, type) + 1;
+		int num3 = join_dao.plusNum3(dto.getNum2(), dto.getType()) + 1;
 		
-		System.out.println("num3 == " + num3);
-		System.out.println("num3 == " + num3);
 		
 		dto.setNum3(num3);
 		
@@ -72,10 +71,17 @@ public class memCon{
 		String id = dto.getNum1() + dto.getNum2() + numbering;
 		dto.setId(id);
 		
+		//주소 검색 후 자동 등록
+		
 		//프로필 사진 파일 업로드 부분
-		if(req.getFile("upload") != null){
+		
+		if(!req.getFile("upload").isEmpty()){
 			MultipartFile file = req.getFile("upload");
-			String fileName = file.getOriginalFilename();
+			//파일명에서 확장자 추출.
+			String extension = file.getOriginalFilename().substring(file.getOriginalFilename().
+					length()-3, file.getOriginalFilename().length());
+			//ID.확장자 형태로 파일명 만들기.
+			String fileName = dto.getId() + "." + extension;
 			File saveFile = new File(FileUploadPath + fileName);
 			try{
 				file.transferTo(saveFile);
@@ -86,8 +92,9 @@ public class memCon{
 			dto.setPro_img(fileName);
 			}
 		
+		
 		//DB에 insert.
-
+		
 		join_dao.insertMember(dto);
 		
 		ModelAndView mv = new ModelAndView();
@@ -112,4 +119,12 @@ public class memCon{
 	
 		return mv;
 	}
+	
+	@RequestMapping(value="/searchAddr.kh")
+	public String searchAddr(HttpServletRequest request, 
+			HttpServletResponse response, 
+			@ModelAttribute memberDTO dto) throws Exception{
+		return "/member/addrSearch.jsp";
+	}
+	
 }

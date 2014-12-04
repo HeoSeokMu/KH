@@ -66,6 +66,8 @@ public class MemberDAO {
 		return articleList;
 	}
 
+	//회원등록 쿼리.
+	
 	public void insertMember(memberDTO member) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -105,6 +107,8 @@ public class MemberDAO {
         }
         
     }
+	
+	//회원등록에 쓰이는 번호 자동증가 쿼리. 학과, 부서와 회원 유형을 기준으로 가장 큰 번호를 가져온다. 자바 클래스에서  +1을 처리 한다.
 	
 	public int plusNum3(String num2, String type) throws Exception {
 		Connection conn = null;
@@ -181,6 +185,47 @@ public class MemberDAO {
 		return x;
 	}
 	
+<<<<<<< HEAD
+	public List<String> getPost() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> postList = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from kh_post where addr like %?%");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				postList = new ArrayList<String>();
+				do {
+					postList.add(rs.getString("name"));
+				} while (rs.next());
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+			}
+		}
+
+		return postList;
+=======
 	public memberDTO member_info(String id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -222,5 +267,6 @@ public class MemberDAO {
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
 		return mDTO;
+>>>>>>> 6bc77b0f6999095b33fc1118343302a33a83aa47
 	}
 }
