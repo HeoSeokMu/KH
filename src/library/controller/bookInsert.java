@@ -145,11 +145,8 @@ public static Reader reader;
 	@RequestMapping(value="/bookInsertFormPro.kh")
 	public ModelAndView formPro(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
 		
-		
-	
 		dto.setReg_date(new Timestamp(System.currentTimeMillis()));
-		
-		
+	
 		bookInsertDAO book_dao = bookInsertDAO.getInstance();
 		book_dao.bookInsert(dto);
 		
@@ -171,7 +168,6 @@ public static Reader reader;
 	public ModelAndView formPrp(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
 
 		dto.setReg_date(new Timestamp(System.currentTimeMillis()));
-		
 		
 		bookInsertDAO book_dao = bookInsertDAO.getInstance();
 		book_dao.bookInsert(dto);

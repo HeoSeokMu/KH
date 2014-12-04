@@ -12,7 +12,6 @@ public class libraryDTO {
 	private String book_publisher;	//출판
 	private int book_year;			//출판일
 	private String book_supplement;	//부록
-	private int imagename;	//책 이미지 
 	private Timestamp reg_date;	//등록 일
 	private String book_lent;		//책 대출표시
 	private int lent_year;			//빌린 일
@@ -69,12 +68,6 @@ public class libraryDTO {
 	
 
 	
-	public int getImagename() {
-		return imagename;
-	}
-	public void setImagename(int imagename) {
-		this.imagename = imagename;
-	}
 	public Timestamp getReg_date() {
 		return reg_date;
 	}

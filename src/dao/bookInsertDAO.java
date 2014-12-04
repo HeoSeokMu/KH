@@ -48,7 +48,7 @@ public class bookInsertDAO {
 			            conn = getConnection();
 			            
 			            pstmt = conn.prepareStatement(
-			            	"insert into KH_LIBRARY values (?,?,?,?,?,?,?,?,?,?)");
+			            	"insert into KH_LIBRARY values (?,?,?,?,?,?,?,?,?,'보관중','','0','')");
 			            pstmt.setString(1, library.getBook_id());
 			            pstmt.setString(2, library.getBook_title());
 			            pstmt.setString(3, library.getBook_location());
@@ -56,9 +56,8 @@ public class bookInsertDAO {
 			            pstmt.setString(5, library.getBook_publisher());
 			            pstmt.setInt(6, library.getBook_year());
 			            pstmt.setString(7, library.getBook_supplement());
-			            pstmt.setInt(8, library.getImagename());
-			            pstmt.setTimestamp(9, library.getReg_date());
-			            pstmt.setInt(10, library.getIsbn());
+			            pstmt.setTimestamp(8, library.getReg_date());
+			            pstmt.setInt(9, library.getIsbn());
 			            pstmt.executeUpdate();
 			        } catch(Exception ex) {
 			            ex.printStackTrace();
@@ -71,7 +70,7 @@ public class bookInsertDAO {
 
 		
 
-		public List getArticles(int start, int end) throws Exception {
+	/*	public List getArticles(int start, int end) throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -99,7 +98,6 @@ public class bookInsertDAO {
 								library.setBook_publisher(rs.getString("book_publisher"));
 								library.setBook_year(rs.getInt("book_year"));
 								library.setBook_supplement(rs.getString("book_supplement"));
-								library.setImagename(rs.getInt("imagename"));
 								library.setReg_date(rs.getTimestamp("reg_date"));
 								library.setIsbn(rs.getInt("isbn"));
 								articleList.add(library); 
@@ -116,33 +114,40 @@ public class bookInsertDAO {
 			
 			return articleList;
 		}
+		*/
+	
 		
-		public List<String> getNum() throws Exception {
+		public libraryDTO getBookView(String book_id) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			List<String> bookInsertList=null;
-			try {
+			libraryDTO book=null;
+			try{
 				conn = getConnection();
-				pstmt = conn.prepareStatement("select * from kh_member");
-						rs = pstmt.executeQuery();
-						if (rs.next()) {
-							bookInsertList = new ArrayList<String>();
-							do{					
-								bookInsertList.add(rs.getString("num"));
-							}while(rs.next());
-						}
-			} catch(Exception ex) {
+				pstmt = conn.prepareStatement("select * from kh_library where book_id = ?");
+				pstmt.setString(1, book_id);
+				rs = pstmt.executeQuery();
+				if(rs.next()){
+					book = new libraryDTO();
+					book.setBook_id(rs.getString("book_id"));
+					book.setBook_title(rs.getString("book_title"));
+					book.setBook_location(rs.getString("book_location"));
+					book.setBook_writer(rs.getString("book_writer"));
+					book.setBook_publisher(rs.getString("book_publisher"));
+					book.setBook_supplement(rs.getString("book_supplement"));
+					book.setReg_date(rs.getTimestamp("reg_date"));
+				}
+			}catch(Exception ex){
 				ex.printStackTrace();
 			} finally {
 				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
 				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-			}
-			return bookInsertList;
+			}return book;
 		}
 		
-		public void bookInsertModify(libraryDTO library) throws Exception{
+		
+	/*	public void bookInsertModify(libraryDTO library) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -156,8 +161,7 @@ public class bookInsertDAO {
 						pstmt.setString(3, library.getBook_publisher());
 						pstmt.setInt(4, library.getBook_year());
 						pstmt.setString(5, library.getBook_supplement());
-						pstmt.setInt(6, library.getImagename());
-						pstmt.setInt(7, library.getIsbn());
+						pstmt.setInt(6, library.getIsbn());
 						pstmt.executeUpdate();
 						
 			} catch(Exception ex) {
@@ -167,26 +171,93 @@ public class bookInsertDAO {
 				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			}
+		}*/
+		
+		public libraryDTO bookDelete(String book_id) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			libraryDTO book=null;
+			try{
+				conn = getConnection();
+				pstmt = conn.prepareStatement("delete from kh_library where book_id = ?");
+				pstmt.setString(1, book_id);
+				rs = pstmt.executeQuery();
+				
+			}catch(Exception ex){
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}return book;
 		}
 		
-		public String bookDelete(String book_id)throws Exception{
+	/*public libraryDTO bookModify(libraryDTO book) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			
 			try{
 				conn = getConnection();
-				pstmt = conn.prepareStatement("delete from kh_library where book_id=?");
-				pstmt.setString(1, book_id);
-				pstmt.executeUpdate();
-			} catch(Exception ex) {
+				pstmt = conn.prepareStatement("select * from kh_library where book_id = ?");
+				pstmt.setString(1, book.getBook_id());
+				rs = pstmt.executeQuery();
+				if(rs.next()){
+					pstmt = conn.prepareStatement(
+		            	"update KH_LIBRARY set values (?,?,?,?,?,?,?,?,?,'보관중','','0','')");
+		            pstmt.setString(1, book.getBook_id());
+		            pstmt.setString(2, book.getBook_title());
+		            pstmt.setString(3, book.getBook_location());
+		            pstmt.setString(4, book.getBook_writer());
+		            pstmt.setString(5, book.getBook_publisher());
+		            pstmt.setInt(6, book.getBook_year());
+		            pstmt.setString(7, book.getBook_supplement());
+		            pstmt.setTimestamp(8, book.getReg_date());
+		            pstmt.setInt(9, book.getIsbn());
+		            pstmt.executeUpdate();
+				}
+			}catch(Exception ex){
 				ex.printStackTrace();
 			} finally {
 				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
 				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-			}
-			return book_id;
+			}return book;
+		}*/
+		
+		public libraryDTO bookModify(libraryDTO book) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
 			
+			try{
+				conn = getConnection();
+				pstmt = conn.prepareStatement("update kh_library set book_title=?,book_location=?,book_writer=?,book_publisher=?,book_year=?,book_supplement=?,isbn=? where book_id=?");
+		        pstmt.setString(1, book.getBook_title());
+		        pstmt.setString(2, book.getBook_location());
+		        pstmt.setString(3, book.getBook_writer());
+		        pstmt.setString(4, book.getBook_publisher());
+		        pstmt.setInt(5, book.getBook_year());
+		        pstmt.setString(6, book.getBook_supplement());
+		        pstmt.setInt(7, book.getIsbn());
+		        pstmt.setString(8, book.getBook_id());
+		        System.out.println(book.getBook_title());
+		        System.out.println(book.getBook_location());
+		        System.out.println(book.getBook_writer());
+		        System.out.println(book.getBook_publisher());
+		        System.out.println(book.getBook_year());
+		        System.out.println(book.getBook_supplement());
+		        System.out.println(book.getIsbn());
+		        System.out.println(book.getBook_id());
+		        pstmt.executeUpdate();
+				
+			}catch(Exception ex){
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}return book;
 		}
-}
+	}
