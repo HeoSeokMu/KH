@@ -52,7 +52,7 @@ public class bookInsert{
 	private String actionName = "bookInsert";
 	
 public static Reader reader;
-		
+	
 	
 	@RequestMapping(value="libraryInsertList.kh")
 	public String libraryInsertList(HttpServletRequest request) throws Exception{

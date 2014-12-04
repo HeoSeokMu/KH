@@ -54,7 +54,6 @@
 	        document.bbu.action = "bbusic.action";
 			document.bbu.submit();
 	    }
-	
 	</script>
 </head>
 <body>

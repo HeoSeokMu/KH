@@ -5,7 +5,8 @@ import java.sql.Date;
 public class reserveDTO {
 	private String s_num;
 	private String b_num;
-	private Date rent;
+	private String email;
+	private Date date;
 	
 	public String getS_num() {
 		return s_num;
@@ -19,11 +20,16 @@ public class reserveDTO {
 	public void setB_num(String b_num) {
 		this.b_num = b_num;
 	}
-	public Date getRent() {
-		return rent;
+	public String getEmail() {
+		return email;
 	}
-	public void setRent(Date rent) {
-		this.rent = rent;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
 }

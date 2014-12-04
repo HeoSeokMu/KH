@@ -5,6 +5,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>KH 통합정보시스템</title>
@@ -28,6 +29,7 @@
 		.input{
 			size: 15px;
 		}
+		
 		.lineX {
 			border-bottom: 1px solid #dddddd;
 		}
@@ -198,15 +200,8 @@
 				<form name="inform" method="post" action="LoginPro.kh"	onsubmit="return checkIt();">
 					<table class="tablepadding" align="center" cellspacing="10">
 						<tr>
-							<td colspan="2">
-								<input type="radio" name="type" value="학생"/> 학생
-								&nbsp;&nbsp;<input type="radio" name="type" value="교수"/> 교수
-								&nbsp;&nbsp;<input type="radio" name="type" value="교직원"/> 교직원
-							</td>
-						</tr>
-						<tr>
 							<td>
-								<input type="text" name="id" class="input" placeholder="아이디" maxlength="10"/>
+								<input type="text" name="id" value="${cooId}" class="input" placeholder="아이디" maxlength="10"/>
 							</td>
 							<td rowspan="2">
 								<input type="submit" class="login" name="Submit" value="로그인"/>
@@ -232,5 +227,3 @@
 	</div>
 </body>
 </html>
-
-
