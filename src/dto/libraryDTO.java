@@ -12,7 +12,7 @@ public class libraryDTO {
 	private String book_publisher;	//출판
 	private int book_year;			//출판일
 	private String book_supplement;	//부록
-	private String file_orgname;	//책 이미지 
+	private String file_orgname;	//책 이미지
 	private String file_savname;	//책 이미지
 	private Timestamp reg_date;	//등록 일
 	private String book_lent;		//책 대출표시
