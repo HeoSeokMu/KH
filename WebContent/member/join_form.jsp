@@ -5,7 +5,7 @@
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="/KH_School/member/script/member.js"></script>
 
-
+<body onload="imgPreview();">
 <form action="#" method="post" name="user_input" enctype="multipart/form-data">
 		<table border=1 align="center">
 			<tr bgcolor="77CC55" height=50>
@@ -25,9 +25,9 @@
 				<th width = 130 align=center>등록 유형</th>
 				<td>
 					&nbsp;&nbsp;
-					<input type="radio" name="type" value="student" checked onClick="student();">학생
-					&nbsp;<input type="radio" name="type" value="prof" onClick="prof();">교수
-					&nbsp;<input type="radio" name="type" id="employee" value="employee" onClick="emplo();">교직원
+					<input type="radio" name="type" value="학생" onClick="student();" checked>학생
+					&nbsp;<input type="radio" name="type" value="교수" onClick="prof();">교수
+					&nbsp;<input type="radio" name="type" id="employee" value="직원" onClick="emplo();">교직원
 				</td>
 			</tr>
 			
@@ -39,21 +39,31 @@
 				<td>
 					
 				<div id="maj">
-					&nbsp;&nbsp;&nbsp;<select name="num2">
-						<option value="001">영어영문학과</option>
-						<option value="002">국어국문학과</option>
-						<option value="003">경제경영학과</option>
-						<option value="004">컴퓨터공학과</option>
-						<option value="005">정보보안학과</option>
+					&nbsp;&nbsp;&nbsp;<select name="num2" id="maj1">
+						<option value="001,영어영문학과" selected>영어영문학과</option>
+						<option value="002,국어국문학과">국어국문학과</option>
+						<option value="003,경제경영학과">경제경영학과</option>
+						<option value="004,컴퓨터공학과">컴퓨터공학과</option>
+						<option value="005,정보보안학과">정보보안학과</option>
+					</select>
+				</div>
+				
+				<div id="pmaj" style="display:none;">
+					&nbsp;&nbsp;&nbsp;<select name="num2" id="pmaj1" disabled="disabled">
+						<option value="401,영어영문학과">영어영문학과</option>
+						<option value="402,국어국문학과">국어국문학과</option>
+						<option value="403,경제경영학과">경제경영학과</option>
+						<option value="404,컴퓨터공학과">컴퓨터공학과</option>
+						<option value="405,정보보안학과">정보보안학과</option>
 					</select>
 				</div>
 				
 				<div id="work" style="display:none;">
-					&nbsp;&nbsp;&nbsp;<select name="num2">
+					&nbsp;&nbsp;&nbsp;<select name="num2" id="work1" disabled="disabled">
 						
-						<option value="10">재정과</option>
-						<option value="11">총무과</option>
-						<option value="12">인사과</option>
+						<option value="801,재정과">재정과</option>
+						<option value="802,총무과">총무과</option>
+						<option value="803,인사과">인사과</option>
 						
 					</select>
 				</div>
@@ -129,7 +139,7 @@
 				<td>
 					<div id="studway">
 					&nbsp;&nbsp;
-					<select name="enter_way">
+					<select name="enter_way" id="studway1">
 						<option value="정시">정시입학</option>
 						<option value="수시">수시입학</option>
 						<option value="편입">편입학</option>
@@ -138,7 +148,7 @@
 					
 					<div id="profwho" style="display:none;">
 					&nbsp;&nbsp;
-					<select name="enter_way">
+					<select name="enter_way" id="profwho1" disabled="disabled">
 						<option value="정교수">정교수</option>
 						<option value="시간 강사">시간제 강사</option>
 					</select>
@@ -146,7 +156,7 @@
 					
 					<div id="empwho" style="display:none;">
 					&nbsp;&nbsp;
-					<select name="enter_way">
+					<select name="enter_way" id="empwho1" disabled="disabled">
 						<option value="정직원">정직원</option>
 						<option value="계약직">계약직 직원</option>
 					</select>
@@ -165,9 +175,11 @@
 				<th width = 130 align=center>주  소</th>
 				<td>
 					&nbsp;&nbsp;
-					<input type="text" name="zipcode1" size=5 readOnly>
-					<input type="text" name="zipcode2" size=5 readOnly onchange="Post_CHECK(this.form)">
-					<input type="button" name="post_find" value="우편번호 검색"><br>
+					<input type="text" name="zipcode1" size=5 readOnly onClick="">
+					<input type="text" name="zipcode2" size=5 readOnly onClick="">
+					<input type="button" name="post_find" value="우편번호 검색" 
+					onClick="window.open(url, 'win_page', 'toolbar=no, location=no, status=no,' 
+							+'menubar=no, scrollbars=no, resizable=no, width=700, height=600');"><br>
 					&nbsp;&nbsp;
 					<input type="text" name="addr1" size=30 value=""><br>
 					&nbsp;&nbsp;
@@ -262,7 +274,7 @@
 					<input type="file" name="upload" id="upload" accept="image/*" onChange="hideDefaultPic()">
 					<br />
 					&nbsp;&nbsp;
-					<input type="button" name="delPic" value="사진 삭제" onClick="delpic(); coverPic()">
+					<input type="button" name="delPic" value="사진 삭제" onClick="delpic(); coverPic(); imgPreview();">
 				</td>
 			</tr>
 			<tr bgcolor="77CC55" height=40>
@@ -274,3 +286,4 @@
 			</tr>
 		</table>
 	</form>
+</body>

@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.*;
-import java.sql.Date;
 
 import javax.sql.*;
 import javax.naming.*;
@@ -75,6 +74,7 @@ public class rentDAO {
 		        }
 		}
 		
+		//반납일자 불러오기
 		public String getDate(String b_num) throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -86,7 +86,7 @@ public class rentDAO {
 				pstmt.setString(1, b_num);
 						rs = pstmt.executeQuery();
 						if (rs.next()) {
-							do{					
+							do{
 								date = rs.getDate("RETURN").toString();
 							}while(rs.next());
 						}
@@ -99,5 +99,4 @@ public class rentDAO {
 			}
 			return date;
 		}
-		
 }
