@@ -52,12 +52,7 @@ public class bookInsert{
 	private String actionName = "bookInsert";
 	
 public static Reader reader;
-	
-	public bookInsert() throws Exception{
-	reader = Resources.getResourceAsReader("sqlMapConfig.xml");
-	sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
-	reader.close();
-	}
+		
 	
 	@RequestMapping(value="libraryInsertList.kh")
 	public String libraryInsertList(HttpServletRequest request) throws Exception{
