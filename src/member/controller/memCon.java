@@ -20,7 +20,7 @@ import dto.memberDTO;
 @Controller
 public class memCon{
 	
-	private String FileUploadPath = "D://GeunWoo/Project/git/KH/member/mem_img";
+	private String FileUploadPath = "D://GeunWoo/Project/git/KH/WebContent/member/mem_img/";
 	
 	
 	@RequestMapping(value="/joinForm.kh")
@@ -38,6 +38,10 @@ public class memCon{
 		session.removeAttribute(arg0);
 		session.invalidate();*/
 		
+		String num2 = request.getParameter("num2");
+		String type = request.getParameter("type");
+		String numbering = null;
+		
 		MemberDAO join_dao = MemberDAO.getInstance();
 		
 		//회원등록 컨트롤러
@@ -45,16 +49,34 @@ public class memCon{
 		
 		//가입일자 등록
 		dto.setReg_date(new Timestamp(System.currentTimeMillis()));
+		
+		//가입년도 등록
 		Timestamp a = new Timestamp(System.currentTimeMillis());
 		dto.setNum1(a.toString().substring(0, 4));
 		
+		//num3 회원번호 자동증가 등록
+		int num3 = join_dao.plusNum3(num2, type) + 1;
 		
+		System.out.println("num3 == " + num3);
+		System.out.println("num3 == " + num3);
+		
+		dto.setNum3(num3);
+		
+		//통합 번호 id 등록
+		if(dto.getNum3() < 10){
+			numbering = "00" + dto.getNum3();
+		}else if(dto.getNum3() >= 10 && dto.getNum3() < 100){
+			numbering = "0" + dto.getNum3();
+		}
+		
+		String id = dto.getNum1() + dto.getNum2() + numbering;
+		dto.setId(id);
 		
 		//프로필 사진 파일 업로드 부분
 		if(req.getFile("upload") != null){
 			MultipartFile file = req.getFile("upload");
 			String fileName = file.getOriginalFilename();
-			File saveFile = new File(FileUploadPath+fileName);
+			File saveFile = new File(FileUploadPath + fileName);
 			try{
 				file.transferTo(saveFile);
 			}catch(Exception e){
@@ -74,6 +96,20 @@ public class memCon{
 		mv.setViewName("/member/test.jsp");
 	
 		return mv;
+	}
+	
+	@RequestMapping("/myInfo.kh")
+	public ModelAndView selectMember(HttpSession session, HttpServletRequest request) throws Exception{
 		
+		MemberDAO m_dao = MemberDAO.getInstance();
+		String id = (String)session.getAttribute("memId");
+		memberDTO mDTO = m_dao.member_info(id);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("mDTO", mDTO);
+		
+		mv.setViewName("/member/myInfo.jsp");
+	
+		return mv;
 	}
 }

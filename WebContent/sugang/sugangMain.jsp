@@ -4,20 +4,59 @@
 <script>
 
 	function body(){
-		
-		var hide = document.getElementById("typeB");
+		var hide = document.getElementById("typeB"); // 교양 탭 숨김(default)
 		hide.style.display = 'none';
+		
+	/* 	var c = document.getElementById("101");
+		c.style.backgroundColor="blue"; */
 	}
 	
-	function ok(num){
+	function hakjum_check(num, sch){
+		var sugang = document.getElementsByName("sugang"); //  배열로 담아 .length 1부터 시작하기때무에 -1
+		var size = sugang.length -1;
+
+		var hakjum_sum = 0;   				// 학점 덧셈
+		for(var i=0; i<=size; i++){
+			var hakjumName = "hakjum"+i;
+			var hakjum = Number(document.getElementsByName(hakjumName)[0].value);
+			 hakjum_sum += hakjum;	
+		}
+	
+		if(hakjum_sum == 0){
+			 hakjum_sum = "";
+		}
+	
+		lowlimit_hakjum = Number(document.getElementsByName("lowlimit_hakjum")[0].value); // 최저 요구 학점
+		highlimit_hakjum = Number(document.getElementsByName("highlimit_hakjum")[0].value); // 최고 요구 학점
+		if(hakjum_sum > highlimit_hakjum){ // 요구 학점 확인 및 덧셈
+			alert("최대 필요 학점이 초과했습니다.");
+			no(num);	 			// 학점이 초과 했을때 신청 목록에서 자동 삭제	
+		}else if(hakjum_sum < lowlimit_hakjum){
+			alert("최소 필요 학점이 모자랍니다.");
+			document.getElementsByName("hakjum_sum")[0].value = hakjum_sum;
 			
+			if( sch != null){
+				schedule(sch);
+			}
+			
+		}else{
+			document.getElementsByName("hakjum_sum")[0].value = hakjum_sum;
+			
+			if( sch != null){
+				schedule(sch);
+			}
+		}
+		return;
+	}
+	
+	function ok(num, sch){
 		var text = document.getElementsByName("suganglist")[num-1].value; // 과목
 		var subject = document.getElementsByName("subjectlist")[num-1].value; // 구분
 		var professor = document.getElementsByName("professorlist")[num-1].value; // 담당 교수
 		var hakjum = document.getElementsByName("hakjumlist")[num-1].value; // 학점
 		
-		var sugang = document.getElementById("sugang").value;
-
+		var sugang = document.getElementsByName("sugang"); //  배열로 담아 .length 1부터 시작하기때무에 -1
+		
 		for(var i=0; i<=sugang.length; i++){	
 			var value = document.getElementsByName(i)[0].value;
 			
@@ -44,20 +83,23 @@
 					sum = sum+1;
 					document.getElementsByName("subject_sum")[0].value = sum;	
 				}
-				
+				hakjum_check(i,sch);  	// 하점 초과시 입력된 리스트의 자리수 num 를 보내 취소 시킨다
+				var k = Number(i)+1;
+				document.getElementsByName("set_sch"+k).value = sch;
 				break;
 			}
 		}
 	}
 	
-	function no(name){
+	function no(name, sch){
 		
 		var text = document.getElementsByName(name)[0].value;
-		var suganglist = document.getElementById("suganglist").value;
-		
-		for(var i=0; i<=suganglist.length; i++){
+		var suganglist = document.getElementsByName("suganglist"); //  배열로 담아 .length 1부터 시작하기때무에 -1
+		var size = suganglist.length -1;
+
+		for(var i=0; i<=size; i++){
 			var check = document.getElementsByName("suganglist")[i].value;
-			
+
 			if(check == text){
 				var f = document.getElementsByName("checklist")[i].value;
 				
@@ -66,17 +108,34 @@
 						
 				var sum = Number(document.getElementsByName("subject_sum")[0].value); // 과목수 뺄셈
 				sum = sum-1;	
-				if(sum == 0){
+				if(sum <= 0){
 					document.getElementsByName("subject_sum")[0].value = "";
 				}else{
-					document.getElementsByName("subject_sum")[0].value = sum;	
+					document.getElementsByName("subject_sum")[0].value = sum;
 				}
 			}
 		}
+	
 		document.getElementsByName(name)[0].value = "";	// 과목 초기화
 		document.getElementsByName("subject"+name)[0].value = "";	// 구분 초기화
 		document.getElementsByName("professor"+name)[0].value = ""; // 담당교수 초기화
 		document.getElementsByName("hakjum"+name)[0].value = ""; // 학점 초기화
+		
+		hakjum_check(name);
+		var k = Number(name)+1;
+		var sch = document.getElementsByName("set_sch"+k).value;
+		schedule_default(sch);
+	
+	}
+	
+	function schedule(sch){										
+		var c = document.getElementById(sch); // 시간표에 색 표시
+		c.style.backgroundColor="blue"; 
+	}
+	
+	function schedule_default(sch){		
+		var c = document.getElementById(sch);// 시간표에 색  초기화
+		c.style.backgroundColor="white"; 	
 	}
 
 	function thisA(){
@@ -186,7 +245,11 @@
 	</table>
 </form>
 
-	<form name="list">                              								 <!--     수강신청 검색 된 리스트               -->
+
+		<!--        전체 테이블                     -->
+<table border="1" bordercolor="gray" cellpadding="3" cellspacing="0">
+<tr><td rowspan="2">
+	<form name="list">                              								 <!--     수강 할 과목  리스트               -->
 		<table width="500" border="1" bordercolor="gray" cellpadding="3" cellspacing="0">
 			<tr>
 				<td rowspan="2" width="50"></td>
@@ -204,11 +267,11 @@
 		</table>
 <br/>
 				
-	<c:forEach var="i" begin="1" end="5" step="1">                                 	 <!--     수강신청 검색 된 리스트               -->
+	<c:forEach var="i" begin="1" end="10" step="1">                                 	 <!--     수강 할 과목  리스트               -->
 		<table width="500" border="1" bordercolor="gray" cellpadding="3" cellspacing="0"  id="${i}">
 			<tr>
 				<td align="center" rowspan="2" width="50" bgcolor="#b1b1b1">
-					<input type="button" value="신청 " onclick="ok('${i}')"/>
+					<input type="button" value="신청 " onclick="ok('${i}',sch_time${i}.value)"/>
 					
 				</td>
 				<td align="center" width="100"><font size="2">전 필</font>
@@ -229,22 +292,26 @@
 			<tr>
 				<td align="center"><font size="2">16 / 30</font></td>
 				<td align="center"><font size="2"> E_강의실 </font></td>
-				<td align="center" colspan="2"><font size="2">요일  / 시간</font></td>
+				<td align="center" colspan="2"><font size="2">요일  / 시간</font>
+					<input type="hidden" name="sch_time${i}" value="${100+i}"/>     <!--     요일  + 시간 = 시간표위치 값을 히든값으로 가져옴       -->
+				</td>
 				
 			</tr>
 		</table>
 	</c:forEach>
 </form>
-	
+
+</td>
+<td height="400">	
 	<form name='test'> 													       <!--     수강신청 한 리스트               -->
 		<table  border="1" bordercolor="gray" cellpadding="3" cellspacing="0">
 			<tr>
 				<td align="center" bgcolor="#b1b1b1"><font size="2"><b>신청과목 수</b></font></td>
-				<td align="center"><input type="text" readonly="readonly" style="width:40" name="subject_sum" ></td>
+				<td align="center"><input type="text" readonly="readonly" style="width:40; font-size: large; text-align: center;" name="subject_sum" ></td>
 				<td align="center" bgcolor="#b1b1b1"><font size="2"><b>신청학점 (최저/학점/최고)</b></font></td>
-				<td align="center">16/<input type="text" readonly="readonly" style="width:40" name="hakjum_sum">/23
-					<input type="hidden" name="" value="16"/>
-					<input type="hidden" name="" value="23"/>
+				<td align="center">16/<input type="text" readonly="readonly" style="width:40; font-size: large; text-align: center;" name="hakjum_sum">/23
+					<input type="hidden" name="lowlimit_hakjum" value="16"/>  <!--  최저 요구 학점     -->
+					<input type="hidden" name="highlimit_hakjum" value="23"/>  <!--  최고 요구 학점     -->
 				</td>
 			</tr>
 		</table>
@@ -258,20 +325,52 @@
 				<td align="center" width="50"></td>
 			</tr>
 		</table>
-	<c:forEach var="i" begin="0" end="4" step="1">    	                  <!--     수강신청 한 리스트               -->
+	<c:forEach var="i" begin="0" end="9" step="1">  	                  <!--     수강신청 한 리스트               -->
 		<table border="1" bordercolor="gray" cellpadding="3" cellspacing="0" >
 			<tr>
-				<td align="center" width="50"><input type="text" style="width:50" readonly="readonly" name="subject${i}" /></td>
-				<td align="center" width="120"><input type="text" style="width:120" readonly="readonly" id="sugang" name="${i}" /></td>
-				<td align="center" width="50"><input type="text" style="width:50" readonly="readonly" name="hakjum${i}" /></td>
-				<td align="center" width="80"><input type="text" style="width:80" readonly="readonly" name="professor${i}" /></td>
+				<td align="center" width="50">
+					<input type="hidden" name="sugang"/>
+					<input type="hidden" name="set_sch${i}" />
+					<input type="text" style="width:50; text-align: center;" readonly="readonly" name="subject${i}" /></td>
+				<td align="center" width="120"><input type="text" style="width:120; text-align: center;" readonly="readonly" name="${i}" /></td>
+				<td align="center" width="50"><input type="text" style="width:50; text-align: center;" readonly="readonly" name="hakjum${i}" /></td>
+				<td align="center" width="80"><input type="text" style="width:80; text-align: center;" readonly="readonly" name="professor${i}" /></td>
 				<td align="center" width="100"></td>
 				<td align="center" width="50" bgcolor="#b1b1b1">
-					<input type="button" value="취소" onclick="no('${i}')"/>
+					<input type="button" value="취소" onclick="no('${i}',set_sch${i}.value)"/>
 				</td>
 			</tr>
 		</table>
 	</c:forEach>
 </form>
+</td></tr>
+<tr>                 <!--    시간표             -->
+	<td>
+		<table align="center" border="1" bordercolor="gray" cellpadding="3" cellspacing="0">
+		
+			<tr>
+				<td width="50"></td>
+				<td width="70" bgcolor="#b1b1b1" align="center"><font size="2"><b>월</b></font></td>
+				<td width="70" bgcolor="#b1b1b1" align="center"><font size="2"><b>화</b></font></td>
+				<td width="70" bgcolor="#b1b1b1" align="center"><font size="2"><b>수</b></font></td>
+				<td width="70" bgcolor="#b1b1b1" align="center"><font size="2"><b>목</b></font></td>
+				<td width="70" bgcolor="#b1b1b1" align="center"><font size="2"><b>금</b></font></td>
+			</tr>
+			<c:forEach var="i" begin="1" end="12"  step="1">
+				<tr>
+					<td bgcolor="#b1b1b1" align="center"><font size="2"><b>${i}교시</b></font></td>
+					<td id="${100+i}"><input type="text" readonly="readonly" style="width:70; text-align:center;" name="sch_${100+i}" /></td>
+					<td id="${100+i}"><input type="text" readonly="readonly" style="width:70; text-align:center;" name="sch_${200+i}" /></td>
+					<td id="${100+i}"><input type="text" readonly="readonly" style="width:70; text-align:center;" name="sch_${300+i}" /></td>
+					<td id="${100+i}"><input type="text" readonly="readonly" style="width:70; text-align:center;" name="sch_${400+i}" /></td>
+					<td id="${100+i}"><input type="text" readonly="readonly" style="width:70; text-align:center;" name="sch_${500+i}" /></td>
+				</tr>
+			</c:forEach>
+				
+		</table>
+		
+	</td>
+</tr>
+</table> <!--     전체 테이블             -->
 	
 </body>

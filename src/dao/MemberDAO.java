@@ -25,7 +25,7 @@ public class MemberDAO {
 		return ds.getConnection();
 	}
 
-	public List<String> getNum() throws Exception {
+	public List<String> getId() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -79,7 +79,7 @@ public class MemberDAO {
             pstmt.setString(2, member.getNum1());
             pstmt.setString(3, member.getNum2());
             pstmt.setInt(4, member.getNum3());
-            pstmt.setString(5, member.getS_num());
+            pstmt.setString(5, member.getId());
             pstmt.setString(6, member.getPassword());
             pstmt.setString(7, member.getName());
             pstmt.setString(8, member.getSex());
@@ -106,21 +106,23 @@ public class MemberDAO {
         
     }
 	
-	public int plusNum() throws Exception {
+	public int plusNum3(String num2, String type) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<String> articleList=null;
+		int x = 0;
+
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select num from kh_member where num = ?");
-					rs = pstmt.executeQuery();
-					if (rs.next()) {
-						articleList = new ArrayList<String>();
-						do{					
-							articleList.add(rs.getString("name"));
-						}while(rs.next());
-					}
+			pstmt = conn.prepareStatement("select max(num3) from kh_member where num2 = ? and type = ?");
+			pstmt.setString(1, num2);
+			pstmt.setString(2, type);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				x= rs.getInt(1); 
+			}
+			
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -128,9 +130,7 @@ public class MemberDAO {
 			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
-
-		
-		return plusNum();
+		return x;
 	}
 	
 	public int Login_check(String id, String pw) throws Exception {
@@ -139,14 +139,18 @@ public class MemberDAO {
 		ResultSet rs = null;
 		String dbPassword = "";
 		int x = -1;
+		
+		System.out.println("Login_check ==========================");
+		
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select Password from KH_MEMBER where id = ?");
+			pstmt = conn.prepareStatement("select pw from KH_MEMBER where id = ?");
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
-
+			System.out.println("id : " + id);
 			if (rs.next()) {
-				dbPassword = rs.getString("Password");
+				dbPassword = rs.getString("pw");
+				System.out.println("dbPassword : " + dbPassword + " / pw : " +pw);
 				if (dbPassword.equals(pw)){
 					x = 1; // 인증 성공
 				}else{
@@ -175,5 +179,48 @@ public class MemberDAO {
 			}
 		}
 		return x;
+	}
+	
+	public memberDTO member_info(String id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		memberDTO mDTO = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from kh_member where id = ?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				mDTO = new memberDTO();			// DB에 있는 레코드를 DTO에 저장
+				mDTO.setType(rs.getString("type"));
+				mDTO.setId(rs.getString("id"));
+				mDTO.setPassword(rs.getString("pw"));
+				mDTO.setName(rs.getString("name"));
+				mDTO.setSex(rs.getString("sex"));
+				mDTO.setE_mail(rs.getString("email"));
+				mDTO.setS_phone(rs.getString("s_phone"));
+				mDTO.setP_phone(rs.getString("p_phone"));
+				mDTO.setReg_date(rs.getTimestamp("reg_date"));
+				mDTO.setBirth_yy(rs.getString("birth_yy"));
+				mDTO.setBirth_mm(rs.getString("birth_mm"));
+				mDTO.setBirth_dd(rs.getString("birth_dd"));
+				mDTO.setPro_img(rs.getString("pro_img"));
+				mDTO.setAddress(rs.getString("addr"));
+				mDTO.setPost(rs.getString("post"));
+				mDTO.setMajor(rs.getString("major"));
+				mDTO.setEnter_way(rs.getString("enter_way"));
+				mDTO.setBefore_school(rs.getString("before_school"));
+			}
+			
+		} catch(Exception ex) { 
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		return mDTO;
 	}
 }
