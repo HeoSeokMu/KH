@@ -41,7 +41,7 @@ public class memCon{
 		dto.setNum2(test[0]);
 		dto.setMajor(test[1]);
 		
-		String FileUploadPath = "/KH_School/WebContent/upload/mem_img";
+		String FileUploadPath = "/KH_School/WebContent/upload/mem_img/";
 		
 		MemberDAO join_dao = MemberDAO.getInstance();
 		
