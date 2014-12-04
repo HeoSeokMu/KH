@@ -185,6 +185,7 @@ public class MemberDAO {
 		return x;
 	}
 	
+<<<<<<< HEAD
 	public List<String> getPost() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -224,5 +225,48 @@ public class MemberDAO {
 		}
 
 		return postList;
+=======
+	public memberDTO member_info(String id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		memberDTO mDTO = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from kh_member where id = ?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				mDTO = new memberDTO();			// DB에 있는 레코드를 DTO에 저장
+				mDTO.setType(rs.getString("type"));
+				mDTO.setId(rs.getString("id"));
+				mDTO.setPassword(rs.getString("pw"));
+				mDTO.setName(rs.getString("name"));
+				mDTO.setSex(rs.getString("sex"));
+				mDTO.setE_mail(rs.getString("email"));
+				mDTO.setS_phone(rs.getString("s_phone"));
+				mDTO.setP_phone(rs.getString("p_phone"));
+				mDTO.setReg_date(rs.getTimestamp("reg_date"));
+				mDTO.setBirth_yy(rs.getString("birth_yy"));
+				mDTO.setBirth_mm(rs.getString("birth_mm"));
+				mDTO.setBirth_dd(rs.getString("birth_dd"));
+				mDTO.setPro_img(rs.getString("pro_img"));
+				mDTO.setAddress(rs.getString("addr"));
+				mDTO.setPost(rs.getString("post"));
+				mDTO.setMajor(rs.getString("major"));
+				mDTO.setEnter_way(rs.getString("enter_way"));
+				mDTO.setBefore_school(rs.getString("before_school"));
+			}
+			
+		} catch(Exception ex) { 
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		return mDTO;
+>>>>>>> 6bc77b0f6999095b33fc1118343302a33a83aa47
 	}
 }

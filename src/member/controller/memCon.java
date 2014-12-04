@@ -103,7 +103,21 @@ public class memCon{
 		mv.setViewName("/member/test.jsp");
 	
 		return mv;
+	}
+	
+	@RequestMapping("/myInfo.kh")
+	public ModelAndView selectMember(HttpSession session, HttpServletRequest request) throws Exception{
 		
+		MemberDAO m_dao = MemberDAO.getInstance();
+		String id = (String)session.getAttribute("memId");
+		memberDTO mDTO = m_dao.member_info(id);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("mDTO", mDTO);
+		
+		mv.setViewName("/member/myInfo.jsp");
+	
+		return mv;
 	}
 	
 	@RequestMapping(value="/searchAddr.kh")

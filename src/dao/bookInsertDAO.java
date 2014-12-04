@@ -56,7 +56,7 @@ public class bookInsertDAO {
 			            pstmt.setString(5, library.getBook_publisher());
 			            pstmt.setInt(6, library.getBook_year());
 			            pstmt.setString(7, library.getBook_supplement());
-			            pstmt.setString(8, library.getFile_orgname());
+			            pstmt.setInt(8, library.getImagename());
 			            pstmt.setTimestamp(9, library.getReg_date());
 			            pstmt.setInt(10, library.getIsbn());
 			            pstmt.executeUpdate();
@@ -79,10 +79,10 @@ public class bookInsertDAO {
 			try {
 				conn = getConnection();
 				pstmt = conn.prepareStatement(
-						"select book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,file_orgname,reg_date,isbn,r "
+						"select book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,imagename,reg_date,isbn,r "
 						+
-						"from (select book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,file_orgname,reg_date,isbn,rownum r " +
-						"from (select book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,file_orgname,reg_date,isbn " +
+						"from (select book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,imagename,reg_date,isbn,rownum r " +
+						"from (select book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,imagename,reg_date,isbn " +
 						"from kh_library order by ref desc, re_step asc) order by ref desc, re_step asc ) where r >= ? and r <= ? ");
 						pstmt.setInt(1, start); 
 						pstmt.setInt(2, end); 
@@ -99,7 +99,7 @@ public class bookInsertDAO {
 								library.setBook_publisher(rs.getString("book_publisher"));
 								library.setBook_year(rs.getInt("book_year"));
 								library.setBook_supplement(rs.getString("book_supplement"));
-								library.setFile_orgname(rs.getString("file_orgname"));
+								library.setImagename(rs.getInt("imagename"));
 								library.setReg_date(rs.getTimestamp("reg_date"));
 								library.setIsbn(rs.getInt("isbn"));
 								articleList.add(library); 
@@ -140,5 +140,53 @@ public class bookInsertDAO {
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			}
 			return bookInsertList;
+		}
+		
+		public void bookInsertModify(libraryDTO library) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try{
+				conn = getConnection();
+				pstmt = conn.prepareStatement("update kh_library set book_title=?, book_location=?, book_writer=?, book_publisher=?, book_year=?, book_supplement=?, imagename=?, isbn=? where book_id=?");
+				
+						pstmt.setString(1, library.getBook_title());
+						pstmt.setString(2, library.getBook_location());
+						pstmt.setString(3, library.getBook_writer());
+						pstmt.setString(3, library.getBook_publisher());
+						pstmt.setInt(4, library.getBook_year());
+						pstmt.setString(5, library.getBook_supplement());
+						pstmt.setInt(6, library.getImagename());
+						pstmt.setInt(7, library.getIsbn());
+						pstmt.executeUpdate();
+						
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+		}
+		
+		public String bookDelete(String book_id)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try{
+				conn = getConnection();
+				pstmt = conn.prepareStatement("delete from kh_library where book_id=?");
+				pstmt.setString(1, book_id);
+				pstmt.executeUpdate();
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			return book_id;
+			
 		}
 }

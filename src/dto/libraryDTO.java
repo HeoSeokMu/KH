@@ -12,12 +12,8 @@ public class libraryDTO {
 	private String book_publisher;	//출판
 	private int book_year;			//출판일
 	private String book_supplement;	//부록
-	private String file_orgname;	//책 이미지 
-	private String file_savname;	//책 이미지
+	private int imagename;	//책 이미지
 	private Timestamp reg_date;	//등록 일
-	private String book_lent;		//책 대출표시
-	private int lent_year;			//빌린 일
-	private int return_year;		//반납 일
 	private int isbn;			//isbn
 	private String loan;		// 대출여부
 	private String s_num;		// 학번
@@ -67,45 +63,18 @@ public class libraryDTO {
 	public void setBook_supplement(String book_supplement) {
 		this.book_supplement = book_supplement;
 	}
-	public String getFile_orgname() {
-		return file_orgname;
+	public int getImagename() {
+		return imagename;
 	}
-	public void setFile_orgname(String file_orgname) {
-		this.file_orgname = file_orgname;
+	public void setImagename(int imagename) {
+		this.imagename = imagename;
 	}
-	public String getFile_savname() {
-		return file_savname;
-	}
-	public void setFile_savname(String file_savname) {
-		this.file_savname = file_savname;
-	}
-
-	
 	public Timestamp getReg_date() {
 		return reg_date;
 	}
 	public void setReg_date(Timestamp reg_date) {
 		this.reg_date = reg_date;
 	}
-	public String getBook_lent() {
-		return book_lent;
-	}
-	public void setBook_lent(String book_lent) {
-		this.book_lent = book_lent;
-	}
-	public int getLent_year() {
-		return lent_year;
-	}
-	public void setLent_year(int lent_year) {
-		this.lent_year = lent_year;
-	}
-	public int getReturn_year() {
-		return return_year;
-	}
-	public void setReturn_year(int return_year) {
-		this.return_year = return_year;
-	}
-
 	public int getIsbn() {
 		return isbn;
 	}
@@ -136,6 +105,4 @@ public class libraryDTO {
 	public void setTurnin(Date turnin) {
 		this.turnin = turnin;
 	}
-
-	
 }
