@@ -22,9 +22,12 @@ public class bookView {
 		
 		String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/book_img/";
 		
+
 		
 		bookInsertDAO book_dao = bookInsertDAO.getInstance();
 		String id = req.getParameter("book_id");
+
+		
 		libraryDTO book = book_dao.getBookView(id);
 		
 		ModelAndView mv = new ModelAndView();
