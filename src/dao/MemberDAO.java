@@ -186,8 +186,7 @@ public class MemberDAO {
 		}
 		return x;
 	}
-
-	public Map getPost(String sch) throws Exception {
+	public List<String> getPost() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -273,6 +272,5 @@ public class MemberDAO {
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
 		return mDTO;
-		
 	}
 }
