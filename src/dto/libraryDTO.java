@@ -10,7 +10,7 @@ public class libraryDTO {
 	private String book_location;	//책 위치
 	private String book_writer;		//저자
 	private String book_publisher;	//출판
-	private int book_year;			//출판일
+	private String book_year;			//출판일
 	private String book_supplement;	//부록
 	private Timestamp reg_date;	//등록 일
 	private int isbn;			//isbn
@@ -50,10 +50,12 @@ public class libraryDTO {
 	public void setBook_publisher(String book_publisher) {
 		this.book_publisher = book_publisher;
 	}
-	public int getBook_year() {
+	
+
+	public String getBook_year() {
 		return book_year;
 	}
-	public void setBook_year(int book_year) {
+	public void setBook_year(String book_year) {
 		this.book_year = book_year;
 	}
 	public String getBook_supplement() {

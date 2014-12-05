@@ -28,7 +28,7 @@
 	<td><input type="text" name="book_supplement" value=""></td>
 	<td>isbn</td>	
 	<td><input type="text" name="isbn" value=""></td>
-	<td>책 이미지</td>
+	<td>책 이미지 </td>
 	<td><input type="file" name="upload" id="upload" accept="image/*" onChange="hideDefaultPic()">
 					</td>
 	
