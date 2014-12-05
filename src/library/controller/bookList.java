@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import dao.bookDAO;
-import dto.rentDTO;
+import dao.bookInsertDAO;
+import dto.reserveDTO;
 
 @Controller	
 public class bookList{//글목록 처리
 
 		@RequestMapping(value="/bookList.kh", method=RequestMethod.POST)
-		public ModelAndView formPro(HttpServletRequest req, @ModelAttribute rentDTO dto) throws Exception{
+		public ModelAndView formPro(HttpServletRequest req, @ModelAttribute reserveDTO dto) throws Exception{
 			
 			String pageNum = req.getParameter("pageNum");//페이지 번호
 			if (pageNum == null) {
@@ -33,7 +33,7 @@ public class bookList{//글목록 처리
 	        int number=0;
 	        
 	        List articleList = null;
-	        bookDAO dbPro = bookDAO.getInstance();//DB연동
+	        bookInsertDAO dbPro = bookInsertDAO.getInstance();//DB연동
 	        //count = dbPro.getArticleCount();//전체 글의 수
 	        
 	        

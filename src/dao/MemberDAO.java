@@ -186,20 +186,23 @@ public class MemberDAO {
 		}
 		return x;
 	}
-	
 	public List<String> getPost() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<String> postList = null;
+		HashMap<String, String> postList = null;
+		String allsch = "%"+sch+"%";
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select * from kh_post where addr like %?%");
+			pstmt = conn.prepareStatement("select * from kh_post where addr like ?");
+			pstmt.setString(1, allsch);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				postList = new ArrayList<String>();
+				postList = new HashMap<String, String>();
 				do {
-					postList.add(rs.getString("name"));
+					postList.put("code",rs.getString("zipcode"));
+					postList.put("addr", rs.getString("addr"));
+			
 				} while (rs.next());
 			}
 		} catch (Exception ex) {

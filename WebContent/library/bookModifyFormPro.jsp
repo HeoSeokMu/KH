@@ -16,12 +16,9 @@
 </tr>
 <tr>
 	<td>부록 : ${dto.book_supplement}</td>
-	<td>책 이미지: </td>
 	</tr>
 	
 	<tr>
-		<td><a href="/KH_School/bookDelete.kh?book_id=${dto.book_id}">삭제하기</a>
-		<td><a href="/KH_School/bookModifyForm.kh?book_id=${dto.book_id}">책수정하기</a>
-		<td><a href="/KH_School/bookView.kh?book_id=${dto.book_id }">책보기</a>
+		<td><a href="/KH_School/bookInsertForm.kh">확인하기</a>
 	</table>
 </font>
