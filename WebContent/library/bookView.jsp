@@ -18,9 +18,7 @@
 </tr>
 <tr>
 	<td>부록 : ${book.book_supplement}</td>
-	<td>책이미지: 
-	
-	<img src="/KH_School/upload/book_img/${book.book_id}.jpg"> </td>
+	<td>책이미지:	<img src="/KH_School/upload/book_img/${book.book_img}" width=100 height=100> </td>
 	<td>isbn: ${book.isbn}</td>
 	</tr>
 	
