@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <font size="6">
 <table border="1">
@@ -16,7 +18,7 @@
 </tr>
 <tr>
 	<td>부록 : ${book.book_supplement}</td>
-	<td>책이미지: ${book.imagename } </td>
+	<td>책이미지:	<img src="/KH_School/upload/book_img/${book.book_img}" width=100 height=100> </td>
 	<td>isbn: ${book.isbn}</td>
 	</tr>
 	

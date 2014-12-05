@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import dao.rentDAO;
-import dto.rentDTO;
 
 
 
@@ -33,7 +31,7 @@ public class inputNum{
 		return mv;
 	}
 
-	@RequestMapping(value="/inputNumPro.kh", method=RequestMethod.POST)
+	/*@RequestMapping(value="/inputNumPro.kh", method=RequestMethod.POST)
 	public ModelAndView formPro(HttpServletRequest req, @ModelAttribute rentDTO dto) throws Exception{
 		System.out.println(dto.getS_num());
 		
@@ -64,5 +62,5 @@ public class inputNum{
 		
 		mv.setViewName("/library/inputNumPro.jsp");
 		return mv;
-	}
+	}*/
 }

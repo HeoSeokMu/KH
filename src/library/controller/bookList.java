@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.bookInsertDAO;
-import dto.rentDTO;
+import dto.reserveDTO;
 
 @Controller	
 public class bookList{//글목록 처리
 
 		@RequestMapping(value="/bookList.kh", method=RequestMethod.POST)
-		public ModelAndView formPro(HttpServletRequest req, @ModelAttribute rentDTO dto) throws Exception{
+		public ModelAndView formPro(HttpServletRequest req, @ModelAttribute reserveDTO dto) throws Exception{
 			
 			String pageNum = req.getParameter("pageNum");//페이지 번호
 			if (pageNum == null) {
