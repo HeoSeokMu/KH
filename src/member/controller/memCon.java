@@ -27,7 +27,6 @@ public class memCon{
 		return "/member/join_form.jsp";
 	}
 	
-	
 	@RequestMapping("/joinFormPro.kh")
 	public ModelAndView formPro(HttpSession session, HttpServletRequest request, 
 			HttpServletResponse response, 

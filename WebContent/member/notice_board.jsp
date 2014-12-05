@@ -8,7 +8,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>KH 통합정보시스템</title>
+<title>공지사항</title>
 	<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
 	<link rel="stylesheet" href="css/left_menu.css"></link>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
@@ -120,7 +120,7 @@
 							<li class="ly" style="display:list-item;">
 								<dl>
 									<dt>공지사항</dt>
-									<dd><a href="#">공지사항</a></dd>
+									<dd><a href="notice_board.kh">공지사항</a></dd>
 								</dl>
 							</li>
 							<li class="btn"><a class="menu2">학적</a></li>
@@ -196,36 +196,100 @@
 		</div>
 		 
 		<div id="box3">
-			<c:if test="${memId == null}">
-				<form name="inform" method="post" action="LoginPro.kh"	onsubmit="return checkIt();">
-					<table class="tablepadding" align="center" cellspacing="10">
+			<center>
+			<form method="post" name="chartForm">
+				<hr width="880px" size="1" color="gray" align="center" />
+				<table width="885px" align="center">
+					<tr>
+						<td align="left">
+							<input type="button" name="h_selectall_btt" value="전체선택" 	width="50px" onClick="checkAll2(${blockCount})"/>
+							<input type="button" name="h_listen_btt" value="듣기" onClick="list_add('s')"/>
+							<input type="button" name="h_download_btt" value="다운" onClick="music_down('s')"/>
+						</td>
+					</tr>
+				</table>
+		
+				<hr width="880px" size="1" align="center" />
+				<table align="center">
+					<tr align="center">
+						<td width="30px" height="10px">
+							<input type="checkbox" name="c_all" onclick="checkAll(this.checked, ${blockCount})">
+						</td>
+						<td width="25px"><g>NO</g></td>
+						<td width="70px">제목</td>
+						<td width="300px"><g>날짜</g></td>
+						<td width="125px"><g>작성자</g></td>
+					</tr>
+				</table>
+				<hr width="880px" size="3" color="#CC3D3D" align="center" />
+		
+				<c:if test="${totalCount < 1}">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<table>
 						<tr>
-							<td>
-								<input type="text" name="id" class="input" placeholder="아이디" maxlength="10"/>
-							</td>
-							<td rowspan="2">
-								<input type="submit" class="login" name="Submit" value="로그인"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="password" name="passwd" placeholder="패스워드" class="input" maxlength="10"/>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" class="lineX">
-								<font style="font-size: 8pt">
-								&nbsp;<a href="findIdForm.action" title="아이디/비밀번호 찾기" style="color: gray;">아이디/비밀번호 찾기</a>
-								</font>
-							</td>
+							<td align="left">게시물이 존재하지 않습니다.</td>
 						</tr>
 					</table>
-				</form>
-			</c:if>
+				</c:if>
+		
+				<c:if test="${totalCount > 0}">
+					<c:forEach var="list" items="${list}" varStatus="checkValue">
+						<table align="center">
+							<tr align="center" height="25px">
+								<td width="30px" height="25px">
+									<input type="checkbox" name="chkNo" value="${checkValue.index}">
+								</td>
+								<td width="25px">
+									${(currentPage-1) * 10 + (checkValue.index + 1)}
+								</td>
+								<!--이미지-->
+								<!--곡정보-->
+								<td width="370px" align="left">
+									<input type="image" name="m_play_btt" src="main/bbu_main_img/m_play_button.png" onclick="list_add(${checkValue.index });">
+									<input type="image" name="m_add_btt" src="main/bbu_main_img/m_add_button.png"> &nbsp;
+									<input type="image" name="m_page_btt" src="main/bbu_main_img/m_page_button.png">
+									${list.title}
+								</td>
+								<td width="125px">
+									<a href="SingerPage.action?category=singerPage&singer=${list.singer}">${list.singer}</a>
+								</td>
+								<td width="125px">
+									<a href="AlbumPage.action?category=albumPage&album=${list.album}">${list.album}</a>
+								</td>
+								<!--좋아요-->
+								<td width="105px">
+									<input type="image" name="m_like_btt" src="main/bbu_main_img/m_like_button.png"> ${list.hit}
+								</td>
+								<!--다운로드-->
+								<td td width="80px">
+									<input type="image" name="m_download_img" src="main/bbu_main_img/m_download_button.png" onclick="musicConfirm2('s');">
+								</td>
+							</tr>
+						</table>
+						<hr width="880px" size="1" color="gray" align="center" />
+					</c:forEach>
+				</c:if>
+				
+				<!-- 전체선택 -->
+				<table width="885px" align="center">
+					<tr>
+						<td align="left">
+							<input type="button" name="h_selectall_btt" value="전체선택" 	width="50px" onClick="checkAll2(${blockCount})"/>
+							<input type="button" name="h_listen_btt" value="듣기" onClick="list_add('s')"/>
+							<input type="button" name="h_download_btt" value="다운" onClick="music_down('s')"/>
+						</td>
+					</tr>
+				</table>
+		
+				<hr width="880px" size="1" align="center" />
+				<br>
+				<center>
+					<s:property value="pagingHtml" escape="false" />
+				</center>
+			</form>
+			</center>
 		</div>
 		<div id="box4"> <center><br/><br/></center> </div>
 	</div>
 </body>
 </html>
-
-
