@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <h2>책 등록</h2>
 
-<form method="post" action="bookInsertFormPro.kh" enctype="mulipart/form-data">
-
+<form method="post" action="bookInsertFormPro.kh" enctype="multipart/form-data">
+															
 <table border="1">
 <tr>
 	<td>책 번호</td>
@@ -28,6 +28,10 @@
 	<td><input type="text" name="book_supplement" value=""></td>
 	<td>isbn</td>	
 	<td><input type="text" name="isbn" value=""></td>
+	<td>책 이미지</td>
+	<td><input type="file" name="upload" id="upload" accept="image/*" onChange="hideDefaultPic()">
+					</td>
+	
 </tr>
 <tr>
 	<td colspan="6"><input type="submit" value="등록"></td>

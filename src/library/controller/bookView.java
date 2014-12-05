@@ -1,5 +1,7 @@
 package library.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +18,10 @@ public class bookView {
 	
 	
 	@RequestMapping("/bookView.kh")
-	public ModelAndView bookView(HttpServletRequest req) throws Exception{
+	public ModelAndView bookView(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
+		
+		String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/book_img/";
+		
 		
 		bookInsertDAO book_dao = bookInsertDAO.getInstance();
 		String id = req.getParameter("book_id");
