@@ -187,7 +187,6 @@ public class MemberDAO {
 		return x;
 	}
 	
-<<<<<<< HEAD
 	public List<String> getPost() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -227,7 +226,8 @@ public class MemberDAO {
 		}
 
 		return postList;
-=======
+	}
+	
 	public memberDTO member_info(String id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -269,6 +269,5 @@ public class MemberDAO {
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
 		return mDTO;
->>>>>>> 6bc77b0f6999095b33fc1118343302a33a83aa47
 	}
 }
