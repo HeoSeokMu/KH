@@ -2,6 +2,7 @@ package member.controller;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dao.MemberDAO;
 import dto.memberDTO;
+import dto.postDTO;
 
 @Controller
 public class memCon{
@@ -89,7 +91,7 @@ public class memCon{
 			//파일명에서 확장자 추출.
 			String extension = file.getOriginalFilename().substring(file.getOriginalFilename().
 					length()-3, file.getOriginalFilename().length());
-			//ID.확장자 형태로 파일명 만들기.
+			//"ID.확장자" 형태로 파일명 만들기.
 			String fileName = dto.getId() + "." + extension;
 			File saveFile = new File(FileUploadPath + fileName);
 			try{
@@ -135,15 +137,15 @@ public class memCon{
 	}
 	
 	@RequestMapping(value="/searchAddrPro.kh")
-	public ModelAndView searchAddrPro(HttpServletRequest request) throws Exception{
+	public ModelAndView searchAddrPro(@ModelAttribute postDTO Pdto, HttpServletRequest request) throws Exception{
 		
 		MemberDAO post = MemberDAO.getInstance();
 		String sch = request.getParameter("addrSearch");
-		
-		Map postList = post.getPost(sch);
+		List list = new ArrayList();
+		list = post.getPost(sch);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("postList", postList);
+		mv.addObject("postlist", list);
 		mv.setViewName("/member/addrSearch.jsp");
 		
 		return mv;

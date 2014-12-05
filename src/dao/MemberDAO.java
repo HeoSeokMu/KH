@@ -6,6 +6,7 @@ import javax.sql.*;
 import javax.naming.*;
 
 import dto.memberDTO;
+import dto.postDTO;
 
 import java.util.*;
 
@@ -43,24 +44,9 @@ public class MemberDAO {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException ex) {
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-				}
-			}
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
 
 		return articleList;
@@ -168,30 +154,18 @@ public class MemberDAO {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException ex) { }
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) { }
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException ex) { }
-			}
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
 		return x;
 	}
 
-	public Map getPost(String sch) throws Exception {
+	public List getPost(String sch) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		HashMap<String, String> postList = null;
+		List postList = null;
 		String allsch = "%"+sch+"%";
 		try {
 			conn = getConnection();
@@ -199,34 +173,20 @@ public class MemberDAO {
 			pstmt.setString(1, allsch);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				postList = new HashMap<String, String>();
+				postList = new ArrayList();
 				do {
-					postList.put("code",rs.getString("zipcode"));
-					postList.put("addr", rs.getString("addr"));
-			
+					postDTO dto = new postDTO();
+					dto.setAddr(rs.getString("addr"));
+					dto.setZipcode(rs.getString("zipcode"));                       
+					postList.add(dto);
 				} while (rs.next());
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException ex) {
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-				}
-			}
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
 
 		return postList;
