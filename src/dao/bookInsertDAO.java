@@ -209,7 +209,6 @@ public class bookInsertDAO {
 				conn = getConnection();
 				pstmt = conn.prepareStatement("update kh_library set book_title=?,book_location=?,book_writer=?,book_publisher=?,book_year=?,book_supplement=?,isbn=?,book_img=? where book_id=?");
 		        pstmt.setString(1, book.getBook_title());
-		      
 		        pstmt.setString(2, book.getBook_location());
 		        pstmt.setString(3, book.getBook_writer());
 		        pstmt.setString(4, book.getBook_publisher());
@@ -217,7 +216,6 @@ public class bookInsertDAO {
 		        pstmt.setString(6, book.getBook_supplement());
 		        pstmt.setInt(7, book.getIsbn());
 		        pstmt.setString(8, book.getBook_img());
-	
 		        pstmt.setString(9, book.getBook_id());
 		        pstmt.executeUpdate();
 				
