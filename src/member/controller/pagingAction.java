@@ -2,7 +2,7 @@ package member.controller;
 
 public class pagingAction {
 
-	private int currentPage;   // 현재페이지
+	private int currentPage; // 현재페이지
 	private int totalCount;	 // 전체 게시물 수
 	private int totalPage;	 // 전체 페이지 수
 	private int blockCount;	 // 한 페이지의  게시물의 수
@@ -11,8 +11,6 @@ public class pagingAction {
 	private int endCount;	 // 한 페이지에서 보여줄 게시글의 끝 번호
 	private int startPage;	 // 시작 페이지
 	private int endPage;	 // 마지막 페이지
-	private String category; // 해당 차트
-	private String genre;	 // 해당 장르
 	
 	private StringBuffer pagingHtml;
 
@@ -45,7 +43,9 @@ public class pagingAction {
 		// 시작 페이지와 마지막 페이지 값 구하기. (한 화면의 페이지의 수)
 		startPage = (int) ((currentPage - 1) / blockPage) * blockPage + 1;	//1
 		endPage = startPage + blockPage - 1;								//2
-
+		
+		System.out.println("current : " + currentPage);
+		
 		// 마지막 페이지가 전체 페이지 수보다 크면 전체 페이지 수로 설정
 		if (endPage > totalPage) {
 			endPage = totalPage;
@@ -61,25 +61,27 @@ public class pagingAction {
 		}
 
 		pagingHtml.append("&nbsp;|&nbsp;");
-
 		//페이지 번호.현재 페이지는 빨간색으로 강조하고 링크를 제거.
 		for (int i = startPage; i <= endPage; i++) {
 			if (i > totalPage) {
+				System.out.println("i : " + i);
+				
 				break;
-		}
-		if (i == currentPage) {
-			pagingHtml.append("&nbsp;<b> <font color='red'>");
-			pagingHtml.append(i);
-			pagingHtml.append("</font></b>");
-		} else {
-			pagingHtml.append("&nbsp;<a href=notice_board.kh?currentPage=");
-			pagingHtml.append(i);
-			pagingHtml.append("'>");
-			pagingHtml.append(i);
-			pagingHtml.append("</a>");
-		}
-
-		pagingHtml.append("&nbsp;");
+			}
+			if (i == currentPage) {
+				System.out.println("i : " + i);
+				pagingHtml.append("&nbsp;<b><font color='red'>");
+				pagingHtml.append(i);
+				pagingHtml.append("</font></b>");
+			} else {
+				System.out.println("i : " + i);
+				pagingHtml.append("&nbsp;<a href='notice_board.kh?currentPage=");
+				pagingHtml.append(i);
+				pagingHtml.append("'>");
+				pagingHtml.append(i);
+				pagingHtml.append("</a>");
+			}
+			pagingHtml.append("&nbsp;");
 		}
 		pagingHtml.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
 
@@ -90,7 +92,7 @@ public class pagingAction {
 			pagingHtml.append("</a>");
 		}
 	}
-
+	
 	public int getCurrentPage() {
 		return currentPage;
 	}
@@ -169,13 +171,5 @@ public class pagingAction {
 
 	public void setPagingHtml(StringBuffer pagingHtml) {
 		this.pagingHtml = pagingHtml;
-	}
-
-	public String getGenre() {
-		return genre;
-	}
-
-	public void setGenre(String genre) {
-		this.genre = genre;
 	}
 }
