@@ -160,12 +160,8 @@ public class MemberDAO {
 		}
 		return x;
 	}
-<<<<<<< HEAD
 
-	public List getPost(String sch) throws Exception {
-=======
-	public List<String> getPost() throws Exception {
->>>>>>> c8c38f44b6a628ec6f038e17638952c47998963b
+	public List<String> getPost(String sch) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
