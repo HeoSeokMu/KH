@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import dao.MemberDAO;
 import dto.noticeboard_DTO;
 
 @Controller
@@ -22,21 +23,22 @@ public class notice_board {
 	private int blockPage = 5; 		// 한 화면에 보여줄 페이지 수
 	private pagingAction page; 		// 페이징 클래스
 	private String pagingHtml; 		// 페이징을 구현한 HTML
-	private String type;			// 장르
 	
-	@RequestMapping(value="/notice_board.kh", method=RequestMethod.POST)
+	@RequestMapping(value="/notice_board.kh")
 	public ModelAndView notice_board(HttpServletRequest req) throws Exception{
 		
 		System.out.println("notice_board =================== : ");
 		
-		list = sqlMapper.queryForList("musicSQL.genreSelectAll", type);
+		MemberDAO mDAO = MemberDAO.getInstance();
+		list = mDAO.notice_BoardList();
 		totalCount = list.size(); // 전체 글 갯수를 구한다.
+		
+		System.out.println("totalCount : " + totalCount);
 				
-		setCurrentPage(currentPage);
-			page = new pagingAction(currentPage, totalCount, blockCount, blockPage, category); // pagingAction 객체 생성.
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage); // pagingAction 객체 생성.
 			
 		System.out.println("list f : " + list);
-		setPagingHtml(page.getPagingHtml().toString());  // 페이지 HTML 생성.
+		pagingHtml = page.getPagingHtml().toString();  // 페이지 HTML 생성.
 		//paging
 			
 		int lastCount = totalCount;
@@ -49,7 +51,8 @@ public class notice_board {
 		list = list.subList(page.getStartCount(), lastCount);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("id", id);						//책번호와 제목을 파라미터로 보네줌
+		mv.addObject("list", list);
+		mv.addObject("pagingHtml", pagingHtml);
 		mv.setViewName("/member/notice_board.jsp");
 		
 		System.out.println(mv.getViewName());

@@ -17,8 +17,7 @@ public class pagingAction {
 	private StringBuffer pagingHtml;
 
 	// 페이징 생성자
-	public pagingAction(int currentPage, int totalCount, int blockCount,
-			int blockPage, String category) {
+	public pagingAction(int currentPage, int totalCount, int blockCount, int blockPage) {
 		System.out.println("blockCount : " + blockCount);
 
 		this.blockCount = blockCount;
@@ -27,7 +26,7 @@ public class pagingAction {
 		this.totalCount = totalCount;
 
 		// 전체 페이지 수    							  11	/	   10
-		// 차트 연산								17		/		50	//  0 -> 1
+		// 차트 연산								  17	/	   50	//  0 -> 1
 		totalPage = (int) Math.ceil((double) totalCount / blockCount); // 2
 		if (totalPage == 0) {
 			totalPage = 1;
@@ -54,195 +53,41 @@ public class pagingAction {
 		
 		pagingHtml = new StringBuffer();
 		
-		if(category.equals("albumPage")){
-			System.out.println("albumPage paging pass");
-			
-			if (currentPage > blockPage) {
-				pagingHtml.append("<a href=AlbumPage.action?category=albumPage&currentPage=" + (startPage - 1) + ">");
-				pagingHtml.append("이전");
-				pagingHtml.append("</a>");
-			}
-
-			pagingHtml.append("&nbsp;|&nbsp;");
-
-			//페이지 번호.현재 페이지는 빨간색으로 강조하고 링크를 제거.
-			for (int i = startPage; i <= endPage; i++) {
-				if (i > totalPage) {
-					break;
-				}
-				if (i == currentPage) {
-					pagingHtml.append("&nbsp;<b> <font color='red'>");
-					pagingHtml.append(i);
-					pagingHtml.append("</font></b>");
-				} else {
-					pagingHtml
-							.append("&nbsp;<a href='AlbumPage.action?category=albumPage&currentPage=");
-					pagingHtml.append(i);
-					pagingHtml.append("'>");
-					pagingHtml.append(i);
-					pagingHtml.append("</a>");
-				}
-
-				pagingHtml.append("&nbsp;");
-			}
-			pagingHtml.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
-
-			// 다음 block 페이지
-			if (totalPage - startPage >= blockPage) {
-				pagingHtml.append("<a href=AlbumPage.action?category=albumPage&currentPage="
-						+ (endPage + 1) + ">");
-				pagingHtml.append("다음");
-				pagingHtml.append("</a>");
-			}
-			
+		// 이전 block 페이지
+		if (currentPage > blockPage) {
+			pagingHtml.append("<a href=notice_board.kh?currentPage=" + (startPage - 1) + ">");
+			pagingHtml.append("이전");
+			pagingHtml.append("</a>");
 		}
-		
-		if(category.equals("singerPage")){
-			System.out.println("singerPage paging pass");
-			
-			if (currentPage > blockPage) {
-				pagingHtml.append("<a href=SingerPage.action?category=singerPage&currentPage=" + (startPage - 1) + ">");
-				pagingHtml.append("이전");
-				pagingHtml.append("</a>");
-			}
 
-			pagingHtml.append("&nbsp;|&nbsp;");
+		pagingHtml.append("&nbsp;|&nbsp;");
 
-			//페이지 번호.현재 페이지는 빨간색으로 강조하고 링크를 제거.
-			for (int i = startPage; i <= endPage; i++) {
-				if (i > totalPage) {
-					break;
-				}
-				if (i == currentPage) {
-					pagingHtml.append("&nbsp;<b> <font color='red'>");
-					pagingHtml.append(i);
-					pagingHtml.append("</font></b>");
-				} else {
-					pagingHtml
-							.append("&nbsp;<a href='SingerPage.action?category=singerPage&currentPage=");
-					pagingHtml.append(i);
-					pagingHtml.append("'>");
-					pagingHtml.append(i);
-					pagingHtml.append("</a>");
-				}
-
-				pagingHtml.append("&nbsp;");
-			}
-			pagingHtml.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
-
-			// 다음 block 페이지
-			if (totalPage - startPage >= blockPage) {
-				pagingHtml.append("<a href=SingerPage.action?category=singerPage&currentPage="
-						+ (endPage + 1) + ">");
-				pagingHtml.append("다음");
-				pagingHtml.append("</a>");
-			}
-			
+		//페이지 번호.현재 페이지는 빨간색으로 강조하고 링크를 제거.
+		for (int i = startPage; i <= endPage; i++) {
+			if (i > totalPage) {
+				break;
 		}
-		
-		if(category.equals("chart")) {
-			System.out.println("currentPage : " + currentPage);
-				if(currentPage == 1){
-					pagingHtml.append("&nbsp;<b> <font color='red'>");
-					pagingHtml.append("1위 ~ 10위");
-					pagingHtml.append("</font></b>");
-					pagingHtml.append("&nbsp;<a href='ChartBoard.action?category=chart&currentPage=");
-					pagingHtml.append(2);
-					pagingHtml.append("'>");						
-					pagingHtml.append("11위 ~ 20위");
-					pagingHtml.append("</a>");
-				}else if(currentPage == 2){
-					pagingHtml.append("&nbsp;<a href='ChartBoard.action?category=chart&currentPage=");
-					pagingHtml.append(1);
-					pagingHtml.append("'>");
-					pagingHtml.append("1위 ~ 10위");
-					pagingHtml.append("</a>");
-					pagingHtml.append("&nbsp;<b> <font color='red'>");
-					pagingHtml.append("11위 ~ 20위");
-					pagingHtml.append("</font></b>");
-				}
-				pagingHtml.append("&nbsp;");
+		if (i == currentPage) {
+			pagingHtml.append("&nbsp;<b> <font color='red'>");
+			pagingHtml.append(i);
+			pagingHtml.append("</font></b>");
+		} else {
+			pagingHtml.append("&nbsp;<a href=notice_board.kh?currentPage=");
+			pagingHtml.append(i);
+			pagingHtml.append("'>");
+			pagingHtml.append(i);
+			pagingHtml.append("</a>");
 		}
-		
-		if(category.equals("new")){
-			// 이전 block 페이지
-			System.out.println("new paging pass");
-			
-			if (currentPage > blockPage) {
-				pagingHtml.append("<a href=NewChartBoard.action?category=chart&currentPage=" + (startPage - 1) + ">");
-				pagingHtml.append("이전");
-				pagingHtml.append("</a>");
-			}
 
-			pagingHtml.append("&nbsp;|&nbsp;");
-
-			//페이지 번호.현재 페이지는 빨간색으로 강조하고 링크를 제거.
-			for (int i = startPage; i <= endPage; i++) {
-				if (i > totalPage) {
-					break;
-				}
-				if (i == currentPage) {
-					pagingHtml.append("&nbsp;<b> <font color='red'>");
-					pagingHtml.append(i);
-					pagingHtml.append("</font></b>");
-				} else {
-					pagingHtml
-							.append("&nbsp;<a href='NewChartBoard.action?category=new&currentPage=");
-					pagingHtml.append(i);
-					pagingHtml.append("'>");
-					pagingHtml.append(i);
-					pagingHtml.append("</a>");
-				}
-
-				pagingHtml.append("&nbsp;");
-			}
-			pagingHtml.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
-
-			// 다음 block 페이지
-			if (totalPage - startPage >= blockPage) {	
-				pagingHtml.append("<a href=NewChartBoard.action?category=new&currentPage="
-						+ (endPage + 1) + ">");
-				pagingHtml.append("다음");
-				pagingHtml.append("</a>");
-			}
+		pagingHtml.append("&nbsp;");
 		}
-			
-		if(category.equals("genre")){// 이전 block 페이지
-			if (currentPage > blockPage) {
-				pagingHtml.append("<a href=GenreChartBoard.action?category=genre&currentPage=" + (startPage - 1) + ">");
-				pagingHtml.append("이전");
-				pagingHtml.append("</a>");
-			}
+		pagingHtml.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
 
-			pagingHtml.append("&nbsp;|&nbsp;");
-
-			//페이지 번호.현재 페이지는 빨간색으로 강조하고 링크를 제거.
-			for (int i = startPage; i <= endPage; i++) {
-				if (i > totalPage) {
-					break;
-			}
-			if (i == currentPage) {
-				pagingHtml.append("&nbsp;<b> <font color='red'>");
-				pagingHtml.append(i);
-				pagingHtml.append("</font></b>");
-			} else {
-				pagingHtml.append("&nbsp;<a href='GenreChartBoard.action?category=genre&currentPage=");
-				pagingHtml.append(i);
-				pagingHtml.append("'>");
-				pagingHtml.append(i);
-				pagingHtml.append("</a>");
-			}
-
-			pagingHtml.append("&nbsp;");
-			}
-			pagingHtml.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
-
-			// 다음 block 페이지
-			if (totalPage - startPage >= blockPage) {
-				pagingHtml.append("<a href=GenreChartBoard.action?category=genre&currentPage=" + (endPage + 1) + ">");
-				pagingHtml.append("다음");
-				pagingHtml.append("</a>");
-			}
+		// 다음 block 페이지
+		if (totalPage - startPage >= blockPage) {
+			pagingHtml.append("<a href=notice_board.kh?currentPage=" + (endPage + 1) + ">");
+			pagingHtml.append("다음");
+			pagingHtml.append("</a>");
 		}
 	}
 
@@ -324,14 +169,6 @@ public class pagingAction {
 
 	public void setPagingHtml(StringBuffer pagingHtml) {
 		this.pagingHtml = pagingHtml;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
 	}
 
 	public String getGenre() {
