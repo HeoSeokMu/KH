@@ -14,10 +14,7 @@ public class libraryDTO {
 	private String book_supplement;	//부록
 
 	private int imagename;	//책 이미지
-<<<<<<< HEAD
-=======
 
->>>>>>> 26c8d6e88968032190910aaf21d66d7f5b3392a0
 	private Timestamp reg_date;	//등록 일
 	private int isbn;			//isbn
 	private String loan;		// 대출여부
@@ -75,10 +72,6 @@ public class libraryDTO {
 	public void setImagename(int imagename) {
 		this.imagename = imagename;
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> 26c8d6e88968032190910aaf21d66d7f5b3392a0
 	public Timestamp getReg_date() {
 		return reg_date;
 	}

@@ -19,7 +19,7 @@
 <tr align="center" bgcolor="77CC55">
 	<td><br />
 	<font size="5"><b>주 소 검 색</b></font><br /><br />
-	<font size="2">주소를 읍, 면, 동 까지만 검색해주세요.</font><br /><br />
+	<font size="2">주소를 동 까지만 검색해주세요.</font><br /><br />
 	<input type="text" name="addrSearch">
 	<input type="submit" value="검색" onClick="">
 	<br />&nbsp;
