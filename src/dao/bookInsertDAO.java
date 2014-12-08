@@ -55,7 +55,7 @@ public class bookInsertDAO {
 			            pstmt.setString(3, library.getBook_location());
 			            pstmt.setString(4, library.getBook_writer());
 			            pstmt.setString(5, library.getBook_publisher());
-			            pstmt.setInt(6, library.getBook_year());
+			            pstmt.setString(6, library.getBook_year());
 			            pstmt.setString(7, library.getBook_supplement());
 			            pstmt.setTimestamp(8, library.getReg_date());
 			            pstmt.setInt(9, library.getIsbn());
@@ -212,7 +212,7 @@ public class bookInsertDAO {
 		        pstmt.setString(2, book.getBook_location());
 		        pstmt.setString(3, book.getBook_writer());
 		        pstmt.setString(4, book.getBook_publisher());
-		        pstmt.setInt(5, book.getBook_year());
+		        pstmt.setString(5, book.getBook_year());
 		        pstmt.setString(6, book.getBook_supplement());
 		        pstmt.setInt(7, book.getIsbn());
 		        pstmt.setString(8, book.getBook_img());
