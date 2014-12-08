@@ -2,6 +2,9 @@ package member.controller;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dao.MemberDAO;
 import dto.memberDTO;
+import dto.postDTO;
 
 @Controller
 public class memCon{
@@ -24,7 +28,6 @@ public class memCon{
 	public String form2(){
 		return "/member/join_form.jsp";
 	}
-	
 	
 	@RequestMapping("/joinFormPro.kh")
 	public ModelAndView formPro(HttpSession session, HttpServletRequest request, 
@@ -41,7 +44,13 @@ public class memCon{
 		dto.setNum2(test[0]);
 		dto.setMajor(test[1]);
 		
-		String FileUploadPath = "/KH_School/WebContent/upload/mem_img/";
+		//절대경로.String FileUploadPath = "/KH_School/WebContent/upload/mem_img/";
+		
+		//상대경로로 파일을 업로드 하여 통합을 편하게 합니다.
+		
+		String path = request.getSession().getServletContext().getRealPath("");
+		String path2 = "/upload/mem_img/";
+		String FileUploadPath = path + path2;
 		
 		MemberDAO join_dao = MemberDAO.getInstance();
 		
@@ -71,7 +80,8 @@ public class memCon{
 		String id = dto.getNum1() + dto.getNum2() + numbering;
 		dto.setId(id);
 		
-		//주소 검색 후 자동 등록
+		//주소 검색 후 등록
+		
 		
 		//프로필 사진 파일 업로드 부분
 		
@@ -80,7 +90,7 @@ public class memCon{
 			//파일명에서 확장자 추출.
 			String extension = file.getOriginalFilename().substring(file.getOriginalFilename().
 					length()-3, file.getOriginalFilename().length());
-			//ID.확장자 형태로 파일명 만들기.
+			//"ID.확장자" 형태로 파일명 만들기.
 			String fileName = dto.getId() + "." + extension;
 			File saveFile = new File(FileUploadPath + fileName);
 			try{
@@ -121,10 +131,23 @@ public class memCon{
 	}
 	
 	@RequestMapping(value="/searchAddr.kh")
-	public String searchAddr(HttpServletRequest request, 
-			HttpServletResponse response, 
-			@ModelAttribute memberDTO dto) throws Exception{
+	public String searchAddr() throws Exception{
 		return "/member/addrSearch.jsp";
+	}
+	
+	@RequestMapping(value="/searchAddrPro.kh")
+	public ModelAndView searchAddrPro(@ModelAttribute postDTO Pdto, HttpServletRequest request) throws Exception{
+		
+		MemberDAO post = MemberDAO.getInstance();
+		String sch = request.getParameter("addrSearch");
+		List list = new ArrayList();
+		list = post.getPost(sch);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("postlist", list);
+		mv.setViewName("/member/addrSearch.jsp");
+		
+		return mv;
 	}
 	
 }

@@ -175,15 +175,15 @@
 				<th width = 130 align=center>주  소</th>
 				<td>
 					&nbsp;&nbsp;
-					<input type="text" name="zipcode1" size=5 readOnly onClick="">
-					<input type="text" name="zipcode2" size=5 readOnly onClick="">
+					<input type="text" name="zipcode1" size=5 readOnly onClick="goPost();">
+					<input type="text" name="zipcode2" size=5 readOnly onClick="goPost();">
 					<input type="button" name="post_find" value="우편번호 검색" 
-					onClick="window.open(url, 'win_page', 'toolbar=no, location=no, status=no,' 
-							+'menubar=no, scrollbars=no, resizable=no, width=700, height=600');"><br>
+					onClick="window.open('searchAddr.kh', 'win_page', 'toolbar=no, location=no, status=no,' 
+							+'menubar=no, scrollbars=yes, resizable=no, left=300, top=100, width=600, height=400');"><br>
 					&nbsp;&nbsp;
-					<input type="text" name="addr1" size=30 value=""><br>
+					<input type="text" name="addr1" size=30  readOnly onClick="goPost();"><br>
 					&nbsp;&nbsp;
-					<input type="text" name="addr2" size=30 value="" onchange="Address_CHECK(this.form)">
+					<input type="text" name="addr2" size=30>
 					<sub>(나머지 주소)</sub>
 					<input type="hidden" name="address">
 					<input type="hidden" name="post">
@@ -258,7 +258,7 @@
 				<th width = 130 align=center>미리보기
 				<td>
 					<div id="def_img" align="center">
-						<img src="/KH_School/member/mem_img/pro2.jpg" style="width:130; height:150;">
+						<img src="/KH_School/upload/mem_img/pro2.jpg" style="width:130; height:150;">
 					</div>
 					<div id="pre_div" align="center" style="display:none;">
 						<img id="preView" class="preView" style="width:130; height:150;">

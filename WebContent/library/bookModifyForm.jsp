@@ -8,24 +8,33 @@
 </head>
 <center><b>도서 수정</b>
 <br/>
-<form action="/KH_School/bookModifyForm.kh?pageNum=${pageNum}" method="post" name="bookModify">
+<form method="post" action="bookModifyFormPro.kh" enctype="multipart/form-data">
+<input type="hidden" name="book_id" value="${book.book_id}">
+<table border="1">
 <tr>
-	<td>책 번호 : ${dto.book_id}
-	<input type="hidden" name="book_id" value="${dto.book_id}"></td>
-	<td>제목 : <input type="text" name="book_title" value="${dto.book_title}"></td>
-	<td>위치 : <input type="text" name="book_location" value="${dto.book_location}"></td>
+	<td>책 번호 :${book.book_id}</td>
+	<td>제목 : <input type="text" name="book_title" value="${book.book_title}"></td>
+	<td>위치 : <input type="text" name="book_location" value="${book.book_location}"></td>
 </tr>
 <tr>
-	<td>저자 : <input type="text" name="book_writer" value="${dto.book_writer}"></td>
-	<td>출판사 : <input type="text" name="book_publisher" value="${dto.book_publisher }"></td>
-	<td>출판년도 : <input type="text" name="book_year" value="${dto.book_year }"></td>
+	<td>저자 : <input type="text" name="book_writer" value="${book.book_writer}"></td>
+	<td>출판사 : <input type="text" name="book_publisher" value="${book.book_publisher }"></td>
+	<td>출판년도 : <input type="text" name="book_year" value="${book.book_year }"></td>
 	
 </tr>
 <tr>
-	<td>부록 : <input type="text" name="book_supplement" value="${dto.book_supplement}"></td>
-	<td>책이미지 <input type="file" name="file_orgname" value=""></td>
+	<td>부록 : <input type="text" name="book_supplement" value="${book.book_supplement}"></td>
+	<td>isbn : <input type="text" name="isbn" value="${book.isbn}"></td>
+	<td>책이미지:	<img src="/KH_School/upload/book_img/${book.book_img}" width=100 height=100> 
+	
+	<input type="file" name="upload" id="upload" accept="image/*" onChange="hideDefaultPic()">
+					</td></td>
 	</tr>
-
+<tr>
+	<td><a href="/KH_School/bookInsertForm.kh">취소하기</a>
+	<td colspan="6"><input type="submit" value="등록"></td>
+</tr>
+</table>
 </form>
 
 </html>

@@ -17,11 +17,6 @@ import dao.MemberDAO;
 @Controller
 public class Login{
 	
-	@RequestMapping("/LoginForm.kh")
-	public String LoginForm(){
-		return "/member/login_form.jsp";
-	}
-	
 	@RequestMapping(value="/LoginPro.kh", method=RequestMethod.POST)
 	public ModelAndView Login_check(HttpSession session, HttpServletRequest req) throws Exception{
 		
@@ -29,12 +24,13 @@ public class Login{
 		
 		String id = req.getParameter("id");
 		String passwd = req.getParameter("passwd");
+		String type = req.getParameter("type");
 		int check = 0;
 		
 		System.out.println(id + " / " + passwd);
 		
 		MemberDAO mDAO = new MemberDAO().getInstance();
-		check = mDAO.Login_check(id, passwd);
+		check = mDAO.Login_check(id, passwd, type);
 		
 		System.out.println("LoginPro check : " + check);
 		System.out.println("LoginPro id : " + id);
@@ -46,14 +42,25 @@ public class Login{
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("id", id);						//책번호와 제목을 파라미터로 보네줌
-		if(check == 0 || check == -1) {
+		if(check != 1) {
+			mv.addObject("check", check);
 			System.out.println("check : 0으로 간다!!!");
 		} else {
 			System.out.println("check : 1로 간다!!!");
 			session.setAttribute("memId", id); 	//세션 생성
 			mv.addObject("check", check);
 		}
-		mv.setViewName("/main/main.jsp");
+		if(type.equals("학생")) {
+			mv.setViewName("/main/s_main.jsp");
+		} else if(type.equals("교수")){
+			mv.setViewName("/main/p_main.jsp");
+		} else if(type.equals("교직원")) {
+			mv.setViewName("/main/e_main.jsp");
+		} else {
+			mv.setViewName("/main/main.jsp");
+		}
+		
+		System.out.println(mv.getViewName());
 		
 		return mv;
 	}

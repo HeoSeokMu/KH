@@ -1,5 +1,6 @@
 package library.controller;
 
+import java.io.File;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,11 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import libraryPage.PagingAction;
 
+import org.apache.taglibs.standard.extra.spath.Path;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ibatis.common.resources.Resources;
@@ -52,7 +56,7 @@ public class bookInsert{
 	private String actionName = "bookInsert";
 	
 public static Reader reader;
-		
+	
 	
 	@RequestMapping(value="libraryInsertList.kh")
 	public String libraryInsertList(HttpServletRequest request) throws Exception{
@@ -118,39 +122,37 @@ public static Reader reader;
 		return "/library/bookInsertForm.jsp";
 	}
 	
-	/*@RequestMapping(value="/bookInsertForm.kh", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView form(HttpServletRequest req) throws Exception{
-		String id = req.getParameter("book_id"); 
-		int book_id = Integer.parseInt(id);
-		String book_title = req.getParameter("book_title");
-		String book_location = req.getParameter("book_location");
-		String book_writer = req.getParameter("book_writer");
-		String book_pulisher = req.getParameter("book_pulisher");
-		String b_year = req.getParameter("book_year");
-		int book_year = Integer.parseInt("b_year");
-		String book_supplment = req.getParameter("book_supplment");
-		String file_orgname = req.getParameter("file_orgname");
 
-		
-		System.out.println(book_id);
-
-		ModelAndView mv = new ModelAndView();
-
-		mv.addObject("book_id", book_id);		
-		mv.addObject("book_title", book_title);
-		mv.setViewName("/library/bookInsertForm.jsp");
-		return mv;
-	}
-*/
 	@RequestMapping(value="/bookInsertFormPro.kh")
-	public ModelAndView formPro(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
+	public ModelAndView formPro(HttpServletRequest req, @ModelAttribute libraryDTO dto, MultipartHttpServletRequest request) throws Exception{
 		
-		
-	
 		dto.setReg_date(new Timestamp(System.currentTimeMillis()));
+	
+		String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/book_img/";
 		
-		
+
 		bookInsertDAO book_dao = bookInsertDAO.getInstance();
+		
+		
+		if(!request.getFile("upload").isEmpty()){
+			MultipartFile file = request.getFile("upload");
+
+			//파일명에서 확장자 추출.
+			String extension = file.getOriginalFilename().substring(file.getOriginalFilename().
+					length()-3, file.getOriginalFilename().length());
+			
+			//ID.확장자 형태로 파일명 만들기.
+			String fileName = dto.getBook_id() + "." + extension;
+			File saveFile = new File(FileUploadPath + fileName);
+			try{
+				file.transferTo(saveFile);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			dto.setBook_img(fileName);
+		
+			}
+		
 		book_dao.bookInsert(dto);
 		
 		ModelAndView mv = new ModelAndView();
@@ -161,6 +163,10 @@ public static Reader reader;
 		mv.addObject("book_writer", req.getParameter("book_writer"));
 		mv.addObject("book_publisher", req.getParameter("book_publisher"));
 		mv.addObject("book_supplment", req.getParameter("book_supplement"));
+		mv.addObject("book_img", req.getParameter("book_img"));
+		
+		
+		
 		
 		mv.setViewName("/library/bookInsertFormPro.jsp");
 		
@@ -171,7 +177,6 @@ public static Reader reader;
 	public ModelAndView formPrp(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
 
 		dto.setReg_date(new Timestamp(System.currentTimeMillis()));
-		
 		
 		bookInsertDAO book_dao = bookInsertDAO.getInstance();
 		book_dao.bookInsert(dto);
