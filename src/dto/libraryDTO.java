@@ -10,15 +10,15 @@ public class libraryDTO {
 	private String book_location;	//책 위치
 	private String book_writer;		//저자
 	private String book_publisher;	//출판
-	private int book_year;			//출판일
+	private String book_year;			//출판일
 	private String book_supplement;	//부록
-	private int imagename;	//책 이미지
 	private Timestamp reg_date;	//등록 일
 	private int isbn;			//isbn
 	private String loan;		// 대출여부
 	private String s_num;		// 학번
 	private int extension;		// 연장 횟수
 	private Date turnin;		// 반납날
+	private String book_img;
 	
 	
 	public String getBook_id() {
@@ -51,10 +51,10 @@ public class libraryDTO {
 	public void setBook_publisher(String book_publisher) {
 		this.book_publisher = book_publisher;
 	}
-	public int getBook_year() {
+	public String getBook_year() {
 		return book_year;
 	}
-	public void setBook_year(int book_year) {
+	public void setBook_year(String book_year) {
 		this.book_year = book_year;
 	}
 	public String getBook_supplement() {
@@ -62,12 +62,6 @@ public class libraryDTO {
 	}
 	public void setBook_supplement(String book_supplement) {
 		this.book_supplement = book_supplement;
-	}
-	public int getImagename() {
-		return imagename;
-	}
-	public void setImagename(int imagename) {
-		this.imagename = imagename;
 	}
 	public Timestamp getReg_date() {
 		return reg_date;
@@ -104,5 +98,11 @@ public class libraryDTO {
 	}
 	public void setTurnin(Date turnin) {
 		this.turnin = turnin;
+	}
+	public String getBook_img() {
+		return book_img;
+	}
+	public void setBook_img(String book_img) {
+		this.book_img = book_img;
 	}
 }
