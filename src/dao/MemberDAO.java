@@ -1,14 +1,19 @@
 package dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.sql.*;
-import javax.naming.*;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 import dto.memberDTO;
+import dto.noticeboard_DTO;
 import dto.postDTO;
-
-import java.util.*;
 
 public class MemberDAO {
 
@@ -160,12 +165,8 @@ public class MemberDAO {
 		}
 		return x;
 	}
-<<<<<<< HEAD
 
-	public List getPost(String sch) throws Exception {
-=======
-	public List<String> getPost() throws Exception {
->>>>>>> c8c38f44b6a628ec6f038e17638952c47998963b
+	public List<String> getPost(String sch) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -181,7 +182,8 @@ public class MemberDAO {
 				do {
 					postDTO dto = new postDTO();
 					dto.setAddr(rs.getString("addr"));
-					dto.setZipcode(rs.getString("zipcode"));                       
+					dto.setZipcode(rs.getInt("zipcode"));
+					dto.setType(rs.getString("type"));
 					postList.add(dto);
 				} while (rs.next());
 			}
@@ -237,5 +239,73 @@ public class MemberDAO {
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
 		return mDTO;
+	}
+	
+	// 공지 내용을 DB에 인서트
+	public void insert_NoticeBoard(noticeboard_DTO nb_DTO) throws Exception {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try {
+            conn = getConnection();
+            
+            pstmt = conn.prepareStatement(
+            	"insert into KH_NOTICEBOARD values (autonum.NEXTVAL,?,?,?,?)");
+            pstmt.setString(1, nb_DTO.getTitle());
+            pstmt.setString(2, nb_DTO.getWriter());
+            pstmt.setString(3, nb_DTO.getContent());
+            pstmt.setTimestamp(4, nb_DTO.getReg_date());
+
+            pstmt.executeUpdate();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+        
+    }
+	
+	// 공지 내용을 DB에서 가져옴
+	public List<noticeboard_DTO> notice_BoardList() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<noticeboard_DTO> noticeBoard_List = null;
+		System.out.println("noticeBoard_List =======================");
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from KH_NOTICEBOARD");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				noticeBoard_List = new ArrayList<noticeboard_DTO>();
+				do {
+					noticeboard_DTO dto = new noticeboard_DTO();
+					dto.setNum(rs.getInt("num"));
+					dto.setTitle(rs.getString("title"));
+					dto.setContent(rs.getString("content"));
+					dto.setWriter(rs.getString("writer"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+					noticeBoard_List.add(dto);
+				} while (rs.next());
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		System.out.println("noticeBoard_List size : "+noticeBoard_List);
+		
+		for(int i = 0; i<noticeBoard_List.size(); i++) {
+			noticeBoard_List.get(i).getNum();
+			noticeBoard_List.get(i).getTitle();
+			noticeBoard_List.get(i).getContent();
+			noticeBoard_List.get(i).getReg_date();
+			noticeBoard_List.get(i).getWriter();
+		}
+
+		return noticeBoard_List;
 	}
 }

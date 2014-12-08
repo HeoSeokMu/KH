@@ -120,7 +120,7 @@
 							<li class="ly" style="display:list-item;">
 								<dl>
 									<dt>공지사항</dt>
-									<dd><a href="#">공지사항</a></dd>
+									<dd><a href="notice_board.kh">공지사항</a></dd>
 								</dl>
 							</li>
 							<li class="btn"><a class="menu2">학적</a></li>
