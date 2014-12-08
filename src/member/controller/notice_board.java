@@ -19,7 +19,7 @@ public class notice_board {
 	
 	private int currentPage = 1;	// 현재 페이지
 	private int totalCount;			// 총 게시물의 수
-	private int blockCount = 10;	// 한 페이지의  게시물의 수
+	private int blockCount = 3;		// 한 페이지의  게시물의 수
 	private int blockPage = 5; 		// 한 화면에 보여줄 페이지 수
 	private pagingAction page; 		// 페이징 클래스
 	private String pagingHtml; 		// 페이징을 구현한 HTML
@@ -34,13 +34,20 @@ public class notice_board {
 		totalCount = list.size(); // 전체 글 갯수를 구한다.
 		
 		System.out.println("totalCount : " + totalCount);
-				
+		
+		String currentPage_check = req.getParameter("currentPage");
+		if(currentPage_check == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(req.getParameter("currentPage"));
+		}
 		page = new pagingAction(currentPage, totalCount, blockCount, blockPage); // pagingAction 객체 생성.
 			
 		System.out.println("list f : " + list);
 		pagingHtml = page.getPagingHtml().toString();  // 페이지 HTML 생성.
+		System.out.println("pagingHtml : " + pagingHtml);
+		
 		//paging
-			
 		int lastCount = totalCount;
 			
 		// 현재 페이지의 마지막 글의 번호가 전체의 마지막 글 번호보다 작으면 lastCount를 +1 번호로 설정.
@@ -52,7 +59,10 @@ public class notice_board {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", list);
+		mv.addObject("totalCount", totalCount);
+		mv.addObject("currentPage", currentPage);
 		mv.addObject("pagingHtml", pagingHtml);
+		mv.addObject("blockCount", blockCount);
 		mv.setViewName("/member/notice_board.jsp");
 		
 		System.out.println(mv.getViewName());

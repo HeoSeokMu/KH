@@ -199,19 +199,16 @@
 			<center>
 			<form method="post" name="chartForm">
 				<br/><br/>
-				<h1>공지사항</h1>
-				<hr width="880px" size="1" color="gray" align="center" />
-				<hr width="880px" size="1" align="center" />
+				<h1>게시글</h1>
 				<table align="center">
 					<tr align="center">
-						<td width="50px"><g>NO</g></td>
-						<td width="150px"><g>제목</g></td>
-						<td width="150px"><g>날짜</g></td>
-						<td width="100px"><g>작성자</g></td>
+						<td width="50px"><g>No</g></td><td>${nb_DTO.num}</td>
+						<td width="150px"><g>제목</g></td><td width="150px">${nb_DTO.title}</td>
+						<td width="150px"><g>날짜</g></td><td width="150px">${nb_DTO.reg_date}</td>
+						<td width="100px"><g>작성자</g></td><td width="150px">${nb_DTO.writer}</td>
 					</tr>
 				</table>
-				<hr width="880px" size="3" color="#CC3D3D" align="center" />
-		
+						
 				<c:if test="${totalCount < 1}">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<table>
