@@ -32,19 +32,19 @@
 			<c:if test="${searchType=='writer'}">
 				<strong>검색어[키워드/저자:${word}]</strong>
 			</c:if>
-			<c:if test="${searchType==null}">
+			<c:if test="${searchType=='' || searchType==null}">
 				<strong>검색어[키워드/전체:${word}]</strong>
 			</c:if>
 		</td>
 	</tr>
 	<tr>
 		<td>
-			총 <strong>${count}</strong>건 중 <strong>${count}</strong>건 출력
+			총 <strong>${totalCount}</strong>건 중 <strong>${totalCount}</strong>건 출력
 		</td>
 	</tr>
 </table>
 
-<c:if test="${count == 0}">
+<c:if test="${totalCount == 0}">
 <table width="700" border="1" cellpadding="0" cellspacing="0">
   <tr>
     <td align="center">
@@ -54,10 +54,10 @@
 </table>
 </c:if>
 
-<c:if test="true">
-<table border="1" width="700" cellpadding="0" cellspacing="0" align="center"> 
+<c:if test="${totalCount > 0}">
+<table border="1" cellpadding="0" cellspacing="0" align="center"> 
     <tr height="30" bgcolor="${value_c}">
-      <td align="center"  width="200" >이미지</td> 
+      <td align="center"  width="100" >이미지</td> 
       <td align="center"  width="100" >제목</td>
       <td align="center"  width="100" >저자</td>
       <td align="center"  width="100" >출판사</td>
@@ -74,10 +74,10 @@
       </c:if>
     </tr>
 
-   <c:forEach var="article" items="${articleList}">
+   <c:forEach var="article" items="${list}">
    <tr height="60">
-    <td align="center"  width="100" >
-	  <img src="/KH_School/book_image/${article.imagename}${article.book_img}" width="100%" height="100%"/>
+    <td align="center"  width="100" height="110">
+	  <img src="/KH_School/upload/book_img/5.jpg" width="100%" height="100%"/>
 	</td>
     <td align="center" width="100" >
 		<c:out value="${article.book_title}"/>
@@ -119,28 +119,7 @@
 </table>
 </c:if>
 
-<c:if test="${count > 0}">
-   <c:set var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
-   <c:set var="pageBlock" value="${10}"/>
-   <fmt:parseNumber var="result" value="${currentPage / 10}" integerOnly="true" />
-   <c:set var="startPage" value="${result * 10 + 1}" />
-   <c:set var="endPage" value="${startPage + pageBlock-1}"/>
-   <c:if test="${endPage > pageCount}">
-        <c:set var="endPage" value="${pageCount}"/>
-   </c:if> 
-
-   <c:if test="${startPage > 10}">
-        <a href="/KH_School/bookList.kh?pageNum=${startPage - 10 }&searchType=${searchType}&word=${word}">[이전]</a>
-   </c:if>
-
-   <c:forEach var="i" begin="${startPage}" end="${endPage}">
-       <a href="/KH_School/bookList.kh?pageNum=${i}&searchType=${searchType}&word=${word}">[${i}]</a>
-   </c:forEach>
-
-   <c:if test="${endPage < pageCount}">
-        <a href="/KH_School/bookList.kh?pageNum=${startPage + 10}&searchType=${searchType}&word=${word}">[다음]</a>
-   </c:if>
-</c:if>
+${pagingHtml}
 
 
 </body>
