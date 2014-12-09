@@ -74,15 +74,19 @@
 				<th width = 130 align=center>비밀번호</th>
 				<td>
 					&nbsp;&nbsp;
-					<input type="password" name="password" maxlength=20>
-					<sub>(20자 내)</sub>
+					<input type="password" name="password" maxlength=20 onKeyup="pwEvent()">
+					<sub>(6~19자 내)</sub>
 				</td>
 			</tr>
 			<tr bgcolor="BBEE99" height=40>
 				<th width = 130 align=center>비밀번호 확인</th>
 				<td>
 					&nbsp;&nbsp;
-					<input type="password" name="password_re" maxlength=20>
+					<input type="password" name="password_re" maxlength=20 onKeyup="pwEvent()">
+					<div id="wrongPw" style="display:none;">&nbsp;&nbsp;&nbsp;
+					<font color="red" size="2"># 비밀번호를 동일하게 입력해주세요.</font></div>
+					<div id="rightPw" style="display:none;">&nbsp;&nbsp;&nbsp;
+					<font color="blue" size="2"># 비밀번호가 일치합니다.</font></div>
 				</td>
 			</tr>
 			<tr bgcolor="BBEE99" height=40>
@@ -183,7 +187,7 @@
 					&nbsp;&nbsp;
 					<input type="text" name="addr1" size=30  readOnly onClick="goPost();"><br>
 					&nbsp;&nbsp;
-					<input type="text" name="addr2" size=30>
+					<input type="text" name="addr2" size=30 onKeyUp="Address_CHECK(this.form)">
 					<sub>(나머지 주소)</sub>
 					<input type="hidden" name="address">
 					<input type="hidden" name="post">
