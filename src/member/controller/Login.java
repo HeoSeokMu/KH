@@ -17,6 +17,9 @@ import dao.MemberDAO;
 @Controller
 public class Login{
 	
+	
+
+	
 	@RequestMapping(value="/LoginPro.kh", method=RequestMethod.POST)
 	public ModelAndView Login_check(HttpSession session, HttpServletRequest req) throws Exception{
 		
