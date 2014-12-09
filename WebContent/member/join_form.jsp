@@ -74,15 +74,19 @@
 				<th width = 130 align=center>비밀번호</th>
 				<td>
 					&nbsp;&nbsp;
-					<input type="password" name="password" maxlength=20>
-					<sub>(20자 내)</sub>
+					<input type="password" name="password" maxlength=20 onKeyup="pwEvent()">
+					<sub>(6~19자 내)</sub>
 				</td>
 			</tr>
 			<tr bgcolor="BBEE99" height=40>
 				<th width = 130 align=center>비밀번호 확인</th>
 				<td>
 					&nbsp;&nbsp;
-					<input type="password" name="password_re" maxlength=20>
+					<input type="password" name="password_re" maxlength=20 onKeyup="pwEvent()">
+					<div id="wrongPw" style="display:none;">&nbsp;&nbsp;&nbsp;
+					<font color="red" size="2"># 비밀번호를 동일하게 입력해주세요.</font></div>
+					<div id="rightPw" style="display:none;">&nbsp;&nbsp;&nbsp;
+					<font color="blue" size="2"># 비밀번호가 일치합니다.</font></div>
 				</td>
 			</tr>
 			<tr bgcolor="BBEE99" height=40>
@@ -175,15 +179,15 @@
 				<th width = 130 align=center>주  소</th>
 				<td>
 					&nbsp;&nbsp;
-					<input type="text" name="zipcode1" size=5 readOnly onClick="">
-					<input type="text" name="zipcode2" size=5 readOnly onClick="">
+					<input type="text" name="zipcode1" size=5 readOnly onClick="goPost();">
+					<input type="text" name="zipcode2" size=5 readOnly onClick="goPost();">
 					<input type="button" name="post_find" value="우편번호 검색" 
-					onClick="window.open(url, 'win_page', 'toolbar=no, location=no, status=no,' 
-							+'menubar=no, scrollbars=no, resizable=no, width=700, height=600');"><br>
+					onClick="window.open('searchAddr.kh', 'win_page', 'toolbar=no, location=no, status=no,' 
+							+'menubar=no, scrollbars=yes, resizable=no, left=300, top=100, width=600, height=400');"><br>
 					&nbsp;&nbsp;
-					<input type="text" name="addr1" size=30 value=""><br>
+					<input type="text" name="addr1" size=30  readOnly onClick="goPost();"><br>
 					&nbsp;&nbsp;
-					<input type="text" name="addr2" size=30 value="" onchange="Address_CHECK(this.form)">
+					<input type="text" name="addr2" size=30 onKeyUp="Address_CHECK(this.form)">
 					<sub>(나머지 주소)</sub>
 					<input type="hidden" name="address">
 					<input type="hidden" name="post">

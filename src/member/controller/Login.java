@@ -60,6 +60,8 @@ public class Login{
 			mv.setViewName("/main/main.jsp");
 		}
 		
+		System.out.println(mv.getViewName());
+		
 		return mv;
 	}
 	

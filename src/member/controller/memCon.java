@@ -2,6 +2,7 @@ package member.controller;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dao.MemberDAO;
 import dto.memberDTO;
+import dto.postDTO;
 
 @Controller
 public class memCon{
@@ -26,7 +28,6 @@ public class memCon{
 	public String form2(){
 		return "/member/join_form.jsp";
 	}
-	
 	
 	@RequestMapping("/joinFormPro.kh")
 	public ModelAndView formPro(HttpSession session, HttpServletRequest request, 
@@ -89,7 +90,7 @@ public class memCon{
 			//파일명에서 확장자 추출.
 			String extension = file.getOriginalFilename().substring(file.getOriginalFilename().
 					length()-3, file.getOriginalFilename().length());
-			//ID.확장자 형태로 파일명 만들기.
+			//"ID.확장자" 형태로 파일명 만들기.
 			String fileName = dto.getId() + "." + extension;
 			File saveFile = new File(FileUploadPath + fileName);
 			try{
@@ -128,25 +129,34 @@ public class memCon{
 	
 		return mv;
 	}
-	
+	//주소검색 새 창 띄우기
 	@RequestMapping(value="/searchAddr.kh")
 	public String searchAddr() throws Exception{
 		return "/member/addrSearch.jsp";
 	}
-	
+	//파라미터 값을 넘겨 받아 주소 검색.
 	@RequestMapping(value="/searchAddrPro.kh")
-	public ModelAndView searchAddrPro(HttpServletRequest request) throws Exception{
+	public ModelAndView searchAddrPro(@ModelAttribute postDTO Pdto, HttpServletRequest request) throws Exception{
 		
 		MemberDAO post = MemberDAO.getInstance();
+		//파라미터 유효성 검사 '동'이 포함되지 않으면 검색 false.
 		String sch = request.getParameter("addrSearch");
-		
-		Map postList = post.getPost(sch);
+		if(sch.contains("동")){
+			List list = new ArrayList();
+			String cut = sch.substring(0, sch.length()-1);
+			
+			list = post.getPost(cut);
+			
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("postlist", list);
+			mv.setViewName("/member/addrSearch.jsp");
+			
+			return mv;
+		}
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("postList", postList);
-		mv.setViewName("/member/addrSearch.jsp");
+		mv.setViewName("/member/addrSearchError.jsp");
 		
 		return mv;
 	}
-	
 }

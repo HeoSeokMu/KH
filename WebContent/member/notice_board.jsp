@@ -8,7 +8,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>KH 통합정보시스템</title>
+<title>공지사항</title>
 	<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
 	<link rel="stylesheet" href="css/left_menu.css"></link>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
@@ -196,36 +196,62 @@
 		</div>
 		 
 		<div id="box3">
-			<c:if test="${memId == null}">
-				<form name="inform" method="post" action="LoginPro.kh"	onsubmit="return checkIt();">
-					<table class="tablepadding" align="center" cellspacing="10">
+			<center>
+			<form method="post" name="chartForm">
+				<br/><br/>
+				<h1>공지사항</h1>
+				<hr width="880px" size="1" color="gray" align="center" />
+				<hr width="880px" size="1" align="center" />
+				<table align="center">
+					<tr align="center">
+						<td width="50px"><g>NO</g></td>
+						<td width="150px"><g>제목</g></td>
+						<td width="150px"><g>날짜</g></td>
+						<td width="100px"><g>작성자</g></td>
+					</tr>
+				</table>
+				<hr width="880px" size="3" color="#CC3D3D" align="center" />
+		
+				<c:if test="${totalCount < 1}">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<table>
 						<tr>
-							<td>
-								<input type="text" name="id" class="input" placeholder="아이디" maxlength="10"/>
-							</td>
-							<td rowspan="2">
-								<input type="submit" class="login" name="Submit" value="로그인"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="password" name="passwd" placeholder="패스워드" class="input" maxlength="10"/>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" class="lineX">
-								<font style="font-size: 8pt">
-								&nbsp;<a href="findIdForm.action" title="아이디/비밀번호 찾기" style="color: gray;">아이디/비밀번호 찾기</a>
-								</font>
-							</td>
+							<td align="left">게시물이 존재하지 않습니다.</td>
 						</tr>
 					</table>
-				</form>
-			</c:if>
+				</c:if>
+		
+				<c:if test="${totalCount > 0}">
+					<c:forEach var="list" items="${list}" varStatus="checkValue">
+						<table align="center">
+							<tr align="center" height="25px">
+								<td width="50px">
+									${(currentPage-1) * blockCount + (checkValue.index + 1)}
+								</td>
+								<td width="150px">
+									<a href="#">${list.title}</a>
+								</td>
+								<td width="150px">
+									${list.reg_date}
+								</td>
+								<td width="100px">
+									${list.writer}
+								</td>
+							</tr>
+						</table>
+						<hr width="880px" size="1" color="gray" align="center" />
+					</c:forEach>
+				</c:if>
+				<hr width="880px" size="1" align="center" />
+				<br/>
+				<center>
+					${pagingHtml}
+				</center>
+				<br/><br/>
+			</form>
+			</center>
 		</div>
 		<div id="box4"> <center><br/><br/></center> </div>
 	</div>
 </body>
 </html>
-
-
