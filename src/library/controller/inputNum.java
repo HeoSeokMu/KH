@@ -1,33 +1,23 @@
 package library.controller;
 
-
-import java.util.Calendar;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
-
-
 @Controller
 public class inputNum{
 	
-	@RequestMapping(value="/inputNumForm.kh", method=RequestMethod.POST)
-	public ModelAndView form(HttpServletRequest req) throws Exception{
-		String b_num = req.getParameter("b_num");
-		String b_name = req.getParameter("b_name");
-		System.out.println(b_num);
-
+	@RequestMapping(value="/inputNumForm.kh", method=RequestMethod.GET)
+	public ModelAndView numInputForm(HttpServletRequest req) throws Exception{
+		String book_id = req.getParameter("book_id");
+		
 		ModelAndView mv = new ModelAndView();
-
-		mv.addObject("b_num", b_num);		//책번호와 제목을 파라미터로 보네줌
-		mv.addObject("b_name", b_name);
 		mv.setViewName("/library/inputNumForm.jsp");
+		mv.addObject("book_id", book_id);
 		return mv;
 	}
 

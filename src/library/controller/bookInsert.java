@@ -153,6 +153,7 @@ public static Reader reader;
 		
 			}
 		
+		
 		book_dao.bookInsert(dto);
 		
 		ModelAndView mv = new ModelAndView();
@@ -164,6 +165,8 @@ public static Reader reader;
 		mv.addObject("book_publisher", req.getParameter("book_publisher"));
 		mv.addObject("book_supplment", req.getParameter("book_supplement"));
 		mv.addObject("book_img", req.getParameter("book_img"));
+		mv.addObject("book_year", req.getParameter("book_year"));
+		mv.addObject("isbn", req.getParameter("isbn"));
 		
 		
 		

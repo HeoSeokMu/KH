@@ -16,7 +16,7 @@
 		<option value="title">서명</option>
 		<option value="writer">저자</option>
 	</select>
-	<input type="text" name="word" />
+	<input type="text" name="keyword" />
 	<input type="submit" value="검색" />
 </form>
 
@@ -24,16 +24,16 @@
 	<tr>
 		<td>
 			<c:if test="${searchType=='all'}">
-				<strong>검색어[키워드/전체:${word}]</strong>
+				<strong>검색어[키워드/전체:${keyword}]</strong>
 			</c:if>
 			<c:if test="${searchType=='title'}">
-				<strong>검색어[키워드/서명:${word}]</strong>
+				<strong>검색어[키워드/서명:${keyword}]</strong>
 			</c:if>
 			<c:if test="${searchType=='writer'}">
-				<strong>검색어[키워드/저자:${word}]</strong>
+				<strong>검색어[키워드/저자:${keyword}]</strong>
 			</c:if>
 			<c:if test="${searchType=='' || searchType==null}">
-				<strong>검색어[키워드/전체:${word}]</strong>
+				<strong>검색어[키워드/전체:${keyword}]</strong>
 			</c:if>
 		</td>
 	</tr>
@@ -45,10 +45,10 @@
 </table>
 
 <c:if test="${totalCount == 0}">
-<table width="700" border="1" cellpadding="0" cellspacing="0">
+<table width="700" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td align="center">
-    	등록된 책이 없습니다.
+    	검색결과가 없습니다.
     </td>
   </tr>
 </table>
@@ -80,7 +80,7 @@
 	  <img src="/KH_School/upload/book_img/5.jpg" width="100%" height="100%"/>
 	</td>
     <td align="center" width="100" >
-		<c:out value="${article.book_title}"/>
+		<c:out value="${article.book_title}"/>${article.book_id}
 	</td>
     <td align="center"  width="100"> 
        <c:out value="${article.book_writer}"/>
@@ -104,13 +104,14 @@
     	<c:out value="${article.loan}"/>
     </td>
     <td align="center" width="100" >
-    	<c:if test="${article.loan}=='보관중'">
+    	<c:if test="${article.loan=='보관중'}">
     		<c:if test="${memId}=='book_admin'">
-      			<a href="/KH_School/numInputForm.kh">대출</a>
+      			<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}">대출</a>
       		</c:if>
       		<c:out value=""/>
     	</c:if>
-    	<c:if test="${article.loan}=='대출중'">
+    	<c:if test="${article.loan=='보관중'}">
+    		<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}">대출</a>
     		<a href="/KH_School/noticeForm.kh">반납알림받기</a>
     	</c:if>
     </td>
@@ -118,9 +119,9 @@
   </c:forEach>
 </table>
 </c:if>
-
-${pagingHtml}
-
+<c:if test="${totalCount > 0}">
+	${pagingHtml}
+</c:if>
 
 </body>
 </center>

@@ -10,13 +10,14 @@
 </tr>
 <tr>
 	<td>저자 : ${dto.book_writer}</td>
-	<td>출판사 : ${dto.book_publisher }</td>
-	<td>출판년도 : ${dto.book_year }</td>
+	<td>출판사 : ${dto.book_publisher}</td>
+	<td>출판년도 : ${dto.book_year}</td>
 	
 </tr>
 <tr>
 	<td>부록 : ${dto.book_supplement}</td>
-	<td>책 이미지: </td>
+	<td>책 이미지: <img src="/KH_School/upload/book_img/${book.book_img}" width=100 height=100></td>
+	<td>isbn : ${dto.isbn}</td>
 	</tr>
 	
 	<tr>

@@ -61,7 +61,7 @@ public class bookModify {
 				e.printStackTrace();
 			}
 			dto.setBook_img(fileName);
-		System.out.println(fileName);
+		
 			}
 		
 		book_dao.bookModify(dto);
@@ -74,7 +74,7 @@ public class bookModify {
 		mv.addObject("book_publisher", req.getParameter("book_publisher"));
 		mv.addObject("book_supplment", req.getParameter("book_supplement"));
 		mv.addObject("book_img", req.getParameter("book_img"));
-		
+		mv.addObject("isbn", req.getParameter("isbn"));
 		mv.setViewName("/library/bookModifyFormPro.jsp");
 		
 		return mv;

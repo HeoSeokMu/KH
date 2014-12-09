@@ -117,6 +117,33 @@ public class bookInsertDAO {
 			return articleList;
 		}
 		*/
+		public int plusNum3() throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int x = 0;
+
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement("select max(book_id) from kh_library");
+				
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					x= rs.getInt(1); 
+				}
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			return x;
+		}
+		
+		
+		
 	
 		//등록한 책 내역 보기
 		public libraryDTO getBookView(String book_id) throws Exception{
@@ -136,8 +163,10 @@ public class bookInsertDAO {
 					book.setBook_location(rs.getString("book_location"));
 					book.setBook_writer(rs.getString("book_writer"));
 					book.setBook_publisher(rs.getString("book_publisher"));
+					book.setBook_year(rs.getString("book_year"));
 					book.setBook_supplement(rs.getString("book_supplement"));
 					book.setReg_date(rs.getTimestamp("reg_date"));
+					book.setIsbn(rs.getInt("isbn"));
 					book.setBook_img(rs.getString("book_img"));
 				}
 			}catch(Exception ex){

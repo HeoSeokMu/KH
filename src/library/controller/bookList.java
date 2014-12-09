@@ -17,7 +17,7 @@ import dto.libraryDTO;
 @Controller	
 public class bookList{//글목록 처리
 
-		@RequestMapping(value="/listTest.kh", method=RequestMethod.GET)
+		@RequestMapping(value="/bookList.kh", method=RequestMethod.GET)
 		public ModelAndView formPro(HttpServletRequest req) throws Exception{
 			
 			String searchType = req.getParameter("searchType");
@@ -41,9 +41,11 @@ public class bookList{//글목록 처리
 				
 				// 모든 글을 가져와 list에 넣는다.
 				list = dbPro.getArticles(searchType, keyword);
-				System.out.println(list.size());
-				
-				totalCount = list.size(); // 전체 글 갯수를 구한다.
+				if(list == null){
+					totalCount = 0;
+				}else{
+					totalCount = list.size(); // 전체 글 갯수를 구한다.
+				}
 				page = new pagingAction(currentPage, totalCount, blockCount, blockPage, searchType, keyword); // pagingAction 객체 생성.
 				pagingHtml = page.getPagingHtml().toString(); // 페이지 HTML 생성.
 
@@ -55,9 +57,12 @@ public class bookList{//글목록 처리
 					lastCount = page.getEndCount() + 1;
 
 				// 전체 리스트에서 현재 페이지만큼의 리스트만 가져온다.
-				list = list.subList(page.getStartCount(), lastCount);
-				System.out.println(page.getStartCount());
-				System.out.println(lastCount);
+				if(list != null){
+					list = list.subList(page.getStartCount(), lastCount);
+				}else{
+					list = Collections.emptyList();
+				}
+				
 				
 				
 			//해당 뷰에서 사용할 속성
@@ -69,7 +74,7 @@ public class bookList{//글목록 처리
 		    mv.addObject("searchType", searchType);
 		    mv.addObject("keyword", keyword);
 			
-			mv.setViewName("/library/listTest.jsp");
+			mv.setViewName("/library/bookList.jsp");
 			return mv;
 		}
 }
