@@ -6,8 +6,8 @@
 															
 <table border="1">
 <tr>
-	<td>책 번호</td>
-	<td><input type="text" name="book_id" value="${dto.book_id}"></td>
+	<td>책 번호${lib.book_id}</td>
+	<td></td>
 	<td>제목</td>
 	<td><input type="text" name="book_title" value=""></td>
 	<td>위치</td>

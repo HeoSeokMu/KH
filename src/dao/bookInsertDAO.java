@@ -43,23 +43,28 @@ public class bookInsertDAO {
 		public void bookInsert(libraryDTO library) throws Exception {
 			        Connection conn = null;
 			        PreparedStatement pstmt = null;
+			        ResultSet rs = null;
+			        String bookId = library.getBook_id();
+			        int number=0;
+			        String sql ="";
 
 
 			        try {
 			            conn = getConnection();
 			            
+			            
 			            pstmt = conn.prepareStatement(
-			            	"insert into KH_LIBRARY values (?,?,?,?,?,?,?,?,?,'보관중','','0','',?)");
-			            pstmt.setString(1, library.getBook_id());
-			            pstmt.setString(2, library.getBook_title());
-			            pstmt.setString(3, library.getBook_location());
-			            pstmt.setString(4, library.getBook_writer());
-			            pstmt.setString(5, library.getBook_publisher());
-			            pstmt.setString(6, library.getBook_year());
-			            pstmt.setString(7, library.getBook_supplement());
-			            pstmt.setTimestamp(8, library.getReg_date());
-			            pstmt.setInt(9, library.getIsbn());
-			            pstmt.setString(10, library.getBook_img());
+			            	"insert into KH_LIBRARY (book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,reg_date,isbn,loan,s_num,extension,turnin,book_img)"
+			            	+ "values (library.nextval,?,?,?,?,?,?,?,?,'보관중','','0','',?)");
+			            pstmt.setString(1, library.getBook_title());
+			            pstmt.setString(2, library.getBook_location());
+			            pstmt.setString(3, library.getBook_writer());
+			            pstmt.setString(4, library.getBook_publisher());
+			            pstmt.setString(5, library.getBook_year());
+			            pstmt.setString(6, library.getBook_supplement());
+			            pstmt.setTimestamp(7, library.getReg_date());
+			            pstmt.setInt(8, library.getIsbn());
+			            pstmt.setString(9, library.getBook_img());
 			            pstmt.executeUpdate();
 			        } catch(Exception ex) {
 			            ex.printStackTrace();
