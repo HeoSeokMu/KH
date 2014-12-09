@@ -6,21 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+	function selectInform(form) {
+		alert(form.s_num.value.length);
+	}
+</script>
+
 <body>
-	<form action="inputNumPro.kh" method="post" name="userinput" onsubmit="return checkit()">
+	<form action="inputNumPro.kh" method="post" name="userinput">
 		<table>	
 			<tr>
 				<td>
 					책번호
 				</td>
 				<td>
-					<input type="text" name="b_num" value="${b_num}" readonly="readonly"/>
+					<input type="text" name="book_id" value="${book_id}" readonly="readonly"/>
 				</td>
 				<td>
 					책제목
 				</td>
 				<td>
-					<input type="text" name="b_name" value="${b_name}" readonly="readonly"/>
+					<input type="text" name="book_title" value="${book_title}" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
@@ -28,13 +34,13 @@
 					학번
 				</td>
 				<td>
-					<input type="text" name="s_num" onkeydown="return selectUser()"/>
+					<input type="text" name="s_num" onchange="return selectInform(this.form)"/>
 				</td>
 				<td>
 					이름
 				</td>
 				<td>
-					<input type="text" name="s_name" value="${s_name}" />
+					<input type="text" name="s_name" value="${s_name}" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
