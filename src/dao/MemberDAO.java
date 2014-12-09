@@ -127,7 +127,7 @@ public class MemberDAO {
 		}
 		return x;
 	}
-	
+	//로그인 쿼리. 학번, 비밀번호, 회원유형을 가져와 체크.
 	public int Login_check(String id, String pw, String type) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
