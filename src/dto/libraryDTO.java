@@ -19,7 +19,8 @@ public class libraryDTO {
 	private String s_num;		// ÇÐ¹ø
 	private int extension;		// ¿¬Àå È½¼ö
 	private Date turnin;		// ¹Ý³³³¯
-	private String book_img;	
+	private String book_img;
+	
 	public String getBook_id() {
 		return book_id;
 	}
@@ -63,8 +64,6 @@ public class libraryDTO {
 	public void setBook_supplement(String book_supplement) {
 		this.book_supplement = book_supplement;
 	}
-
-
 	public Timestamp getReg_date() {
 		return reg_date;
 	}
@@ -101,11 +100,12 @@ public class libraryDTO {
 	public void setTurnin(Date turnin) {
 		this.turnin = turnin;
 	}
-public String getBook_img() {
+	public String getBook_img() {
 		return book_img;
 	}
 	public void setBook_img(String book_img) {
 		this.book_img = book_img;
 	}
+	
 
 }
