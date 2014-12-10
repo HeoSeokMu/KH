@@ -20,7 +20,10 @@ public class libraryDTO {
 	private int extension;		// 연장 횟수
 	private Date turnin;		// 반납날
 	private String book_img;
-	
+	private String id;//통합 학번 및 교번
+	private String name;//이름
+	private String s_phone;//학생 연락처
+	private String bookcheck;
 	
 	public int getBook_id() {
 		return book_id;
@@ -106,6 +109,30 @@ public class libraryDTO {
 	}
 	public void setBook_img(String book_img) {
 		this.book_img = book_img;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getS_phone() {
+		return s_phone;
+	}
+	public void setS_phone(String s_phone) {
+		this.s_phone = s_phone;
+	}
+	public String getBookcheck() {
+		return bookcheck;
+	}
+	public void setBookcheck(String bookcheck) {
+		this.bookcheck = bookcheck;
 	}
 	
 

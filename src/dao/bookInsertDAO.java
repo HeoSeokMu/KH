@@ -23,18 +23,11 @@ public class bookInsertDAO {
 		private PreparedStatement pstmt = null;
 		private ResultSet rs = null;
 		
-		private Connection getConnection(){
-			try{
-				Class.forName("oracle.jdbc.driver.OracleDriver");
-				String url = "jdbc:oracle:thin:@khjob.iptime.org:7000:xe";
-				String user = "java09";
-				String password = "java09";
-				
-				conn = DriverManager.getConnection(url, user, password);
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-			return conn;
+		private Connection getConnection() throws Exception {
+			Context initCtx = new InitialContext();
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			DataSource ds = (DataSource)envCtx.lookup("jdbc/orcl");
+			return ds.getConnection();
 		}
 
 		
@@ -75,6 +68,42 @@ public class bookInsertDAO {
 			        
 			    }
 
+		//책 신청 등록
+		public void bookRequest(libraryDTO library) throws Exception {
+			        Connection conn = null;
+			        PreparedStatement pstmt = null;
+			        ResultSet rs = null;
+			        int bookId = library.getBook_id();
+			        int number=0;
+			        String sql ="";
+
+
+			        try {
+			            conn = getConnection();
+			            
+			            
+			            pstmt = conn.prepareStatement(
+			            	"insert into KH_LIBRARYREQUEST (book_id,book_title,book_writer,book_publisher,reg_date,isbn,bookcheck,id,name,s_phone)"
+			            	+ "values (bookRequest_no_seq.nextval,?,?,?,?,?,'0',?,?,?)");
+			            pstmt.setString(1, library.getBook_title());
+			            pstmt.setString(2, library.getBook_writer());
+			            pstmt.setString(3, library.getBook_publisher());
+			            pstmt.setTimestamp(4, library.getReg_date());
+			            pstmt.setInt(5, library.getIsbn());
+			            pstmt.setString(6, library.getId());
+			            pstmt.setString(7, library.getName());
+			            pstmt.setString(8, library.getS_phone());
+			            pstmt.executeUpdate();
+			        } catch(Exception ex) {
+			            ex.printStackTrace();
+			        } finally {
+			            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			        }
+			        
+			    }
+
+
 		
 
 //책 등록 번호 자동증가 부분
@@ -102,6 +131,32 @@ public class bookInsertDAO {
 			}
 			return x;
 		}
+		
+		//책 신청 등록 번호 자동증가 부분
+				public int requestNum() throws Exception {
+					Connection conn = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					int x = 0;
+
+					try {
+						conn = getConnection();
+						pstmt = conn.prepareStatement("select max(book_id) from kh_libraryRequest");
+						
+						rs = pstmt.executeQuery();
+						if (rs.next()) {
+							x= rs.getInt(1); 
+						}
+						
+					} catch(Exception ex) {
+						ex.printStackTrace();
+					} finally {
+						if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+						if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+						if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+					}
+					return x;
+				}
 		
 	
 		//등록한 책 내역 보기
@@ -136,7 +191,7 @@ public class bookInsertDAO {
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			}return book;
 		}
-		
+
 		
 		
 		
@@ -149,6 +204,26 @@ public class bookInsertDAO {
 			try{
 				conn = getConnection();
 				pstmt = conn.prepareStatement("delete from kh_library where book_id = ?");
+				pstmt.setString(1, book_id);
+				rs = pstmt.executeQuery();
+				
+			}catch(Exception ex){
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}return book;
+		}
+		//신청한 책 삭제
+		public libraryDTO bookRequestDelete(String book_id) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			libraryDTO book=null;
+			try{
+				conn = getConnection();
+				pstmt = conn.prepareStatement("delete from kh_libraryRequest where book_id = ?");
 				pstmt.setString(1, book_id);
 				rs = pstmt.executeQuery();
 				
@@ -189,5 +264,80 @@ public class bookInsertDAO {
 				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			}return book;
+		}
+		//책 신청 리스트
+		public List<libraryDTO> getArticles() throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List articleList=null;
+			try {
+				conn = getConnection();
+					pstmt = conn.prepareStatement("select * from kh_libraryrequest order by reg_date desc ");
+						rs = pstmt.executeQuery();
+						if (rs.next()) {
+							articleList = new ArrayList(); 
+							do{ 
+								libraryDTO article= new libraryDTO();
+								article.setBook_id(rs.getInt("BOOK_ID"));
+								article.setBook_title(rs.getString("BOOK_TITLE"));
+								article.setBook_writer(rs.getString("BOOK_WRITER"));
+								article.setBook_publisher(rs.getString("BOOK_PUBLISHER"));
+								article.setReg_date(rs.getTimestamp("REG_DATE"));
+								article.setIsbn(rs.getInt("ISBN"));
+								article.setBookcheck(rs.getString("bookcheck"));
+								article.setId(rs.getString("id"));
+								article.setName(rs.getString("name"));
+								article.setS_phone(rs.getString("s_phone"));
+								articleList.add(article); 
+							}while(rs.next());
+						}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+
+			
+			return articleList;
+		}
+		
+		//나의 책 신청 리스트
+		public List<libraryDTO> getArticles(int id) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List articleList=null;
+			try {
+				conn = getConnection();
+					pstmt = conn.prepareStatement("select * from kh_libraryrequest where id = ? order by reg_date desc ");
+					pstmt.setInt(1, id);
+						rs = pstmt.executeQuery();
+						if (rs.next()) {
+							articleList = new ArrayList(); 
+							do{ 
+								libraryDTO article= new libraryDTO();
+								article.setBook_id(rs.getInt("BOOK_ID"));
+								article.setBook_title(rs.getString("BOOK_TITLE"));
+								article.setBook_writer(rs.getString("BOOK_WRITER"));
+								article.setBook_publisher(rs.getString("BOOK_PUBLISHER"));
+								article.setReg_date(rs.getTimestamp("REG_DATE"));
+								article.setIsbn(rs.getInt("ISBN"));
+								article.setBookcheck(rs.getString("bookcheck"));
+								articleList.add(article); 
+							}while(rs.next());
+						}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+
+			
+			return articleList;
 		}
 	}
