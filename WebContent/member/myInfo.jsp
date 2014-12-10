@@ -13,15 +13,20 @@
 <body>
 	<table border="1">
 		<tr>
-			<td rowspan="4"><img></img></td>
-			<td>학번&nbsp;</td><td><input type="text" value="${mDTO.id}"></input></td>
-			<td>성명(국)&nbsp;</td><td><input type="text" value="${mDTO.name}"></input></td>
-			<td>성별&nbsp;</td><td><input type="text" value="${mDTO.sex}"></input></td>
+			<td rowspan="2" width="150px" height="150px"><img src="${mDTO.pro_img}"/></td>
+			<td>학번&nbsp;</td><td width="150px">${mDTO.id}</td>
+			<td>성명(국)&nbsp;</td><td width="150px">${mDTO.name}</td>
+			<td>성별&nbsp;</td><td width="150px">${mDTO.sex}</td>
 		</tr>
 		<tr>
 			<td>이메일&nbsp;</td><td><input type="text" value="${mDTO.e_mail}"></input></td>
 			<td>학과&nbsp;</td><td><input type="text" value="${mDTO.major}"></input></td>
-			<td>교육과정년도&nbsp;</td><td><input type="text" value="${mDTO.birth_yy}"></input></td>
+			<td>교육과정년도&nbsp;</td><td width="150px">${mDTO.birth_yy}</td>
+		</tr>
+		<tr>
+			<td>이메일&nbsp;</td><td><input type="text" value="${mDTO.e_mail}"></input></td>
+			<td>학과&nbsp;</td><td><input type="text" value="${mDTO.major}"></input></td>
+			<td>교육과정년도&nbsp;</td><td width="150px">${mDTO.birth_yy}</td>
 		</tr>
 	</table>
 </body>

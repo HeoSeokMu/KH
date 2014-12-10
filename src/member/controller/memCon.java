@@ -3,8 +3,9 @@ package member.controller;
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dao.MemberDAO;
 import dto.memberDTO;
+import dto.memberStat_DTO;
 import dto.postDTO;
 
 @Controller
@@ -76,15 +78,53 @@ public class memCon{
 		}else if(dto.getNum3() >= 10 && dto.getNum3() < 100){
 			numbering = "0" + dto.getNum3();
 		}
-		
 		String id = dto.getNum1() + dto.getNum2() + numbering;
 		dto.setId(id);
 		
+		Calendar cal = Calendar.getInstance();
+		
+		if(dto.getType().equals("학생")) {
+			// 학생 졸업예상일자
+			cal.set(Calendar.YEAR,  cal.get(Calendar.YEAR) + 4);
+			cal.set(Calendar.MONTH,  Calendar.FEBRUARY);
+			cal.set(Calendar.DATE,  21);
+			
+			System.out.println("Calendar.YEAR..."+ cal.get(Calendar.YEAR));
+			System.out.println("Calendar.MONTH..."+ cal.get(Calendar.MONTH));
+			System.out.println("Calendar.DATE..."+ cal.get(Calendar.DATE));
+			// 오늘이 이번주의 몇번째 날인지 구함. 일요일이 1, 월요일은 2..
+			System.out.println("Calendar.DAY_OF_WEEK..."+ cal.get(Calendar.DAY_OF_WEEK));
+			if(cal.get(Calendar.DAY_OF_WEEK) == 1) {
+				cal.add(Calendar.DATE, 1);
+			} else if(cal.get(Calendar.DAY_OF_WEEK) == 7){
+				cal.add(Calendar.DATE, 2);
+			}
+			System.out.println("Calendar.DATE..."+ cal.get(Calendar.DATE));
+			
+			Date end_date = cal.getTime();
+			Timestamp end_timestamp = new Timestamp(end_date.getTime());
+			
+			dto.setEnd_date(end_timestamp);
+			dto.setStatus("재학");
+		} else {
+			cal.set(Calendar.YEAR,  9999);
+			cal.set(Calendar.MONTH,  12);
+			cal.set(Calendar.DATE,  31);
+			
+			Date end_date = cal.getTime();
+			Timestamp end_timestamp = new Timestamp(end_date.getTime());
+			
+			dto.setEnd_date(end_timestamp);
+			
+			dto.setStatus("재직");
+		}
+		dto.setGrade(1);
+		dto.setSemester(0);
+		dto.setRest_count(0);
+				
 		//주소 검색 후 등록
 		
-		
 		//프로필 사진 파일 업로드 부분
-		
 		if(!req.getFile("upload").isEmpty()){
 			MultipartFile file = req.getFile("upload");
 			//파일명에서 확장자 추출.
@@ -100,11 +140,10 @@ public class memCon{
 			}
 
 			dto.setPro_img(fileName);
-			}
+		}
 		
 		
 		//DB에 insert.
-		
 		join_dao.insertMember(dto);
 		
 		ModelAndView mv = new ModelAndView();
