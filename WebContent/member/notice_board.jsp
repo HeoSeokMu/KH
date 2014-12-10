@@ -200,6 +200,7 @@
 			<form method="post" name="chartForm">
 				<br/><br/>
 				<h1>공지사항</h1>
+				<br /><span align="right"><a href="#" >글쓰기</a></span>
 				<hr width="880px" size="1" color="gray" align="center" />
 				<hr width="880px" size="1" align="center" />
 				<table align="center">
