@@ -8,7 +8,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>휴학 신청 페이지</title>
+<title>휴학신청 게시판</title>
 	<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
 	<link rel="stylesheet" href="css/left_menu.css"></link>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
@@ -120,7 +120,7 @@
 							<li class="ly" style="display:list-item;">
 								<dl>
 									<dt>공지사항</dt>
-									<dd><a href="#">공지사항</a></dd>
+									<dd><a href="notice_board.kh">공지사항</a></dd>
 								</dl>
 							</li>
 							<li class="btn"><a class="menu2">학적</a></li>
@@ -197,98 +197,59 @@
 		 
 		<div id="box3">
 			<center>
-			<form action="" method="post">
+			<form method="post" name="chartForm">
 				<br/><br/>
-				<h2>휴학신청서</h2>
-				<table width="700">
-					<tr>
-						<td>
-							<table border="1" width="700">
-								<tr>
-									<td colspan="2" width="20%" bgcolor="#ffff99" align="center">학   과</td><td colspan="2" width="20%" align="center">${mDTO.major}</td>
-									<td colspan="2" width="20%" bgcolor="#ffff99" align="center">성   명</td><td colspan="2" width="20%" align="center">${mDTO.name}</td>
-								</tr>
-								<tr>
-									<td colspan="2" bgcolor="#ffff99" align="center">학   번</td><td colspan="2" align="center">${mDTO.id}</td>
-									<td colspan="2" bgcolor="#ffff99" align="center">학   년</td><td colspan="2" align="center">${mDTO.grade}</td>
-								</tr>
-								<tr>
-									<td rowspan="2" width="10%" bgcolor="#ffff99" align="center">연락처</td><td bgcolor="#ffff99" align="center">E-mail</td><td colspan="5" align="center">${mDTO.email}</td>
-								</tr>
-								<tr>
-									<td bgcolor="#ffff99" align="center">휴대폰</td><td colspan="5" align="center">${mDTO.s_phone}</td>
-								</tr>
-								<tr>
-									<td colspan="2" bgcolor="#ffff99" align="center">주   소</td><td colspan="5" align="center">${mDTO.addr}</td>
-								</tr>
-							</table>
-						</td>
+				<h1>공지사항</h1>
+				<hr width="880px" size="1" color="gray" align="center" />
+				<hr width="880px" size="1" align="center" />
+				<table align="center">
+					<tr align="center">
+						<td width="50px"><g>NO</g></td>
+						<td width="150px"><g>제목</g></td>
+						<td width="150px"><g>날짜</g></td>
+						<td width="100px"><g>작성자</g></td>
 					</tr>
-					<tr>
-						<td height="30"></td>
-					</tr>
-					<tr>
-						<td>
-							<table width="700" border="1">
-								<tr>
-									<td colspan="7" bgcolor="#ffff99" align="center">휴학종류</td>
-								</tr>
-								<tr>
-									<td colspan="3" bgcolor="#ffff99" width="50%" align="center">시  기</td>
-									<td colspan="4" bgcolor="#ffff99" width="50%" align="center">사  유</td>
-								</tr>
-								<tr>
-									<td bgcolor="#ffff99" align="center">등록 휴학</td><td bgcolor="#ffff99" align="center">중도 휴학</td>
-									<td bgcolor="#ffff99" align="center">미등록 휴학</td><td bgcolor="#ffff99" align="center">군입대</td>
-									<td bgcolor="#ffff99" align="center">학 비</td><td bgcolor="#ffff99" align="center">유 학</td><td bgcolor="#ffff99" align="center">기 타</td>
-								</tr>
-								<tr>
-									<td align="center"><input type="radio" name="time" value="register"/></td>
-									<td align="center"><input type="radio" name="time" value="stop"/></td>
-									<td align="center"><input type="radio" name="time" value="non_register"/></td>
-									<td align="center"><input type="radio" name="why" value="army"/></td>
-									<td align="center"><input type="radio" name="why" value="tuition"/></td>
-									<td align="center"><input type="radio" name="why" value="abroad"/></td>
-									<td align="center"><input type="radio" name="why" value="etc"/></td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td height="30"></td>
-					</tr>
-					<tr>
-						<td>
-							<table border="1" width="700">
-								<tr>
-									<td colspan="8" width="100%" bgcolor="#ffff99" align="center">사 유(구체적으로)</td>
-								</tr>
-								<tr>
-									<td colspan="8"><textarea rows="10" cols="95" name="why_detail"></textarea></td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td align="left">위와 같이 휴학을 신청합니다.</td>
-					</tr>
-					<tr>
-						<td></td>
-					</tr>
-					<tr>
-						<td align="center"><input type="submit" value="신청하기"/></td>
-					</tr>					
 				</table>
-				<input type="hidden" name="major" value="${mDTO.major}"/>
-				<input type="hidden" name="name" value="${mDTO.name}"/>
-				<input type="hidden" name="id" value="${mDTO.id}"/>
-				<input type="hidden" name="grade" value="${mDTO.grade}"/>
-				<input type="hidden" name="email" value="${mDTO.email}"/>
-				<input type="hidden" name="s_phone" value="${mDTO.s_phone}"/>
-				<input type="hidden" name="addr" value="${mDTO.addr}"/>
+				<hr width="880px" size="3" color="#CC3D3D" align="center" />
+		
+				<c:if test="${totalCount < 1}">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<table>
+						<tr>
+							<td align="left">게시물이 존재하지 않습니다.</td>
+						</tr>
+					</table>
+				</c:if>
+		
+				<c:if test="${totalCount > 0}">
+					<c:forEach var="list" items="${list}" varStatus="checkValue">
+						<table align="center">
+							<tr align="center" height="25px">
+								<td width="50px">
+									${(currentPage-1) * blockCount + (checkValue.index + 1)}
+								</td>
+								<td width="150px">
+									<a href="#">${list.title}</a>
+								</td>
+								<td width="150px">
+									${list.reg_date}
+								</td>
+								<td width="100px">
+									${list.writer}
+								</td>
+							</tr>
+						</table>
+						<hr width="880px" size="1" color="gray" align="center" />
+					</c:forEach>
+				</c:if>
+				<hr width="880px" size="1" align="center" />
+				<br/>
+				<center>
+					${pagingHtml}
+				</center>
+				<br/><br/>
 			</form>
 			</center>
-			<br/><br/>
 		</div>
 		<div id="box4"> <center><br/><br/></center> </div>
 	</div>

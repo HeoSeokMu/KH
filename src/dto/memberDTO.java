@@ -15,7 +15,7 @@ public class memberDTO {
 	private String password;//비밀번호
 	private String name;//이름
 	private String sex;//성별
-	private String e_mail;//이메일
+	private String email;//이메일
 	private String s_phone;//학생 연락처
 	private String p_phone;//보호자 연락처
 	private Timestamp reg_date;//등록일자
@@ -23,14 +23,49 @@ public class memberDTO {
 	private String birth_mm;//생월
 	private String birth_dd;//생일
 	private String pro_img;//프로필 사진
-	private String address;//주소
+	private String addr;//주소
 	private String post;//우편번호
 	private String major;//전공
 	private String enter_way;//입학구분. 학생의 경우. 정시입학인가 수시입학인가 편입학인가.
 	//교수의 경우. 정교수인가 시간강사인가.
 	private String before_school;//출신고등학교
 	
+	private int grade;				// 학년, 근무년수(교수, 교직원)
+	private String status;			// 현재 상태
+	private int rest_count;			// 휴학횟수
+	private Timestamp end_date;		// 졸업년도, 근무 마지막 일자
+	private int semester;			// 학기
 	
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public int getRest_count() {
+		return rest_count;
+	}
+	public void setRest_count(int rest_count) {
+		this.rest_count = rest_count;
+	}
+	public Timestamp getEnd_date() {
+		return end_date;
+	}
+	public void setEnd_date(Timestamp end_date) {
+		this.end_date = end_date;
+	}
+	public int getSemester() {
+		return semester;
+	}
+	public void setSemester(int semester) {
+		this.semester = semester;
+	}
 	public String getType() {
 		return type;
 	}
@@ -49,8 +84,8 @@ public class memberDTO {
 	public String getSex() {
 		return sex;
 	}
-	public String getE_mail() {
-		return e_mail;
+	public String getEmail() {
+		return email;
 	}
 	public String getS_phone() {
 		return s_phone;
@@ -73,8 +108,8 @@ public class memberDTO {
 	public String getPro_img() {
 		return pro_img;
 	}
-	public String getAddress() {
-		return address;
+	public String getAddr() {
+		return addr;
 	}
 	public String getPost() {
 		return post;
@@ -106,8 +141,8 @@ public class memberDTO {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public void setE_mail(String e_mail) {
-		this.e_mail = e_mail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public void setS_phone(String s_phone) {
 		this.s_phone = s_phone;
@@ -130,8 +165,8 @@ public class memberDTO {
 	public void setPro_img(String pro_img) {
 		this.pro_img = pro_img;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAddr(String addr) {
+		this.addr = addr;
 	}
 	public void setPost(String post) {
 		this.post = post;
@@ -157,5 +192,4 @@ public class memberDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
 }
