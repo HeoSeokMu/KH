@@ -19,13 +19,15 @@ import dto.libraryDTO;
 @Controller
 public class libraryController {
 
-
+	//책 등록 폼
 	@RequestMapping(value="bookInsertForm.kh")
 	public String form(){
+		
 		return "/library/bookInsertForm.jsp";
 	}
 	
-
+	
+	//책 등록 처리
 	@RequestMapping(value="/bookInsertFormPro.kh")
 	public ModelAndView formPro(HttpServletRequest req, @ModelAttribute libraryDTO dto, MultipartHttpServletRequest request) throws Exception{
 		
@@ -36,7 +38,11 @@ public class libraryController {
 
 		bookInsertDAO book_dao = bookInsertDAO.getInstance();
 		
+		//책 번호 자동 증가
+		int num = book_dao.plusNum()+1;
+		dto.setBook_id(num);
 		
+		//파일 업로드
 		if(!request.getFile("upload").isEmpty()){
 			MultipartFile file = request.getFile("upload");
 
@@ -79,6 +85,7 @@ public class libraryController {
 		return mv;
 	}
 	
+	//등록한 책 수정
 	@RequestMapping("/bookModifyForm.kh")
 	public ModelAndView bookView(HttpServletRequest req) throws Exception{
 		
@@ -93,7 +100,7 @@ public class libraryController {
 		
 		return mv;
 }
-
+//책 수정 처리
 @RequestMapping("/bookModifyFormPro.kh")
 public ModelAndView bookModifyFormPro(HttpServletRequest req, @ModelAttribute libraryDTO dto, MultipartHttpServletRequest request) throws Exception{
 	
@@ -137,13 +144,13 @@ public ModelAndView bookModifyFormPro(HttpServletRequest req, @ModelAttribute li
 	
 	return mv;
 }
+
+//등록한 책 내역 보기
 @RequestMapping("/bookView.kh")
 public ModelAndView bookView(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
 	
 	String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/book_img/";
-	
-
-	
+		
 	bookInsertDAO book_dao = bookInsertDAO.getInstance();
 	String id = req.getParameter("book_id");
 
@@ -157,13 +164,14 @@ public ModelAndView bookView(HttpServletRequest req, @ModelAttribute libraryDTO 
 	
 	return mv;
 }
+
+//등록한 책 삭제
 @RequestMapping("/bookDelete.kh")
 public String bookDelete(HttpServletRequest req) throws Exception{
 	
 	bookInsertDAO book_dao = bookInsertDAO.getInstance();
 	String id = req.getParameter("book_id");
 	libraryDTO book = book_dao.bookDelete(id);
-	
 	
 	
 	return "redirect:bookInsertForm.kh";
