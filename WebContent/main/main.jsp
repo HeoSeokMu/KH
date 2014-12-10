@@ -95,15 +95,7 @@
 				</ul>
 			</div>
 			<div id="header_2">
-				<center>
-					<c:if test="${memId != null}">
-						${memId} 님 어서오세요 ~~~ 
-					
-						<form name="logout" method="post" action="LoginOut.kh">
-							<input type="submit" name="logout" value="로그아웃"/>
-						</form>
-					</c:if>
-				</center>
+				
 			</div>
 		</div>
 	</div>
