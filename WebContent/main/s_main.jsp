@@ -200,6 +200,13 @@
 				<form name="inform" method="post" action="LoginPro.kh"	onsubmit="return checkIt();">
 					<table class="tablepadding" align="center" cellspacing="10">
 						<tr>
+							<td colspan="2">
+								<input type="radio" name="type" value="학생" checked/> 학생
+								&nbsp;&nbsp;<input type="radio" name="type" value="교수"/> 교수
+								&nbsp;&nbsp;<input type="radio" name="type" value="교직원"/> 교직원
+							</td>
+						</tr>
+						<tr>
 							<td>
 								<input type="text" name="id" class="input" placeholder="아이디" maxlength="10"/>
 							</td>

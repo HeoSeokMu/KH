@@ -1,2 +1,12 @@
+<<<<<<< HEAD
 /member/
 /dao/
+=======
+/dao
+/dto
+/library
+/libraryPage
+/main
+/member
+/sugang
+>>>>>>> branch 'master' of https://github.com/HeoSeokMu/KH

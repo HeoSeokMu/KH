@@ -14,7 +14,7 @@ import dao.MemberDAO;
 import dto.noticeboard_DTO;
 
 @Controller
-public class notice_board {
+public class RestReturn_board {
 	private static List<noticeboard_DTO> list = new ArrayList<noticeboard_DTO>();
 	
 	private int currentPage = 1;	// 현재 페이지

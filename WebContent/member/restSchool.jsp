@@ -197,7 +197,7 @@
 		 
 		<div id="box3">
 			<center>
-			<form>
+			<form action="" method="post">
 				<br/><br/>
 				<h2>휴학신청서</h2>
 				<table width="700">
@@ -205,21 +205,21 @@
 						<td>
 							<table border="1" width="700">
 								<tr>
-									<td colspan="2" width="20%" bgcolor="#ffff99" align="center">학   과</td><td colspan="2" width="20%"></td>
-									<td colspan="2" width="20%" bgcolor="#ffff99" align="center">성   명</td><td colspan="2" width="20%"></td>
+									<td colspan="2" width="20%" bgcolor="#ffff99" align="center">학   과</td><td colspan="2" width="20%" align="center">${mDTO.major}</td>
+									<td colspan="2" width="20%" bgcolor="#ffff99" align="center">성   명</td><td colspan="2" width="20%" align="center">${mDTO.name}</td>
 								</tr>
 								<tr>
-									<td colspan="2" bgcolor="#ffff99" align="center">학   번</td><td colspan="2"></td>
-									<td colspan="2" bgcolor="#ffff99" align="center">학   년</td><td colspan="2"></td>
+									<td colspan="2" bgcolor="#ffff99" align="center">학   번</td><td colspan="2" align="center">${mDTO.id}</td>
+									<td colspan="2" bgcolor="#ffff99" align="center">학   년</td><td colspan="2" align="center">${mDTO.grade}</td>
 								</tr>
 								<tr>
-									<td rowspan="2" width="10%" bgcolor="#ffff99" align="center">연락처</td><td bgcolor="#ffff99" align="center">일   반</td><td colspan="5"></td>
+									<td rowspan="2" width="10%" bgcolor="#ffff99" align="center">연락처</td><td bgcolor="#ffff99" align="center">E-mail</td><td colspan="5" align="center">${mDTO.email}</td>
 								</tr>
 								<tr>
-									<td bgcolor="#ffff99" align="center">휴대폰</td><td colspan="5"></td>
+									<td bgcolor="#ffff99" align="center">휴대폰</td><td colspan="5" align="center">${mDTO.s_phone}</td>
 								</tr>
 								<tr>
-									<td colspan="2" bgcolor="#ffff99" align="center">주   소</td><td colspan="5"></td>
+									<td colspan="2" bgcolor="#ffff99" align="center">주   소</td><td colspan="5" align="center">${mDTO.addr}</td>
 								</tr>
 							</table>
 						</td>
@@ -264,7 +264,7 @@
 									<td colspan="8" width="100%" bgcolor="#ffff99" align="center">사 유(구체적으로)</td>
 								</tr>
 								<tr>
-									<td colspan="8"><textarea rows="10" cols="83" name="why"></textarea></td>
+									<td colspan="8"><textarea rows="10" cols="95" name="why_detail"></textarea></td>
 								</tr>
 							</table>
 						</td>
@@ -279,8 +279,16 @@
 						<td align="center"><input type="submit" value="신청하기"/></td>
 					</tr>					
 				</table>
+				<input type="hidden" name="major" value="${mDTO.major}"/>
+				<input type="hidden" name="name" value="${mDTO.name}"/>
+				<input type="hidden" name="id" value="${mDTO.id}"/>
+				<input type="hidden" name="grade" value="${mDTO.grade}"/>
+				<input type="hidden" name="email" value="${mDTO.email}"/>
+				<input type="hidden" name="s_phone" value="${mDTO.s_phone}"/>
+				<input type="hidden" name="addr" value="${mDTO.addr}"/>
 			</form>
 			</center>
+			<br/><br/>
 		</div>
 		<div id="box4"> <center><br/><br/></center> </div>
 	</div>
