@@ -34,7 +34,7 @@ public class Login{
 		
 		System.out.println("LoginPro check : " + check);
 		System.out.println("LoginPro id : " + id);
-		
+				
 		/*
 		session.removeAttribute("memId");			//瘤沥等 技记父 昏力
 		session.invalidate();						//葛电 技记阑 昏力
@@ -48,18 +48,24 @@ public class Login{
 		} else {
 			System.out.println("check : 1肺 埃促!!!");
 			session.setAttribute("memId", id); 	//技记 积己
+			session.setAttribute("type", type);
 			mv.addObject("check", check);
 		}
+		String view = "";
 		if(type.equals("切积")) {
-			mv.setViewName("/main/s_main.jsp");
+			view = "/main/s_main.jsp";
 		} else if(type.equals("背荐")){
-			mv.setViewName("/main/p_main.jsp");
+			view = "/main/p_main.jsp";
 		} else if(type.equals("背流盔")) {
-			mv.setViewName("/main/e_main.jsp");
+			view = "/main/e_main.jsp";
 		} else {
-			mv.setViewName("/main/main.jsp");
+			view = "/main/main.jsp";
 		}
 		
+		mv.setViewName(view);
+		
+		System.out.println("memId == " + session.getAttribute("memId"));
+		System.out.println("type == " + session.getAttribute("type"));
 		System.out.println(mv.getViewName());
 		
 		return mv;
@@ -71,6 +77,8 @@ public class Login{
 		System.out.println("LoginOut =================== : ");
 		
 		session.removeAttribute("memId");
+		session.removeAttribute("type");
+		
 		
 		return "/main/main.jsp";
 	}

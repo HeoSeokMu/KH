@@ -27,7 +27,7 @@
 					&nbsp;&nbsp;
 					<input type="radio" name="type" value="학생" onClick="student();" checked>학생
 					&nbsp;<input type="radio" name="type" value="교수" onClick="prof();">교수
-					&nbsp;<input type="radio" name="type" id="employee" value="직원" onClick="emplo();">교직원
+					&nbsp;<input type="radio" name="type" id="employee" value="교직원" onClick="emplo();">교직원
 				</td>
 			</tr>
 			
