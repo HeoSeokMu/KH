@@ -5,7 +5,53 @@
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="/KH_School/member/script/member.js"></script>
 
+<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
+	<link rel="stylesheet" href="css/left_menu.css"></link>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/leftMenu_jquery.js"></script>
+	<style>
+		.login{
+			background-color:#7eb813;
+			color:#ffffff;
+			border:1px #dddddd dashed;
+			width:70px;
+			height:60px;
+			text-align:center;
+			padding:3px;
+		}
+		.trTitle {
+			height:15px;
+		}
+		.input{
+			size: 15px;
+		}
+		
+		.lineX {
+			border-bottom: 1px solid #dddddd;
+		}
+		.tablepadding {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	</style>
+	
+	<div id="box">
+		<div id="header">
+			<div id="header_1">
+			<%@include file="/main/header1.jsp" %>
+			</div>
+		</div>
+	</div>
+	
+	<div id="tab_menu">
+	<%@include file="/main/tab_menu.jsp" %>
+	</div>
+	
+	
 <body onload="imgPreview();">
+
+<div id="box3">
+
 <form action="#" method="post" name="user_input" enctype="multipart/form-data">
 		<table border=1 align="center">
 			<tr bgcolor="77CC55" height=50>
@@ -289,5 +335,10 @@
 				</td>
 			</tr>
 		</table>
+		
 	</form>
+</div>
+	
+	<div id="box4"> <center><br/><br/></center> </div>
+	
 </body>
