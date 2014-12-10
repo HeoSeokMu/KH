@@ -4,53 +4,8 @@
 
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="/KH_School/member/script/member.js"></script>
-
-<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
-	<link rel="stylesheet" href="css/left_menu.css"></link>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="js/leftMenu_jquery.js"></script>
-	<style>
-		.login{
-			background-color:#7eb813;
-			color:#ffffff;
-			border:1px #dddddd dashed;
-			width:70px;
-			height:60px;
-			text-align:center;
-			padding:3px;
-		}
-		.trTitle {
-			height:15px;
-		}
-		.input{
-			size: 15px;
-		}
-		
-		.lineX {
-			border-bottom: 1px solid #dddddd;
-		}
-		.tablepadding {
-			padding-left: 15px;
-			padding-right: 15px;
-		}
-	</style>
-	
-	<div id="box">
-		<div id="header">
-			<div id="header_1">
-			<%@include file="/main/header1.jsp" %>
-			</div>
-		</div>
-	</div>
-	
-	<div id="tab_menu">
-	<%@include file="/main/tab_menu.jsp" %>
-	</div>
-	
 	
 <body onload="imgPreview();">
-
-<div id="box3">
 
 <form action="#" method="post" name="user_input" enctype="multipart/form-data">
 		<table border=1 align="center">
@@ -235,7 +190,7 @@
 					&nbsp;&nbsp;
 					<input type="text" name="addr2" size=30 onKeyUp="Address_CHECK(this.form)">
 					<sub>(나머지 주소)</sub>
-					<input type="hidden" name="address">
+					<input type="hidden" name="addr">
 					<input type="hidden" name="post">
 				</td>
 			</tr>
@@ -255,7 +210,7 @@
 					</select>
 					<input type="text" size=14 name="mail_address" onchange="email_sum();" onblur="email_sum();">
 					
-					<input type="hidden" name="e_mail">
+					<input type="hidden" name="email">
 				</td>
 			</tr>
 			<tr bgcolor="BBEE99" height=40>
@@ -337,8 +292,5 @@
 		</table>
 		
 	</form>
-</div>
-	
-	<div id="box4"> <center><br/><br/></center> </div>
 	
 </body>
