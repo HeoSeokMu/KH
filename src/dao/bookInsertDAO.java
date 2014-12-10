@@ -44,7 +44,7 @@ public class bookInsertDAO {
 			        Connection conn = null;
 			        PreparedStatement pstmt = null;
 			        ResultSet rs = null;
-			        String bookId = library.getBook_id();
+			        int bookId = library.getBook_id();
 			        int number=0;
 			        String sql ="";
 
@@ -77,52 +77,8 @@ public class bookInsertDAO {
 
 		
 
-	/*	public List getArticles(int start, int end) throws Exception {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			List articleList=null;
-			try {
-				conn = getConnection();
-				pstmt = conn.prepareStatement(
-						"select book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,imagename,reg_date,isbn,r "
-						+
-						"from (select book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,imagename,reg_date,isbn,rownum r " +
-						"from (select book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,imagename,reg_date,isbn " +
-						"from kh_library order by ref desc, re_step asc) order by ref desc, re_step asc ) where r >= ? and r <= ? ");
-						pstmt.setInt(1, start); 
-						pstmt.setInt(2, end); 
-
-						rs = pstmt.executeQuery();
-						if (rs.next()) {
-							articleList = new ArrayList(end); 
-							do{ 
-								libraryDTO library= new libraryDTO();
-								library.setBook_id(rs.getString("book_id"));
-								library.setBook_title(rs.getString("book_title"));
-								library.setBook_location(rs.getString("book_location"));
-								library.setBook_writer(rs.getString("book_writer"));
-								library.setBook_publisher(rs.getString("book_publisher"));
-								library.setBook_year(rs.getInt("book_year"));
-								library.setBook_supplement(rs.getString("book_supplement"));
-								library.setReg_date(rs.getTimestamp("reg_date"));
-								library.setIsbn(rs.getInt("isbn"));
-								articleList.add(library); 
-							}while(rs.next());
-						}
-			} catch(Exception ex) {
-				ex.printStackTrace();
-			} finally {
-				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-			}
-
-			
-			return articleList;
-		}
-		*/
-		public int plusNum3() throws Exception {
+//책 등록 번호 자동증가 부분
+		public int plusNum() throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -147,8 +103,6 @@ public class bookInsertDAO {
 			return x;
 		}
 		
-		
-		
 	
 		//등록한 책 내역 보기
 		public libraryDTO getBookView(String book_id) throws Exception{
@@ -163,7 +117,7 @@ public class bookInsertDAO {
 				rs = pstmt.executeQuery();
 				if(rs.next()){
 					book = new libraryDTO();
-					book.setBook_id(rs.getString("book_id"));
+					book.setBook_id(rs.getInt("book_id"));
 					book.setBook_title(rs.getString("book_title"));
 					book.setBook_location(rs.getString("book_location"));
 					book.setBook_writer(rs.getString("book_writer"));
@@ -184,31 +138,6 @@ public class bookInsertDAO {
 		}
 		
 		
-	/*	public void bookInsertModify(libraryDTO library) throws Exception{
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			try{
-				conn = getConnection();
-				pstmt = conn.prepareStatement("update kh_library set book_title=?, book_location=?, book_writer=?, book_publisher=?, book_year=?, book_supplement=?, imagename=?, isbn=? where book_id=?");
-				
-						pstmt.setString(1, library.getBook_title());
-						pstmt.setString(2, library.getBook_location());
-						pstmt.setString(3, library.getBook_writer());
-						pstmt.setString(3, library.getBook_publisher());
-						pstmt.setInt(4, library.getBook_year());
-						pstmt.setString(5, library.getBook_supplement());
-						pstmt.setInt(6, library.getIsbn());
-						pstmt.executeUpdate();
-						
-			} catch(Exception ex) {
-				ex.printStackTrace();
-			} finally {
-				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-			}
-		}*/
 		
 		
 		//등록한 책 삭제
@@ -250,7 +179,7 @@ public class bookInsertDAO {
 		        pstmt.setString(6, book.getBook_supplement());
 		        pstmt.setInt(7, book.getIsbn());
 		        pstmt.setString(8, book.getBook_img());
-		        pstmt.setString(9, book.getBook_id());
+		        pstmt.setInt(9, book.getBook_id());
 		        pstmt.executeUpdate();
 				
 			}catch(Exception ex){
@@ -260,9 +189,5 @@ public class bookInsertDAO {
 				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			}return book;
-		}
-		public List getArticles(int startRow, int endRow) {
-			// TODO Auto-generated method stub
-			return null;
 		}
 	}

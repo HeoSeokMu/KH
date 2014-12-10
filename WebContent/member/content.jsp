@@ -200,15 +200,20 @@
 			<form method="post" name="chartForm">
 				<br/><br/>
 				<h1>게시글</h1>
-				<table align="center">
+				<table align="center" border="1">
 					<tr align="center">
-						<td width="50px"><g>No</g></td><td>${nb_DTO.num}</td>
-						<td width="150px"><g>제목</g></td><td width="150px">${nb_DTO.title}</td>
-						<td width="150px"><g>날짜</g></td><td width="150px">${nb_DTO.reg_date}</td>
-						<td width="100px"><g>작성자</g></td><td width="150px">${nb_DTO.writer}</td>
+						<td width="50px"><g>No</g></td><td width="50px">${nb_DTO.num}</td>
+						<td width="50px"><g>날짜</g></td><td width="150px">${nb_DTO.reg_date}</td>
+						<td width="50px"><g>작성자</g></td><td width="150px">${nb_DTO.writer}</td>
+					</tr>
+					<tr>
+						<td width="50px"><g>제목</g></td><td width="150px" colspan="5">${nb_DTO.title}</td>
+					</tr>
+					<tr>
+						<td width="50px"><g>내용</g></td><td width="150px" colspan="5"><textarea name="" rows="20" cols="56"></textarea></td>
 					</tr>
 				</table>
-						
+				
 				<c:if test="${totalCount < 1}">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<table>
