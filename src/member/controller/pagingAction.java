@@ -75,7 +75,7 @@ public class pagingAction {
 				pagingHtml.append("</font></b>");
 			} else {
 				System.out.println("i : " + i);
-				pagingHtml.append("&nbsp;<a href='notice_board.kh?currentPage=");
+				pagingHtml.append("&nbsp;<a href=notice_board.kh?currentPage=");
 				pagingHtml.append(i);
 				pagingHtml.append(">");
 				pagingHtml.append(i);
