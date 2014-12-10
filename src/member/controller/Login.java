@@ -48,20 +48,24 @@ public class Login{
 		} else {
 			System.out.println("check : 1로 간다!!!");
 			session.setAttribute("memId", id); 	//세션 생성
+			session.setAttribute("type", type);
 			mv.addObject("check", check);
 		}
+		String view = "";
 		if(type.equals("학생")) {
-			mv.setViewName("/main/s_main.jsp");
+			view = "/main/s_main.jsp";
 		} else if(type.equals("교수")){
-			mv.setViewName("/main/p_main.jsp");
+			view = "/main/p_main.jsp";
 		} else if(type.equals("교직원")) {
-			mv.setViewName("/main/e_main.jsp");
+			view = "/main/e_main.jsp";
 		} else {
-			mv.setViewName("/main/main.jsp");
+			view = "/main/main.jsp";
 		}
 		
-		System.out.println("memId == " + session.getAttribute("memId"));
+		mv.setViewName(view);
 		
+		System.out.println("memId == " + session.getAttribute("memId"));
+		System.out.println("type == " + session.getAttribute("type"));
 		System.out.println(mv.getViewName());
 		
 		return mv;
@@ -73,6 +77,8 @@ public class Login{
 		System.out.println("LoginOut =================== : ");
 		
 		session.removeAttribute("memId");
+		session.removeAttribute("type");
+		
 		
 		return "/main/main.jsp";
 	}
