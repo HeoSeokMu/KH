@@ -127,7 +127,7 @@ public class MemberDAO {
 		}
 		return x;
 	}
-	
+	//로그인 쿼리. 학번, 비밀번호, 회원유형을 가져와 체크.
 	public int Login_check(String id, String pw, String type) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -171,7 +171,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List postList = null;
-		String allsch = "%"+sch+"%";
+		String allsch = "%"+sch+"%"+"동"+"%";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement("select * from kh_post where addr like ?");
@@ -182,7 +182,7 @@ public class MemberDAO {
 				do {
 					postDTO dto = new postDTO();
 					dto.setAddr(rs.getString("addr"));
-					dto.setZipcode(rs.getInt("zipcode"));
+					dto.setZipcode(rs.getString("zipcode"));
 					dto.setType(rs.getString("type"));
 					postList.add(dto);
 				} while (rs.next());

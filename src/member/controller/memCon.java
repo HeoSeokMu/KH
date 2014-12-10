@@ -129,25 +129,34 @@ public class memCon{
 	
 		return mv;
 	}
-	
+	//주소검색 새 창 띄우기
 	@RequestMapping(value="/searchAddr.kh")
 	public String searchAddr() throws Exception{
 		return "/member/addrSearch.jsp";
 	}
-	
+	//파라미터 값을 넘겨 받아 주소 검색.
 	@RequestMapping(value="/searchAddrPro.kh")
 	public ModelAndView searchAddrPro(@ModelAttribute postDTO Pdto, HttpServletRequest request) throws Exception{
 		
 		MemberDAO post = MemberDAO.getInstance();
+		//파라미터 유효성 검사 '동'이 포함되지 않으면 검색 false.
 		String sch = request.getParameter("addrSearch");
-		List list = new ArrayList();
-		list = post.getPost(sch);
+		if(sch.contains("동")){
+			List list = new ArrayList();
+			String cut = sch.substring(0, sch.length()-1);
+			
+			list = post.getPost(cut);
+			
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("postlist", list);
+			mv.setViewName("/member/addrSearch.jsp");
+			
+			return mv;
+		}
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("postlist", list);
-		mv.setViewName("/member/addrSearch.jsp");
+		mv.setViewName("/member/addrSearchError.jsp");
 		
 		return mv;
 	}
-	
 }
