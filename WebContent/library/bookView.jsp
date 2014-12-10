@@ -6,7 +6,7 @@
 <font size="6">
 <table border="1">
 <tr>
-	<td>책 이름 : ${book.book_id}</td>
+	<td>책번호 : ${book.book_id}</td>
 	<td>제목 : ${book.book_title}</td>
 	<td>위치 : ${book.book_location}</td>
 </tr>
