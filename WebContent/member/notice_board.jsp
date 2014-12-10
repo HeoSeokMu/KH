@@ -200,10 +200,25 @@
 			<form method="post" name="chartForm">
 				<br/><br/>
 				<h1>공지사항</h1>
-				<br /><span align="right"><a href="#" >글쓰기</a></span>
-				<hr width="880px" size="1" color="gray" align="center" />
-				<hr width="880px" size="1" align="center" />
-				<table align="center">
+				<table align="center" width="900" >
+					
+					<tr>
+						<td align="right" colspan="4">
+						<a href="#"><font size="4.5"><b>글쓰기</b></font></a>
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="4">
+						<hr width="880px" size="1" align="center" />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+						<hr width="880px" size="1" align="center" />
+						</td>
+					</tr>
+					
 					<tr align="center">
 						<td width="50px"><g>NO</g></td>
 						<td width="150px"><g>제목</g></td>
@@ -215,16 +230,16 @@
 		
 				<c:if test="${totalCount < 1}">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<table>
+					<table width="900">
 						<tr>
 							<td align="left">게시물이 존재하지 않습니다.</td>
 						</tr>
 					</table>
 				</c:if>
-		
+			<table align="center">		
 				<c:if test="${totalCount > 0}">
 					<c:forEach var="list" items="${list}" varStatus="checkValue">
-						<table align="center">
+						
 							<tr align="center" height="25px">
 								<td width="50px">
 									${(currentPage-1) * blockCount + (checkValue.index + 1)}
@@ -239,11 +254,26 @@
 									${list.writer}
 								</td>
 							</tr>
-						</table>
-						<hr width="880px" size="1" color="gray" align="center" />
+				
+							<tr>
+								<td colspan="4">
+								<hr width="880px" size="1" align="center" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4">
+								<hr width="880px" size="1" align="center" />
+								</td>
+							</tr>
+						
 					</c:forEach>
 				</c:if>
-				<hr width="880px" size="1" align="center" />
+							<tr>
+								<td align="right" colspan="4">
+								<a href="#"><font size="4.5"><b>글쓰기</b></font></a>
+								</td>
+							</tr>
+			</table>	
 				<br/>
 				<center>
 					${pagingHtml}

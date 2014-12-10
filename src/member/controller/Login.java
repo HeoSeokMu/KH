@@ -34,7 +34,7 @@ public class Login{
 		
 		System.out.println("LoginPro check : " + check);
 		System.out.println("LoginPro id : " + id);
-		
+				
 		/*
 		session.removeAttribute("memId");			//瘤沥等 技记父 昏力
 		session.invalidate();						//葛电 技记阑 昏力
@@ -59,6 +59,8 @@ public class Login{
 		} else {
 			mv.setViewName("/main/main.jsp");
 		}
+		
+		System.out.println("memId == " + session.getAttribute("memId"));
 		
 		System.out.println(mv.getViewName());
 		
