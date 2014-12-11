@@ -24,6 +24,7 @@ public class RestReturn_board {
 	private pagingAction page; 		// 페이징 클래스
 	private String pagingHtml; 		// 페이징을 구현한 HTML
 	
+	/*
 	@RequestMapping(value="/notice_board.kh")
 	public ModelAndView notice_board(HttpServletRequest req) throws Exception{
 		
@@ -68,4 +69,5 @@ public class RestReturn_board {
 		
 		return mv;
 	}
+	*/
 }

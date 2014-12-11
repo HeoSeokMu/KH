@@ -4,8 +4,9 @@
 
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="/KH_School/member/script/member.js"></script>
-
+	
 <body onload="imgPreview();">
+
 <form action="#" method="post" name="user_input" enctype="multipart/form-data">
 		<table border=1 align="center">
 			<tr bgcolor="77CC55" height=50>
@@ -189,7 +190,7 @@
 					&nbsp;&nbsp;
 					<input type="text" name="addr2" size=30 onKeyUp="Address_CHECK(this.form)">
 					<sub>(나머지 주소)</sub>
-					<input type="hidden" name="address">
+					<input type="hidden" name="addr">
 					<input type="hidden" name="post">
 				</td>
 			</tr>
@@ -209,7 +210,7 @@
 					</select>
 					<input type="text" size=14 name="mail_address" onchange="email_sum();" onblur="email_sum();">
 					
-					<input type="hidden" name="e_mail">
+					<input type="hidden" name="email">
 				</td>
 			</tr>
 			<tr bgcolor="BBEE99" height=40>
@@ -289,5 +290,7 @@
 				</td>
 			</tr>
 		</table>
+		
 	</form>
+	
 </body>
