@@ -38,47 +38,15 @@
 			padding-right: 15px;
 		}
 	</style>
-	<script language="javascript">
-		function focusIt() {
-			alert("${check}");
-			if("${check}"== 2){
-				alert("아이디 또는 패스워드가 틀렸습니다.");
-			}else if("${check}" == 3){
-				alert("입력하신 아이디는 존재하지 않습니다.");
-			}
-		}
-		
-		function checkIt() {
-			inputForm = eval("document.inform");
-			if (!inputForm.id.value) {
-				alert("아이디를 입력하세요..");
-				inputForm.id.focus();
-				return false;
-			}
-			if (!inputForm.passwd.value) {
-				alert("패스워드를 입력하세요..");
-				inputForm.passwd.focus();
-				return false;
-			}
-			return ture;
-		}
-		
-		function login_check(check) {
-			if(check == -1) {
-				alert("입력하신 아이디는 존재하지 않습니다.");
-			} else if(check == 0) {
-				alert("아이디 or 비밀번호를 틀리셨습니다.");
-			}
-		}
-	</script>
+	
 </head>
 
 <body onload="focusIt();">
 	<div id="box">
 		<div id="header">
 			<div id="header_1">
-				<%@include file="/main/header1.jsp" %>
-			</div>
+				</ul>
+				<%@include file="/main/header1.jsp" %>			</div>
 			<div id="header_2">
 				<center>
 					<c:if test="${memId != null}">
@@ -178,11 +146,11 @@
 					</c:forEach>
 				</c:if>
 				<c:if test="${type == '교직원'}">
-					<tr>
-						<td align="right" colspan="4">
-						<a href="#"><font size="4.5"><b>글쓰기</b></font></a>
-						</td>
-					</tr>
+							<tr>
+								<td align="right" colspan="4">
+								<a href="#"><font size="4.5"><b>글쓰기</b></font></a>
+								</td>
+							</tr>
 				</c:if>
 			</table>	
 				<br/>
