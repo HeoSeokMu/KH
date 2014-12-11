@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dao.MemberDAO;
 import dto.memberDTO;
-import dto.memberStat_DTO;
 import dto.postDTO;
 
 @Controller
@@ -113,7 +112,7 @@ public class memCon{
 			
 			Date end_date = cal.getTime();
 			Timestamp end_timestamp = new Timestamp(end_date.getTime());
-			
+			System.out.println("end_timestamp == " + end_timestamp);	
 			dto.setEnd_date(end_timestamp);
 			
 			dto.setStatus("ÀçÁ÷");

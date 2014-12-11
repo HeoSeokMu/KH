@@ -12,7 +12,6 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import dto.memberDTO;
-import dto.memberStat_DTO;
 import dto.noticeboard_DTO;
 import dto.postDTO;
 
@@ -211,7 +210,6 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		memberDTO mDTO = null;
-		memberStat_DTO ms_DTO = null;
 
 		try {
 			conn = getConnection();
@@ -301,10 +299,12 @@ public class MemberDAO {
             pstmt = conn.prepareStatement(
             	"insert into KH_NOTICEBOARD values (autonum.NEXTVAL,?,?,?,?)");
             pstmt.setString(1, nb_DTO.getTitle());
-            pstmt.setString(2, nb_DTO.getWriter());
-            pstmt.setString(3, nb_DTO.getContent());
-            pstmt.setTimestamp(4, nb_DTO.getReg_date());
-
+            pstmt.setString(2, nb_DTO.getContent());
+            pstmt.setTimestamp(3, nb_DTO.getReg_date());
+            pstmt.setString(4, nb_DTO.getWriter());
+            
+            System.out.println("getReg_date == " + nb_DTO.getReg_date());
+            
             pstmt.executeUpdate();
         } catch(Exception ex) {
             ex.printStackTrace();
@@ -356,5 +356,33 @@ public class MemberDAO {
 		}
 
 		return noticeBoard_List;
+	}
+	
+	//세션 id로 이름만 가져오는 쿼리.
+	public String getName(String id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String name = "";
+		
+		System.out.println("Login_check ==========================");
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select name from KH_MEMBER where id = ?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				name = rs.getString("name");
+				System.out.println("name == " + name);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		return name;
 	}
 }

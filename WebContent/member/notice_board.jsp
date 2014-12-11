@@ -113,7 +113,7 @@
 					<c:if test="${type == '교직원'}">
 					<tr>
 						<td align="right" colspan="4">
-						<a href="#"><font size="4.5"><b>글쓰기</b></font></a>
+						<a href="WriteNotice_board.kh"><font size="4.5"><b>글쓰기</b></font></a>
 						</td>
 					</tr>
 					</c:if>
@@ -180,7 +180,7 @@
 				<c:if test="${type == '교직원'}">
 					<tr>
 						<td align="right" colspan="4">
-						<a href="#"><font size="4.5"><b>글쓰기</b></font></a>
+						<a href="WriteNotice_board.kh"><font size="4.5"><b>글쓰기</b></font></a>
 						</td>
 					</tr>
 				</c:if>

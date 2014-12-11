@@ -197,20 +197,45 @@
 		 
 		<div id="box3">
 			<center>
-			<form method="post" name="chartForm">
+			<form method="post" name="chartForm" action="WriteNotice_boardPro.kh">
 				<br/><br/>
 				<h1>게시글</h1>
 				<table align="center" border="1">
+				
+				<c:if test="${not empty nb_DTO.writer}">
+				<input type="hidden" name="writer" value="${nb_DTO.writer}"></input>
+				</c:if>
+				<c:if test="${empty nb_DTO.writer}">
+				<input type="hidden" name="writer" value="${name}"></input>
+				</c:if>
+				
+				
 					<tr align="center">
+						<c:if test="${not empty nb_DTO.num}">
 						<td width="50px"><g>No</g></td><td width="50px">${nb_DTO.num}</td>
+						</c:if>
+						<td width="50px"><g>작성자</g></td>
+						<c:if test="${not empty nb_DTO.writer}">
+						<td width="150px">${nb_DTO.writer}</td>
+						</c:if>
+						<c:if test="${empty nb_DTO.writer}">
+						<td width="150px">${name}</td>
+						</c:if>
+						<c:if test="${not empty nb_DTO.reg_date}">
 						<td width="50px"><g>날짜</g></td><td width="150px">${nb_DTO.reg_date}</td>
-						<td width="50px"><g>작성자</g></td><td width="150px">${nb_DTO.writer}</td>
+						</c:if>
 					</tr>
 					<tr>
-						<td width="50px"><g>제목</g></td><td width="150px" colspan="5">${nb_DTO.title}</td>
+						<td width="50px" align="center"><g>제목</g></td>
+						<td width="150px" colspan="5">
+						<input type="text" name="title" style="width:400px">${nb_DTO.title}</input>
+						</td>
 					</tr>
 					<tr>
-						<td width="50px"><g>내용</g></td><td width="150px" colspan="5"><textarea name="" rows="20" cols="56"></textarea></td>
+						<td width="50px" align="center"><g>내용</g></td><td width="150px" colspan="5"><textarea name="content" rows="20" cols="56"></textarea></td>
+					</tr>
+					<tr>
+						<td width="50px" align="center" colspan="3"><input type="submit" value="작성"></input></td>
 					</tr>
 				</table>
 				
