@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -190,7 +191,9 @@ public String bookrequest(){
 
 //책 신청 처리
 @RequestMapping(value="/bookRequestPro.kh")
-public ModelAndView bookRequestPro(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
+public ModelAndView bookRequestPro(HttpSession session,HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
+	
+	String id = (String)session.getAttribute("memId");
 	
 	dto.setReg_date(new Timestamp(System.currentTimeMillis()));
 
@@ -198,6 +201,7 @@ public ModelAndView bookRequestPro(HttpServletRequest req, @ModelAttribute libra
 	
 	//책 번호 자동 증가
 	int num = book_dao.requestNum()+1;
+	dto.setId(id);
 	dto.setBook_id(num);
 	
 	
@@ -217,11 +221,12 @@ public ModelAndView bookRequestPro(HttpServletRequest req, @ModelAttribute libra
 }
 //신청한 책 삭제
 @RequestMapping("/bookRequestDelete.kh")
-public String bookRequestDelete(HttpServletRequest req) throws Exception{
+public String bookRequestDelete(HttpSession session, HttpServletRequest req) throws Exception{
+	String id = (String)session.getAttribute("memId");
 	
 	bookInsertDAO book_dao = bookInsertDAO.getInstance();
-	String id = req.getParameter("book_id");
-	libraryDTO book = book_dao.bookRequestDelete(id);
+	String bookid = req.getParameter("book_id");
+	libraryDTO book = book_dao.bookRequestDelete(bookid);
 	
 	
 	return "redirect:bookRequest.kh";
@@ -291,7 +296,8 @@ public ModelAndView requestList(HttpServletRequest req) throws Exception{
 
 //나의신청내역 목록처리
 @RequestMapping(value="/myBookRequestList.kh")
-public ModelAndView myRequestList(HttpServletRequest req) throws Exception{
+public ModelAndView myRequestList(HttpSession session, HttpServletRequest req) throws Exception{
+	
 	
 	String searchType = req.getParameter("searchType");
 	String keyword = req.getParameter("keyword");
@@ -350,4 +356,12 @@ public ModelAndView myRequestList(HttpServletRequest req) throws Exception{
 	mv.setViewName("/library/myBookRequestList.jsp");
 	return mv;
 }
+
+//책 등록 폼
+	@RequestMapping(value="libraryList.kh")
+	public String libraryList(){
+		
+		return "/library/library.jsp";
+	}
+	
 }

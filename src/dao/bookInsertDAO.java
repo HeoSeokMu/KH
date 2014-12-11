@@ -48,7 +48,7 @@ public class bookInsertDAO {
 			            
 			            pstmt = conn.prepareStatement(
 			            	"insert into KH_LIBRARY (book_id,book_title,book_location,book_writer,book_publisher,book_year,book_supplement,reg_date,isbn,loan,s_num,extension,turnin,book_img)"
-			            	+ "values (library.nextval,?,?,?,?,?,?,?,?,'보관중','','0','',?)");
+			            	+ "values (library.nextval,?,?,?,?,?,?,?,?,'대출가능','','0','',?)");
 			            pstmt.setString(1, library.getBook_title());
 			            pstmt.setString(2, library.getBook_location());
 			            pstmt.setString(3, library.getBook_writer());
