@@ -256,7 +256,7 @@ public ModelAndView requestList(HttpServletRequest req) throws Exception{
 	
 		bookInsertDAO dbPro = bookInsertDAO.getInstance(); 
 		// 모든 글을 가져와 list에 넣는다.
-		list = dbPro.getArticles();
+		list = dbPro.getRequestArticles();
 		if(list == null){
 			totalCount = 0;
 		}else{
@@ -320,7 +320,7 @@ public ModelAndView myRequestList(HttpSession session, HttpServletRequest req) t
 	
 		bookInsertDAO dbPro = bookInsertDAO.getInstance(); 
 		// 모든 글을 가져와 list에 넣는다.
-		list = dbPro.getArticles(id);
+		list = dbPro.getRequestArticles(id);
 		if(list == null){
 			totalCount = 0;
 		}else{
@@ -364,4 +364,96 @@ public ModelAndView myRequestList(HttpSession session, HttpServletRequest req) t
 		return "/library/library.jsp";
 	}
 	
+	//신청내역 목록처리
+	@RequestMapping(value="/libraryAdmin.kh")
+	public ModelAndView libraryAdmin(HttpServletRequest req) throws Exception{
+		
+		String searchType = req.getParameter("searchType");
+		String keyword = req.getParameter("keyword");
+		String pageNum = req.getParameter("currentPage");
+		
+		if (pageNum == null) {
+			pageNum = "1";
+	    }
+		
+		List<libraryDTO> list = new ArrayList<libraryDTO>();	 
+		int currentPage = Integer.parseInt(pageNum);
+		int totalCount; 		// 총 게시물의 수
+		int blockCount = 10;	// 한 페이지의  게시물의 수
+		int blockPage = 5; 	// 한 화면에 보여줄 페이지 수
+		String pagingHtml; 	//페이징을 구현한 HTML
+		pagingAction page; 	// 페이징 클래스
+		
+		// 게시판 LIST 액션
+		
+			bookInsertDAO dbPro = bookInsertDAO.getInstance(); 
+			// 모든 글을 가져와 list에 넣는다.
+			list = dbPro.getArticles(searchType, keyword);
+			if(list == null){
+				totalCount = 0;
+			}else{
+				totalCount = list.size(); // 전체 글 갯수를 구한다.
+			}
+			page = new pagingAction(currentPage, totalCount, blockCount, blockPage, searchType, keyword); // pagingAction 객체 생성.
+			pagingHtml = page.getPagingHtml().toString(); // 페이지 HTML 생성.
+
+			// 현재 페이지에서 보여줄 마지막 글의 번호 설정.
+			int lastCount = totalCount;
+
+			// 현재 페이지의 마지막 글의 번호가 전체의 마지막 글 번호보다 작으면 lastCount를 +1 번호로 설정.
+			if (page.getEndCount() < totalCount)
+				lastCount = page.getEndCount() + 1;
+
+			// 전체 리스트에서 현재 페이지만큼의 리스트만 가져온다.
+			if(list != null){
+				list = list.subList(page.getStartCount(), lastCount);
+			}else{
+				list = Collections.emptyList();
+			}
+			
+			
+			
+		//해당 뷰에서 사용할 속성
+		ModelAndView mv = new ModelAndView();
+	    mv.addObject("list", list);
+	    mv.addObject("totalCount", totalCount);
+	    mv.addObject("currentPage", currentPage);
+	    mv.addObject("pagingHtml", pagingHtml);
+	 
+		
+		mv.setViewName("/library/libraryAdmin.jsp");
+		return mv;
+	}
+	//책신청 승인
+	@RequestMapping("/bookRequestOk.kh")
+	public ModelAndView bookRequestOk(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
+		
+		bookInsertDAO book_dao = bookInsertDAO.getInstance();
+		int id = Integer.parseInt(req.getParameter("book_id")); 
+	
+		libraryDTO book = book_dao.bookRequestOk(id);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("book", book);
+		
+		mv.setViewName("/library/bookRequestOk.jsp");
+		
+		return mv;
+	}
+	//책신청 반려
+	@RequestMapping("/bookRequestNo.kh")
+	public ModelAndView bookRequestNo(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
+		
+		bookInsertDAO book_dao = bookInsertDAO.getInstance();
+		int id = Integer.parseInt(req.getParameter("book_id")); 
+	
+		libraryDTO book = book_dao.bookRequestNo(id);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("book", book);
+		
+		mv.setViewName("/library/bookRequestNo.jsp");
+		
+		return mv;
+	}
 }

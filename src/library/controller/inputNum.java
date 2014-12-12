@@ -1,31 +1,35 @@
 package library.controller;
 
+import java.util.Calendar;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import dao.bookDAO;
+import dto.libraryDTO;
 
 
 @Controller
 public class inputNum{
 	
 	@RequestMapping(value="/inputNumForm.kh", method=RequestMethod.GET)
-	public ModelAndView numInputForm(HttpServletRequest req) throws Exception{
-		String book_id = req.getParameter("book_id");
+	public ModelAndView inputNumForm(HttpServletRequest req) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("book_id", req.getParameter("book_id"));
+		mv.addObject("book_title", req.getParameter("book_title"));
 		mv.setViewName("/library/inputNumForm.jsp");
-		mv.addObject("book_id", book_id);
 		return mv;
 	}
 
-	/*@RequestMapping(value="/inputNumPro.kh", method=RequestMethod.POST)
-	public ModelAndView formPro(HttpServletRequest req, @ModelAttribute rentDTO dto) throws Exception{
-		System.out.println(dto.getS_num());
+	@RequestMapping(value="/inputNumPro.kh", method=RequestMethod.POST)
+	public ModelAndView formPro(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
 		
-		//현재 시간을 불러와 14일 뒤 날짜로 저장(반납 날짜)
 		Calendar date = Calendar.getInstance();
 		date.set(Calendar.MONTH, date.get(Calendar.MONTH));
 		date.set(Calendar.DATE, date.get(Calendar.DATE)+14);
@@ -33,8 +37,27 @@ public class inputNum{
 		date.set(Calendar.MINUTE, 0);
 		date.set(Calendar.SECOND, 0);
 		java.util.Date uDate = date.getTime();		//calender -> util.date 형변환
-		java.sql.Timestamp tDate = new java.sql.Timestamp(uDate.getTime());	//util.date -> Timestamp 변환
-		dto.setTurnin(tDate);
+		java.sql.Date sDate = new java.sql.Date(uDate.getTime());	//util.date -> sql.date 변환
+		//java.sql.Timestamp tDate = new java.sql.Timestamp(uDate.getTime());	//util.date -> Timestamp 변환
+		dto.setTurnin(sDate);
+		
+		bookDAO dbPro = bookDAO.getInstance();
+		dbPro.insertLoan(dto);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("dto", dto);
+		mv.addObject("s_name", req.getParameter("s_name"));
+		mv.addObject("s_phone", req.getParameter("s_phone"));
+		mv.setViewName("/library/inputNumPro.jsp");
+		return mv;
+	}
+	
+	
+	/*@RequestMapping(value="/inputNumPro.kh", method=RequestMethod.POST)
+	public ModelAndView formPro(HttpServletRequest req, @ModelAttribute rentDTO dto) throws Exception{
+		System.out.println(dto.getS_num());
+		
+		//현재 시간을 불러와 14일 뒤 날짜로 저장(반납 날짜)
+		
 		
 		rentDAO dbPro = rentDAO.getInstance();	//인스턴스값 받아옴
 		dbPro.insertRent(dto);

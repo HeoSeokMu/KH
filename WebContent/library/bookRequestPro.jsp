@@ -15,7 +15,7 @@
 	
 		<tr>
 			<td><a href="/KH_School/bookRequestDelete.kh?book_id=${dto.book_id}">취소하기</a>
-			
+			<a href="/KH_School/bookRequest.kh">확인</a>
 		</td>
 	</tr>
 	</table>
