@@ -324,7 +324,7 @@ public class MemberDAO {
 		System.out.println("noticeBoard_List =======================");
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select * from KH_NOTICEBOARD");
+			pstmt = conn.prepareStatement("select * from KH_NOTICEBOARD order by num desc");
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				noticeBoard_List = new ArrayList<noticeboard_DTO>();
@@ -384,5 +384,35 @@ public class MemberDAO {
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
 		return name;
+	}
+	
+	public noticeboard_DTO getArticle(int num) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		noticeboard_DTO article=null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(
+			"select * from kh_noticeboard where num = ?"); 
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				article = new noticeboard_DTO();
+				article.setNum(rs.getInt("num"));
+				article.setWriter(rs.getString("writer"));
+				article.setTitle(rs.getString("title"));
+				article.setReg_date(rs.getTimestamp("reg_date"));
+				article.setContent(rs.getString("content"));
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		
+		return article;
 	}
 }
