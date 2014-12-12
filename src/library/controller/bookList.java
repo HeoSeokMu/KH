@@ -17,7 +17,7 @@ import dto.libraryDTO;
 @Controller	
 public class bookList{//글목록 처리
 
-		@RequestMapping(value="/bookList.kh", method=RequestMethod.GET)
+		@RequestMapping(value="/bookList.kh")
 		public ModelAndView formPro(HttpServletRequest req) throws Exception{
 			
 			String searchType = req.getParameter("searchType");

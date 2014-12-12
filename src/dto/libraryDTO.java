@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 public class libraryDTO {
 
-	private String book_id;			//책등록 번호
+	private int book_id;			//책등록 번호
 	private String book_title;		//책 제목
 	private String book_location;	//책 위치
 	private String book_writer;		//저자
@@ -20,10 +20,14 @@ public class libraryDTO {
 	private int extension;		// 연장 횟수
 	private Date turnin;		// 반납날
 	private String book_img;
-	public String getBook_id() {
-		return book_id;
+	private String id;//통합 학번 및 교번
+	private String name;//이름
+	private String s_phone;//학생 연락처
+	private String bookcheck;
+	
+	public int getBook_id() {		return book_id;
 	}
-	public void setBook_id(String book_id) {
+	public void setBook_id(int book_id) {
 		this.book_id = book_id;
 	}
 	public String getBook_title() {
@@ -50,6 +54,7 @@ public class libraryDTO {
 	public void setBook_publisher(String book_publisher) {
 		this.book_publisher = book_publisher;
 	}
+
 	public String getBook_year() {
 		return book_year;
 	}
@@ -98,11 +103,36 @@ public class libraryDTO {
 	public void setTurnin(Date turnin) {
 		this.turnin = turnin;
 	}
-public String getBook_img() {
+	public String getBook_img() {
 		return book_img;
 	}
 	public void setBook_img(String book_img) {
 		this.book_img = book_img;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getS_phone() {
+		return s_phone;
+	}
+	public void setS_phone(String s_phone) {
+		this.s_phone = s_phone;
+	}
+	public String getBookcheck() {
+		return bookcheck;
+	}
+	public void setBookcheck(String bookcheck) {
+		this.bookcheck = bookcheck;
+	}
+	
 
 }

@@ -54,7 +54,7 @@ public class bookDAO {
 							articleList = new ArrayList(); 
 							do{ 
 								libraryDTO article= new libraryDTO();
-								article.setBook_id(rs.getString("BOOK_ID"));
+								article.setBook_id(rs.getInt("BOOK_ID"));
 								article.setBook_title(rs.getString("BOOK_TITLE"));
 								article.setBook_location(rs.getString("BOOK_LOCATION"));
 								article.setBook_writer(rs.getString("BOOK_WRITER"));

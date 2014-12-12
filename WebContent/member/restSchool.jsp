@@ -38,63 +38,14 @@
 			padding-right: 15px;
 		}
 	</style>
-	<script language="javascript">
-		function focusIt() {
-			alert("${check}");
-			if("${check}"== 2){
-				alert("아이디 또는 패스워드가 틀렸습니다.");
-			}else if("${check}" == 3){
-				alert("입력하신 아이디는 존재하지 않습니다.");
-			}
-		}
-		
-		function checkIt() {
-			inputForm = eval("document.inform");
-			if (!inputForm.id.value) {
-				alert("아이디를 입력하세요..");
-				inputForm.id.focus();
-				return false;
-			}
-			if (!inputForm.passwd.value) {
-				alert("패스워드를 입력하세요..");
-				inputForm.passwd.focus();
-				return false;
-			}
-			return ture;
-		}
-		
-		function login_check(check) {
-			if(check == -1) {
-				alert("입력하신 아이디는 존재하지 않습니다.");
-			} else if(check == 0) {
-				alert("아이디 or 비밀번호를 틀리셨습니다.");
-			}
-		}
-	</script>
+	
 </head>
 
 <body onload="focusIt();">
 	<div id="box">
 		<div id="header">
 			<div id="header_1">
-				<ul class="menu">
-					<li><a href="ChartBoard.action?category=chart"><img src="main/bbu_main_img/chart.png" name="chart" border="0" class="rollover"/></a></li>
-					<li><a href="NewChartBoard.action?category=new"><img src="main/bbu_main_img/new.png"  name="new" border="0" class="rollover"/></a></li>
-	
-					<li><a href="GenreChartBoard.action?category=genre"><img src="main/bbu_main_img/genre.png" name="genre" border="0" class="rollover"/></a>
-						<ul class="sub">
-							<li><a href="GenreChartBoard.action?category=genre&type=dance"><img src="main/bbu_main_img/dance.png" name="dance" border="0" class="rollover"/></a></li>
-							<li><a href="GenreChartBoard.action?category=genre&type=balad"><img src="main/bbu_main_img/balad.png" name="balad" border="0" class="rollover"/></a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="#"><img src="main/bbu_main_img/payment.png" name="payment_buy" class="rollover" border="0"/></a>
-						<ul class="sub">
-							<li><a href="payBuyList.action?buy_id="><img src="main/bbu_main_img/bbu_payment.png" name="payment" border="0" class="rollover"/></a></li>
-							<li><a href="cashCharge.action?my_id=" onclick="return idCheck();"><img src="main/bbu_main_img/cash.png" name="cash" border="0" class="rollover"/></a></li>
-						</ul>
-					</li>
-				</ul>
+				
 			</div>
 			<div id="header_2">
 				<center>
@@ -197,7 +148,7 @@
 		 
 		<div id="box3">
 			<center>
-			<form>
+			<form action="" method="post">
 				<br/><br/>
 				<h2>휴학신청서</h2>
 				<table width="700">
@@ -205,21 +156,21 @@
 						<td>
 							<table border="1" width="700">
 								<tr>
-									<td colspan="2" width="20%" bgcolor="#ffff99" align="center">학   과</td><td colspan="2" width="20%"></td>
-									<td colspan="2" width="20%" bgcolor="#ffff99" align="center">성   명</td><td colspan="2" width="20%"></td>
+									<td colspan="2" width="20%" bgcolor="#ffff99" align="center">학   과</td><td colspan="2" width="20%" align="center">${mDTO.major}</td>
+									<td colspan="2" width="20%" bgcolor="#ffff99" align="center">성   명</td><td colspan="2" width="20%" align="center">${mDTO.name}</td>
 								</tr>
 								<tr>
-									<td colspan="2" bgcolor="#ffff99" align="center">학   번</td><td colspan="2"></td>
-									<td colspan="2" bgcolor="#ffff99" align="center">학   년</td><td colspan="2"></td>
+									<td colspan="2" bgcolor="#ffff99" align="center">학   번</td><td colspan="2" align="center">${mDTO.id}</td>
+									<td colspan="2" bgcolor="#ffff99" align="center">학   년</td><td colspan="2" align="center">${mDTO.grade}</td>
 								</tr>
 								<tr>
-									<td rowspan="2" width="10%" bgcolor="#ffff99" align="center">연락처</td><td bgcolor="#ffff99" align="center">일   반</td><td colspan="5"></td>
+									<td rowspan="2" width="10%" bgcolor="#ffff99" align="center">연락처</td><td bgcolor="#ffff99" align="center">E-mail</td><td colspan="5" align="center">${mDTO.email}</td>
 								</tr>
 								<tr>
-									<td bgcolor="#ffff99" align="center">휴대폰</td><td colspan="5"></td>
+									<td bgcolor="#ffff99" align="center">휴대폰</td><td colspan="5" align="center">${mDTO.s_phone}</td>
 								</tr>
 								<tr>
-									<td colspan="2" bgcolor="#ffff99" align="center">주   소</td><td colspan="5"></td>
+									<td colspan="2" bgcolor="#ffff99" align="center">주   소</td><td colspan="5" align="center">${mDTO.addr}</td>
 								</tr>
 							</table>
 						</td>
@@ -264,7 +215,7 @@
 									<td colspan="8" width="100%" bgcolor="#ffff99" align="center">사 유(구체적으로)</td>
 								</tr>
 								<tr>
-									<td colspan="8"><textarea rows="10" cols="83" name="why"></textarea></td>
+									<td colspan="8"><textarea rows="10" cols="95" name="why_detail"></textarea></td>
 								</tr>
 							</table>
 						</td>
@@ -279,8 +230,16 @@
 						<td align="center"><input type="submit" value="신청하기"/></td>
 					</tr>					
 				</table>
+				<input type="hidden" name="major" value="${mDTO.major}"/>
+				<input type="hidden" name="name" value="${mDTO.name}"/>
+				<input type="hidden" name="id" value="${mDTO.id}"/>
+				<input type="hidden" name="grade" value="${mDTO.grade}"/>
+				<input type="hidden" name="email" value="${mDTO.email}"/>
+				<input type="hidden" name="s_phone" value="${mDTO.s_phone}"/>
+				<input type="hidden" name="addr" value="${mDTO.addr}"/>
 			</form>
 			</center>
+			<br/><br/>
 		</div>
 		<div id="box4"> <center><br/><br/></center> </div>
 	</div>

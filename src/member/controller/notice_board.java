@@ -1,16 +1,21 @@
 package member.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.MemberDAO;
+import dto.memberDTO;
 import dto.noticeboard_DTO;
 
 @Controller
@@ -19,8 +24,8 @@ public class notice_board {
 	
 	private int currentPage = 1;	// 현재 페이지
 	private int totalCount;			// 총 게시물의 수
-	private int blockCount = 3;		// 한 페이지의  게시물의 수
-	private int blockPage = 5; 		// 한 화면에 보여줄 페이지 수
+	private int blockCount = 10;	// 한 페이지의  게시물의 수
+	private int blockPage = 10; 	// 한 화면에 보여줄 페이지 수
 	private pagingAction page; 		// 페이징 클래스
 	private String pagingHtml; 		// 페이징을 구현한 HTML
 	
@@ -43,7 +48,6 @@ public class notice_board {
 		}
 		page = new pagingAction(currentPage, totalCount, blockCount, blockPage); // pagingAction 객체 생성.
 			
-		System.out.println("list f : " + list);
 		pagingHtml = page.getPagingHtml().toString();  // 페이지 HTML 생성.
 		System.out.println("pagingHtml : " + pagingHtml);
 		
@@ -66,6 +70,44 @@ public class notice_board {
 		mv.setViewName("/member/notice_board.jsp");
 		
 		System.out.println(mv.getViewName());
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/WriteNotice_board.kh")
+	public ModelAndView form(HttpSession session, HttpServletRequest request, 
+			HttpServletResponse response) throws Exception{
+		
+		String name;
+		String id = (String) session.getAttribute("memId");
+		MemberDAO mDAO = MemberDAO.getInstance();
+		
+		name = mDAO.getName(id);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("name", name);
+		mv.setViewName("/member/content.jsp");
+		return mv;
+	}
+	
+	@RequestMapping("/WriteNotice_boardPro.kh")
+	public ModelAndView formPro(HttpSession session, HttpServletRequest request, 
+			HttpServletResponse response, 
+			@ModelAttribute noticeboard_DTO nb_DTO) throws Exception{
+		
+		MemberDAO mDAO = MemberDAO.getInstance();
+		
+		nb_DTO.setReg_date(new Timestamp(System.currentTimeMillis()));
+		
+		mDAO.insert_NoticeBoard(nb_DTO);
+		
+		System.out.println("getReg_date == " + nb_DTO.getReg_date());
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("Ndto", nb_DTO);
+		
+		mv.setViewName("/member/notice_board.jsp");
 		
 		return mv;
 	}

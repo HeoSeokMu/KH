@@ -22,11 +22,11 @@ public class RestReturnRequest {
 		System.out.println(id);
 		
 		MemberDAO mDAO = new MemberDAO().getInstance();
-		memberDTO dto = new memberDTO(); 
-		dto = mDAO.member_info(id);
+		memberDTO mDTO = new memberDTO(); 
+		mDTO = mDAO.student_info(id);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("dto", dto);						
+		mv.addObject("mDTO", mDTO);
 		mv.setViewName("/member/returnSchool.jsp");
 	
 		return mv;
@@ -42,11 +42,13 @@ public class RestReturnRequest {
 		System.out.println(id);
 		
 		MemberDAO mDAO = new MemberDAO().getInstance();
-		memberDTO dto = new memberDTO(); 
-		dto = mDAO.member_info(id);
+		memberDTO mDTO = new memberDTO(); 
+		mDTO = mDAO.student_info(id);
+		
+		System.out.println(mDTO.getAddr());
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("dto", dto);						
+		mv.addObject("mDTO", mDTO);						
 		mv.setViewName("/member/restSchool.jsp");
 	
 		return mv;

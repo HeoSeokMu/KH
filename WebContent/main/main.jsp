@@ -75,35 +75,10 @@
 	<div id="box">
 		<div id="header">
 			<div id="header_1">
-				<ul class="menu">
-					<li><a href="ChartBoard.action?category=chart"><img src="main/bbu_main_img/chart.png" name="chart" border="0" class="rollover"/></a></li>
-					<li><a href="NewChartBoard.action?category=new"><img src="main/bbu_main_img/new.png"  name="new" border="0" class="rollover"/></a></li>
-	
-					<li><a href="GenreChartBoard.action?category=genre"><img src="main/bbu_main_img/genre.png" name="genre" border="0" class="rollover"/></a>
-						<ul class="sub">
-							<li><a href="GenreChartBoard.action?category=genre&type=dance"><img src="main/bbu_main_img/dance.png" name="dance" border="0" class="rollover"/></a></li>
-							<li><a href="GenreChartBoard.action?category=genre&type=balad"><img src="main/bbu_main_img/balad.png" name="balad" border="0" class="rollover"/></a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="#"><img src="main/bbu_main_img/payment.png" name="payment_buy" class="rollover" border="0"/></a>
-						<ul class="sub">
-							<li><a href="payBuyList.action?buy_id="><img src="main/bbu_main_img/bbu_payment.png" name="payment" border="0" class="rollover"/></a></li>
-							<li><a href="cashCharge.action?my_id=" onclick="return idCheck();"><img src="main/bbu_main_img/cash.png" name="cash" border="0" class="rollover"/></a></li>
-						</ul>
-					</li>
-				</ul>
+				
 			</div>
 			<div id="header_2">
-				<center>
-					<c:if test="${memId != null}">
-						${memId} 님 어서오세요 ~~~ 
-					
-						<form name="logout" method="post" action="LoginOut.kh">
-							<input type="submit" name="logout" value="로그아웃"/>
-						</form>
-					</c:if>
-				</center>
+				
 			</div>
 		</div>
 	</div>
@@ -121,7 +96,7 @@
 					<table class="tablepadding" align="center" cellspacing="10">
 						<tr>
 							<td colspan="2">
-								<input type="radio" name="type" value="학생"/> 학생
+								<input type="radio" name="type" value="학생" checked/> 학생
 								&nbsp;&nbsp;<input type="radio" name="type" value="교수"/> 교수
 								&nbsp;&nbsp;<input type="radio" name="type" value="교직원"/> 교직원
 							</td>
