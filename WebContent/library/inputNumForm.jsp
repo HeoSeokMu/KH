@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,7 +7,11 @@
 </head>
 <script type="text/javascript">
 	function selectInform(form) {
-		alert(form.s_num.value.length);
+		if(form.s_num.value.length==10){
+			alert(form.s_num.value.length);
+			window.location="selectInform.kh?num="+form.s_num.value+"&book_id="+form.book_id.value+"&book_title="+form.book_title.value;
+		}
+		
 	}
 </script>
 
@@ -17,13 +20,13 @@
 		<table>	
 			<tr>
 				<td>
-					Ã¥¹øÈ£
+					ì±…ë²ˆí˜¸
 				</td>
 				<td>
 					<input type="text" name="book_id" value="${book_id}" readonly="readonly"/>
 				</td>
 				<td>
-					Ã¥Á¦¸ñ
+					ì±…ì œëª©
 				</td>
 				<td>
 					<input type="text" name="book_title" value="${book_title}" readonly="readonly"/>
@@ -31,13 +34,13 @@
 			</tr>
 			<tr>
 				<td>
-					ÇĞ¹ø
+					í•™ë²ˆ
 				</td>
 				<td>
-					<input type="text" name="s_num" onchange="return selectInform(this.form)"/>
+					<input type="text" name="s_num" value="${s_num}" maxlength="10" onchange="return selectInform(this.form)"/>
 				</td>
 				<td>
-					ÀÌ¸§
+					ì´ë¦„
 				</td>
 				<td>
 					<input type="text" name="s_name" value="${s_name}" readonly="readonly"/>
@@ -45,14 +48,14 @@
 			</tr>
 			<tr>
 				<td>
-					ÀüÈ­¹øÈ£
+					ì „í™”ë²ˆí˜¸
 				</td>
 				<td colspan="3">
 					<input type="text" name="s_phone" value="${s_phone}" readonly="readonly"/>
 				</td>
 			</tr>
 		</table>
-		<input type="submit" value="´ë¿©¿Ï·á"/>
+		<input type="submit" value="ëŒ€ì—¬ì™„ë£Œ"/>
 	</form>
 </body>
 </html>

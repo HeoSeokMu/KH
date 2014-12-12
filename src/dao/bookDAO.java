@@ -6,6 +6,8 @@ import javax.sql.*;
 import javax.naming.*;
 
 import dto.libraryDTO;
+import dto.memberDTO;
+import dto.reserveDTO;
 
 import java.util.*; 
 
@@ -80,4 +82,54 @@ public class bookDAO {
 			
 			return articleList;
 		}
+		
+		public memberDTO getSelectInform(String s_num) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			memberDTO dto = new memberDTO();
+			try {
+				conn = getConnection();
+				
+					pstmt = conn.prepareStatement("select * from kh_member where id = ?");
+					pstmt.setString(1, s_num); 
+				
+						rs = pstmt.executeQuery();
+						if (rs.next()) {
+								dto.setName(rs.getString("name"));
+								dto.setS_phone(rs.getString("s_phone"));
+						}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+
+			
+			return dto;
+		}
+		
+		public void insertLoan(libraryDTO dto) throws Exception {
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        
+	        try {
+	            conn = getConnection();
+	            
+	            pstmt = conn.prepareStatement(
+	            	"update kh_library set loan = ?, s_num = ?, turnin = ? where book_id = ? ");
+	            pstmt.setString(1, "´ë¿©Áß");
+	            pstmt.setString(2, dto.getS_num());
+	            pstmt.setDate(3, dto.getTurnin());
+	            pstmt.setString(4, dto.getBook_id());
+	            pstmt.executeUpdate();
+	        } catch(Exception ex) {
+	            ex.printStackTrace();
+	        } finally {
+	            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+	            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+	        }
+	}
 }

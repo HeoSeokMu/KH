@@ -81,7 +81,7 @@
 					<c:if test="${type == '교직원'}">
 					<tr>
 						<td align="right" colspan="4">
-						<a href="#"><font size="4.5"><b>글쓰기</b></font></a>
+						<a href="WriteNotice_board.kh"><font size="4.5"><b>글쓰기</b></font></a>
 						</td>
 					</tr>
 					</c:if>
@@ -146,11 +146,19 @@
 					</c:forEach>
 				</c:if>
 				<c:if test="${type == '교직원'}">
+<<<<<<< HEAD
+					<tr>
+						<td align="right" colspan="4">
+						<a href="WriteNotice_board.kh"><font size="4.5"><b>글쓰기</b></font></a>
+						</td>
+					</tr>
+=======
 							<tr>
 								<td align="right" colspan="4">
 								<a href="#"><font size="4.5"><b>글쓰기</b></font></a>
 								</td>
 							</tr>
+>>>>>>> edea4fd60aff53a9bcb05c8edc738ff3b0ae4c39
 				</c:if>
 			</table>	
 				<br/>

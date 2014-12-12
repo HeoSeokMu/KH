@@ -76,7 +76,7 @@
 				<td>
 					&nbsp;&nbsp;
 					<input type="password" name="password" maxlength=20 onKeyup="pwEvent()">
-					<sub>(6~19자 내)</sub>
+					<sub>(5~15자 내)</sub>
 				</td>
 			</tr>
 			<tr bgcolor="BBEE99" height=40>
@@ -199,7 +199,7 @@
 				<td>
 					&nbsp;&nbsp;
 					<input type="text" name="mail" size=15>
-					<select name="mail_sel" onchange="e_mail_EVENT(this.form); email_sum();">
+					<select name="mail_sel" onchange="e_mail_EVENT(this.form); Email_SUM(this.form);">
 						<option selected value="" >직접입력</option>
 						<option value="@naver.com">네이버</option>
 						<option value="@daum.net">다음</option>

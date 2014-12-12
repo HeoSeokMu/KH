@@ -25,8 +25,7 @@ public class libraryDTO {
 	private String s_phone;//학생 연락처
 	private String bookcheck;
 	
-	public int getBook_id() {
-		return book_id;
+	public int getBook_id() {		return book_id;
 	}
 	public void setBook_id(int book_id) {
 		this.book_id = book_id;
