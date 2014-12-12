@@ -7,6 +7,16 @@
 <title>도서목록</title>
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
+<script type="text/javascript">
+	function checkIt(form) {
+		q = confirm("가입시 등록된 이메일을 통해 알람을 받으시겠습니까");
+		if(q==true){
+			window.location="noticeForm.kh";
+		}else{
+			return false;
+		}
+	}
+</script>
 <center>
 <body>
 
@@ -77,10 +87,10 @@
    <c:forEach var="article" items="${list}">
    <tr height="60">
     <td align="center"  width="100" height="110">
-	  <img src="/KH_School/upload/book_img/5.jpg" width="100%" height="100%"/>
+	  		<img src="/KH_School/upload/book_img/${article.book_img}" width="100%" height="100%"/>
 	</td>
     <td align="center" width="100" >
-		<c:out value="${article.book_title}"/>${article.book_id}
+		<c:out value="${article.book_title}"/>
 	</td>
     <td align="center"  width="100"> 
        <c:out value="${article.book_writer}"/>
@@ -105,14 +115,14 @@
     </td>
     <td align="center" width="100" >
     	<c:if test="${article.loan=='보관중'}">
-    		<c:if test="${memId}=='book_admin'">
-      			<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}">대출</a>
+    		<c:if test="${memId=='book_admin'}">
+      			<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">대출</a>
       		</c:if>
       		<c:out value=""/>
     	</c:if>
-    	<c:if test="${article.loan=='보관중'}">
-    		<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}">대출</a>
-    		<a href="/KH_School/noticeForm.kh">반납알림받기</a>
+    	<c:if test="${article.loan=='대여중'}">
+    		<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">대출</a>
+    		<a onclick="">반납알림받기</a>
     	</c:if>
     </td>
   </tr>
@@ -125,4 +135,4 @@
 
 </body>
 </center>
-</html>
+</html> 

@@ -14,13 +14,13 @@
 					책번호
 				</td>
 				<td>
-					${dto.b_num}
+					${dto.book_id}
 				</td>
 				<td>
 					책제목
 				</td>
 				<td>
-					${b_name}
+					${dto.book_title}
 				</td>
 			</tr>
 			<tr>
@@ -50,11 +50,11 @@
 					반납날짜
 				</td>
 				<td>
-					<fmt:formatDate value="${tDate}" pattern="yyyy년 MM월 dd일 hh시" />
+					<fmt:formatDate value="${dto.turnin}" pattern="yyyy년 MM월 dd일" />
 				</td>
 			</tr>
 		</table>
 			<br/>
-			<input type="button" class="next" value="도서관 홈" onclick="javascript:window.location='test.kh'"/>
+			<input type="button" class="next" value="도서관 홈" onclick="javascript:window.location='bookList.kh'"/>
 </body>
 </html>
