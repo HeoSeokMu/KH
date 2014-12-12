@@ -8,9 +8,11 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <center>
+도서신청목록<br/><br/>
 <body>
-
-
+<tr><td>
+<input type="button" name="libraryAdmin" value="돌아가기" onClick="javascript:location.href='libraryAdmin.kh'"><br/>
+</td></tr>
 <c:if test="${totalCount > 0}">
 <table border="1" cellpadding="0" cellspacing="0" align="center"> 
     <tr height="30" bgcolor="${value_c}">
@@ -49,7 +51,10 @@
     	<c:out value="${article.isbn}"/>
     </td>
     <td align="center"  width="100">
-    	<c:if test="${article.bookcheck=='0'}">구입신청중</c:if>
+    	<c:if test="${article.bookcheck=='0'}">구입신청중
+    	<input type="button" name="bookRequestOk" value="승인" onClick="javascript:location.href='bookRequestOk.kh?book_id=${article.book_id}'">
+    	<input type="button" name="bookRequestNo" value="반려" onClick="javascript:location.href='bookRequestNo.kh?book_id=${article.book_id}'">
+    	</c:if>
     	<c:if test="${article.bookcheck=='1'}">도서구입중</c:if>
     	<c:if test="${article.bookcheck=='2'}">취소상태</c:if>
     </td>

@@ -266,7 +266,7 @@ public class bookInsertDAO {
 			}return book;
 		}
 		//책 신청 리스트
-		public List<libraryDTO> getArticles() throws Exception {
+		public List<libraryDTO> getRequestArticles() throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -305,7 +305,7 @@ public class bookInsertDAO {
 		}
 		
 		//나의 책 신청 리스트
-		public List<libraryDTO> getArticles(int id) throws Exception {
+		public List<libraryDTO> getRequestArticles(int id) throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -340,4 +340,103 @@ public class bookInsertDAO {
 			
 			return articleList;
 		}
+		
+		public List<libraryDTO> getArticles(String searchType, String keyword) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List articleList=null;
+			if(keyword == null){
+				keyword = "";
+			}
+			String perKeyword = "%"+keyword+"%";
+			try {
+				conn = getConnection();
+				if(searchType == "title"){
+					pstmt = conn.prepareStatement("select * from kh_library where book_title like ? order by reg_date desc ");
+					pstmt.setString(1, perKeyword); 
+				}else if(searchType == "writer"){
+					pstmt = conn.prepareStatement("select * from kh_library where book_writer like ? order by reg_date desc ");
+					pstmt.setString(1, perKeyword); 
+				}else{
+					pstmt = conn.prepareStatement("select * from kh_library where book_writer like ? or book_title like ? order by reg_date desc ");
+					pstmt.setString(1, perKeyword); 
+					pstmt.setString(2, perKeyword);
+				}
+				
+						rs = pstmt.executeQuery();
+						if (rs.next()) {
+							articleList = new ArrayList(); 
+							do{ 
+								libraryDTO article= new libraryDTO();
+								article.setBook_id(rs.getInt("BOOK_ID"));
+								article.setBook_title(rs.getString("BOOK_TITLE"));
+								article.setBook_location(rs.getString("BOOK_LOCATION"));
+								article.setBook_writer(rs.getString("BOOK_WRITER"));
+								article.setBook_publisher(rs.getString("BOOK_PUBLISHER"));
+								article.setBook_year(rs.getString("BOOK_YEAR"));
+								article.setBook_supplement(rs.getString("BOOK_SUPPLEMENT"));
+								article.setReg_date(rs.getTimestamp("REG_DATE"));
+								article.setIsbn(rs.getInt("ISBN"));
+								article.setLoan(rs.getString("LOAN"));
+								article.setS_num(rs.getString("S_NUM"));
+								article.setExtension(rs.getInt("EXTENSION"));
+								article.setTurnin(rs.getDate("TURNIN"));
+								article.setBook_img(rs.getString("Book_img"));
+								articleList.add(article); 
+							}while(rs.next());
+						}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+
+			
+			return articleList;
+		}
+		
+		//책신청 승인
+		public libraryDTO bookRequestOk(int book_id) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			libraryDTO book=null;
+			try{
+				conn = getConnection();
+				pstmt = conn.prepareStatement("update kh_libraryrequest set bookcheck = 1 where book_id = ?");
+				pstmt.setInt(1, book_id);
+				rs = pstmt.executeQuery();
+				
+			}catch(Exception ex){
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}return book;
+		}
+		//책신청 반려
+				public libraryDTO bookRequestNo(int book_id) throws Exception{
+					Connection conn = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					libraryDTO book=null;
+					try{
+						conn = getConnection();
+						pstmt = conn.prepareStatement("update kh_libraryrequest set bookcheck = 2 where book_id = ?");
+						pstmt.setInt(1, book_id);
+						rs = pstmt.executeQuery();
+						
+					}catch(Exception ex){
+						ex.printStackTrace();
+					} finally {
+						if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+						if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+						if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+					}return book;
+				}
+		
 	}

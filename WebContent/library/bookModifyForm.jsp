@@ -31,7 +31,7 @@
 					</td></td>
 	</tr>
 <tr>
-	<td><a href="/KH_School/bookInsertForm.kh">취소하기</a>
+	<td><a href="/KH_School/libraryAdmin.kh">취소하기</a>
 	<td colspan="6"><input type="submit" value="등록"></td>
 </tr>
 </table>
