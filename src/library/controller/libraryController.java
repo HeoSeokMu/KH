@@ -426,34 +426,27 @@ public ModelAndView myRequestList(HttpSession session, HttpServletRequest req) t
 	}
 	//책신청 승인
 	@RequestMapping("/bookRequestOk.kh")
-	public ModelAndView bookRequestOk(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
+	public String bookRequestOk(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
 		
 		bookInsertDAO book_dao = bookInsertDAO.getInstance();
 		int id = Integer.parseInt(req.getParameter("book_id")); 
 	
 		libraryDTO book = book_dao.bookRequestOk(id);
 		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("book", book);
-		
-		mv.setViewName("/library/bookRequestOk.jsp");
-		
-		return mv;
+		return "redirect:bookRequestList.kh";
 	}
+	
+	
+	
 	//책신청 반려
 	@RequestMapping("/bookRequestNo.kh")
-	public ModelAndView bookRequestNo(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
+	public String bookRequestNo(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
 		
 		bookInsertDAO book_dao = bookInsertDAO.getInstance();
 		int id = Integer.parseInt(req.getParameter("book_id")); 
 	
 		libraryDTO book = book_dao.bookRequestNo(id);
 		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("book", book);
-		
-		mv.setViewName("/library/bookRequestNo.jsp");
-		
-		return mv;
+		return "redirect:bookRequestList.kh";
 	}
 }

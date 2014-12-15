@@ -19,6 +19,6 @@
 	</tr>
 	
 	<tr>
-		<td><a href="/KH_School/bookInsertForm.kh">확인하기</a>
+		<td><a href="/KH_School/libraryAdmin.kh">확인하기</a>
 	</table>
 </font>

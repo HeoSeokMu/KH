@@ -123,7 +123,7 @@ public class bookDAO {
 	            pstmt.setString(1, "´ë¿©Áß");
 	            pstmt.setString(2, dto.getS_num());
 	            pstmt.setDate(3, dto.getTurnin());
-	            pstmt.setString(4, dto.getBook_id());
+	            pstmt.setInt(4, dto.getBook_id());
 	            pstmt.executeUpdate();
 	        } catch(Exception ex) {
 	            ex.printStackTrace();
