@@ -79,9 +79,12 @@
 		
 				<c:if test="${totalCount < 1}">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<table width="900">
+					<table width="900" align="center">
 						<tr>
-							<td align="left">게시물이 존재하지 않습니다.</td>
+							<td align="center">게시물이 존재하지 않습니다.</td>
+						</tr>
+						<tr>
+							<td align="center"><br /><hr color="gray"></hr></td>
 						</tr>
 					</table>
 				</c:if>
@@ -91,7 +94,7 @@
 						
 							<tr align="center" height="25px">
 								<td width="50px">
-									${(currentPage-1) * blockCount + (checkValue.index + 1)}
+									${totalCount - ((currentPage-1) * blockCount + (checkValue.index + 1)) + 1}
 								</td>
 								<td width="50px">
 									${list.writer}

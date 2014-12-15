@@ -11,11 +11,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import dao.MemberDAO;
-import dto.memberDTO;
 import dto.noticeboard_DTO;
 
 @Controller
@@ -34,6 +33,15 @@ public class notice_board {
 		
 		MemberDAO mDAO = MemberDAO.getInstance();
 		list = mDAO.notice_BoardList();
+		
+		if(list == null){
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("totalCount", 0);
+			mv.setViewName("/member/notice_board.jsp");
+			
+			return mv;
+		}
+		
 		totalCount = list.size(); // 전체 글 갯수를 구한다.
 		
 		String currentPage_check = req.getParameter("currentPage");
@@ -64,6 +72,7 @@ public class notice_board {
 		mv.addObject("blockCount", blockCount);
 		mv.setViewName("/member/notice_board.jsp");
 		
+		System.out.println(req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath());	
 		return mv;
 	}
 	
@@ -96,9 +105,10 @@ public class notice_board {
 		mDAO.insert_NoticeBoard(nb_DTO);
 		
 		ModelAndView mv = new ModelAndView();
+		
 		mv.addObject("nb_DTO", nb_DTO);
 		
-		mv.setViewName("/member/notice_board.jsp");
+		mv.setViewName("redirect:/notice_board.kh");
 		
 		return mv;
 	}

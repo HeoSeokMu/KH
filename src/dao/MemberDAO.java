@@ -321,7 +321,6 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<noticeboard_DTO> noticeBoard_List = null;
-		System.out.println("noticeBoard_List =======================");
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement("select * from KH_NOTICEBOARD order by num desc");
@@ -345,14 +344,16 @@ public class MemberDAO {
 			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
-		System.out.println("noticeBoard_List size : "+noticeBoard_List.size());
 		
-		for(int i = 0; i<noticeBoard_List.size(); i++) {
-			System.out.println(noticeBoard_List.get(i).getNum());
-			System.out.println(noticeBoard_List.get(i).getTitle());
-			System.out.println(noticeBoard_List.get(i).getContent());
-			System.out.println(noticeBoard_List.get(i).getReg_date());
-			System.out.println(noticeBoard_List.get(i).getWriter());
+		if(noticeBoard_List != null){
+		
+			for(int i = 0; i<noticeBoard_List.size(); i++) {
+				System.out.println(noticeBoard_List.get(i).getNum());
+				System.out.println(noticeBoard_List.get(i).getTitle());
+				System.out.println(noticeBoard_List.get(i).getContent());
+				System.out.println(noticeBoard_List.get(i).getReg_date());
+				System.out.println(noticeBoard_List.get(i).getWriter());
+			}
 		}
 
 		return noticeBoard_List;

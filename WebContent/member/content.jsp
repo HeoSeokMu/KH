@@ -79,6 +79,13 @@
 			document.chartForm.action = "modifyNotice_boardPro.kh";
 			document.chartForm.submit();
 		}
+		
+		function del(){
+			if(confirm("해당 게시글을 정말 삭제하시겠습니까?")){
+			document.chartForm.action = "delNotice_board.kh";
+			document.chartForm.submit();
+			}
+		}
 			 
 /* 		function where(select){
 				  
@@ -128,6 +135,7 @@
 							<c:if test="${type == '교직원'}">
 									<c:if test="${not empty article}">
 										<input type="button" value="수정하기" onclick="modify();"></input>
+										<input type="button" value="삭제" onclick="del();"></input>
 									</c:if>
 							</c:if>
 							<input type="button" value="목록보기" onclick="window.location='notice_board.kh'"></input>
@@ -141,7 +149,7 @@
 					<input type="hidden" name="writer" value="${article.writer}"></input>
 				</c:if>
 				<c:if test="${empty article.writer}">
-					<input type="hidden" name="writer" value="${article.name}"></input>
+					<input type="hidden" name="writer" value="${name}"></input>
 				</c:if>
 				<c:if test="${not empty article.num}">
 					<input type="hidden" name="num" value="${article.num}"></input>
@@ -181,6 +189,12 @@
 							</c:if>
 						</c:if>
 						
+						<c:if test="${empty article.title}">
+							<c:if test="${empty title}">
+								<input type="text" name="title" style="width:620px"></input>
+							</c:if>
+						</c:if>
+						
 						<c:if test="${not empty article.title}">
 							&nbsp;&nbsp;${article.title}
 						</c:if>
@@ -189,7 +203,7 @@
 					</tr>
 					<tr>
 						<td width="50px" align="center"><g>내용</g></td>
-						<td width="150px" colspan="7">
+						<td width="150px" height="500px" colspan="7">
 						
 						<c:if test="${empty article.content}">
 							<textarea name="content" rows="20" cols="85">${content}</textarea>
@@ -249,8 +263,8 @@
 						</table>
 						<hr width="880px" size="1" color="gray" align="center" />
 					</c:forEach>
+					<hr width="880px" size="1" align="center" />
 				</c:if>
-				<hr width="880px" size="1" align="center" />
 				<br/>
 				<center>
 					${pagingHtml}
