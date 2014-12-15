@@ -106,8 +106,6 @@ public class bookDAO {
 				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			}
-
-			
 			return dto;
 		}
 		
@@ -123,7 +121,7 @@ public class bookDAO {
 	            pstmt.setString(1, "´ë¿©Áß");
 	            pstmt.setString(2, dto.getS_num());
 	            pstmt.setDate(3, dto.getTurnin());
-	            pstmt.setString(4, dto.getBook_id());
+	            pstmt.setInt(4, dto.getBook_id());
 	            pstmt.executeUpdate();
 	        } catch(Exception ex) {
 	            ex.printStackTrace();
@@ -131,5 +129,51 @@ public class bookDAO {
 	            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 	            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 	        }
-	}
+		}
+		
+		public void insertNotice(reserveDTO dto) throws Exception {
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        
+	        try {
+	            conn = getConnection();
+	            
+	            pstmt = conn.prepareStatement("insert into kh_reserve values(?,?,?,?)");
+	            pstmt.setString(1, dto.getB_num());
+	            pstmt.setString(2, dto.getS_num());
+	            pstmt.setString(3, dto.getEmail());
+	            pstmt.setTimestamp(4, dto.getDate());
+	            
+	            pstmt.executeUpdate();
+	        } catch(Exception ex) {
+	            ex.printStackTrace();
+	        } finally {
+	            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+	            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+	        }
+		}
+		
+		public String getEmail(String s_num) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String email = null;
+			try {
+				conn = getConnection();
+				
+					pstmt = conn.prepareStatement("select email from kh_member where id = ?");
+					pstmt.setString(1, s_num); 
+						rs = pstmt.executeQuery();
+						if (rs.next()) {
+							email=rs.getString("email");
+						}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			return email;
+		}
 }

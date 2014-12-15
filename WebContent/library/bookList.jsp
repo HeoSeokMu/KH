@@ -8,10 +8,10 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <script type="text/javascript">
-	function checkIt(form) {
+	function checkIt() {
 		q = confirm("가입시 등록된 이메일을 통해 알람을 받으시겠습니까");
 		if(q==true){
-			window.location="noticeForm.kh";
+			return;
 		}else{
 			return false;
 		}
@@ -80,7 +80,7 @@
       	<td align="center"  width="100" >대출</td>
       </c:if>
       <c:if test="${memId!='book_admin'}">
-      	<td align="center"  width="100" >알림서비스</td>
+      	<td align="center" width="100" >알림서비스</td>
       </c:if>
     </tr>
 
@@ -90,7 +90,7 @@
 	  		<img src="/KH_School/upload/book_img/${article.book_img}" width="100%" height="100%"/>
 	</td>
     <td align="center" width="100" >
-		<c:out value="${article.book_title}"/>
+		<a href="/KH_School/bookView.kh?book_id=${article.book_id}"><c:out value="${article.book_title}"/></a>
 	</td>
     <td align="center"  width="100"> 
        <c:out value="${article.book_writer}"/>
@@ -114,7 +114,7 @@
     	<c:out value="${article.loan}"/>
     </td>
     <td align="center" width="100" >
-    	<c:if test="${article.loan=='보관중'}">
+    	<c:if test="${article.loan=='대출가능'}">
     		<c:if test="${memId=='book_admin'}">
       			<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">대출</a>
       		</c:if>
@@ -122,7 +122,10 @@
     	</c:if>
     	<c:if test="${article.loan=='대여중'}">
     		<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">대출</a>
-    		<a onclick="">반납알림받기</a>
+    		<a href="/KH_School/notice.kh?b_num=${article.book_id}&s_num=2014004001" onclick="return checkIt()">반납알림받기</a>
+    		<c:if test="${memId=='book_admin'}">
+      			<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">반납</a>
+      		</c:if>
     	</c:if>
     </td>
   </tr>
