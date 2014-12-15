@@ -21,7 +21,8 @@ public class selectInform {
 		
 		bookDAO dbPro = bookDAO.getInstance();
 		dto = dbPro.getSelectInform(s_num);
-		int i = dto.getS_phone().indexOf("]") + 1;
+		
+		int i = dto.getS_phone().indexOf("]") + 1;	//통신사 잘라내기
 		String phone = dto.getS_phone().substring(i);
 		
 		ModelAndView mv = new ModelAndView();
