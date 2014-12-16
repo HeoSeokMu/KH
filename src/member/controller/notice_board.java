@@ -101,7 +101,7 @@ public class notice_board {
 		
 		nb_DTO.setReg_date(new Timestamp(System.currentTimeMillis()));
 		//textarea의 줄바꿈 태그를 교체.
-		String content = request.getParameter("content");
+		String content = nb_DTO.getContent();
 		content = content.replaceAll("\r\n", "<br>");
 		content = content.replaceAll("\u0020", "&nbsp;");
 		nb_DTO.setContent(content);
@@ -126,13 +126,16 @@ public class notice_board {
 		int num = 0;
 		num = (Integer.parseInt(request.getParameter("num")));
 		
-		String content = request.getParameter("content");
-		content = content.replaceAll("<br>", "\r\n");
-		content = content.replaceAll("&nbsp;", "\u0020");
-		nb_DTO.setContent(content);
+		
 		
 		ModelAndView mv = new ModelAndView();
 		noticeboard_DTO article = mDAO.getArticle(num);
+		
+		String content = article.getContent();
+		content = content.replaceAll("<br>", "\r\n");
+		content = content.replaceAll("&nbsp;", "\u0020");
+		
+		article.setContent(content);
 		
 		mv.addObject("article", article);
 		
