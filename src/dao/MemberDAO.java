@@ -11,6 +11,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import dto.RestReturnBoard_DTO;
 import dto.memberDTO;
 import dto.noticeboard_DTO;
 import dto.postDTO;
@@ -401,6 +402,7 @@ public class MemberDAO {
 		
 		return article;
 	}
+<<<<<<< HEAD
 	//공지사항 수정하는 쿼리
 	public noticeboard_DTO modifyArticle(noticeboard_DTO nb_DTO) throws Exception {
 		Connection conn = null;
@@ -441,13 +443,68 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 
 		} catch(Exception ex) {
+=======
+	
+	public String getName(String id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String name = "";
+		
+		System.out.println("Login_check ==========================");
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select name from KH_MEMBER where id = ?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				name = rs.getString("name");
+				System.out.println("name == " + name);
+			}
+		} catch (Exception ex) {
+>>>>>>> f700acbb0929960150008d87da10fd8ccaef3df7
 			ex.printStackTrace();
 		} finally {
 			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
 			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
+<<<<<<< HEAD
 		return article;
 		
 	}
+=======
+		return name;
+	}
+	
+	public void insertRestReturnBoard(RestReturnBoard_DTO rrb) throws Exception {
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        
+	        try {
+	            conn = getConnection();
+	            
+	            pstmt = conn.prepareStatement(
+	            	"insert into kh_restreturn_school_board values (?,?,?,?,?,?,?,?,?,?,?)");
+	            pstmt.setString(1, rrb.getId());
+	            pstmt.setString(2, rrb.getName());
+	            pstmt.setString(3, rrb.getMajor());
+	            pstmt.setInt(4, rrb.getGrade());
+	            pstmt.setString(5, rrb.getEmail());
+	            pstmt.setString(6, rrb.getPhone());
+	            pstmt.setString(7, rrb.getAddr());
+	            pstmt.setString(8, rrb.getTime());
+	            pstmt.setString(9, rrb.getWhy());
+	            pstmt.setString(10, rrb.getWhy_detail());
+	            pstmt.setString(11, rrb.getResult());
+	            pstmt.executeUpdate();
+	        } catch(Exception ex) {
+	            ex.printStackTrace();
+	        } finally {
+	            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+	            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+	        }
+	    }
+>>>>>>> f700acbb0929960150008d87da10fd8ccaef3df7
 }

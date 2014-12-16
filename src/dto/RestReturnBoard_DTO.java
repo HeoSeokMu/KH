@@ -1,16 +1,20 @@
 package dto;
 
+import java.sql.Timestamp;
+
 public class RestReturnBoard_DTO {
 	private String major;
 	private String name;
 	private String id;
 	private int grade;
 	private String email;
-	private String s_phone;
+	private String phone;
 	private String addr;
 	private String time;
 	private String why;
 	private String why_detail;
+	private String result;
+	private Timestamp reg_date;
 	
 	public String getMajor() {
 		return major;
@@ -42,11 +46,11 @@ public class RestReturnBoard_DTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getS_phone() {
-		return s_phone;
+	public String getPhone() {
+		return phone;
 	}
-	public void setS_phone(String s_phone) {
-		this.s_phone = s_phone;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getAddr() {
 		return addr;
@@ -71,5 +75,17 @@ public class RestReturnBoard_DTO {
 	}
 	public void setWhy_detail(String why_detail) {
 		this.why_detail = why_detail;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
+	public Timestamp getReg_date() {
+		return reg_date;
+	}
+	public void setReg_date(Timestamp reg_date) {
+		this.reg_date = reg_date;
 	}
 }

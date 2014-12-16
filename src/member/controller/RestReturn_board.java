@@ -24,11 +24,10 @@ public class RestReturn_board {
 	private pagingAction page; 		// 페이징 클래스
 	private String pagingHtml; 		// 페이징을 구현한 HTML
 	
-	/*
-	@RequestMapping(value="/notice_board.kh")
+	@RequestMapping(value="/RestReturnRequest_board.kh")
 	public ModelAndView notice_board(HttpServletRequest req) throws Exception{
 		
-		System.out.println("notice_board =================== : ");
+		System.out.println("RestReturnRequest_board =================== : ");
 		
 		MemberDAO mDAO = MemberDAO.getInstance();
 		list = mDAO.notice_BoardList();
@@ -63,11 +62,10 @@ public class RestReturn_board {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("pagingHtml", pagingHtml);
 		mv.addObject("blockCount", blockCount);
-		mv.setViewName("/member/notice_board.jsp");
+		mv.setViewName("/member/RestReturnRequest_board.jsp");
 		
 		System.out.println(mv.getViewName());
 		
 		return mv;
 	}
-	*/
 }

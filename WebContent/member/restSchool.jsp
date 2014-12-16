@@ -148,7 +148,7 @@
 		 
 		<div id="box3">
 			<center>
-			<form action="" method="post">
+			<form action="restInsert.kh" method="post">
 				<br/><br/>
 				<h2>휴학신청서</h2>
 				<table width="700">
@@ -235,7 +235,7 @@
 				<input type="hidden" name="id" value="${mDTO.id}"/>
 				<input type="hidden" name="grade" value="${mDTO.grade}"/>
 				<input type="hidden" name="email" value="${mDTO.email}"/>
-				<input type="hidden" name="s_phone" value="${mDTO.s_phone}"/>
+				<input type="hidden" name="phone" value="${mDTO.s_phone}"/>
 				<input type="hidden" name="addr" value="${mDTO.addr}"/>
 			</form>
 			</center>
