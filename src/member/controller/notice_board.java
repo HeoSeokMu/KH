@@ -34,10 +34,11 @@ public class notice_board {
 		MemberDAO mDAO = MemberDAO.getInstance();
 		list = mDAO.notice_BoardList();
 		
+		String view = "/member/notice_board.jsp";
 		if(list == null){
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("totalCount", 0);
-			mv.setViewName("/member/notice_board.jsp");
+			mv.setViewName(view);
 			
 			return mv;
 		}
@@ -70,7 +71,7 @@ public class notice_board {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("pagingHtml", pagingHtml);
 		mv.addObject("blockCount", blockCount);
-		mv.setViewName("/member/notice_board.jsp");
+		mv.setViewName(view);
 		
 		return mv;
 	}

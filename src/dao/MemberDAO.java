@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -453,31 +454,73 @@ public class MemberDAO {
 	}
 	
 	public void insertRestReturnBoard(RestReturnBoard_DTO rrb) throws Exception {
-	        Connection conn = null;
-	        PreparedStatement pstmt = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 	        
-	        try {
-	            conn = getConnection();
-	            
-	            pstmt = conn.prepareStatement(
-	            	"insert into kh_restreturn_school_board values (?,?,?,?,?,?,?,?,?,?,?)");
-	            pstmt.setString(1, rrb.getId());
-	            pstmt.setString(2, rrb.getName());
-	            pstmt.setString(3, rrb.getMajor());
-	            pstmt.setInt(4, rrb.getGrade());
-	            pstmt.setString(5, rrb.getEmail());
-	            pstmt.setString(6, rrb.getPhone());
-	            pstmt.setString(7, rrb.getAddr());
-	            pstmt.setString(8, rrb.getTime());
-	            pstmt.setString(9, rrb.getWhy());
-	            pstmt.setString(10, rrb.getWhy_detail());
-	            pstmt.setString(11, rrb.getResult());
-	            pstmt.executeUpdate();
-	        } catch(Exception ex) {
-	            ex.printStackTrace();
-	        } finally {
-	            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-	            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-	        }
-	    }
+        try {
+            conn = getConnection();
+            
+            pstmt = conn.prepareStatement(
+            	"insert into kh_restreturn_school_board values(kh_restreturn_num.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pstmt.setString(1, rrb.getId());
+            pstmt.setString(2, rrb.getName());
+            pstmt.setString(3, rrb.getMajor());
+            pstmt.setInt(4, rrb.getGrade());
+            pstmt.setString(5, rrb.getEmail());
+            pstmt.setString(6, rrb.getPhone());
+            pstmt.setString(7, rrb.getAddr());
+            pstmt.setString(8, rrb.getTime());
+            pstmt.setString(9, rrb.getWhy());
+            pstmt.setString(10, rrb.getWhy_detail());
+            pstmt.setString(11, rrb.getResult());
+            pstmt.setTimestamp(12, rrb.getReg_date());
+            pstmt.executeUpdate();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+    }
+	
+	// 
+	public List<RestReturnBoard_DTO> restreturn_BoardList() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<RestReturnBoard_DTO> rrb_List = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from kh_restreturn_school_board order by num desc");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				rrb_List = new ArrayList<RestReturnBoard_DTO>();
+				do {
+					RestReturnBoard_DTO dto = new RestReturnBoard_DTO();
+					dto.setNum(rs.getInt("num"));
+					dto.setMajor(rs.getString("major"));
+					dto.setName(rs.getString("name"));
+					dto.setId(rs.getString("id"));
+					dto.setGrade(rs.getInt("grade"));
+					dto.setEmail(rs.getString("email"));
+					dto.setPhone(rs.getString("phone"));
+					dto.setAddr(rs.getString("addr"));
+					dto.setTime(rs.getString("time"));
+					dto.setWhy(rs.getString("why"));
+					dto.setWhy_detail(rs.getString("why_detail"));
+					dto.setResult(rs.getString("result"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+					rrb_List.add(dto);
+				} while (rs.next());
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+
+		return rrb_List;
+	}
 }
