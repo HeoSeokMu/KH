@@ -36,7 +36,7 @@
 			padding-right: 15px;
 		}
 	</style>
-	
+
 </head>
 
 <body onload="focusIt();">
@@ -88,7 +88,7 @@
 						</tr>
 					</table>
 				</c:if>
-			<table align="center">		
+			<table align="center" width="900">		
 				<c:if test="${totalCount > 0}">
 					<c:forEach var="list" items="${list}" varStatus="checkValue">
 						
@@ -123,12 +123,13 @@
 								<hr width="880px" size="1" align="center" />
 								</td>
 							</tr>
-						
 					</c:forEach>
 				</c:if>
+			</table>
+			<table align="center" width="900">
 				<c:if test="${type == '교직원'}">
 					<tr>
-						<td align="right" colspan="4">
+						<td align="right">
 						<a href="writeNotice_board.kh"><font size="4.5"><b>글쓰기</b></font></a>
 						</td>
 					</tr>

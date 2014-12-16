@@ -303,8 +303,6 @@ public class MemberDAO {
             pstmt.setTimestamp(3, nb_DTO.getReg_date());
             pstmt.setString(4, nb_DTO.getWriter());
             
-            System.out.println("getReg_date == " + nb_DTO.getReg_date());
-            
             pstmt.executeUpdate();
         } catch(Exception ex) {
             ex.printStackTrace();
@@ -344,17 +342,6 @@ public class MemberDAO {
 			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
-		
-		if(noticeBoard_List != null){
-		
-			for(int i = 0; i<noticeBoard_List.size(); i++) {
-				System.out.println(noticeBoard_List.get(i).getNum());
-				System.out.println(noticeBoard_List.get(i).getTitle());
-				System.out.println(noticeBoard_List.get(i).getContent());
-				System.out.println(noticeBoard_List.get(i).getReg_date());
-				System.out.println(noticeBoard_List.get(i).getWriter());
-			}
-		}
 
 		return noticeBoard_List;
 	}
@@ -365,8 +352,6 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String name = "";
-		
-		System.out.println("Login_check ==========================");
 		
 		try {
 			conn = getConnection();
@@ -386,7 +371,7 @@ public class MemberDAO {
 		}
 		return name;
 	}
-	
+	//시퀀스 넘버로 게시글을 가져오는 쿼리.
 	public noticeboard_DTO getArticle(int num) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -415,5 +400,54 @@ public class MemberDAO {
 		}
 		
 		return article;
+	}
+	//공지사항 수정하는 쿼리
+	public noticeboard_DTO modifyArticle(noticeboard_DTO nb_DTO) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		noticeboard_DTO article=null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(
+			"update kh_noticeboard set title=?, reg_date=?, content=? where num = ?"); 
+			pstmt.setString(1, nb_DTO.getTitle());
+			pstmt.setTimestamp(2, nb_DTO.getReg_date());
+			pstmt.setString(3, nb_DTO.getContent());			
+			pstmt.setInt(4, nb_DTO.getNum());
+			rs = pstmt.executeQuery();
+
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		
+		return article;
+	}
+	//공지사항 삭제 쿼리.
+	public noticeboard_DTO deleteArticle(int num) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		noticeboard_DTO article=null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(
+			"delete kh_noticeboard where num = ?"); 
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		return article;
+		
 	}
 }

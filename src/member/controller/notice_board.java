@@ -72,7 +72,6 @@ public class notice_board {
 		mv.addObject("blockCount", blockCount);
 		mv.setViewName("/member/notice_board.jsp");
 		
-		System.out.println(req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath());	
 		return mv;
 	}
 	
@@ -101,6 +100,11 @@ public class notice_board {
 		MemberDAO mDAO = MemberDAO.getInstance();
 		
 		nb_DTO.setReg_date(new Timestamp(System.currentTimeMillis()));
+		//textarea의 줄바꿈 태그를 교체.
+		String content = request.getParameter("content");
+		content = content.replaceAll("\r\n", "<br>");
+		content = content.replaceAll("\u0020", "&nbsp;");
+		nb_DTO.setContent(content);
 		
 		mDAO.insert_NoticeBoard(nb_DTO);
 		
@@ -119,8 +123,13 @@ public class notice_board {
 			@ModelAttribute noticeboard_DTO nb_DTO) throws Exception{
 		
 		MemberDAO mDAO = MemberDAO.getInstance();
-		int num=0;
+		int num = 0;
 		num = (Integer.parseInt(request.getParameter("num")));
+		
+		String content = request.getParameter("content");
+		content = content.replaceAll("<br>", "\r\n");
+		content = content.replaceAll("&nbsp;", "\u0020");
+		nb_DTO.setContent(content);
 		
 		ModelAndView mv = new ModelAndView();
 		noticeboard_DTO article = mDAO.getArticle(num);
@@ -143,11 +152,6 @@ public class notice_board {
 		String id = (String) session.getAttribute("memId");
 		MemberDAO mDAO = MemberDAO.getInstance();
 		
-		System.out.println("num == " + request.getParameter("num"));
-		System.out.println("title == " + request.getParameter("title"));
-		System.out.println("content == " + request.getParameter("content"));
-		
-		
 		name = mDAO.getName(id);
 		
 		ModelAndView mv = new ModelAndView();
@@ -162,18 +166,42 @@ public class notice_board {
 	
 	@RequestMapping(value="/modifyNotice_boardPro.kh")
 	public ModelAndView modifyFormPro(HttpSession session, HttpServletRequest request, 
-			HttpServletResponse response) throws Exception{
+			HttpServletResponse response, @ModelAttribute noticeboard_DTO nb_DTO) throws Exception{
 		
-		String name;
-		String id = (String) session.getAttribute("memId");
 		MemberDAO mDAO = MemberDAO.getInstance();
 		
-		name = mDAO.getName(id);
+		nb_DTO.setReg_date(new Timestamp(System.currentTimeMillis()));
+		//textarea의 줄바꿈 태그를 교체.
+		String content = request.getParameter("content");
+		content = content.replaceAll("\r\n", "<br>");
+		content = content.replaceAll("\u0020", "&nbsp;");
+		nb_DTO.setContent(content);
+		
+		mDAO.modifyArticle(nb_DTO);
 		
 		ModelAndView mv = new ModelAndView();
 		
-		mv.addObject("name", name);
-		mv.setViewName("/member/content.jsp");
+		mv.addObject("nb_DTO", nb_DTO);
+		mv.setViewName("redirect:/notice_board.kh");
+		return mv;
+	}
+	
+	@RequestMapping("/deleteNotice_board.kh")
+	public ModelAndView deleteNotice_board(HttpSession session, HttpServletRequest request, 
+			HttpServletResponse response, 
+			@ModelAttribute noticeboard_DTO nb_DTO) throws Exception{
+		
+		MemberDAO mDAO = MemberDAO.getInstance();
+		int num = (Integer.parseInt(request.getParameter("num")));
+
+		System.out.println(num);
+		ModelAndView mv = new ModelAndView();
+		noticeboard_DTO article = mDAO.deleteArticle(num);
+		
+		mv.addObject("article", article);
+		
+		mv.setViewName("redirect:/notice_board.kh");
+		
 		return mv;
 	}
 	

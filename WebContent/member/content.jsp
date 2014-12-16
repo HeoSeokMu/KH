@@ -37,94 +37,17 @@
 			padding-right: 15px;
 		}
 	</style>
-	<script language="javascript">
-		function focusIt() {
-			alert("${check}");
-			if("${check}"== 2){
-				alert("아이디 또는 패스워드가 틀렸습니다.");
-			}else if("${check}" == 3){
-				alert("입력하신 아이디는 존재하지 않습니다.");
-			}
-		}
-		
-		function checkIt() {
-			inputForm = eval("document.inform");
-			if (!inputForm.id.value) {
-				alert("아이디를 입력하세요..");
-				inputForm.id.focus();
-				return false;
-			}
-			if (!inputForm.passwd.value) {
-				alert("패스워드를 입력하세요..");
-				inputForm.passwd.focus();
-				return false;
-			}
-			return ture;
-		}
-		
-		function login_check(check) {
-			if(check == -1) {
-				alert("입력하신 아이디는 존재하지 않습니다.");
-			} else if(check == 0) {
-				alert("아이디 or 비밀번호를 틀리셨습니다.");
-			}
-		}
-		
-		function modify(){
-			document.chartForm.action = "modifyNotice_board.kh";
-			document.chartForm.submit();
-		}
-		
-		function modifyGo(){
-			document.chartForm.action = "modifyNotice_boardPro.kh";
-			document.chartForm.submit();
-		}
-		
-		function del(){
-			if(confirm("해당 게시글을 정말 삭제하시겠습니까?")){
-			document.chartForm.action = "delNotice_board.kh";
-			document.chartForm.submit();
-			}
-		}
-			 
-/* 		function where(select){
-				  
-				 var xmlhttp;
-				  
-				  if (window.XMLHttpRequest) {  
-				   xmlhttp = new XMLHttpRequest(); //  IE7+, Firefox, Chrome, Opera, Safari
-				  } else {    
-				   xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");  // IE6, IE5 
-				  }
-				  
-				  xmlhttp.onreadystatechange = function() {
-				   if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				    document.getElementById("").innerHTML = xmlhttp.responseText;
-				    
-				   }
-				  };
-				  
-				  if (select == "") {
-					   xmlhttp.open("GET", ".kh", true);
-					  }
-				  if (select == "") {
-					   xmlhttp.open("GET", ".kh", true);
-					  }
-					  
-					  xmlhttp.send();
-		
-			 }  */
-			 
-			 
-	</script>
+	
+	<script src="/KH_School/member/script/noticeView.js"></script>	
+	
 </head>
 
-<body onload="focusIt();">
+<body onload="">
 <jsp:include page="/member/sidebar.jsp" />
 		 
 		<div id="box3">
 			<center>
-			<form method="post" name="chartForm" action="writeNotice_boardPro.kh">
+			<form method="post" name="chartForm" action="#">
 				<br/><br/>
 				<h1>게시글</h1>
 				<br />
@@ -153,6 +76,11 @@
 				</c:if>
 				<c:if test="${not empty article.num}">
 					<input type="hidden" name="num" value="${article.num}"></input>
+				</c:if>
+				<c:if test="${empty article.num}">
+					<c:if test="${not empty num}">
+						<input type="hidden" name="num" value="${num}"></input>
+					</c:if>
 				</c:if>
 				<c:if test="${not empty article.title}">
 					<input type="hidden" name="title" value="${article.title}"></input>
@@ -203,14 +131,14 @@
 					</tr>
 					<tr>
 						<td width="50px" align="center"><g>내용</g></td>
-						<td width="150px" height="500px" colspan="7">
+						<td width="150px" height="300px" colspan="7" style="vertical-align:top">
 						
 						<c:if test="${empty article.content}">
-							<textarea name="content" rows="20" cols="85">${content}</textarea>
+							<textarea name="content" id="contentArea" rows="20" cols="85">${content}</textarea>
 						</c:if>
 						
 						<c:if test="${not empty article.content}">
-							&nbsp;&nbsp;${article.content}
+							<div style="padding:10px;">${article.content}</div>
 						</c:if>
 						
 						</td>
@@ -219,7 +147,7 @@
 					<c:if test="${empty article}">
 						<c:if test="${empty num}">
 							<tr>
-								<td width="50px" align="center" colspan="6"><input type="submit" value="작성"></input></td>
+								<td width="50px" align="center" colspan="6"><input type="button" value="작성" onclick="writePro();"></input></td>
 							</tr>
 						</c:if>
 					</c:if>
