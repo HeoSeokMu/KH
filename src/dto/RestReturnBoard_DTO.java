@@ -3,6 +3,7 @@ package dto;
 import java.sql.Timestamp;
 
 public class RestReturnBoard_DTO {
+	private int num;
 	private String major;
 	private String name;
 	private String id;
@@ -16,6 +17,12 @@ public class RestReturnBoard_DTO {
 	private String result;
 	private Timestamp reg_date;
 	
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public String getMajor() {
 		return major;
 	}

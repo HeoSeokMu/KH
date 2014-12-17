@@ -40,8 +40,9 @@
 </head>
 
 <body onload="focusIt();">
-<jsp:include page="/member/sidebar.jsp" />
-		 
+		<c:if test="${type == '교직원'}">
+			<jsp:include page="/main/s_sidebar.jsp" />
+		</c:if>
 		<div id="box3">
 			<center>
 			<form method="post" name="chartForm">
