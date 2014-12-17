@@ -89,6 +89,9 @@ public class notice_board {
 		
 		mv.addObject("name", name);
 		mv.setViewName("/member/content.jsp");
+		
+		System.out.println("파일 업로드 경로 == " + request.getSession().getServletContext().getRealPath(""));
+		
 		return mv;
 	}
 	

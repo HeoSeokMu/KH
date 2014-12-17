@@ -16,8 +16,8 @@ public class memberDTO {
 	private String name;//이름
 	private String sex;//성별
 	private String email;//이메일
-	private String s_phone;//학생 연락처
-	private String p_phone;//보호자 연락처
+	private String s_phone;//본인 연락처
+	
 	private Timestamp reg_date;//등록일자
 	private String birth_yy;//생년
 	private String birth_mm;//생월
@@ -35,6 +35,17 @@ public class memberDTO {
 	private int rest_count;			// 휴학횟수
 	private Timestamp end_date;		// 졸업년도, 근무 마지막 일자
 	private int semester;			// 학기
+	
+	//보호자 정보 부분
+	private String parent_name;	//보호자 성함
+	private String p_phone;	//보호자 연락처
+	private String parent_job;	//보호자 직업
+	private String p_addr;	//보호자 주소
+	private String p_post;	//보호자 우편번호
+	
+	//공과 문과 구분, 졸업 이수학점 기재.
+	private String major_kind;	//공과 문과 구분
+	private int finish_point;	//졸업이수 학점
 	
 	public int getGrade() {
 		return grade;
@@ -192,4 +203,41 @@ public class memberDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
+	public String getParent_name() {
+		return parent_name;
+	}
+	public String getParent_job() {
+		return parent_job;
+	}
+	public String getP_addr() {
+		return p_addr;
+	}
+	public String getP_post() {
+		return p_post;
+	}
+	public void setParent_name(String parent_name) {
+		this.parent_name = parent_name;
+	}
+	public void setParent_job(String parent_job) {
+		this.parent_job = parent_job;
+	}
+	public void setP_addr(String p_addr) {
+		this.p_addr = p_addr;
+	}
+	public void setP_post(String p_post) {
+		this.p_post = p_post;
+	}
+	public String getMajor_kind() {
+		return major_kind;
+	}
+	public int getFinish_point() {
+		return finish_point;
+	}
+	public void setMajor_kind(String major_kind) {
+		this.major_kind = major_kind;
+	}
+	public void setFinish_point(int finish_point) {
+		this.finish_point = finish_point;
+	}
+	
 }

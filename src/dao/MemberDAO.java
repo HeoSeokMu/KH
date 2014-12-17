@@ -68,7 +68,7 @@ public class MemberDAO {
             conn = getConnection();
             
             pstmt = conn.prepareStatement(
-            	"insert into KH_MEMBER values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            	"insert into KH_MEMBER values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pstmt.setString(1, member.getType());
             pstmt.setString(2, member.getNum1());
             pstmt.setString(3, member.getNum2());
@@ -97,6 +97,13 @@ public class MemberDAO {
             pstmt.setInt(25, member.getSemester());
             pstmt.setInt(26, member.getRest_count());
             
+            pstmt.setString(27, member.getParent_name());
+            pstmt.setString(28, member.getParent_job());
+            pstmt.setString(29, member.getP_addr());
+            pstmt.setString(30, member.getP_post());
+            
+            pstmt.setString(31, member.getMajor_kind());
+            pstmt.setInt(32, member.getFinish_point());
             
             pstmt.executeUpdate();
         } catch(Exception ex) {
