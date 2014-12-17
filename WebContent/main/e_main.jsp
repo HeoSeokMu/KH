@@ -99,77 +99,78 @@
 	    		<c:if test="${memId != null}">
 		    		<div id="tab_menu">					
 						<ul>
-							<li class="btn"><a class="menu1">공지사항</a></li>
+							<li class="btn"><a class="e_menu1">공지사항</a></li>
 							<li class="ly" style="display:list-item;">
 								<dl>
 									<dt>공지사항</dt>
 									<dd><a href="notice_board.kh">공지사항</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu2">학적</a></li>
+							<li class="btn"><a class="e_menu2">개인정보</a></li>
 							<li class="ly">
 								<dl>
-									<dt>학적</dt>
-									<dd><a href="myInfo.kh">학적기본사항조회 및 수정</a></dd>
+									<dt>개인정보</dt>
+									<dd><a href="myInfo.kh">기본사항조회 및 수정</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu3">휴학/복학</a></li>
+							<li class="btn"><a class="e_menu3">개인정보 변경처리</a></li>
 							<li class="ly">
 								<dl>
-									<dt>휴학/복학</dt>
-									<dd><a href="#">휴학신청</a></dd>
-									<dd><a href="#">복학신청</a></dd>
+									<dt>개인정보 변경처리</dt>
+									<dd><a href="#">신청내역 확인</a></dd>
+									<dd><a href="#">처리내역 확인</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu4">교과/수강</a></li>
+							<li class="btn"><a class="e_menu4">강의개설 처리</a></li>
 							<li class="ly">
 								<dl>
-									<dt>교과/수강</dt>
-									<dd><a href="#">교과과정</a></dd>
-									<dd><a href="#">수강신청</a></dd>
-									<dd><a href="#">개설과목 조회</a></dd>
-									<dd><a href="#">수강신청 내역조회</a></dd>
-									<dd><a href="#">개인 시간표 조회</a></dd>
+									<dt>강의개설 처리</dt>
+									<dd><a href="#">신청내역 확인</a></dd>
+									<dd><a href="#">처리내역 확인</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu5">수업/성적</a></li>
+							<li class="btn"><a class="e_menu5">휴가신청 및 처리</a></li>
 							<li class="ly">
 								<dl>
-									<dt>수업/성적</dt>
-									<dd><a href="#">강의평가</a></dd>
-									<dd><a href="#">금학기 성적조회</a></dd>
-									<dd><a href="#">전체 성적조회</a></dd>
-									<dd><a href="#">출석조회</a></dd>
+									<dt>휴가신청 및 처리</dt>
+									<dd><a href="#">휴가 신청</a></dd>
+									<dd><a href="#">휴가 신청내역 확인</a></dd>
+									<dd><a href="#">휴가 처리내역 확인</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu6">등록/장학</a></li>
+							<li class="btn"><a class="e_menu6">휴학 및 복학처리</a></li>
 							<li class="ly">
 								<dl>
-									<dt>등록/장학</dt>
-									<dd><a href="#">금학기 장학내역</a></dd>
-									<dd><a href="#">근로장학 신청</a></dd>
-									<dd><a href="#">근로장학 결과</a></dd>
-									<dd><a href="#">교육비 납입 증명서</a></dd>
-									<dd><a href="#">등록금 고지서</a></dd>
-									<dd><a href="#">분납등록금 고지서</a></dd>
+									<dt>휴학 및 복학처리</dt>
+									<dd><a href="#">휴학 신청내역 확인</a></dd>
+									<dd><a href="#">휴학 처리내역 확인</a></dd>
+									<dd><a href="#">복학 신청내역 확인</a></dd>
+									<dd><a href="#">복학 처리내역확인</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu7">도서관</a></li>
+							<li class="btn"><a class="e_menu7">장학 처리</a></li>
+							<li class="ly">
+								<dl>
+									<dt>장학 처리</dt>
+									<dd><a href="#">장학금 신청내역 확인</a></dd>
+									<dd><a href="#">장학금 처리내역 확인</a></dd>
+								</dl>
+							</li>
+							<li class="btn"><a class="e_menu8">도서관</a></li>
 							<li class="ly">
 								<dl>
 									<dt>도서관</dt>
-									<dd><a href="#">책 대여 신청</a></dd>
+									<dd><a href="#">책 대여 신청내역 확인</a></dd>
 									<dd><a href="#">책 대여 리스트</a></dd>
-									<dd><a href="#">책 예약 취소</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu8">예비군</a></li>
+							<li class="btn"><a class="e_menu9">예비군</a></li>
 							<li class="ly">
 								<dl>
 									<dt>예비군</dt>
-									<dd><a href="#">예비군 신청</a></dd>
-									<dd><a href="#">훈련일자 조회</a></dd>
-									<dd><a href="#">훈련결과 조회</a></dd>
+									<dd><a href="#">예비군 신청내역 확인</a></dd>
+									<dd><a href="#">훈련일자 처리</a></dd>
+									<dd><a href="#">훈련결과 처리</a></dd>
 								</dl>
 							</li>
 						</ul>
