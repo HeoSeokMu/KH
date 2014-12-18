@@ -105,7 +105,6 @@ public class notice_board {
 		//textarea의 줄바꿈 태그를 교체.
 		String content = nb_DTO.getContent();
 		content = content.replaceAll("\r\n", "<br>");
-		content = content.replaceAll("\u0020", "&nbsp;");
 		nb_DTO.setContent(content);
 		
 		mDAO.insert_NoticeBoard(nb_DTO);
@@ -132,12 +131,7 @@ public class notice_board {
 		
 		ModelAndView mv = new ModelAndView();
 		noticeboard_DTO article = mDAO.getArticle(num);
-		
-		String content = article.getContent();
-		content = content.replaceAll("<br>", "\r\n");
-		content = content.replaceAll("&nbsp;", "\u0020");
-		
-		article.setContent(content);
+
 		
 		mv.addObject("article", article);
 		
@@ -154,6 +148,10 @@ public class notice_board {
 		int num = Integer.parseInt(request.getParameter("num"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		
+		//textarea의 줄바꿈 태그를 교체.
+		content = content.replaceAll("<br>", "\r\n");
+
 		String id = (String) session.getAttribute("memId");
 		MemberDAO mDAO = MemberDAO.getInstance();
 		
@@ -179,7 +177,6 @@ public class notice_board {
 		//textarea의 줄바꿈 태그를 교체.
 		String content = request.getParameter("content");
 		content = content.replaceAll("\r\n", "<br>");
-		content = content.replaceAll("\u0020", "&nbsp;");
 		nb_DTO.setContent(content);
 		
 		mDAO.modifyArticle(nb_DTO);
