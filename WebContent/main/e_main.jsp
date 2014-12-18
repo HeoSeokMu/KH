@@ -142,7 +142,7 @@
                      <li class="ly">
                         <dl>
                            <dt>휴학 및 복학처리</dt>
-                           <dd><a href="#">휴학 신청내역 확인</a></dd>
+                           <dd><a href="RestReturnRequest_board.kh">휴학 신청내역 확인</a></dd>
                            <dd><a href="#">휴학 처리내역 확인</a></dd>
                            <dd><a href="#">복학 신청내역 확인</a></dd>
                            <dd><a href="#">복학 처리내역확인</a></dd>

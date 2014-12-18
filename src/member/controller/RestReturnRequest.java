@@ -81,7 +81,7 @@ public class RestReturnRequest {
 		rrb_DTO.setGrade(grade);
 		rrb_DTO.setId(req.getParameter("id"));
 		rrb_DTO.setName(req.getParameter("name"));
-		rrb_DTO.setPhone(req.getParameter("s_phone"));
+		rrb_DTO.setPhone(req.getParameter("phone"));
 		rrb_DTO.setTime(req.getParameter("time"));
 		rrb_DTO.setWhy(req.getParameter("why"));
 		rrb_DTO.setWhy_detail(req.getParameter("why_detail"));
@@ -89,6 +89,7 @@ public class RestReturnRequest {
 		rrb_DTO.setReg_date(new Timestamp(System.currentTimeMillis()));
 		
 		System.out.println("rrb_DTO.getReg = "+rrb_DTO.getReg_date());
+		System.out.println("rrb_DTO.getPhone = "+rrb_DTO.getPhone());
 		
 		MemberDAO mDAO = new MemberDAO().getInstance();
 		mDAO.insertRestReturnBoard(rrb_DTO);
