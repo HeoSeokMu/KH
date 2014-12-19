@@ -6,6 +6,36 @@
 <head>
 <title>도서목록</title>
 <link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
+	<link rel="stylesheet" href="css/left_menu.css"></link>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/leftMenu_jquery.js"></script>
+	<style>
+		.login{
+			background-color:#7eb813;
+			color:#ffffff;
+			border:1px #dddddd dashed;
+			width:70px;
+			height:60px;
+			text-align:center;
+			padding:3px;
+		}
+		.trTitle {
+			height:15px;
+		}
+		.input{
+			size: 15px;
+		}
+		
+		.lineX {
+			border-bottom: 1px solid #dddddd;
+		}
+		.tablepadding {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	</style>
+	
 </head>
 <script type="text/javascript">
 	function checkIt() {
@@ -17,9 +47,12 @@
 		}
 	}
 </script>
+
+<jsp:include page="/member/sidebar.jsp" />
+<div id="box3">
 <center>
 <body>
-
+<br/>
 도서검색 <form action="bookList.kh" method="get">
 	<select name="searchType" >
 		<option value="all">전체</option>
@@ -115,16 +148,16 @@
     </td>
     <td align="center" width="100" >
     	<c:if test="${article.loan=='대출가능'}">
-    		<c:if test="${memId=='book_admin'}">
+    		<c:if test="${memId=='2014001002'}">
       			<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">대출</a>
       		</c:if>
       		<c:out value=""/>
     	</c:if>
-    	<c:if test="${article.loan=='대여중'}">
+    	<c:if test="${article.loan=='대출중'}">
     		<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">대출</a>
-    		<a href="/KH_School/notice.kh?b_num=${article.book_id}&s_num=2014004001" onclick="return checkIt()">반납알림받기</a>
-    		<c:if test="${memId=='book_admin'}">
-      			<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">반납</a>
+    		<a href="/KH_School/notice.kh?b_num=${article.book_id}&s_num=${memId}" onclick="return checkIt()">반납알림받기</a>
+    		<c:if test="${memId=='2014001002'}">
+      			<a href="/KH_School/turnin.kh?book_id=${article.book_id}">반납</a>
       		</c:if>
     	</c:if>
     </td>
@@ -132,10 +165,20 @@
   </c:forEach>
 </table>
 </c:if>
+<br/>
 <c:if test="${totalCount > 0}">
 	${pagingHtml}
 </c:if>
 
-</body>
+
 </center>
-</html> 
+<br/>
+
+</div>
+
+	<div id="box4"><center><br /><br /></center></div>
+
+</body>
+
+
+</html>

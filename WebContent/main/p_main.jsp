@@ -132,6 +132,10 @@
 									<dd><a href="#">책 대여 신청</a></dd>
 									<dd><a href="#">책 대여 리스트</a></dd>
 									<dd><a href="#">책 예약 취소</a></dd>
+									<dd><a href="bookRequest.kh">책 구입 신청</a></dd>
+									<dd><a href="myBookRequestList.kh">책 구입 신청 내역</a></dd>
+									<c:if test="${memId=='2014401001' }"><ad><a href="libraryAdmin.kh">관리자 페이지</ad></c:if>
+									
 								</dl>
 							</li>
 							<li class="btn"><a class="p_menu5">휴가신청</a></li>

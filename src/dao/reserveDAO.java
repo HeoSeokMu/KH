@@ -35,7 +35,7 @@ public class reserveDAO {
 		            pstmt.setString(1, dto.getB_num());
 		            pstmt.setString(2, dto.getS_num());
 		            pstmt.setString(3, dto.getEmail());
-		            pstmt.setDate(4, dto.getDate());
+		            pstmt.setTimestamp(4, dto.getDate());
 		            pstmt.executeUpdate();
 		        } catch(Exception ex) {
 		            ex.printStackTrace();

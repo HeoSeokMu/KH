@@ -79,7 +79,7 @@
    <td>${article.loan}</td>
    <td>
    <input type="button" name="bookModify" value="수정" onClick="javascript:location.href='bookModifyForm.kh?book_id=${article.book_id}'">
-   <c:if test="${article.loan =='보관중' }">
+   <c:if test="${article.loan =='대출가능' }">
    <input type="button" name="bookDelete" value="삭제" onClick="javascript:location.href='bookDelete.kh?book_id=${article.book_id}'">
    </c:if></td>
   </tr>

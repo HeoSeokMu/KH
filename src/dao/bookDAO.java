@@ -118,7 +118,7 @@ public class bookDAO {
 	            
 	            pstmt = conn.prepareStatement(
 	            	"update kh_library set loan = ?, s_num = ?, turnin = ? where book_id = ? ");
-	            pstmt.setString(1, "대여중");
+	            pstmt.setString(1, "대출중");
 	            pstmt.setString(2, dto.getS_num());
 	            pstmt.setDate(3, dto.getTurnin());
 	            pstmt.setInt(4, dto.getBook_id());
@@ -175,5 +175,27 @@ public class bookDAO {
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			}
 			return email;
+		}
+		
+		public void turnin(int book_id) {
+			Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        
+	        try {
+	            conn = getConnection();
+	            
+	            pstmt = conn.prepareStatement(
+	            	"update kh_library set loan = ?, s_num = ?, turnin = ? where book_id = ? ");
+	            pstmt.setString(1, "대출가능");
+	            pstmt.setString(2, "0");
+	            pstmt.setDate(3, null);
+	            pstmt.setInt(4, book_id);
+	            pstmt.executeUpdate();
+	        } catch(Exception ex) {
+	            ex.printStackTrace();
+	        } finally {
+	            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+	            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+	        }
 		}
 }

@@ -6,8 +6,41 @@
 <html>
 <head>
 <title>Insert title here</title>
+<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
+	<link rel="stylesheet" href="css/left_menu.css"></link>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/leftMenu_jquery.js"></script>
+	<style>
+		.login{
+			background-color:#7eb813;
+			color:#ffffff;
+			border:1px #dddddd dashed;
+			width:70px;
+			height:60px;
+			text-align:center;
+			padding:3px;
+		}
+		.trTitle {
+			height:15px;
+		}
+		.input{
+			size: 15px;
+		}
+		
+		.lineX {
+			border-bottom: 1px solid #dddddd;
+		}
+		.tablepadding {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	</style>
 </head>
+<jsp:include page="/member/sidebar.jsp" />
+<div id="box3">
 <body>
+<br/>
 <table>	
 			<tr>
 				<td>
@@ -56,5 +89,9 @@
 		</table>
 			<br/>
 			<input type="button" class="next" value="도서관 홈" onclick="javascript:window.location='bookList.kh'"/>
+			<br/>
+	</div>
+
+	<div id="box4"><center><br /><br /></center></div>
 </body>
 </html>
