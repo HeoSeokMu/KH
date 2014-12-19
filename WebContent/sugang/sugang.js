@@ -1,19 +1,43 @@
-
-function body(){
-		var hide = document.getElementById("typeB"); // ±³¾ç ÅÇ ¼û±è(default)
+	function body(){
+		alert("body");
+		
+		var hide = document.getElementById("typeB"); // êµì–‘ íƒ­ ìˆ¨ê¹€(default)
 		hide.style.display = 'none';
 		
 	/* 	var c = document.getElementById("101");
 		c.style.backgroundColor="blue"; */
-	
+		for(var i=0; i<=9; i++){
+			var type = document.getElementsByName("q_type")[i].value;
+			var code = document.getElementsByName("q_code")[i].value;
+			var table = document.getElementsByName("q_table")[i].value;
+			var name = document.getElementsByName("q_name")[i].value;
+			var hakjum = document.getElementsByName("q_hakjum")[i].value;
+			var professor = document.getElementsByName("q_professor")[i].value;
+			
+			document.getElementsByName("set_sch"+i)[0].value = type;
+			document.getElementsByName(i)[0].value = name; /*ê³¼ëª© ì´ë¦„*/
+			document.getElementsByName("code"+i)[0].value = code;
+			document.getElementsByName("table"+i)[0].value = table;
+			
+			if(type == "e"){
+				type="ì „ í•„";
+			}else{
+				type="ì „ ì„ ";
+			}
+			
+			document.getElementsByName("subject"+i)[0].value = type; /*ì „ì„ , ì „í•„*/
+			document.getElementsByName("hakjum"+i)[0].value = hakjum;
+			document.getElementsByName("professor"+i)[0].value = professor;
+		
+		}
 	}
 	
 	function hakjum_check(num, sch){
 		
-		var sugang = document.getElementsByName("sugang"); //  ¹è¿­·Î ´ã¾Æ .length 1ºÎÅÍ ½ÃÀÛÇÏ±â¶§¹«¿¡ -1
+		var sugang = document.getElementsByName("sugang"); //  ë°°ì—´ë¡œ ë‹´ì•„ .length 1ë¶€í„° ì‹œì‘í•˜ê¸°ë•Œë¬´ì— -1
 		var size = sugang.length -1;
 
-		var hakjum_sum = 0;   				// ÇĞÁ¡ µ¡¼À
+		var hakjum_sum = 0;   				// í•™ì  ë§ì…ˆ
 		for(var i=0; i<=size; i++){
 			var hakjumName = "hakjum"+i;
 			var hakjum = Number(document.getElementsByName(hakjumName)[0].value);
@@ -24,11 +48,11 @@ function body(){
 			 hakjum_sum = "";
 		}
 	
-		lowlimit_hakjum = Number(document.getElementsByName("lowlimit_hakjum")[0].value); // ÃÖÀú ¿ä±¸ ÇĞÁ¡
-		highlimit_hakjum = Number(document.getElementsByName("highlimit_hakjum")[0].value); // ÃÖ°í ¿ä±¸ ÇĞÁ¡
-		if(hakjum_sum > highlimit_hakjum){ // ¿ä±¸ ÇĞÁ¡ È®ÀÎ ¹× µ¡¼À
-			alert("ÃÖ´ë ÇÊ¿ä ÇĞÁ¡ÀÌ ÃÊ°úÇß½À´Ï´Ù.");
-			no(num);	 			// ÇĞÁ¡ÀÌ ÃÊ°ú ÇßÀ»¶§ ½ÅÃ» ¸ñ·Ï¿¡¼­ ÀÚµ¿ »èÁ¦	
+		lowlimit_hakjum = Number(document.getElementsByName("lowlimit_hakjum")[0].value); // ìµœì € ìš”êµ¬ í•™ì 
+		highlimit_hakjum = Number(document.getElementsByName("highlimit_hakjum")[0].value); // ìµœê³  ìš”êµ¬ í•™ì 
+		if(hakjum_sum > highlimit_hakjum){ // ìš”êµ¬ í•™ì  í™•ì¸ ë° ë§ì…ˆ
+			alert("ìµœëŒ€ í•„ìš” í•™ì ì´ ì´ˆê³¼í–ˆìŠµë‹ˆë‹¤.");
+			no(num);	 			// í•™ì ì´ ì´ˆê³¼ í–ˆì„ë•Œ ì‹ ì²­ ëª©ë¡ì—ì„œ ìë™ ì‚­ì œ	
 		}else if(hakjum_sum < lowlimit_hakjum){
 			document.getElementsByName("hakjum_sum")[0].value = hakjum_sum;
 			
@@ -46,7 +70,7 @@ function body(){
 		return;
 	}
 	
-	function ok(num){     // °°Àº ½Ã°£´ë¿¡ ¼ö°­½ÅÃ»ÀÌ µÇ¾îÀÖ´ÂÁö È®ÀÎ
+	function ok(num){     // ê°™ì€ ì‹œê°„ëŒ€ì— ìˆ˜ê°•ì‹ ì²­ì´ ë˜ì–´ìˆëŠ”ì§€ í™•ì¸
 		var name = "sch_time"+num;
 		var subject = "sugangsubject"+num;
 		var value = document.getElementsByName(name);
@@ -63,46 +87,46 @@ function body(){
 		if(check == 0){
 			add(num);
 		}else{
-			alert("¼ö°­ ½Ã°£Ç¥¸¦ È®ÀÎÇÏ¼¼¿ä !!");
+			alert("ìˆ˜ê°• ì‹œê°„í‘œë¥¼ í™•ì¸í•˜ì„¸ìš” !!");
 		}
 	}
 	
 	function add(num){
-		var text = document.getElementsByName("suganglist")[num-1].value; // °ú¸ñ
-		var subject = document.getElementsByName("subjectlist")[num-1].value; // ±¸ºĞ
-		var professor = document.getElementsByName("professorlist")[num-1].value; // ´ã´ç ±³¼ö
-		var hakjum = document.getElementsByName("hakjumlist")[num-1].value; // ÇĞÁ¡
-		var code =  document.getElementsByName("l_code")[num-1].value; //°ú¸ñÄÚµå
-		var table =  document.getElementsByName("tablename")[num-1].value; //Å×ÀÌºí ÀÌ¸§
+		var text = document.getElementsByName("suganglist")[num-1].value; // ê³¼ëª©
+		var subject = document.getElementsByName("subjectlist")[num-1].value; // êµ¬ë¶„
+		var professor = document.getElementsByName("professorlist")[num-1].value; // ë‹´ë‹¹ êµìˆ˜
+		var hakjum = document.getElementsByName("hakjumlist")[num-1].value; // í•™ì 
+		var code =  document.getElementsByName("l_code")[num-1].value; //ê³¼ëª©ì½”ë“œ
+		var table =  document.getElementsByName("tablename")[num-1].value; //í…Œì´ë¸” ì´ë¦„
 		
-		var sugang = document.getElementsByName("sugang"); //  ¹è¿­·Î ´ã¾Æ .length 1ºÎÅÍ ½ÃÀÛÇÏ±â¶§¹«¿¡ -1
+		var sugang = document.getElementsByName("sugang"); //  ë°°ì—´ë¡œ ë‹´ì•„ .length 1ë¶€í„° ì‹œì‘í•˜ê¸°ë•Œë¬´ì— -1
 		
 		for(var i=0; i<=sugang.length; i++){	
 			var value = document.getElementsByName(i)[0].value;
 			
 			if(value == ""){
-				document.getElementsByName(i)[0].value = text; // °ú¸ñ insert
+				document.getElementsByName(i)[0].value = text; // ê³¼ëª© insert
 				
 				var subjectName = "subject"+i;
-				document.getElementsByName(subjectName)[0].value = subject; // ±¸ºĞ insert
+				document.getElementsByName(subjectName)[0].value = subject; // êµ¬ë¶„ insert
 				
 				var professorName = "professor"+i;
-				document.getElementsByName(professorName)[0].value = professor; // ´ã´ç ±³¼ö  insert
+				document.getElementsByName(professorName)[0].value = professor; // ë‹´ë‹¹ êµìˆ˜  insert
 				
 				var hakjumName = "hakjum"+i;
-				document.getElementsByName(hakjumName)[0].value = hakjum; // ÇĞÁ¡ insert
+				document.getElementsByName(hakjumName)[0].value = hakjum; // í•™ì  insert
 				
 				var codeName = "code"+i;
-				document.getElementsByName(codeName)[0].value = code; // °ú¸ñ ÄÚµå insert
+				document.getElementsByName(codeName)[0].value = code; // ê³¼ëª© ì½”ë“œ insert
 				
 				var tableName = "table"+i;
-				document.getElementsByName(tableName)[0].value = table; // °ú¸ñ ÄÚµå insert
+				document.getElementsByName(tableName)[0].value = table; // ê³¼ëª© ì½”ë“œ insert
 				
 				var check = document.getElementById(num);
 				check.style.display = 'none';
 				
 				
-				var subject_sum = document.getElementsByName("subject_sum")[0].value; // °ú¸ñ¼ö  µ¡¼À
+				var subject_sum = document.getElementsByName("subject_sum")[0].value; // ê³¼ëª©ìˆ˜  ë§ì…ˆ
 				if(subject_sum == ""){
 					document.getElementsByName("subject_sum")[0].value = 1;
 				}else{
@@ -110,7 +134,7 @@ function body(){
 					sum = sum+1;
 					document.getElementsByName("subject_sum")[0].value = sum;	
 				}
-				hakjum_check(i, num);  	// ÇĞÁ¡ ÃÊ°ú½Ã ÀÔ·ÂµÈ ¸®½ºÆ®ÀÇ ÀÚ¸®¼ö num ¸¦ º¸³» Ãë¼Ò ½ÃÅ²´Ù
+				hakjum_check(i, num);  	// í•™ì  ì´ˆê³¼ì‹œ ì…ë ¥ëœ ë¦¬ìŠ¤íŠ¸ì˜ ìë¦¬ìˆ˜ num ë¥¼ ë³´ë‚´ ì·¨ì†Œ ì‹œí‚¨ë‹¤
 				var k = Number(i)+1;
 				document.getElementsByName("set_sch"+k).value = num;
 				break;
@@ -120,7 +144,7 @@ function body(){
 	
 	function no(name, sch){
 		var text = document.getElementsByName(name)[0].value;
-		var suganglist = document.getElementsByName("suganglist"); //  ¹è¿­·Î ´ã¾Æ .length 1ºÎÅÍ ½ÃÀÛÇÏ±â¶§¹«¿¡ -1
+		var suganglist = document.getElementsByName("suganglist"); //  ë°°ì—´ë¡œ ë‹´ì•„ .length 1ë¶€í„° ì‹œì‘í•˜ê¸°ë•Œë¬´ì— -1
 		var size = suganglist.length -1;
 
 		for(var i=0; i<=size; i++){
@@ -132,7 +156,7 @@ function body(){
 				var show = document.getElementById(f);
 				show.style.display = 'block';
 						
-				var sum = Number(document.getElementsByName("subject_sum")[0].value); // °ú¸ñ¼ö »¬¼À
+				var sum = Number(document.getElementsByName("subject_sum")[0].value); // ê³¼ëª©ìˆ˜ ëº„ì…ˆ
 				sum = sum-1;	
 				if(sum <= 0){
 					document.getElementsByName("subject_sum")[0].value = "";
@@ -142,11 +166,11 @@ function body(){
 			}
 		}
 	
-		document.getElementsByName(name)[0].value = "";	// °ú¸ñ ÃÊ±âÈ­
-		document.getElementsByName("subject"+name)[0].value = "";	// ±¸ºĞ ÃÊ±âÈ­
-		document.getElementsByName("professor"+name)[0].value = ""; // ´ã´ç±³¼ö ÃÊ±âÈ­
-		document.getElementsByName("hakjum"+name)[0].value = ""; // ÇĞÁ¡ ÃÊ±âÈ­
-		document.getElementsByName("code"+name)[0].value = ""; //°ú¸ñ ÄÚµå ÃÊ±âÈ­
+		document.getElementsByName(name)[0].value = "";	// ê³¼ëª© ì´ˆê¸°í™”
+		document.getElementsByName("subject"+name)[0].value = "";	// êµ¬ë¶„ ì´ˆê¸°í™”
+		document.getElementsByName("professor"+name)[0].value = ""; // ë‹´ë‹¹êµìˆ˜ ì´ˆê¸°í™”
+		document.getElementsByName("hakjum"+name)[0].value = ""; // í•™ì  ì´ˆê¸°í™”
+		document.getElementsByName("code"+name)[0].value = ""; //ê³¼ëª© ì½”ë“œ ì´ˆê¸°í™”
 		
 		hakjum_check(name);
 		var k = Number(name)+1;
@@ -161,7 +185,7 @@ function body(){
 		var value = document.getElementsByName(name);
 		var j = (Math.round(Math.random()*6));
 		
-		for(var i=0; i<value.length; i++){   			// ½Ã°£Ç¥¿¡ »ö Ç¥½Ã
+		for(var i=0; i<value.length; i++){   			// ì‹œê°„í‘œì— ìƒ‰ í‘œì‹œ
 			var sch = document.getElementsByName(name)[i].value;
 			var c = document.getElementById(sch);
 			var color = ["#FF5E00","FFBB00","FFE400","#ABF200","#1DDB16","#0054FF","#0100FF"];
@@ -175,7 +199,7 @@ function body(){
 		var name = "sch_time"+num;
 		var value = document.getElementsByName(name);
 		
-		for(var i=0; i<value.length; i++){   			//½Ã°£Ç¥¿¡ »ö  ÃÊ±âÈ­
+		for(var i=0; i<value.length; i++){   			//ì‹œê°„í‘œì— ìƒ‰  ì´ˆê¸°í™”
 			var sch = document.getElementsByName(name)[i].value;
 			var c = document.getElementById(sch); 
 			c.style.backgroundColor="white"; 
@@ -200,8 +224,8 @@ function body(){
 		A.style.display = 'none';
 	}
 	
-	setInterval("hideSubject()", 500); // ÃÊ ¸¶´Ù ÀÚµ¿ ½ÇÇà
-	setInterval("hideButton()", 500); // ÃÊ ¸¶´Ù ÀÚµ¿ ½ÇÇà
+	setInterval("hideSubject()", 500); // ì´ˆ ë§ˆë‹¤ ìë™ ì‹¤í–‰
+	setInterval("hideButton()", 500); // ì´ˆ ë§ˆë‹¤ ìë™ ì‹¤í–‰
 	
 	function selectRadio(select, m_code, y_grade, stu_num, stu_grade) {
 		
@@ -286,15 +310,15 @@ function body(){
 	} 
 	
 	function chk_it(){
-		var lowlimit_hakjum = Number(document.getElementsByName("lowlimit_hakjum")[0].value); // ÃÖÀú ¿ä±¸ ÇĞÁ¡
-		var hakjum = Number(document.getElementsByName("hakjum_sum")[0].value); //½ÅÃ»ÇÑ ÇĞÁ¡
+		var lowlimit_hakjum = Number(document.getElementsByName("lowlimit_hakjum")[0].value); // ìµœì € ìš”êµ¬ í•™ì 
+		var hakjum = Number(document.getElementsByName("hakjum_sum")[0].value); //ì‹ ì²­í•œ í•™ì 
 		
 		if(hakjum < lowlimit_hakjum){
-			alert("½ÅÃ» ÇĞÁ¡ÀÌ ¸ğÀÚ¶ø´Ï´Ù.");
+			alert("ì‹ ì²­ í•™ì ì´ ëª¨ìëë‹ˆë‹¤.");
 			return false;
 		}else{
 			return true;
 		}
 	}
 	
-	window.history.forward(); // µÚ·Î°¡±â ¹æÁö
+	window.history.forward(); // ë’¤ë¡œê°€ê¸° ë°©ì§€

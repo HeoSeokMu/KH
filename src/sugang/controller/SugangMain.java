@@ -25,16 +25,17 @@ public class SugangMain {
 		
 		List<sugangDTO> list = new ArrayList<sugangDTO>();
 		stuDTO stu = new stuDTO();
-		String number = "2014001005";  //立加 切积 沥焊
+		String number = "2014001003";  //立加 切积 沥焊
 		String grade = "1";
 		
 		sugangDAO dao = sugangDAO.getInstance();
 		stu = dao.getstu(grade, number);
+		
 		if(stu.getSubject_sum() > 0){
-			list = dao.getSugangList(number, grade);
-			mv.addObject("list",list);
+			list = dao.getSugangList(number, grade);	
+			mv.addObject("list",list); 
 		}
-
+		
 		mv.addObject("stu",stu);
 		mv.setViewName("/sugang/sugangMain.jsp");
 		return mv;

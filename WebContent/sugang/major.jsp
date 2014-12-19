@@ -4,40 +4,37 @@
 <table>
 <tr><td>
   	<c:forEach var="sugangList" items="${sugangList}">   
-	          <c:set var="chk" value="0"/>        									 <!--     수강 할 과목  리스트               -->
-	                              									 
-	                          <c:forEach var="code" items="${codelist}">
-		                           	<c:if test="${sugangList.l_code == code}">   <!-- 신청 여부 확인 -->
-		                           			<c:set var="chk" value="1"/>  
-		                           	</c:if> 
-	                           </c:forEach> 
-	               
+	            									 <!--     수강 할 과목  리스트               -->            
 		<c:if test="${sugangList.count%2 == 0}">
 			<table width="480" border="1" bordercolor="gray" cellpadding="3" cellspacing="0"  id="${sugangList.count}" >
 		</c:if>
+		
 		<c:if test="${sugangList.count%2 != 0}">
 			<table width="480" border="1" bordercolor="gray" cellpadding="3" cellspacing="0"  id="${sugangList.count}" bgcolor="#E7E7E7">
 		</c:if>
+
 		
-			<tr>
+		<tr>
+			<td align="center" rowspan="2" width="50" bgcolor="#b1b1b1" id="Abutton${sugangList.count}">
+				<input type="button" value="신청" onclick="ok('${sugangList.count}')"/>
+				<input type="hidden" name="l_code" value="${sugangList.l_code}"/>	
+			</td>
+			
+	<!-- ------------------    -->
+	
 			<c:if test="${chk == 0 }">
-				<td align="center" rowspan="2" width="50" bgcolor="#b1b1b1" id="Abutton${sugangList.count}">
-					<input type="button" value="신청" onclick="ok('${sugangList.count}')"/>
-					<input type="hidden" name="l_code" value="${sugangList.l_code}"/>	
+				<td align="center" rowspan="2" width="50" bgcolor="#b1b1b1" id="Bbutton${sugangList.count}">
+					<font size="2" color="red"><b>신청 불가</b></font>
 				</td>
 			</c:if>
 			
 			<c:if test="${chk == 1 }">
-				<td align="center" rowspan="2" width="50" bgcolor="#b1b1b1" id="Abutton${sugangList.count}">
+				<td align="center" rowspan="2" width="50" bgcolor="#b1b1b1" id="Bbutton${sugangList.count}">
 					<font size="2" color="blue"><b>신청 됨</b></font>
-					<input type="hidden" name="l_code" value="${sugangList.l_code}"/>	
 				</td>
 			</c:if>
-			
-				<td align="center" rowspan="2" width="50" bgcolor="#b1b1b1" id="Bbutton${sugangList.count}">
-					<font size="2" color="red"><b>신청 불가</b></font>
-				</td>
-			
+				
+	<!-- ------------------    -->		
 				
 				<td align="center" width="100">
 				
