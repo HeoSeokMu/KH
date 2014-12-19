@@ -439,5 +439,39 @@ public class bookInsertDAO {
 						if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 					}return book;
 				}
+				
+				
+				//공지사항등록
+				public void libraryNotice(libraryDTO library) throws Exception {
+					        Connection conn = null;
+					        PreparedStatement pstmt = null;
+					        ResultSet rs = null;
+					        String id = library.getId();
+					        int number=0;
+					        String sql ="";
+
+
+					        try {
+					            conn = getConnection();
+					            
+					            
+					            pstmt = conn.prepareStatement(
+					            	"insert into LIBRARYNOTICE (no,writer,subject,content,libraryfile,readhit,reg_date)"
+					            	+ "values (librarynotice_no_seq.nextval,?,?,?,?,?,?)");
+					            pstmt.setString(1, library.getWriter());
+					            pstmt.setString(2, library.getSubject());
+					            pstmt.setString(3, library.getContent());
+					            pstmt.setString(4, library.getLibraryfile());
+					            pstmt.setInt(5, library.getReadhit());
+					            pstmt.setTimestamp(6, library.getReg_date());
+					            pstmt.executeUpdate();
+					        } catch(Exception ex) {
+					            ex.printStackTrace();
+					        } finally {
+					            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+					            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+					        }
+					        
+					    }
 		
 	}
