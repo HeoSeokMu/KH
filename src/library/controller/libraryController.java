@@ -26,6 +26,52 @@ import dto.memberDTO;
 @Controller
 public class libraryController {
 
+
+	//도서관 메인페이지
+	@RequestMapping(value="libraryMain.kh")
+	public String libraryMain(){
+		
+		return "/library/libraryMain.jsp";
+	}
+	//도서관 공지사항 폼
+		@RequestMapping(value="libraryNoticeForm.kh")
+		public String libraryNotice(){
+			
+			return "/library/libraryNoticeForm.jsp";
+		}
+	//도서관 공지사항 처리
+		@RequestMapping(value="libraryNoticeFormPro.kh")
+		public String libraryNoticeFormPro(HttpSession session, HttpServletRequest req, @ModelAttribute libraryDTO dto, MultipartHttpServletRequest request) throws Exception{
+			MemberDAO m_dao = MemberDAO.getInstance();
+			String id = (String)session.getAttribute("memId");
+			
+			dto.setReg_date(new Timestamp(System.currentTimeMillis()));
+			
+			String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/book_img/";
+			
+			bookInsertDAO notice_dao = bookInsertDAO.getInstance();
+			
+			//파일 업로드
+			if(!request.getFile("upload").isEmpty()){
+				MultipartFile file = request.getFile("upload");
+			}
+			
+			notice_dao.libraryNotice(dto);
+			
+//			ModelAndView mv = new ModelAndView();
+//			
+//			mv.addObject("dto", dto);
+//			mv.addObject("no", request.getParameter("no"));
+//			mv.addObject("subject", request.getParameter("subject"));
+//			mv.addObject("content", request.getParameter("content"));
+//			mv.addObject("libraryfile", request.getParameter("libraryfile"));
+//			mv.addObject("readhit", request.getParameter("readhit"));
+//			mv.addObject("writer", request.getParameter("writer"));
+//			mv.setViewName("/library/libraryNoticeForm.kh");
+			
+			return "redirect:libraryMain.kh";
+		}
+		
 	//책 등록 폼
 	@RequestMapping(value="bookInsertForm.kh")
 	public String form(){
