@@ -120,7 +120,7 @@
                      <li class="ly">
                         <dl>
                            <dt>강의개설 처리</dt>
-                           <dd><a href="#">신청내역 확인</a></dd>
+                           <dd><a href="lectureReq.kh">신청내역 확인</a></dd>
                            <dd><a href="#">처리내역 확인</a></dd>
                         </dl>
                      </li>

@@ -102,9 +102,9 @@
 								<dl>
 									<dt>교과/수강</dt>
 									<dd><a href="#">교과과정</a></dd>
-									<dd><a href="#">수강신청</a></dd>
+									<dd><a href="sugang.kh">수강신청</a></dd>
 									<dd><a href="#">개설과목 조회</a></dd>
-									<dd><a href="#">수강신청 내역조회</a></dd>
+									<dd><a href="sugangchk.kh">수강신청 내역조회</a></dd>
 									<dd><a href="#">개인 시간표 조회</a></dd>
 								</dl>
 							</li>

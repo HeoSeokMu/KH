@@ -10,6 +10,15 @@
 <title>학적</title>
 </head>
 <body>
+	<c:if test="${type == '교직원'}">
+			<jsp:include page="/main/e_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '교수'}">
+			<jsp:include page="/main/p_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '학생'}">
+			<jsp:include page="/main/s_sidebar.jsp" />
+		</c:if>
 	<table align="center" border="1">
 		<tr><td>학적기본정보</td></tr>
 		<tr>
