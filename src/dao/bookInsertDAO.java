@@ -305,7 +305,7 @@ public class bookInsertDAO {
 		}
 		
 		//나의 책 신청 리스트
-		public List<libraryDTO> getRequestArticles(int id) throws Exception {
+		public List<libraryDTO> getRequestArticles(String id) throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -313,7 +313,7 @@ public class bookInsertDAO {
 			try {
 				conn = getConnection();
 					pstmt = conn.prepareStatement("select * from kh_libraryrequest where id = ? order by reg_date desc ");
-					pstmt.setInt(1, id);
+					pstmt.setString(1, id);
 						rs = pstmt.executeQuery();
 						if (rs.next()) {
 							articleList = new ArrayList(); 
@@ -418,6 +418,7 @@ public class bookInsertDAO {
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			}return book;
 		}
+		
 		//책신청 반려
 				public libraryDTO bookRequestNo(int book_id) throws Exception{
 					Connection conn = null;

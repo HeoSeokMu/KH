@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import dto.RestReturnBoard_DTO;
 import dto.memberDTO;
 import dto.noticeboard_DTO;
 import dto.postDTO;
@@ -67,7 +69,7 @@ public class MemberDAO {
             conn = getConnection();
             
             pstmt = conn.prepareStatement(
-            	"insert into KH_MEMBER values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            	"insert into KH_MEMBER values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pstmt.setString(1, member.getType());
             pstmt.setString(2, member.getNum1());
             pstmt.setString(3, member.getNum2());
@@ -96,6 +98,13 @@ public class MemberDAO {
             pstmt.setInt(25, member.getSemester());
             pstmt.setInt(26, member.getRest_count());
             
+            pstmt.setString(27, member.getParent_name());
+            pstmt.setString(28, member.getParent_job());
+            pstmt.setString(29, member.getP_addr());
+            pstmt.setString(30, member.getP_post());
+            
+            pstmt.setString(31, member.getMajor_kind());
+            pstmt.setInt(32, member.getFinish_point());
             
             pstmt.executeUpdate();
         } catch(Exception ex) {
@@ -303,8 +312,6 @@ public class MemberDAO {
             pstmt.setTimestamp(3, nb_DTO.getReg_date());
             pstmt.setString(4, nb_DTO.getWriter());
             
-            System.out.println("getReg_date == " + nb_DTO.getReg_date());
-            
             pstmt.executeUpdate();
         } catch(Exception ex) {
             ex.printStackTrace();
@@ -321,7 +328,6 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<noticeboard_DTO> noticeBoard_List = null;
-		System.out.println("noticeBoard_List =======================");
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement("select * from KH_NOTICEBOARD order by num desc");
@@ -345,15 +351,6 @@ public class MemberDAO {
 			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
-		System.out.println("noticeBoard_List size : "+noticeBoard_List.size());
-		
-		for(int i = 0; i<noticeBoard_List.size(); i++) {
-			System.out.println(noticeBoard_List.get(i).getNum());
-			System.out.println(noticeBoard_List.get(i).getTitle());
-			System.out.println(noticeBoard_List.get(i).getContent());
-			System.out.println(noticeBoard_List.get(i).getReg_date());
-			System.out.println(noticeBoard_List.get(i).getWriter());
-		}
 
 		return noticeBoard_List;
 	}
@@ -364,8 +361,6 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String name = "";
-		
-		System.out.println("Login_check ==========================");
 		
 		try {
 			conn = getConnection();
@@ -385,7 +380,7 @@ public class MemberDAO {
 		}
 		return name;
 	}
-	
+	//시퀀스 넘버로 게시글을 가져오는 쿼리.
 	public noticeboard_DTO getArticle(int num) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -414,5 +409,125 @@ public class MemberDAO {
 		}
 		
 		return article;
+	}
+	//공지사항 수정하는 쿼리
+	public noticeboard_DTO modifyArticle(noticeboard_DTO nb_DTO) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		noticeboard_DTO article=null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(
+			"update kh_noticeboard set title=?, reg_date=?, content=? where num = ?"); 
+			pstmt.setString(1, nb_DTO.getTitle());
+			pstmt.setTimestamp(2, nb_DTO.getReg_date());
+			pstmt.setString(3, nb_DTO.getContent());			
+			pstmt.setInt(4, nb_DTO.getNum());
+			rs = pstmt.executeQuery();
+
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		
+		return article;
+	}
+	//공지사항 삭제 쿼리.
+	public noticeboard_DTO deleteArticle(int num) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		noticeboard_DTO article=null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(
+			"delete kh_noticeboard where num = ?"); 
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		
+		return article;
+	}
+	
+	public void insertRestReturnBoard(RestReturnBoard_DTO rrb) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+	        
+        try {
+            conn = getConnection();
+            
+            pstmt = conn.prepareStatement(
+            	"insert into kh_restreturn_school_board values(kh_restreturn_num.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pstmt.setString(1, rrb.getId());
+            pstmt.setString(2, rrb.getName());
+            pstmt.setString(3, rrb.getMajor());
+            pstmt.setInt(4, rrb.getGrade());
+            pstmt.setString(5, rrb.getEmail());
+            pstmt.setString(6, rrb.getPhone());
+            pstmt.setString(7, rrb.getAddr());
+            pstmt.setString(8, rrb.getTime());
+            pstmt.setString(9, rrb.getWhy());
+            pstmt.setString(10, rrb.getWhy_detail());
+            pstmt.setString(11, rrb.getResult());
+            pstmt.setTimestamp(12, rrb.getReg_date());
+            pstmt.executeUpdate();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+    }
+	
+	// 
+	public List<RestReturnBoard_DTO> restreturn_BoardList() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<RestReturnBoard_DTO> rrb_List = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from kh_restreturn_school_board order by num desc");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				rrb_List = new ArrayList<RestReturnBoard_DTO>();
+				do {
+					RestReturnBoard_DTO dto = new RestReturnBoard_DTO();
+					dto.setNum(rs.getInt("num"));
+					dto.setMajor(rs.getString("major"));
+					dto.setName(rs.getString("name"));
+					dto.setId(rs.getString("id"));
+					dto.setGrade(rs.getInt("grade"));
+					dto.setEmail(rs.getString("email"));
+					dto.setPhone(rs.getString("phone"));
+					dto.setAddr(rs.getString("addr"));
+					dto.setTime(rs.getString("time"));
+					dto.setWhy(rs.getString("why"));
+					dto.setWhy_detail(rs.getString("why_detail"));
+					dto.setResult(rs.getString("result"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+					rrb_List.add(dto);
+				} while (rs.next());
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+
+		return rrb_List;
 	}
 }

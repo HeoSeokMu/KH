@@ -10,7 +10,11 @@
 <center>
 <body>
 
-
+<tr>
+	<td>
+	<input type="button" name="ok" value="확인">
+	</td>
+</tr>
 <c:if test="${totalCount > 0}">
 <table border="1" cellpadding="0" cellspacing="0" align="center"> 
     <tr height="30" bgcolor="${value_c}">
@@ -60,5 +64,6 @@
 </c:if>
 
 </body>
+
 </center>
 </html>

@@ -37,87 +37,25 @@
 			padding-right: 15px;
 		}
 	</style>
-	<script language="javascript">
-		function focusIt() {
-			alert("${check}");
-			if("${check}"== 2){
-				alert("아이디 또는 패스워드가 틀렸습니다.");
-			}else if("${check}" == 3){
-				alert("입력하신 아이디는 존재하지 않습니다.");
-			}
-		}
-		
-		function checkIt() {
-			inputForm = eval("document.inform");
-			if (!inputForm.id.value) {
-				alert("아이디를 입력하세요..");
-				inputForm.id.focus();
-				return false;
-			}
-			if (!inputForm.passwd.value) {
-				alert("패스워드를 입력하세요..");
-				inputForm.passwd.focus();
-				return false;
-			}
-			return ture;
-		}
-		
-		function login_check(check) {
-			if(check == -1) {
-				alert("입력하신 아이디는 존재하지 않습니다.");
-			} else if(check == 0) {
-				alert("아이디 or 비밀번호를 틀리셨습니다.");
-			}
-		}
-		
-		function modify(){
-			document.chartForm.action = "modifyNotice_board.kh";
-			document.chartForm.submit();
-		}
-		
-		function modifyGo(){
-			document.chartForm.action = "modifyNotice_boardPro.kh";
-			document.chartForm.submit();
-		}
-			 
-/* 		function where(select){
-				  
-				 var xmlhttp;
-				  
-				  if (window.XMLHttpRequest) {  
-				   xmlhttp = new XMLHttpRequest(); //  IE7+, Firefox, Chrome, Opera, Safari
-				  } else {    
-				   xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");  // IE6, IE5 
-				  }
-				  
-				  xmlhttp.onreadystatechange = function() {
-				   if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				    document.getElementById("").innerHTML = xmlhttp.responseText;
-				    
-				   }
-				  };
-				  
-				  if (select == "") {
-					   xmlhttp.open("GET", ".kh", true);
-					  }
-				  if (select == "") {
-					   xmlhttp.open("GET", ".kh", true);
-					  }
-					  
-					  xmlhttp.send();
-		
-			 }  */
-			 
-			 
-	</script>
+	
+	<script src="/KH_School/member/script/noticeView.js"></script>	
+	
 </head>
 
-<body onload="focusIt();">
-<jsp:include page="/member/sidebar.jsp" />
+<body onload="">
+		<c:if test="${type == '교직원'}">
+			<jsp:include page="/main/e_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '교수'}">
+			<jsp:include page="/main/p_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '학생'}">
+			<jsp:include page="/main/s_sidebar.jsp" />
+		</c:if>
 		 
 		<div id="box3">
 			<center>
-			<form method="post" name="chartForm" action="writeNotice_boardPro.kh">
+			<form method="post" name="chartForm" action="#">
 				<br/><br/>
 				<h1>게시글</h1>
 				<br />
@@ -128,6 +66,7 @@
 							<c:if test="${type == '교직원'}">
 									<c:if test="${not empty article}">
 										<input type="button" value="수정하기" onclick="modify();"></input>
+										<input type="button" value="삭제" onclick="del();"></input>
 									</c:if>
 							</c:if>
 							<input type="button" value="목록보기" onclick="window.location='notice_board.kh'"></input>
@@ -136,19 +75,29 @@
 				</table>
 				
 				<table width="700" align="center" border="1" cellspacing="3">
-				
+				<!-- 뷰페이지 일때. article.writer를 writer 파라미터로 넘길 수 있게 히든값 부여. -->
 				<c:if test="${not empty article.writer}">
 					<input type="hidden" name="writer" value="${article.writer}"></input>
 				</c:if>
+				<!-- 수정 페이지 일 때. 파라미터 name을 writer로 넘김으로 수정이 되게 함. -->
 				<c:if test="${empty article.writer}">
-					<input type="hidden" name="writer" value="${article.name}"></input>
+					<input type="hidden" name="writer" value="${name}"></input>
 				</c:if>
+				<!-- 뷰페이지 -->
 				<c:if test="${not empty article.num}">
 					<input type="hidden" name="num" value="${article.num}"></input>
 				</c:if>
+				<!-- 수정 페이지. -->
+				<c:if test="${empty article.num}">
+					<c:if test="${not empty num}">
+						<input type="hidden" name="num" value="${num}"></input>
+					</c:if>
+				</c:if>
+				<!-- 뷰페이지 -->
 				<c:if test="${not empty article.title}">
 					<input type="hidden" name="title" value="${article.title}"></input>
 				</c:if>
+				<!-- 수정 페이지. -->
 				<c:if test="${not empty article.content}">
 					<input type="hidden" name="content" value="${article.content}"></input>
 				</c:if>
@@ -181,6 +130,12 @@
 							</c:if>
 						</c:if>
 						
+						<c:if test="${empty article.title}">
+							<c:if test="${empty title}">
+								<input type="text" name="title" style="width:620px"></input>
+							</c:if>
+						</c:if>
+						
 						<c:if test="${not empty article.title}">
 							&nbsp;&nbsp;${article.title}
 						</c:if>
@@ -189,14 +144,14 @@
 					</tr>
 					<tr>
 						<td width="50px" align="center"><g>내용</g></td>
-						<td width="150px" colspan="7">
+						<td width="150px" height="300px" colspan="7" style="vertical-align:top">
 						
 						<c:if test="${empty article.content}">
-							<textarea name="content" rows="20" cols="85">${content}</textarea>
+							<textarea name="content" id="contentArea" rows="20" cols="85">${content}</textarea>
 						</c:if>
 						
 						<c:if test="${not empty article.content}">
-							&nbsp;&nbsp;${article.content}
+							<div style="padding:10px;">${article.content}</div>
 						</c:if>
 						
 						</td>
@@ -205,7 +160,7 @@
 					<c:if test="${empty article}">
 						<c:if test="${empty num}">
 							<tr>
-								<td width="50px" align="center" colspan="6"><input type="submit" value="작성"></input></td>
+								<td width="50px" align="center" colspan="6"><input type="button" value="작성" onclick="writePro();"></input></td>
 							</tr>
 						</c:if>
 					</c:if>
@@ -249,8 +204,8 @@
 						</table>
 						<hr width="880px" size="1" color="gray" align="center" />
 					</c:forEach>
+					<hr width="880px" size="1" align="center" />
 				</c:if>
-				<hr width="880px" size="1" align="center" />
 				<br/>
 				<center>
 					${pagingHtml}

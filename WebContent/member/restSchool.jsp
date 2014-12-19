@@ -67,21 +67,21 @@
 	    		<c:if test="${memId != null}">
 		    		<div id="tab_menu">					
 						<ul>
-							<li class="btn"><a class="menu1">공지사항</a></li>
+							<li class="btn"><a class="s_menu1">공지사항</a></li>
 							<li class="ly" style="display:list-item;">
 								<dl>
 									<dt>공지사항</dt>
 									<dd><a href="#">공지사항</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu2">학적</a></li>
+							<li class="btn"><a class="s_menu2">학적</a></li>
 							<li class="ly">
 								<dl>
 									<dt>학적</dt>
 									<dd><a href="myInfo.kh">학적기본사항조회 및 수정</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu3">휴학/복학</a></li>
+							<li class="btn"><a class="s_menu3">휴학/복학</a></li>
 							<li class="ly">
 								<dl>
 									<dt>휴학/복학</dt>
@@ -89,7 +89,7 @@
 									<dd><a href="returnSchool.kh?id=${memId}">복학신청</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu4">교과/수강</a></li>
+							<li class="btn"><a class="s_menu4">교과/수강</a></li>
 							<li class="ly">
 								<dl>
 									<dt>교과/수강</dt>
@@ -100,7 +100,7 @@
 									<dd><a href="#">개인 시간표 조회</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu5">수업/성적</a></li>
+							<li class="btn"><a class="s_menu5">수업/성적</a></li>
 							<li class="ly">
 								<dl>
 									<dt>수업/성적</dt>
@@ -110,7 +110,7 @@
 									<dd><a href="#">출석조회</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu6">등록/장학</a></li>
+							<li class="btn"><a class="s_menu6">등록/장학</a></li>
 							<li class="ly">
 								<dl>
 									<dt>등록/장학</dt>
@@ -122,7 +122,7 @@
 									<dd><a href="#">분납등록금 고지서</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu7">도서관</a></li>
+							<li class="btn"><a class="s_menu7">도서관</a></li>
 							<li class="ly">
 								<dl>
 									<dt>도서관</dt>
@@ -131,7 +131,7 @@
 									<dd><a href="#">책 예약 취소</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="menu8">예비군</a></li>
+							<li class="btn"><a class="s_menu8">예비군</a></li>
 							<li class="ly">
 								<dl>
 									<dt>예비군</dt>
@@ -148,7 +148,7 @@
 		 
 		<div id="box3">
 			<center>
-			<form action="" method="post">
+			<form action="restInsert.kh" method="post">
 				<br/><br/>
 				<h2>휴학신청서</h2>
 				<table width="700">
@@ -235,7 +235,7 @@
 				<input type="hidden" name="id" value="${mDTO.id}"/>
 				<input type="hidden" name="grade" value="${mDTO.grade}"/>
 				<input type="hidden" name="email" value="${mDTO.email}"/>
-				<input type="hidden" name="s_phone" value="${mDTO.s_phone}"/>
+				<input type="hidden" name="phone" value="${mDTO.s_phone}"/>
 				<input type="hidden" name="addr" value="${mDTO.addr}"/>
 			</form>
 			</center>

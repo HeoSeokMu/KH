@@ -36,12 +36,19 @@
 			padding-right: 15px;
 		}
 	</style>
-	
+
 </head>
 
 <body onload="focusIt();">
-<jsp:include page="/member/sidebar.jsp" />
-		 
+		<c:if test="${type == '교직원'}">
+			<jsp:include page="/main/e_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '교수'}">
+			<jsp:include page="/main/p_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '학생'}">
+			<jsp:include page="/main/s_sidebar.jsp" />
+		</c:if>
 		<div id="box3">
 			<center>
 			<form method="post" name="chartForm">
@@ -79,19 +86,22 @@
 		
 				<c:if test="${totalCount < 1}">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<table width="900">
+					<table width="900" align="center">
 						<tr>
-							<td align="left">게시물이 존재하지 않습니다.</td>
+							<td align="center">게시물이 존재하지 않습니다.</td>
+						</tr>
+						<tr>
+							<td align="center"><br /><hr color="gray"></hr></td>
 						</tr>
 					</table>
 				</c:if>
-			<table align="center">		
+			<table align="center" width="900">		
 				<c:if test="${totalCount > 0}">
 					<c:forEach var="list" items="${list}" varStatus="checkValue">
 						
 							<tr align="center" height="25px">
 								<td width="50px">
-									${(currentPage-1) * blockCount + (checkValue.index + 1)}
+									${totalCount - ((currentPage-1) * blockCount + (checkValue.index + 1)) + 1}
 								</td>
 								<td width="50px">
 									${list.writer}
@@ -120,12 +130,13 @@
 								<hr width="880px" size="1" align="center" />
 								</td>
 							</tr>
-						
 					</c:forEach>
 				</c:if>
+			</table>
+			<table align="center" width="900">
 				<c:if test="${type == '교직원'}">
 					<tr>
-						<td align="right" colspan="4">
+						<td align="right">
 						<a href="writeNotice_board.kh"><font size="4.5"><b>글쓰기</b></font></a>
 						</td>
 					</tr>

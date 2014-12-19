@@ -64,6 +64,7 @@ public class Login{
 		
 		mv.setViewName(view);
 		
+		System.out.println("view == " + view);
 		System.out.println("memId == " + session.getAttribute("memId"));
 		System.out.println("type == " + session.getAttribute("type"));
 		System.out.println(mv.getViewName());
