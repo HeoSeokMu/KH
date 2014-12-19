@@ -1,16 +1,61 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="/KH_School/member/script/member.js"></script>
-	
+<head>
+
+<title>KH 통합정보시스템</title>
+
+   <link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
+   <link rel="stylesheet" href="css/left_menu.css"></link>
+   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="/KH_School/member/script/member.js"></script>   
+   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+   <script src="js/leftMenu_jquery.js"></script>
+   <style>
+      .login{
+         background-color:#7eb813;
+         color:#ffffff;
+         border:1px #dddddd dashed;
+         width:70px;
+         height:60px;
+         text-align:center;
+         padding:3px;
+      }
+      .trTitle {
+         height:15px;
+      }
+      .input{
+         size: 15px;
+      }
+      
+      .lineX {
+         border-bottom: 1px solid #dddddd;
+      }
+      .tablepadding {
+         padding-left: 15px;
+         padding-right: 15px;
+      }
+   </style>
+  
+</head>
+
 <body onload="imgPreview();">
-
-<form action="#" method="post" name="user_input" enctype="multipart/form-data">
+		<c:if test="${type == '교직원'}">
+			<jsp:include page="/main/e_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '교수'}">
+			<jsp:include page="/main/p_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '학생'}">
+			<jsp:include page="/main/s_sidebar.jsp" />
+		</c:if>
+   
+      <div id="box3">
+      	<form action="#" method="post" name="user_input" enctype="multipart/form-data">
 		<table border=1 align="center">
 			<tr bgcolor="77CC55" height=50>
-				<td colspan=4 align=center><font size=6 face="휴먼엽서체"><b>회원가입 양식</b></font>
+				<td colspan=4 align=center><font size=6 face="휴먼엽서체"><b>교적부 등록</b></font>
 				</td>
 			</tr>
 			<!--
@@ -32,13 +77,10 @@
 				</td>
 			</tr>
 			
-			<tr bgcolor="BBEE99" height=40>
-				<th width = 130 align=center>
-				<div id="stu">전공</div>
-				<div id="emp" style="display:none;">업무부처</div>
-				</th>
+			<tr bgcolor="BBEE99" id="stu" height=40>
+				<th width = 130 align="center">전공</th>
+				
 				<td>
-					
 				<div id="maj">
 					&nbsp;&nbsp;&nbsp;<select name="num2" id="maj1">
 						<option value="001,영어영문학과" selected>영어영문학과</option>
@@ -59,6 +101,11 @@
 					</select>
 				</div>
 				
+			</tr>
+			<tr bgcolor="BBEE99" id="emp" height=40 style="display:none;">
+				<th width = 130 align="center">업무부처</th>
+
+				<td>
 				<div id="work" style="display:none;">
 					&nbsp;&nbsp;&nbsp;<select name="num2" id="work1" disabled="disabled">
 						
@@ -84,8 +131,8 @@
 				<td>
 					&nbsp;&nbsp;
 					<input type="password" name="password_re" maxlength=20 onKeyup="pwEvent()">
-					<div id="wrongPw" style="display:none;">&nbsp;&nbsp;&nbsp;
-					<font color="red" size="2"># 비밀번호를 동일하게 입력해주세요.</font></div>
+					<span id="wrongPw" style="display:none;">&nbsp;&nbsp;&nbsp;
+					<font color="red" size="2"># 비밀번호를 동일하게 입력해주세요.</font></span>
 					<div id="rightPw" style="display:none;">&nbsp;&nbsp;&nbsp;
 					<font color="blue" size="2"># 비밀번호가 일치합니다.</font></div>
 				</td>
@@ -135,12 +182,9 @@
 					</select>
 			</td>
 		</tr>
-			<tr bgcolor="BBEE99" height=40>
-				<th width = 130 align=center>
-				<div id="way">입학유형</div>
-				<div id="proflevel" style="display:none;">교수 구분</div>
-				<div id="emplevel" style="display:none;">직원 구분</div>
-				</th>
+			<tr bgcolor="BBEE99" height=40 id="way">
+				<th width = 130 align=center>입학유형</th>
+				
 				<td>
 					<div id="studway">
 					&nbsp;&nbsp;
@@ -150,7 +194,12 @@
 						<option value="편입">편입학</option>
 					</select>
 					</div>
-					
+				</tr>
+				
+				<tr bgcolor="BBEE99" height=40 id="proflevel" style="display:none;">
+				
+					<th width = 130 align=center>교수 구분</th>
+					<td>
 					<div id="profwho" style="display:none;">
 					&nbsp;&nbsp;
 					<select name="enter_way" id="profwho1" disabled="disabled">
@@ -158,7 +207,11 @@
 						<option value="시간 강사">시간제 강사</option>
 					</select>
 					</div>
-					
+				</tr>
+				
+				<tr bgcolor="BBEE99" height=40 id="emplevel" style="display:none;">
+					<th width = 130 align=center>직원 구분</th>
+					<td>
 					<div id="empwho" style="display:none;">
 					&nbsp;&nbsp;
 					<select name="enter_way" id="empwho1" disabled="disabled">
@@ -218,7 +271,7 @@
 				<td>
 					&nbsp;&nbsp;
 					<select name="tel_sel">
-						<option value="KT" checked>KT</option>
+						<option value="KT" selected>KT</option>
 						<option value="SKT">SKT</option>
 						<option value="LGT">LGT</option>
 					</select>
@@ -245,7 +298,7 @@
 				<td>
 					&nbsp;&nbsp;
 					<select name="p_tel_sel">
-						<option value="KT" checked>KT</option>
+						<option value="KT" selected>KT</option>
 						<option value="SKT">SKT</option>
 						<option value="LGT">LGT</option>
 					</select>
@@ -290,8 +343,8 @@
 
 <!--  이미지 숨김         -->		
 			<tr bgcolor="BBEE99" height=170>
-				<th width = 130 align=center>미리보기
-				<td>
+				<th width = 130 align=center>미리보기</th>
+				<td style="padding-left:100px;">
 					<div id="def_img" align="center">
 						<img src="/KH_School/upload/mem_img/pro2.jpg" style="width:130; height:150;">
 					</div>
@@ -322,5 +375,8 @@
 		</table>
 		
 	</form>
-	
-</body>
+      </div>
+      
+      </div>
+      
+	</body>

@@ -16,14 +16,62 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import dao.MemberDAO;
 import dao.bookDAO;
 import dao.bookInsertDAO;
 import dto.libraryDTO;
+import dto.memberDTO;
 
 
 @Controller
 public class libraryController {
 
+
+	//도서관 메인페이지
+	@RequestMapping(value="libraryMain.kh")
+	public String libraryMain(){
+		
+		return "/library/libraryMain.jsp";
+	}
+	//도서관 공지사항 폼
+		@RequestMapping(value="libraryNoticeForm.kh")
+		public String libraryNotice(){
+			
+			return "/library/libraryNoticeForm.jsp";
+		}
+	//도서관 공지사항 처리
+		@RequestMapping(value="libraryNoticeFormPro.kh")
+		public String libraryNoticeFormPro(HttpSession session, HttpServletRequest req, @ModelAttribute libraryDTO dto, MultipartHttpServletRequest request) throws Exception{
+			MemberDAO m_dao = MemberDAO.getInstance();
+			String id = (String)session.getAttribute("memId");
+			
+			dto.setReg_date(new Timestamp(System.currentTimeMillis()));
+			
+			String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/book_img/";
+			
+			bookInsertDAO notice_dao = bookInsertDAO.getInstance();
+			
+			//파일 업로드
+			if(!request.getFile("upload").isEmpty()){
+				MultipartFile file = request.getFile("upload");
+			}
+			
+			notice_dao.libraryNotice(dto);
+			
+//			ModelAndView mv = new ModelAndView();
+//			
+//			mv.addObject("dto", dto);
+//			mv.addObject("no", request.getParameter("no"));
+//			mv.addObject("subject", request.getParameter("subject"));
+//			mv.addObject("content", request.getParameter("content"));
+//			mv.addObject("libraryfile", request.getParameter("libraryfile"));
+//			mv.addObject("readhit", request.getParameter("readhit"));
+//			mv.addObject("writer", request.getParameter("writer"));
+//			mv.setViewName("/library/libraryNoticeForm.kh");
+			
+			return "redirect:libraryMain.kh";
+		}
+		
 	//책 등록 폼
 	@RequestMapping(value="bookInsertForm.kh")
 	public String form(){
@@ -184,9 +232,22 @@ public String bookDelete(HttpServletRequest req) throws Exception{
 
 //책신청하기
 @RequestMapping(value="bookRequest.kh")
-public String bookrequest(){
+public ModelAndView bookrequest(HttpSession session, HttpServletRequest req) throws Exception{
 	
-	return "/library/bookRequest.jsp";
+	MemberDAO m_dao = MemberDAO.getInstance();
+	String id = (String)session.getAttribute("memId");
+	memberDTO mDTO = m_dao.member_info(id);
+	String name = mDTO.getName();
+	String s_phone = mDTO.getS_phone();
+	ModelAndView mv = new ModelAndView();
+	mv.addObject("mDTO", mDTO);
+	mv.addObject("id", id);
+	mv.addObject("name", name);
+	mv.addObject("s_phone", s_phone);
+	
+	mv.setViewName("/library/bookRequest.jsp");
+	
+	return mv;
 }
 
 //책 신청 처리
@@ -309,7 +370,8 @@ public ModelAndView myRequestList(HttpSession session, HttpServletRequest req) t
 	
 	List<libraryDTO> list = new ArrayList<libraryDTO>();	 
 	int currentPage = Integer.parseInt(pageNum);
-	int id =  Integer.parseInt(req.getParameter("id")); 
+	String id =  (String)session.getAttribute("memId");
+	
 	int totalCount; 		// 총 게시물의 수
 	int blockCount = 10;	// 한 페이지의  게시물의 수
 	int blockPage = 5; 	// 한 화면에 보여줄 페이지 수
@@ -426,34 +488,27 @@ public ModelAndView myRequestList(HttpSession session, HttpServletRequest req) t
 	}
 	//책신청 승인
 	@RequestMapping("/bookRequestOk.kh")
-	public ModelAndView bookRequestOk(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
+	public String bookRequestOk(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
 		
 		bookInsertDAO book_dao = bookInsertDAO.getInstance();
 		int id = Integer.parseInt(req.getParameter("book_id")); 
 	
 		libraryDTO book = book_dao.bookRequestOk(id);
 		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("book", book);
-		
-		mv.setViewName("/library/bookRequestOk.jsp");
-		
-		return mv;
+		return "redirect:bookRequestList.kh";
 	}
+	
+	
+	
 	//책신청 반려
 	@RequestMapping("/bookRequestNo.kh")
-	public ModelAndView bookRequestNo(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
+	public String bookRequestNo(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
 		
 		bookInsertDAO book_dao = bookInsertDAO.getInstance();
 		int id = Integer.parseInt(req.getParameter("book_id")); 
 	
 		libraryDTO book = book_dao.bookRequestNo(id);
 		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("book", book);
-		
-		mv.setViewName("/library/bookRequestNo.jsp");
-		
-		return mv;
+		return "redirect:bookRequestList.kh";
 	}
 }

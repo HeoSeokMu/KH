@@ -152,6 +152,14 @@
 									</dd>
 								</dl>
 							</li>
+                     <li class="btn"><a class="e_menu10">교적부 등록</a></li>
+                      <li class="ly">
+                        <dl>
+                           <dt>교적부</dt>
+                           <dd><a href="joinForm.kh">교적부 등록</a></dd>
+                           <dd><a href="#">교적부 명단</a></dd>
+                        </dl>
+                      </li>
 						</ul>
 					</div>
 				</c:if>

@@ -23,8 +23,8 @@
 	</tr>
 	
 	<tr>
-		<td><a href="/KH_School/bookDelete.kh?book_id=${book.book_id}">삭제하기</a>
-		<td><a href="/KH_School/bookModifyForm.kh?book_id=${book.book_id}">책수정하기</a>
-		<td><a href="/KH_School/bookView.kh">책보기</a>
+		<td colspan="3" align="center"><a href="/KH_School/bookList.kh">확인</a>
+		</td>
+	</tr>
 	</table>
 </font>

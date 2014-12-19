@@ -61,6 +61,7 @@
 
    <c:forEach var="article" items="${list}">
    <tr height="60">
+   <td align="center">${article.book_id }</td>
     <td align="center"  width="100" height="110">
 	  <img src="/KH_School/upload/book_img/${article.book_img}" width="100%" height="100%"/>
 	</td>
@@ -78,7 +79,7 @@
    <td>${article.loan}</td>
    <td>
    <input type="button" name="bookModify" value="수정" onClick="javascript:location.href='bookModifyForm.kh?book_id=${article.book_id}'">
-   <c:if test="${article.loan =='보관중' }">
+   <c:if test="${article.loan =='대출가능' }">
    <input type="button" name="bookDelete" value="삭제" onClick="javascript:location.href='bookDelete.kh?book_id=${article.book_id}'">
    </c:if></td>
   </tr>
