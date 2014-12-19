@@ -48,10 +48,19 @@
 	}
 </script>
 
-<jsp:include page="/member/sidebar.jsp" />
+<body>
+
+<c:if test="${type == '교직원'}">
+			<jsp:include page="/main/e_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '교수'}">
+			<jsp:include page="/main/p_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '학생'}">
+			<jsp:include page="/main/s_sidebar.jsp" />
+		</c:if>
 <div id="box3">
 <center>
-<body>
 <br/>
 도서검색 <form action="bookList.kh" method="get">
 	<select name="searchType" >
