@@ -49,23 +49,15 @@
 </head>
 
 <body onload="focusIt();">
-	<div id="box">
-		<div id="header">
-			<div id="header_1">
-				
-			</div>
-			<div id="header_2">
-				
-			</div>
-		</div>
-	</div>
-
-	<div id="box">
-		<div id="box2">
-	    	<div id="content">
-	    		
-		   	</div>
-		</div>
+	<c:if test="${type == '교직원'}">
+			<jsp:include page="/main/e_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '교수'}">
+			<jsp:include page="/main/p_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '학생'}">
+			<jsp:include page="/main/s_sidebar.jsp" />
+		</c:if>
 		 
 		<div id="box3">
 			<c:if test="${memId == null}">

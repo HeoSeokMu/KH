@@ -70,7 +70,7 @@ public class RestReturn_board {
 		return mv;
 	}
 	
-	@RequestMapping(value="/returnSchool.kh")
+	@RequestMapping(value="/returnSchoolPro.kh")
 	public ModelAndView returnSchool(HttpServletRequest req) throws Exception{
 		
 		System.out.println("returnSchool =================== : ");
@@ -90,7 +90,7 @@ public class RestReturn_board {
 		return mv;
 	}
 	
-	@RequestMapping(value="/restSchool.kh")
+	@RequestMapping(value="/restSchoolPro.kh")
 	public ModelAndView restSchool(HttpServletRequest req) throws Exception{
 		
 		System.out.println("restSchool =================== : ");
