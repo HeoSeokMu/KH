@@ -8,6 +8,8 @@ public class noticeboard_DTO {
 	private String content;
 	private String writer;
 	private Timestamp reg_date;
+	
+	
 	public int getNum() {
 		return num;
 	}

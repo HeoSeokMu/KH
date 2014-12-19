@@ -234,7 +234,13 @@
 					<input type="hidden" name="s_phone">
 				</td>
 			</tr>
-			<tr bgcolor="BBEE99" height=40 id="bohoja">
+			<tr bgcolor="BBEE99" height=40 id="bohoja_name">
+				<th width = 130 align=center>보호자 성함</th>
+				<td>&nbsp;&nbsp;
+					<input type="text" name="parent_name">
+				</td>
+			</tr>
+			<tr bgcolor="BBEE99" height=40 id="bohoja_phone">
 				<th width = 130 align=center>보호자 연락처</th>
 				<td>
 					&nbsp;&nbsp;
@@ -253,6 +259,30 @@
 					-
 					<input type="text" name="p_phone2" size=7 value="" onkeyup="p_phone_CHECK(this.form)">
 					<input type="hidden" name="p_phone">
+				</td>
+			</tr>
+			<tr bgcolor="BBEE99" height=40 id="bohoja_job">
+				<th width = 130 align=center>보호자 직업</th>
+				<td>&nbsp;&nbsp;
+					<input type="text" name="parent_job">
+				</td>
+			</tr>
+			<tr bgcolor="BBEE99" height=40 id="bohoja_addr">
+				<th width = 130 align=center>보호자 주소지</th>
+				<td>
+					&nbsp;&nbsp;
+					<input type="text" name="p_zipcode1" size=5 readOnly onClick="goPpost();">
+					<input type="text" name="p_zipcode2" size=5 readOnly onClick="goPpost();">
+					<input type="button" value="우편번호 검색" 
+					onClick="window.open('searchAddr.kh?parent', 'win_page', 'toolbar=no, location=no, status=no,' 
+							+'menubar=no, scrollbars=yes, resizable=no, left=300, top=100, width=600, height=400');"><br>
+					&nbsp;&nbsp;
+					<input type="text" name="p_addr1" size=30  readOnly onClick="goPpost();"><br>
+					&nbsp;&nbsp;
+					<input type="text" name="p_addr2" size=30 onKeyUp="P_address_CHECK(this.form)">
+					<sub>(나머지 주소)</sub>
+					<input type="hidden" name="p_addr">
+					<input type="hidden" name="p_post">
 				</td>
 			</tr>
 			

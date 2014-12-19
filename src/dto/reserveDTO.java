@@ -1,12 +1,12 @@
 package dto;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class reserveDTO {
 	private String s_num;
 	private String b_num;
 	private String email;
-	private Date date;
+	private Timestamp date;
 	
 	public String getS_num() {
 		return s_num;
@@ -26,10 +26,11 @@ public class reserveDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
+	
 }

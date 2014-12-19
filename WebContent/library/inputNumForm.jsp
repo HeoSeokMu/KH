@@ -8,7 +8,6 @@
 <script type="text/javascript">
 	function selectInform(form) {
 		if(form.s_num.value.length==10){
-			alert(form.s_num.value.length);
 			window.location="selectInform.kh?num="+form.s_num.value+"&book_id="+form.book_id.value+"&book_title="+form.book_title.value;
 		}
 		

@@ -13,15 +13,15 @@
 
  </style>
 
-<form action="searchAddrPro.kh" method="post" name="juso_input">
+<form method="post" name="juso_input">
 
 <table align="center">
 <tr align="center" bgcolor="77CC55">
 	<td><br />
 	<font size="5"><b>주 소 검 색</b></font><br /><br />
 	<font size="2">주소를 동 까지만 검색해주세요.</font><br /><br />
-	<input type="text" name="addrSearch">
-	<input type="submit" value="검색" onClick="">
+	<input type="text" name="addrSearch" onKeyDown="javascript:if (event.keyCode == 13) goSearch();">
+	<input type="button" value="검색" onclick="goSearch();">
 	<br />&nbsp;
 	</td>
 </tr>
@@ -47,10 +47,13 @@
 			<c:if test="${not empty postlist}">
 			<c:forEach var="list" items="${postlist}">
 				<tr>
-					<td align="center"><a href="#" onClick="sendAddr('${list.zipcode}');">${list.zipcode}</a>
+					<td align="center">
+						<a href="#" onClick="sendAddr('${list.zipcode}');">${list.zipcode}</a>
 					<input type="hidden" name="addrSum${list.zipcode}" value="${list.zipcode},${list.addr}">
 					</td>
-					<td align="left"><a href="#" onClick="sendAddr('${list.zipcode}');"><font size="2">${list.addr}</font></a>
+					<td align="left">
+							<a href="#" onClick="sendAddr('${list.zipcode}');">
+							<font size="2">${list.addr}</font></a>
 					</td>
 				</tr>
 
