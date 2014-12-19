@@ -2,8 +2,37 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
+<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
+	<link rel="stylesheet" href="css/left_menu.css"></link>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/leftMenu_jquery.js"></script>
+	<style>
+		.login{
+			background-color:#7eb813;
+			color:#ffffff;
+			border:1px #dddddd dashed;
+			width:70px;
+			height:60px;
+			text-align:center;
+			padding:3px;
+		}
+		.trTitle {
+			height:15px;
+		}
+		.input{
+			size: 15px;
+		}
+		
+		.lineX {
+			border-bottom: 1px solid #dddddd;
+		}
+		.tablepadding {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	</style>
 </head>
 <script type="text/javascript">
 	function selectInform(form) {
@@ -15,6 +44,18 @@
 </script>
 
 <body>
+
+<c:if test="${type == '교직원'}">
+			<jsp:include page="/main/e_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '교수'}">
+			<jsp:include page="/main/p_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '학생'}">
+			<jsp:include page="/main/s_sidebar.jsp" />
+		</c:if>
+<div id="box3">
+<br/>
 	<form action="inputNumPro.kh" method="post" name="userinput">
 		<table>	
 			<tr>
@@ -56,5 +97,9 @@
 		</table>
 		<input type="submit" value="대여완료"/>
 	</form>
+	<br/>
+	</div>
+
+	<div id="box4"><center><br /><br /></center></div>
 </body>
 </html>
