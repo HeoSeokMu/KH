@@ -42,9 +42,19 @@
 		
 	}
 </script>
-<jsp:include page="/member/sidebar.jsp" />
-<div id="box3">
+
 <body>
+
+<c:if test="${type == '교직원'}">
+			<jsp:include page="/main/e_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '교수'}">
+			<jsp:include page="/main/p_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '학생'}">
+			<jsp:include page="/main/s_sidebar.jsp" />
+		</c:if>
+<div id="box3">
 <br/>
 	<form action="inputNumPro.kh" method="post" name="userinput">
 		<table>	
