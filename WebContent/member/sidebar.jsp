@@ -104,6 +104,7 @@
 							<li class="ly">
 								<dl>
 									<dt>도서관</dt>
+									<dd><a href="bookList.kh">도서검색</a></dd>
 									<dd><a href="#">책 대여 신청</a></dd>
 									<dd><a href="#">책 대여 리스트</a></dd>
 									<dd><a href="#">책 예약 취소</a></dd>
