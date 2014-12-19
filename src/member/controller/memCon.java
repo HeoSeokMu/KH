@@ -27,6 +27,7 @@ public class memCon{
 	
 	@RequestMapping(value="/joinForm.kh")
 	public String form2(){
+		
 		return "/member/join_form.jsp";
 	}
 	
@@ -45,13 +46,9 @@ public class memCon{
 		dto.setNum2(test[0]);
 		dto.setMajor(test[1]);
 		
-		//절대경로.String FileUploadPath = "/KH_School/WebContent/upload/mem_img/";
+		
 		
 		//상대경로로 파일을 업로드 하여 통합을 편하게 합니다.
-		
-		String path = request.getSession().getServletContext().getRealPath("");
-		String path2 = "/upload/mem_img/";
-		String FileUploadPath = path + path2;
 		
 		MemberDAO join_dao = MemberDAO.getInstance();
 		
@@ -124,6 +121,13 @@ public class memCon{
 		//주소 검색 후 등록
 		
 		//프로필 사진 파일 업로드 부분
+		String FileUploadPath = "D:/GeunWoo/Project/git/KH/WebContent/upload/mem_img/";
+		
+//		상대경로로 업로드 잠시 보류.
+//		String path = request.getSession().getServletContext().getRealPath("");
+//		String path2 = "/upload/mem_img/";
+//		String FileUploadPath = path + path2;
+		
 		if(!req.getFile("upload").isEmpty()){
 			MultipartFile file = req.getFile("upload");
 			//파일명에서 확장자 추출.
@@ -141,6 +145,27 @@ public class memCon{
 			dto.setPro_img(fileName);
 		}
 		
+		//문과 공과 구분해서 컬럼에 추가. 영문, 국문, 경영학은 문과, 컴공, 정보학과는 공과
+	
+		if(dto.getMajor().equals("영어영문학과") || dto.getMajor().equals("국어영문학과") || 
+				dto.getMajor().equals("경제경영학과")) {
+			
+			dto.setMajor_kind("문과");
+			
+		}else if(dto.getMajor().equals("컴퓨터공학과") || 
+				dto.getMajor().equals("정보보안학과")){
+			
+			dto.setMajor_kind("공과");
+		}
+		
+		//문과는 졸업이수학점 140, 공과는 졸업이수학점 130.
+	if(dto.getMajor_kind() != null && !dto.getType().equals("교수")){	
+		if(dto.getMajor_kind().equals("문과")){
+			dto.setFinish_point(140);
+		}else if(dto.getMajor_kind().equals("공과")){
+			dto.setFinish_point(130);
+		}
+	}
 		
 		//DB에 insert.
 		join_dao.insertMember(dto);
