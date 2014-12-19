@@ -8,6 +8,6 @@
 </head>
 <center><b>도서 삭제</b>
 <br/>
-	<input type="button" value="책 목록" onclick="document.location.href='KH_School/bookInsertForm.kh'">
+	<input type="button" value="책 목록" onclick="document.location.href='KH_School/libraryAdmin.kh'">
 
 </html>

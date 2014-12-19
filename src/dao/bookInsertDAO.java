@@ -418,6 +418,7 @@ public class bookInsertDAO {
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			}return book;
 		}
+		
 		//책신청 반려
 				public libraryDTO bookRequestNo(int book_id) throws Exception{
 					Connection conn = null;

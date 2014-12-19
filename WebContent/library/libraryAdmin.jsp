@@ -61,6 +61,7 @@
 
    <c:forEach var="article" items="${list}">
    <tr height="60">
+   <td align="center">${article.book_id }</td>
     <td align="center"  width="100" height="110">
 	  <img src="/KH_School/upload/book_img/${article.book_img}" width="100%" height="100%"/>
 	</td>
