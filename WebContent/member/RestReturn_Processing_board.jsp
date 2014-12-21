@@ -7,7 +7,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>휴학신청 게시판</title>
+<title>휴학신청 처리 게시판</title>
 <link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
 <link rel="stylesheet" href="css/left_menu.css"></link>
 <script type="text/javascript"
@@ -20,7 +20,7 @@
 		<center>
 		<br/><br/>
 			<form method="post" name="chartForm">
-				<h1>휴학신청내역</h1>
+				<h1>휴학신청 처리내역</h1>
 				<hr width="880px" size="1" color="gray" align="center" />
 				<hr width="880px" size="1" align="center" />
 				<table align="center">

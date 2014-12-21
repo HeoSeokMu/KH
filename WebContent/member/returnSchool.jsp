@@ -43,14 +43,14 @@
 
 <body>
 	<c:if test="${type == '교직원'}">
-			<jsp:include page="/main/e_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '교수'}">
-			<jsp:include page="/main/p_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '학생'}">
-			<jsp:include page="/main/s_sidebar.jsp" />
-		</c:if>		 
+		<jsp:include page="/main/e_sidebar.jsp" />
+	</c:if>
+	<c:if test="${type == '교수'}">
+		<jsp:include page="/main/p_sidebar.jsp" />
+	</c:if>
+	<c:if test="${type == '학생'}">
+		<jsp:include page="/main/s_sidebar.jsp" />
+	</c:if>		 
 		<div id="box3">
 			<center>
 			<form>
@@ -94,6 +94,7 @@
 					</tr>				
 				</table>
 			</form>
+			<br/><br/>
 			</center>
 		</div>
 		<div id="box4"> <center><br/><br/></center> </div>

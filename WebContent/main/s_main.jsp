@@ -13,67 +13,10 @@
 	<link rel="stylesheet" href="css/left_menu.css"></link>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/leftMenu_jquery.js"></script>
-	<style>
-		.login{
-			background-color:#7eb813;
-			color:#ffffff;
-			border:1px #dddddd dashed;
-			width:70px;
-			height:60px;
-			text-align:center;
-			padding:3px;
-		}
-		.trTitle {
-			height:15px;
-		}
-		.input{
-			size: 15px;
-		}
 		
-		.lineX {
-			border-bottom: 1px solid #dddddd;
-		}
-		.tablepadding {
-			padding-left: 15px;
-			padding-right: 15px;
-		}
-	</style>
-	<script language="javascript">
-		function focusIt() {
-			alert("${check}");
-			if("${check}"== 2){
-				alert("아이디 또는 패스워드가 틀렸습니다.");
-			}else if("${check}" == 3){
-				alert("입력하신 아이디는 존재하지 않습니다.");
-			}
-		}
-		
-		function checkIt() {
-			inputForm = eval("document.inform");
-			if (!inputForm.id.value) {
-				alert("아이디를 입력하세요..");
-				inputForm.id.focus();
-				return false;
-			}
-			if (!inputForm.passwd.value) {
-				alert("패스워드를 입력하세요..");
-				inputForm.passwd.focus();
-				return false;
-			}
-			return ture;
-		}
-		
-		function login_check(check) {
-			if(check == -1) {
-				alert("입력하신 아이디는 존재하지 않습니다.");
-			} else if(check == 0) {
-				alert("아이디 or 비밀번호를 틀리셨습니다.");
-			}
-		}
-	</script>
 </head>
 
-<body onload="focusIt();">
+<body>
 	<jsp:include page="/main/s_sidebar.jsp" />
 		<div id="box3">
 			<c:if test="${memId == null}">

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -177,6 +178,7 @@ public class memCon{
 		return mv;
 	}
 	
+	// 개인정보
 	@RequestMapping("/myInfo.kh")
 	public ModelAndView selectMember(HttpSession session, HttpServletRequest request) throws Exception{
 		
@@ -191,6 +193,23 @@ public class memCon{
 	
 		return mv;
 	}
+	
+	@RequestMapping(value="/myInfo_Edit.kh", method=RequestMethod.POST)
+	public ModelAndView myInfo_Edit(HttpServletRequest request) throws Exception{
+		String id = request.getParameter("id");
+		String email = request.getParameter("email");
+		String s_phone = request.getParameter("s_phone");
+		
+		System.out.println("id : "+id+" / email : "+email+" / s_phone : "+s_phone);
+		MemberDAO m_dao = MemberDAO.getInstance();
+		m_dao.myInfo_Edit(id, email, s_phone);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/notice_board.kh");
+	
+		return mv;
+	}
+	
 	//주소검색 새 창 띄우기
 	@RequestMapping(value="/searchAddr.kh")
 	public String searchAddr() throws Exception{

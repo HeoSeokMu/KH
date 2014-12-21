@@ -60,7 +60,6 @@ public class MemberDAO {
 	}
 
 	//회원등록 쿼리.
-	
 	public void insertMember(memberDTO member) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -116,7 +115,6 @@ public class MemberDAO {
     }
 	
 	//회원등록에 쓰이는 번호 자동증가 쿼리. 학과, 부서와 회원 유형을 기준으로 가장 큰 번호를 가져온다. 자바 클래스에서  +1을 처리 한다.
-	
 	public int plusNum3(String num2, String type) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -143,6 +141,7 @@ public class MemberDAO {
 		}
 		return x;
 	}
+	
 	//로그인 쿼리. 학번, 비밀번호, 회원유형을 가져와 체크.
 	public int Login_check(String id, String pw, String type) throws Exception {
 		Connection conn = null;
@@ -319,8 +318,30 @@ public class MemberDAO {
             if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
             if (conn != null) try { conn.close(); } catch(SQLException ex) {}
         }
-        
     }
+	
+	//
+	public void myInfo_Edit(String id, String email, String s_phone){
+		Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try {
+            conn = getConnection();
+            
+            pstmt = conn.prepareStatement(
+            	"update kh_member set email = ?, s_phone = ? where id = ?");
+            pstmt.setString(1, email);
+            pstmt.setString(2, s_phone);
+            pstmt.setString(3, id);
+            
+            pstmt.executeUpdate();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+	}
 	
 	// 공지 내용을 DB에서 가져옴
 	public List<noticeboard_DTO> notice_BoardList() throws Exception {
