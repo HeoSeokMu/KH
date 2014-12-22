@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import dao.MemberDAO;
+import dto.memberDTO;
 import dto.noticeboard_DTO;
 
 @Controller
@@ -78,17 +79,16 @@ public class notice_board {
 	
 	@RequestMapping(value="/writeNotice_board.kh")
 	public ModelAndView writeform(HttpSession session, HttpServletRequest request, 
-			HttpServletResponse response) throws Exception{
+			HttpServletResponse response, @ModelAttribute memberDTO mDTO) throws Exception{
 		
-		String name;
 		String id = (String) session.getAttribute("memId");
 		MemberDAO mDAO = MemberDAO.getInstance();
 		
-		name = mDAO.getName(id);
+		mDTO = mDAO.member_info(id);
 		
 		ModelAndView mv = new ModelAndView();
 		
-		mv.addObject("name", name);
+		mv.addObject("mDTO", mDTO);
 		mv.setViewName("/member/content.jsp");
 		
 		return mv;
@@ -142,9 +142,8 @@ public class notice_board {
 	
 	@RequestMapping(value="/modifyNotice_board.kh")
 	public ModelAndView modifyForm(HttpSession session, HttpServletRequest request, 
-			HttpServletResponse response) throws Exception{
+			HttpServletResponse response, @ModelAttribute memberDTO mDTO) throws Exception{
 		
-		String name;
 		int num = Integer.parseInt(request.getParameter("num"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
@@ -155,11 +154,11 @@ public class notice_board {
 		String id = (String) session.getAttribute("memId");
 		MemberDAO mDAO = MemberDAO.getInstance();
 		
-		name = mDAO.getName(id);
+		mDTO = mDAO.member_info(id);
 		
 		ModelAndView mv = new ModelAndView();
 		
-		mv.addObject("name", name);
+		mv.addObject("mDTO", mDTO);
 		mv.addObject("title", title);
 		mv.addObject("content", content);
 		mv.addObject("num", num);

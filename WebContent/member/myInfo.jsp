@@ -30,7 +30,7 @@
 					<table border="1">
 						<tr>
 							<td>
-								<img src="/KH_School/upload/mem_img/${mDTO.pro_img}" width="100%" height="50%"/>
+								<img src="/KH_School/upload/mem_img/${mDTO.pro_img}" width="150px" height="150px"/>
 							</td>
 						</tr>
 					</table>

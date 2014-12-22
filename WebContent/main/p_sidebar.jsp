@@ -133,7 +133,7 @@
 							<li class="ly">
 								<dl>
 									<dt>휴가신청</dt>
-									<dd><a href="#">휴가신청</a></dd>
+									<dd><a href="vacationForm.kh">휴가신청</a></dd>
 									<dd><a href="#">휴가신청 확인</a></dd>
 								</dl>
 							</li>

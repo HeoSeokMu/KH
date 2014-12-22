@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import dto.lectureBoardDTO;
+import dto.vacationDTO;
 
 public class boardDAO {
 
@@ -29,7 +29,7 @@ public class boardDAO {
 		return ds.getConnection();
 	}
 	
-	// 공지 내용을 DB에 인서트
+	// 강의개설신청
 	public void insert_lectureBoard(lectureBoardDTO l_DTO) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -55,7 +55,7 @@ public class boardDAO {
         
     }
 	
-	// 공지 내용을 DB에서 가져옴
+	// 개설 신청 강의 리스트
 	public List<lectureBoardDTO> notice_BoardList() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -88,32 +88,7 @@ public class boardDAO {
 
 		return lectureBoard_List;
 	}
-	
-	//세션 id로 이름만 가져오는 쿼리.
-	public String getName(String id) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String name = "";
-		
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement("select name from KH_MEMBER where id = ?");
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				name = rs.getString("name");
-				System.out.println("name == " + name);
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-		}
-		return name;
-	}
+
 	//시퀀스 넘버로 게시글을 가져오는 쿼리.
 	public lectureBoardDTO getArticle(int no) throws Exception {
 		Connection conn = null;
@@ -194,5 +169,34 @@ public class boardDAO {
 		
 		return article;
 	}
+	
+	// 휴가신청
+		public void insert_vacationBoard(vacationDTO vDTO) throws Exception {
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        
+	        try {
+	            conn = getConnection();
+	            
+	            pstmt = conn.prepareStatement(
+	            	"insert into KH_lectureboard values (kh_vacation_seq.NEXTVAL,?,?,?,?,?,?,?,?)");
+	            pstmt.setString(1, vDTO.getName());
+	            pstmt.setString(2, vDTO.getType());
+	            pstmt.setString(3, vDTO.getMajor());
+	            pstmt.setString(4, vDTO.getVacation_start());
+	            pstmt.setString(5, vDTO.getVacation_end());
+	            pstmt.setString(6, vDTO.getVacation_reason());
+	            pstmt.setTimestamp(7, vDTO.getReg_date());
+	            pstmt.setString(8, vDTO.getResult());
+	            
+	            pstmt.executeUpdate();
+	        } catch(Exception ex) {
+	            ex.printStackTrace();
+	        } finally {
+	            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+	            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+	        }
+	        
+	    }
 
 }

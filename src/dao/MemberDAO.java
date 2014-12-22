@@ -212,7 +212,7 @@ public class MemberDAO {
 
 		return postList;
 	}
-	
+	//id로 회원 정보 가져오는 쿼리.
 	public memberDTO member_info(String id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -376,31 +376,6 @@ public class MemberDAO {
 		return noticeBoard_List;
 	}
 	
-	//세션 id로 이름만 가져오는 쿼리.
-	public String getName(String id) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String name = "";
-		
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement("select name from KH_MEMBER where id = ?");
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				name = rs.getString("name");
-				System.out.println("name == " + name);
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-		}
-		return name;
-	}
 	//시퀀스 넘버로 게시글을 가져오는 쿼리.
 	public noticeboard_DTO getArticle(int num) throws Exception {
 		Connection conn = null;
