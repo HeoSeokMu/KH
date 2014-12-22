@@ -12,7 +12,30 @@
 	<link rel="stylesheet" href="css/left_menu.css"></link>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/leftMenu_jquery.js"></script>
-	
+	<style>
+		.login{
+			background-color:#7eb813;
+			color:#ffffff;
+			border:1px #dddddd dashed;
+			width:70px;
+			height:60px;
+			text-align:center;
+			padding:3px;
+		}
+		.trTitle {
+			height:15px;
+		}
+		.input{
+			size: 15px;
+		}
+		.lineX {
+			border-bottom: 1px solid #dddddd;
+		}
+		.tablepadding {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	</style>
 	<script language="javascript">
 		function focusIt() {
 			alert("${check}");
@@ -49,15 +72,23 @@
 </head>
 
 <body onload="focusIt();">
-	<c:if test="${type == '교직원'}">
-			<jsp:include page="/main/e_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '교수'}">
-			<jsp:include page="/main/p_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '학생'}">
-			<jsp:include page="/main/s_sidebar.jsp" />
-		</c:if>
+	<div id="box">
+		<div id="header">
+			<div id="header_1">
+				
+			</div>
+			<div id="header_2">
+				
+			</div>
+		</div>
+	</div>
+
+	<div id="box">
+		<div id="box2">
+	    	<div id="content">
+	    		
+		   	</div>
+		</div>
 		 
 		<div id="box3">
 			<c:if test="${memId == null}">
