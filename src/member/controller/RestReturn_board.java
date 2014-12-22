@@ -7,12 +7,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.MemberDAO;
 import dto.RestReturnBoard_DTO;
 import dto.memberDTO;
+
+import javax.servlet.http.HttpServletRequest;
+
 
 @Controller
 public class RestReturn_board {
@@ -70,7 +74,7 @@ public class RestReturn_board {
 		return mv;
 	}
 	
-	@RequestMapping(value="/returnSchoolPro.kh")
+	@RequestMapping(value="/returnSchool.kh")
 	public ModelAndView returnSchool(HttpServletRequest req) throws Exception{
 		
 		System.out.println("returnSchool =================== : ");
@@ -90,7 +94,7 @@ public class RestReturn_board {
 		return mv;
 	}
 	
-	@RequestMapping(value="/restSchoolPro.kh")
+	@RequestMapping(value="/restSchool.kh")
 	public ModelAndView restSchool(HttpServletRequest req) throws Exception{
 		
 		System.out.println("restSchool =================== : ");
@@ -145,7 +149,7 @@ public class RestReturn_board {
 		return mv;
 	}
 	
-	@RequestMapping(value="/RestReturn_Processing_board.kh")
+	@RequestMapping(value="/RestReturn_Board.kh")
 	public ModelAndView RestReturn_Board(HttpServletRequest req) throws Exception{
 		
 		System.out.println("RestReturn_Board =================== : ");
