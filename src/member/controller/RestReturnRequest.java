@@ -107,7 +107,7 @@ public class RestReturnRequest {
 		System.out.println("RestReturn_Board =================== : ");
 			
 		MemberDAO mDAO = MemberDAO.getInstance();
-		list = mDAO.restreturn_BoardList();
+		list = mDAO.RestReturn_BoardList();
 		
 		String view = "/member/RestReturnRequest_board.jsp";
 		if(list == null){

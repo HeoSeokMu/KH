@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<title>공지사항</title>
+<title>강의개설 신청</title>
 	<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
 	<link rel="stylesheet" href="css/left_menu.css"></link>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
@@ -55,31 +55,25 @@
 			<fmt:formatDate value="<%=new java.util.Date()%>" var="toDate" pattern="yy-MM-dd" />
 			
 				<br/><br/>
-				<h1>공지사항</h1>
+				<h1>강의개설 신청</h1>
 				<table align="center" width="900" >
-					<c:if test="${type == '교직원'}">
 					<tr>
-						<td align="right" colspan="4">
-						<a href="writeNotice_board.kh"><font size="4.5"><b>글쓰기</b></font></a>
-						</td>
-					</tr>
-					</c:if>
-					<tr>
-						<td colspan="4">
+						<td colspan="5">
 						<hr width="880px" size="1" align="center" />
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4">
+						<td colspan="5">
 						<hr width="880px" size="1" align="center" />
 						</td>
 					</tr>
 					
 					<tr align="center">
 						<td width="50px"><g>NO</g></td>
-						<td width="50px"><g>작성자</g></td>
-						<td width="250px"><g>제목</g></td>
-						<td width="50px"><g>날짜</g></td>
+						<td width="350px"><g>강의명</g></td>
+						<td width="100px"><g>담당 교수</g></td>
+						<td width="100px"><g>날짜</g></td>
+						<td width="100px"><g>처리여부</g></td>
 					</tr>
 				</table>
 				<hr width="880px" size="3" color="#CC3D3D" align="center" />
@@ -121,27 +115,18 @@
 							</tr>
 				
 							<tr>
-								<td colspan="4">
+								<td colspan="5">
 								<hr width="880px" size="1" align="center" />
 								</td>
 							</tr>
 							<tr>
-								<td colspan="4">
+								<td colspan="5">
 								<hr width="880px" size="1" align="center" />
 								</td>
 							</tr>
 					</c:forEach>
 				</c:if>
 			</table>
-			<table align="center" width="900">
-				<c:if test="${type == '교직원'}">
-					<tr>
-						<td align="right">
-						<a href="writeNotice_board.kh"><font size="4.5"><b>글쓰기</b></font></a>
-						</td>
-					</tr>
-				</c:if>
-			</table>	
 				<br/>
 				<center>
 					${pagingHtml}

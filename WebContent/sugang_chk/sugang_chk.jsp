@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:if test="${type == '교직원'}">
+			<jsp:include page="/main/e_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '교수'}">
+			<jsp:include page="/main/p_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '학생'}">
+			<jsp:include page="/main/s_sidebar.jsp" />
+		</c:if>
 
+<div id="box3">
 <table width="900" border="0" cellspacing="0" cellpadding="0" bgcolor="#C9C9C9" >
 
 	<tr align="center" height="30">
@@ -108,3 +118,5 @@
 </c:forEach>
 
 </table>
+</div>
+</div>
