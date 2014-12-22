@@ -7,19 +7,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.MemberDAO;
 import dto.RestReturnBoard_DTO;
 import dto.memberDTO;
-
-import javax.servlet.http.HttpServletRequest;
-
+import dto.noticeboard_DTO;
 
 @Controller
-public class RestReturn_board {
+public class RestReturnRequest {
 	private static List<RestReturnBoard_DTO> list = new ArrayList<RestReturnBoard_DTO>();
 	
 	private int currentPage = 1;	// 현재 페이지
@@ -28,51 +25,6 @@ public class RestReturn_board {
 	private int blockPage = 10; 	// 한 화면에 보여줄 페이지 수
 	private pagingAction page; 		// 페이징 클래스
 	private String pagingHtml; 		// 페이징을 구현한 HTML
-	
-	@RequestMapping(value="/RestReturnRequest_board.kh")
-	public ModelAndView notice_board(HttpServletRequest req) throws Exception{
-		
-		System.out.println("RestReturnRequest_board =================== : ");
-		
-		MemberDAO mDAO = MemberDAO.getInstance();
-		list = mDAO.RestReturn_BoardList();
-		totalCount = list.size(); // 전체 글 갯수를 구한다.
-		
-		System.out.println("totalCount : " + totalCount);
-		
-		String currentPage_check = req.getParameter("currentPage");
-		if(currentPage_check == null) {
-			currentPage = 1;
-		} else {
-			currentPage = Integer.parseInt(req.getParameter("currentPage"));
-		}
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage); // pagingAction 객체 생성.
-			
-		pagingHtml = page.getPagingHtml().toString();  // 페이지 HTML 생성.
-		System.out.println("pagingHtml : " + pagingHtml);
-		
-		//paging
-		int lastCount = totalCount;
-			
-		// 현재 페이지의 마지막 글의 번호가 전체의 마지막 글 번호보다 작으면 lastCount를 +1 번호로 설정.
-		if (page.getEndCount() < totalCount)
-			lastCount = page.getEndCount() + 1;
-
-		// 전체 리스트에서 현재 페이지만큼의 리스트만 가져온다.
-		list = list.subList(page.getStartCount(), lastCount);
-		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("list", list);
-		mv.addObject("totalCount", totalCount);
-		mv.addObject("currentPage", currentPage);
-		mv.addObject("pagingHtml", pagingHtml);
-		mv.addObject("blockCount", blockCount);
-		mv.setViewName("/member/RestReturnRequest_board.jsp");
-		
-		System.out.println(mv.getViewName());
-		
-		return mv;
-	}
 	
 	@RequestMapping(value="/returnSchool.kh")
 	public ModelAndView returnSchool(HttpServletRequest req) throws Exception{
@@ -89,7 +41,7 @@ public class RestReturn_board {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("mDTO", mDTO);
-		mv.setViewName("/member/s_returnSchool.jsp");
+		mv.setViewName("/member/returnSchool.jsp");
 	
 		return mv;
 	}
@@ -111,7 +63,7 @@ public class RestReturn_board {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("mDTO", mDTO);						
-		mv.setViewName("/member/s_restSchool.jsp");
+		mv.setViewName("/member/restSchool.jsp");
 	
 		return mv;
 	}
@@ -133,7 +85,7 @@ public class RestReturn_board {
 		rrb_DTO.setTime(req.getParameter("time"));
 		rrb_DTO.setWhy(req.getParameter("why"));
 		rrb_DTO.setWhy_detail(req.getParameter("why_detail"));
-		rrb_DTO.setResult("미처리");
+		rrb_DTO.setResult(req.getParameter("result"));
 		rrb_DTO.setReg_date(new Timestamp(System.currentTimeMillis()));
 		
 		System.out.println("rrb_DTO.getReg = "+rrb_DTO.getReg_date());
@@ -153,24 +105,12 @@ public class RestReturn_board {
 	public ModelAndView RestReturn_Board(HttpServletRequest req) throws Exception{
 		
 		System.out.println("RestReturn_Board =================== : ");
+			
 		MemberDAO mDAO = MemberDAO.getInstance();
+		list = mDAO.RestReturn_BoardList();
 		
-		String rrrb_check = req.getParameter("rrrb_check");
-		System.out.println("rrrb_check : "+rrrb_check);
-		
-		String view = "";
-		if(rrrb_check.equals("신청")) {
-			list = mDAO.RestReturn_BoardList();
-			view = "/member/e_RestRequest_board.jsp";
-		} else if(rrrb_check.equals("처리")) {
-			list = mDAO.RestReturn_Board_Processing_List();
-			view = "/member/e_RestProcessing_board.jsp";
-		}
-		
-		System.out.println("view : " + view);
-		
+		String view = "/member/RestReturnRequest_board.jsp";
 		if(list == null){
-			System.out.println("list null?");
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("totalCount", 0);
 			mv.setViewName(view);
@@ -208,48 +148,6 @@ public class RestReturn_board {
 		mv.addObject("blockCount", blockCount);
 		mv.setViewName(view);
 		
-		return mv;
-	}
-	
-	@RequestMapping(value="/RestReturn_Pro.kh")
-	public ModelAndView RestReturn_Pro(HttpServletRequest req) throws Exception{
-		System.out.println("RestReturn_Pro =================== : ");
-		
-		String id = req.getParameter("id");
-		String result = req.getParameter("result");
-		int num = Integer.parseInt(req.getParameter("num"));
-		String board = req.getParameter("board");
-		
-		System.out.println("id : " + id);
-		System.out.println("result : " + result);
-		System.out.println("num : " + num);
-		System.out.println("board : " + board);
-		
-		MemberDAO mDAO = MemberDAO.getInstance();
-				
-		String status = "";
-		String view = "";
-		if(board.equals("휴학")) {
-			mDAO.modify_RestBoard(result, num);
-			if(result.equals("승인")) {
-				status = "휴학";
-			} else if(result.equals("거절")) {
-				status = "재학";
-			}
-			
-		} else if(board.equals("복학")) {
-			mDAO.modify_ReturnBoard(result, num);
-			if(result.equals("승인")) {
-				status = "재학";
-			} else if(result.equals("거절")) {
-				status = "휴학";
-			}
-		}
-		
-		mDAO.modify_MerberRest(status, id);
-		
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/e_RestReturn_Board.kh?rrrd_check=처리");
 		return mv;
 	}
 }

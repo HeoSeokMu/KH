@@ -13,6 +13,16 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="js/leftMenu_jquery.js"></script>
+
+<script type="text/javascript">
+	function Processing(processing, num, id) {
+		var result = processing.result.value; 
+		if(result == "승인" || result == "거절") {
+			window.location = "RestReturn_Pro.kh?board=휴학&num="+num+"&id="+id+"&result="+result;	
+		}
+	}
+</script>
+
 </head>
 <body>
 	<jsp:include page="/main/e_sidebar.jsp"/>
@@ -59,7 +69,8 @@
 								</td>
 								<td width="230px">${list.reg_date}</td>
 								<td width="120px">
-									<select name="result">
+									<select name="result" onchange="Processing(this.form, ${list.num}, ${list.id});">
+										<option value="미처리" selected>미처리</option>
 										<option value="승인">승인</option>
 										<option value="거절">거절</option>
 									</select>
@@ -67,7 +78,7 @@
 							</tr>
 						</table>
 						<hr width="880px" size="1" color="gray" align="center" />
-						<input type="hidden" name="num" value="${list.num}" />
+						<%-- <input type="hidden" name="num" value="${list.num}" /> --%>
 					</c:forEach>
 				</c:if>
 				<hr width="880px" size="1" align="center" />
