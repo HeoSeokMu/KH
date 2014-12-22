@@ -9,17 +9,20 @@
 </head>
 
 <body>
-<h1>KH대학교 학술 정보원</h1>
+<h1>KH대학교 학술 정보원.</h1>
 <form action="libraryNotice.kh">
-	<table border="1">
-		<tr>
+	<table border="1" width="300">
+		<tr align="center">
 		<td>공지사항</td>
 		<td><input type="button" value="공지사항 쓰기" onClick="javascript:location.href='libraryNoticeForm.kh'"></td>
 		</tr>
 		<tr>
 		<td colspan="2">
 			<c:forEach var="list" items="${list}">
-			${article.title}${article.date }
+			<tr>
+			<td colspan="2"><a href="libraryNoticeView.kh?no=${list.no}">${list.subject}</a>
+			<span style="float:right;"><fmt:formatDate value="${list.reg_date}" type="date" pattern="[yyyy-MM-dd]"/></span></td>
+			</tr>
 			</c:forEach>
 		
 		</td>

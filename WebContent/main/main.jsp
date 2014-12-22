@@ -12,7 +12,30 @@
 	<link rel="stylesheet" href="css/left_menu.css"></link>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/leftMenu_jquery.js"></script>
-	
+	<style>
+		.login{
+			background-color:#7eb813;
+			color:#ffffff;
+			border:1px #dddddd dashed;
+			width:70px;
+			height:60px;
+			text-align:center;
+			padding:3px;
+		}
+		.trTitle {
+			height:15px;
+		}
+		.input{
+			size: 15px;
+		}
+		.lineX {
+			border-bottom: 1px solid #dddddd;
+		}
+		.tablepadding {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	</style>
 	<style>
 		.login{
 			background-color:#7eb813;
@@ -75,7 +98,7 @@
 </head>
 
 <body onload="focusIt();">
-		<div id="box">
+<div id="box">
 		<div id="header">
 			<div id="header_1">
 				<ul class="menu">
@@ -115,8 +138,7 @@
 		<div id="box2">
 			<div id="content">
 			</div>	
-		</div>
-		 
+		</div>		 
 		<div id="box3">
 			<c:if test="${memId == null}">
 				<form name="inform" method="post" action="LoginPro.kh"	onsubmit="return checkIt();">
