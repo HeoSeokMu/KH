@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<h1>KH대학교 학술 정보원</h1>
+<h1>KH대학교 학술 정보원.</h1>
 <form action="libraryNotice.kh">
 	<table border="1" width="300">
 		<tr align="center">
