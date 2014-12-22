@@ -58,12 +58,7 @@
 									<a href="restContent.kh?num='${list.num}'">${list.name}</a>
 								</td>
 								<td width="230px">${list.reg_date}</td>
-								<td width="120px">
-									<select name="result">
-										<option value="승인">승인</option>
-										<option value="거절">거절</option>
-									</select>
-								</td>
+								<td width="120px">${list.result}</td>
 							</tr>
 						</table>
 						<hr width="880px" size="1" color="gray" align="center" />

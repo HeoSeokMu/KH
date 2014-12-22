@@ -552,7 +552,7 @@ public class MemberDAO {
 		List<RestReturnBoard_DTO> rrb_List = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select num, major, name, id, grade, reg_date from kh_restreturn_school_board where result != '미처리' order by num desc");
+			pstmt = conn.prepareStatement("select num, major, name, id, grade, result, reg_date from kh_restreturn_school_board where result != '미처리' order by num desc");
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				rrb_List = new ArrayList<RestReturnBoard_DTO>();
@@ -563,6 +563,7 @@ public class MemberDAO {
 					dto.setName(rs.getString("name"));
 					dto.setId(rs.getString("id"));
 					dto.setGrade(rs.getInt("grade"));
+					dto.setResult(rs.getString("result"));
 					dto.setReg_date(rs.getTimestamp("reg_date"));
 					rrb_List.add(dto);
 				} while (rs.next());
@@ -577,18 +578,61 @@ public class MemberDAO {
 		return rrb_List;
 	}
 	
-	//휴학 결과 수정하는 쿼리
-	public void modify_RestReturnBoard(RestReturnBoard_DTO rrb_DTO) throws Exception {
+	// 휴학 결과 수정하는 쿼리
+	public void modify_RestBoard(String result, int num) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		noticeboard_DTO article=null;
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(
 			"update kh_restreturn_school_board set result=? where num = ?");
-			pstmt.setString(1, rrb_DTO.getResult());
-			pstmt.setInt(2, rrb_DTO.getNum());
+			pstmt.setString(1, result);
+			pstmt.setInt(2, num);
+			rs = pstmt.executeQuery();
+
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+	}
+	
+	// 복학 결과 수정하는 쿼리
+	public void modify_ReturnBoard(String result, int num) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(
+			"update kh_restreturn_school_board set result=? where num = ?");
+			pstmt.setString(1, result);
+			pstmt.setInt(2, num);
+			rs = pstmt.executeQuery();
+
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+	}
+	
+	// 학생의 상태를 수정하는 쿼리
+	public void modify_MerberRest(String status, String id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(
+			"update kh_member set status=? where id = ?");
+			pstmt.setString(1, status);
+			pstmt.setString(2, id);
 			rs = pstmt.executeQuery();
 
 		} catch(Exception ex) {

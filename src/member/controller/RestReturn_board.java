@@ -89,7 +89,7 @@ public class RestReturn_board {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("mDTO", mDTO);
-		mv.setViewName("/member/returnSchool.jsp");
+		mv.setViewName("/member/s_returnSchool.jsp");
 	
 		return mv;
 	}
@@ -111,7 +111,7 @@ public class RestReturn_board {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("mDTO", mDTO);						
-		mv.setViewName("/member/restSchool.jsp");
+		mv.setViewName("/member/s_restSchool.jsp");
 	
 		return mv;
 	}
@@ -161,10 +161,10 @@ public class RestReturn_board {
 		String view = "";
 		if(rrrb_check.equals("신청")) {
 			list = mDAO.RestReturn_BoardList();
-			view = "/member/RestReturnRequest_board.jsp";
+			view = "/member/e_RestRequest_board.jsp";
 		} else if(rrrb_check.equals("처리")) {
 			list = mDAO.RestReturn_Board_Processing_List();
-			view = "/member/RestReturn_Processing_board.jsp";
+			view = "/member/e_RestProcessing_board.jsp";
 		}
 		
 		System.out.println("view : " + view);
@@ -208,6 +208,48 @@ public class RestReturn_board {
 		mv.addObject("blockCount", blockCount);
 		mv.setViewName(view);
 		
+		return mv;
+	}
+	
+	@RequestMapping(value="/RestReturn_Pro.kh")
+	public ModelAndView RestReturn_Pro(HttpServletRequest req) throws Exception{
+		System.out.println("RestReturn_Pro =================== : ");
+		
+		String id = req.getParameter("id");
+		String result = req.getParameter("result");
+		int num = Integer.parseInt(req.getParameter("num"));
+		String board = req.getParameter("board");
+		
+		System.out.println("id : " + id);
+		System.out.println("result : " + result);
+		System.out.println("num : " + num);
+		System.out.println("board : " + board);
+		
+		MemberDAO mDAO = MemberDAO.getInstance();
+				
+		String status = "";
+		String view = "";
+		if(board.equals("휴학")) {
+			mDAO.modify_RestBoard(result, num);
+			if(result.equals("승인")) {
+				status = "휴학";
+			} else if(result.equals("거절")) {
+				status = "재학";
+			}
+			
+		} else if(board.equals("복학")) {
+			mDAO.modify_ReturnBoard(result, num);
+			if(result.equals("승인")) {
+				status = "재학";
+			} else if(result.equals("거절")) {
+				status = "휴학";
+			}
+		}
+		
+		mDAO.modify_MerberRest(status, id);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/e_RestReturn_Board.kh?rrrd_check=처리");
 		return mv;
 	}
 }
