@@ -65,13 +65,13 @@
 									<td bgcolor="#ffff99" align="center">학 비</td><td bgcolor="#ffff99" align="center">유 학</td><td bgcolor="#ffff99" align="center">기 타</td>
 								</tr>
 								<tr>
-									<td align="center"><input type="radio" name="time" value="register"/></td>
-									<td align="center"><input type="radio" name="time" value="stop"/></td>
-									<td align="center"><input type="radio" name="time" value="non_register"/></td>
-									<td align="center"><input type="radio" name="why" value="army"/></td>
-									<td align="center"><input type="radio" name="why" value="tuition"/></td>
-									<td align="center"><input type="radio" name="why" value="abroad"/></td>
-									<td align="center"><input type="radio" name="why" value="etc"/></td>
+									<td align="center"><input type="radio" name="time" value="등록 휴학"/></td>
+									<td align="center"><input type="radio" name="time" value="중도 휴학"/></td>
+									<td align="center"><input type="radio" name="time" value="미등록 휴학"/></td>
+									<td align="center"><input type="radio" name="why" value="군입대"/></td>
+									<td align="center"><input type="radio" name="why" value="학 비"/></td>
+									<td align="center"><input type="radio" name="why" value="유 학"/></td>
+									<td align="center"><input type="radio" name="why" value="기 타"/></td>
 								</tr>
 							</table>
 						</td>

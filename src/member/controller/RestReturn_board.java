@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.MemberDAO;
 import dto.RestReturnBoard_DTO;
 import dto.memberDTO;
+import dto.noticeboard_DTO;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -67,7 +70,7 @@ public class RestReturn_board {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("pagingHtml", pagingHtml);
 		mv.addObject("blockCount", blockCount);
-		mv.setViewName("/member/RestReturnRequest_board.jsp");
+		mv.setViewName("/member/e_RestReturnRequest_board.jsp");
 		
 		System.out.println(mv.getViewName());
 		
@@ -249,7 +252,22 @@ public class RestReturn_board {
 		mDAO.modify_MerberRest(status, id);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/e_RestReturn_Board.kh?rrrd_check=贸府");
+		mv.setViewName("redirect:/RestReturn_Board.kh?rrrd_check=贸府");
+		return mv;
+	}
+	
+	@RequestMapping("/RestContent.kh")
+	public ModelAndView RestContentView(HttpServletRequest request) throws Exception{
+		MemberDAO mDAO = MemberDAO.getInstance();
+		int num = Integer.parseInt(request.getParameter("num"));
+		
+		ModelAndView mv = new ModelAndView();
+		RestReturnBoard_DTO rrb_DTO = mDAO.Rest_Content(num);
+
+		mv.addObject("rrb_DTO", rrb_DTO);
+		
+		mv.setViewName("/member/e_Rest_Content.jsp");
+		
 		return mv;
 	}
 }

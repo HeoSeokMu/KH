@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -432,6 +431,7 @@ public class MemberDAO {
 		
 		return article;
 	}
+	
 	//공지사항 삭제 쿼리.
 	public noticeboard_DTO deleteArticle(int num) throws Exception {
 		Connection conn = null;
@@ -617,5 +617,42 @@ public class MemberDAO {
 			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
+	}
+	
+	public RestReturnBoard_DTO Rest_Content(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		RestReturnBoard_DTO article = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from kh_restreturn_school_board where num = ?"); 
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				article = new RestReturnBoard_DTO();
+				article.setNum(rs.getInt("num"));
+				article.setMajor(rs.getString("major"));
+				article.setName(rs.getString("name"));
+				article.setId(rs.getString("id"));
+				article.setGrade(rs.getInt("grade"));
+				article.setEmail(rs.getString("email"));
+				article.setPhone(rs.getString("phone"));
+				article.setAddr(rs.getString("addr"));
+				article.setTime(rs.getString("time"));
+				article.setWhy(rs.getString("why"));
+				article.setWhy_detail(rs.getString("why_detail"));
+				article.setResult(rs.getString("result"));
+				article.setReg_date(rs.getTimestamp("reg_date"));
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		
+		return article;
 	}
 }

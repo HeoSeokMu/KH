@@ -65,7 +65,7 @@
 								<td width="120px">${list.id}</td>
 								<td width="120px">${list.grade}</td>
 								<td width="120px">
-									<a href="restContent.kh?num='${list.num}'">${list.name}</a>
+									<a href="RestContent.kh?num=${list.num}">${list.name}</a>
 								</td>
 								<td width="230px">${list.reg_date}</td>
 								<td width="120px">
