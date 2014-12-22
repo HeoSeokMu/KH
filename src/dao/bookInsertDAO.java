@@ -473,5 +473,99 @@ public class bookInsertDAO {
 					        }
 					        
 					    }
+				
+				//도서관 공지사항 리스트
+				public List<libraryDTO> getNoticeArticles() throws Exception {
+					Connection conn = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					List articleList=null;
+					try {
+						conn = getConnection();
+							pstmt = conn.prepareStatement("select * from librarynotice order by reg_date desc ");
+								rs = pstmt.executeQuery();
+								if (rs.next()) {
+									articleList = new ArrayList(); 
+									do{ 
+										libraryDTO article= new libraryDTO();
+										article.setNo(rs.getInt("no"));
+										article.setWriter(rs.getString("WRITER"));
+										article.setSubject(rs.getString("SUBJECT"));
+										article.setContent(rs.getString("CONTENT"));
+										article.setReadhit(rs.getInt("READHIT"));
+										article.setReg_date(rs.getTimestamp("REG_DATE"));
+										articleList.add(article); 
+									}while(rs.next());
+								}
+					} catch(Exception ex) {
+						ex.printStackTrace();
+					} finally {
+						if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+						if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+						if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+					}
+
+					
+					return articleList;
+				}
+				
+				//등록한 책 내역 보기
+				public libraryDTO getNoticeView(int no) throws Exception{
+					Connection conn = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					libraryDTO notice =null;
+					try{
+						conn = getConnection();
+						pstmt = conn.prepareStatement("update librarynotice set readhit = readhit+1 where no = ?");
+						pstmt.setInt(1, no);
+						pstmt.executeUpdate();
+						pstmt = conn.prepareStatement("select * from librarynotice where no = ?");
+						pstmt.setInt(1, no);
+						rs = pstmt.executeQuery();
+						if(rs.next()){
+							notice = new libraryDTO();
+							notice.setNo(rs.getInt("no"));
+							notice.setWriter(rs.getString("writer"));
+							notice.setSubject(rs.getString("subject"));
+							notice.setContent(rs.getString("content"));
+							notice.setLibraryfile(rs.getString("libraryfile"));
+							notice.setReadhit(rs.getInt("readhit"));
+							notice.setReg_date(rs.getTimestamp("reg_date"));
+							
+						}
+					}catch(Exception ex){
+						ex.printStackTrace();
+					} finally {
+						if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+						if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+						if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+					}return notice;
+				}
 		
+				//공지사항 읽은 숫자 자동증가 부분
+//				public int noticeNum(int no) throws Exception {
+//					Connection conn = null;
+//					PreparedStatement pstmt = null;
+//					ResultSet rs = null;
+//					int x = 0;
+//
+//					try {
+//						conn = getConnection();
+//						pstmt = conn.prepareStatement("select * from librarynotice where no =?");
+//						pstmt.setInt(1, no);
+//						rs = pstmt.executeQuery();
+//						if (rs.next()) {
+//							x= rs.getInt(1); 
+//						}
+//						
+//					} catch(Exception ex) {
+//						ex.printStackTrace();
+//					} finally {
+//						if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+//						if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+//						if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+//					}
+//					return x;
+//				}
 	}
