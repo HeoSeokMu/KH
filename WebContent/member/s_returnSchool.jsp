@@ -93,6 +93,7 @@
 						<td align="center"><input type="submit" value="신청하기"/></td>
 					</tr>				
 				</table>
+				<input type="hidden" name="board_type" value="복학"/>
 			</form>
 			<br/><br/>
 			</center>
