@@ -221,8 +221,12 @@ public class boardDAO {
 						vDTO.setName(rs.getString("name"));
 						vDTO.setType(rs.getString("type"));
 						vDTO.setMajor(rs.getString("major"));
-						vDTO.setVacation_start(rs.getString("vacation_start"));
-						vDTO.setVacation_end(rs.getString("vacation_end"));
+						vDTO.setVacStart_yy(rs.getString("VacStart_yy"));
+						vDTO.setVacStart_mm(rs.getString("VacStart_mm"));
+						vDTO.setVacStart_dd(rs.getString("VacStart_dd"));
+						vDTO.setVacEnd_yy(rs.getString("VacEnd_yy"));
+						vDTO.setVacEnd_mm(rs.getString("VacEnd_mm"));
+						vDTO.setVacEnd_dd(rs.getString("VacEnd_dd"));
 						vDTO.setVacation_reason(rs.getString("vacation_reason"));
 						vDTO.setReg_date(rs.getTimestamp("reg_date"));
 						vDTO.setResult(rs.getString("result"));
@@ -258,8 +262,12 @@ public class boardDAO {
 						vDTO.setName(rs.getString("name"));
 						vDTO.setType(rs.getString("type"));
 						vDTO.setMajor(rs.getString("major"));
-						vDTO.setVacation_start(rs.getString("vacation_start"));
-						vDTO.setVacation_end(rs.getString("vacation_end"));
+						vDTO.setVacStart_yy(rs.getString("VacStart_yy"));
+						vDTO.setVacStart_mm(rs.getString("VacStart_mm"));
+						vDTO.setVacStart_dd(rs.getString("VacStart_dd"));
+						vDTO.setVacEnd_yy(rs.getString("VacEnd_yy"));
+						vDTO.setVacEnd_mm(rs.getString("VacEnd_mm"));
+						vDTO.setVacEnd_dd(rs.getString("VacEnd_dd"));
 						vDTO.setVacation_reason(rs.getString("vacation_reason"));
 						vDTO.setReg_date(rs.getTimestamp("reg_date"));
 						vDTO.setResult(rs.getString("result"));
@@ -286,13 +294,17 @@ public class boardDAO {
 			try {
 				conn = getConnection();
 				pstmt = conn.prepareStatement(
-				"update kh_lectureboard set vacation_start=?, vacation_end=?, vacation_reason=?, reg_date=?, result=? where no=?"); 
-				pstmt.setString(1, vDTO.getVacation_start());
-				pstmt.setString(2, vDTO.getVacation_end());
-				pstmt.setString(3, vDTO.getVacation_reason());
-				pstmt.setTimestamp(4, vDTO.getReg_date());
-				pstmt.setString(5, vDTO.getResult());
-				pstmt.setInt(6, vDTO.getNo());
+				"update kh_vacation set VacStart_yy=?, VacStart_mm=?, VacStart_dd=?, VacEnd_yy=?, VacEnd_mm=?, VacEnd_dd=?, vacation_reason=?, reg_date=?, result=? where no=?"); 
+				pstmt.setString(1, vDTO.getVacStart_yy());
+	            pstmt.setString(2, vDTO.getVacStart_mm());
+	            pstmt.setString(3, vDTO.getVacStart_dd());
+	            pstmt.setString(4, vDTO.getVacEnd_yy());
+	            pstmt.setString(5, vDTO.getVacEnd_mm());
+	            pstmt.setString(6, vDTO.getVacEnd_dd());
+				pstmt.setString(7, vDTO.getVacation_reason());
+				pstmt.setTimestamp(8, vDTO.getReg_date());
+				pstmt.setString(9, vDTO.getResult());
+				pstmt.setInt(10, vDTO.getNo());
 				rs = pstmt.executeQuery();
 
 			} catch(Exception ex) {
