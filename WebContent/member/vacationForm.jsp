@@ -35,82 +35,7 @@
 		}
 	</style>
 	
-	<script src=""></script>
-	
-	<script type="text/javascript">
-	var start = null;
-	var end = null;
-	
-	function auto_default(type, major){
-		if(type == "교수"){
-			document.user_input.type.value = '교수';
-		}else if(type == "교직원"){
-			document.user_input.type.value = '교직원';
-		}
-		
-	}
-	
-	function dateSum(){
-		var form = document.user_input;
-		
-		form.vacation_start.value = form.vacStart_yy.value +"년"+ form.vacStart_mm.value +"월"+ form.vacStart_dd.value + "일";
-		form.vacation_end.value = form.vacEnd_yy.value +"년"+ form.vacEnd_mm.value +"월"+ form.vacEnd_dd.value + "일";
-	}
-	
-	var s_year = null;
-	var s_month = null;
-
-	var e_year = null;
-	var e_month = null;
-	
-	function chk_dd(yy,mm,dd, chk, i){
-		
-		if(chk == "start"){
-			if(mm < 10) {
-				mm = 0+mm;
-			}
-			if(dd < 10) {
-				dd = 0+dd;
-			}
-			s_year = yy;
-			s_month = mm;
-			start = Number(yy+mm+dd);
-		}else{
-			if(mm < 10) {
-				mm = 0+mm;
-			}
-			if(dd < 10) {
-				dd = 0+dd;
-			}
-			e_year = yy;
-			e_month = mm;
-			end = Number(yy+mm+dd);
-		}
-			
-		if(start != null && end != null){	
-			if(start >= end){
-				
-				if(i == 'y'){
-					if(Number(s_year) > Number(e_year)){
-						user_input.vacEnd_yy.value = 0;
-					}
-				}else if ( i == 'm'){
-					if(Number(s_year+s_month) > Number(e_year+e_month)){
-						user_input.vacEnd_mm.value = 0;
-					}
-				}else{
-					if(start > end){
-						user_input.vacEnd_dd.value = 0;
-					}
-				}
-	
-			}
-		/* 	 document.getElementById("dateError").style.display = 'none';
-			document.getElementById("dateOk").style.display = ''; */
-		}
-			
-	}
-	</script>
+	<script src="/KH_School/member/script/vacation.js"></script>
 	
 </head>
 
@@ -143,6 +68,7 @@
 						&nbsp;<input type="radio" name="type" value="교직원" disabled>교직원
 					</td>
 					<input type="hidden" value="${mDTO.name}" name="name">
+					<input type="hidden" value="${mDTO.type}" name="type">
 				</tr>
 				
 				<tr bgcolor="BBEE99" height=40>
@@ -216,8 +142,8 @@
 						<span id="dateError" style="display:none;"><font color="red" size="2">&nbsp;&nbsp;#날짜를 확인해주세요.</font></span>
 						<span id="dateOk" style="display:none;"><font color="blue" size="2">&nbsp;&nbsp;#신청 가능한 날짜입니다.</font></span>
 					</td>
-				<input type="text" name="vacation_start">
-				<input type="text" name="vacation_end">
+				<input type="hidden" name="vacation_start">
+				<input type="hidden" name="vacation_end">
 				</tr>
 		
 				<tr bgcolor="BBEE99" height=40 >

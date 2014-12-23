@@ -179,15 +179,19 @@ public class boardDAO {
 	            conn = getConnection();
 	            
 	            pstmt = conn.prepareStatement(
-	            	"insert into KH_lectureboard values (kh_vacation_seq.NEXTVAL,?,?,?,?,?,?,?,?)");
+	            	"insert into kh_vacation values (kh_vacation_seq.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?)");
 	            pstmt.setString(1, vDTO.getName());
 	            pstmt.setString(2, vDTO.getType());
 	            pstmt.setString(3, vDTO.getMajor());
-	            pstmt.setString(4, vDTO.getVacation_start());
-	            pstmt.setString(5, vDTO.getVacation_end());
-	            pstmt.setString(6, vDTO.getVacation_reason());
-	            pstmt.setTimestamp(7, vDTO.getReg_date());
-	            pstmt.setString(8, vDTO.getResult());
+	            pstmt.setString(4, vDTO.getVacStart_yy());
+	            pstmt.setString(5, vDTO.getVacStart_yy());
+	            pstmt.setString(6, vDTO.getVacStart_yy());
+	            pstmt.setString(7, vDTO.getVacEnd_yy());
+	            pstmt.setString(8, vDTO.getVacEnd_mm());
+	            pstmt.setString(9, vDTO.getVacEnd_dd());
+	            pstmt.setString(10, vDTO.getVacation_reason());
+	            pstmt.setTimestamp(11, vDTO.getReg_date());
+	            pstmt.setString(12, vDTO.getResult());
 	            
 	            pstmt.executeUpdate();
 	        } catch(Exception ex) {
@@ -198,5 +202,170 @@ public class boardDAO {
 	        }
 	        
 	    }
+		
+	//휴가신청 게시판 리스트 (처리 전)
+		public List<vacationDTO> vacationReqList() throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<vacationDTO> list = null;
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement("select * from kh_vacation where result = '미처리' order by no desc");
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					list = new ArrayList<vacationDTO>();
+					do {
+						vacationDTO vDTO = new vacationDTO();
+						vDTO.setNo(rs.getInt("no"));
+						vDTO.setName(rs.getString("name"));
+						vDTO.setType(rs.getString("type"));
+						vDTO.setMajor(rs.getString("major"));
+						vDTO.setVacation_start(rs.getString("vacation_start"));
+						vDTO.setVacation_end(rs.getString("vacation_end"));
+						vDTO.setVacation_reason(rs.getString("vacation_reason"));
+						vDTO.setReg_date(rs.getTimestamp("reg_date"));
+						vDTO.setResult(rs.getString("result"));
+						list.add(vDTO);
+					} while (rs.next());
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+
+			return list;
+		}
+		
+//휴가신청 게시판 리스트 (처리 후)
+		public List<vacationDTO> vacationResultList() throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<vacationDTO> list = null;
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement("select * from kh_vacation where result != '미처리' order by no desc");
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					list = new ArrayList<vacationDTO>();
+					do {
+						vacationDTO vDTO = new vacationDTO();
+						vDTO.setNo(rs.getInt("no"));
+						vDTO.setName(rs.getString("name"));
+						vDTO.setType(rs.getString("type"));
+						vDTO.setMajor(rs.getString("major"));
+						vDTO.setVacation_start(rs.getString("vacation_start"));
+						vDTO.setVacation_end(rs.getString("vacation_end"));
+						vDTO.setVacation_reason(rs.getString("vacation_reason"));
+						vDTO.setReg_date(rs.getTimestamp("reg_date"));
+						vDTO.setResult(rs.getString("result"));
+						list.add(vDTO);
+					} while (rs.next());
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+
+			return list;
+		}
+		
+		//휴가 신청 수정하는 쿼리
+		public vacationDTO modifyVacation(vacationDTO vDTO) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			vacationDTO article=null;
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement(
+				"update kh_lectureboard set vacation_start=?, vacation_end=?, vacation_reason=?, reg_date=?, result=? where no=?"); 
+				pstmt.setString(1, vDTO.getVacation_start());
+				pstmt.setString(2, vDTO.getVacation_end());
+				pstmt.setString(3, vDTO.getVacation_reason());
+				pstmt.setTimestamp(4, vDTO.getReg_date());
+				pstmt.setString(5, vDTO.getResult());
+				pstmt.setInt(6, vDTO.getNo());
+				rs = pstmt.executeQuery();
+
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			
+			return article;
+		}
+		//휴가 신청 삭제 쿼리.
+		public vacationDTO deleteVacation(int no) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			vacationDTO article=null;
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement(
+				"delete kh_vacation where no = ?"); 
+				pstmt.setInt(1, no);
+				rs = pstmt.executeQuery();
+
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			
+			return article;
+		}
+		
+		//시퀀스 넘버로 휴가신청 게시글을 가져오는 쿼리.
+		public vacationDTO getVacationArticle(int no) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			vacationDTO article=null;
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement(
+				"select * from kh_vacation where no=?"); 
+				pstmt.setInt(1, no);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					article = new vacationDTO();
+					article.setNo(rs.getInt("no"));
+					article.setName(rs.getString("name"));
+					article.setType(rs.getString("type"));
+					article.setMajor(rs.getString("major"));
+					article.setVacStart_yy(rs.getString("vacStart_yy"));
+					article.setVacStart_mm(rs.getString("vacStart_yy"));
+					article.setVacStart_dd(rs.getString("vacStart_yy"));
+					article.setVacEnd_yy(rs.getString("vacEnd_yy"));
+					article.setVacEnd_mm(rs.getString("vacEnd_mm"));
+					article.setVacEnd_dd(rs.getString("vacEnd_dd"));
+					article.setVacation_reason(rs.getString("vacation_reason"));
+					article.setReg_date(rs.getTimestamp("reg_date"));
+					article.setResult(rs.getString("result"));
+				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			
+			return article;
+		}
 
 }

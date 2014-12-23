@@ -107,10 +107,10 @@
 										<a href="vacationForm.kh">휴가 신청</a>
 									</dd>
 									<dd>
-										<a href="#">휴가 신청내역 확인</a>
+										<a href="vacationConfirm.kh">휴가 신청내역 확인</a>
 									</dd>
 									<dd>
-										<a href="#">휴가 처리내역 확인</a>
+										<a href="vacationResult.kh">휴가 처리내역 확인</a>
 									</dd>
 								</dl>
 							</li>
