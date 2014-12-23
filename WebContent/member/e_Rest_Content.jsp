@@ -107,9 +107,9 @@
 					<c:if test="${rrrb_check == '신청'}">
 					<tr>
 						<td align="center">
-							<input type="button" name="result" value="승인" onclick="Processing(this.form, ${rrb_DTO.num}, ${rrb_DTO.id}, this.value);"/>
+							<input type="button" name="result" value="승인" onclick="Processing(this.form, ${rrb_DTO.num}, ${rrb_DTO.id},휴학, this.value);"/>
 							&nbsp;&nbsp;
-							<input type="button" name="result" value="거절" onclick="Processing(this.form, ${rrb_DTO.num}, ${rrb_DTO.id}, this.value););"/>
+							<input type="button" name="result" value="거절" onclick="Processing(this.form, ${rrb_DTO.num}, ${rrb_DTO.id},, this.value););"/>
 						</td>
 					</tr>
 					</c:if>
