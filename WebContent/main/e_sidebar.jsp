@@ -119,16 +119,16 @@
 								<dl>
 									<dt>휴학 및 복학처리</dt>
 									<dd>
-										<a href="RestReturn_Board.kh?rrrb_check=신청">휴학 신청내역 확인</a>
+										<a href="RestReturn_Board.kh?board_type=휴학&rrrb_check=신청">휴학 신청내역 확인</a>
 									</dd>
 									<dd>
-										<a href="RestReturn_Board.kh?rrrb_check=처리">휴학 처리내역 확인</a>
+										<a href="RestReturn_Board.kh?board_type=휴학&rrrb_check=처리">휴학 처리내역 확인</a>
 									</dd>
 									<dd>
-										<a href="#">복학 신청내역 확인</a>
+										<a href="RestReturn_Board.kh?board_type=복학&rrrb_check=신청">복학 신청내역 확인</a>
 									</dd>
 									<dd>
-										<a href="#">복학 처리내역확인</a>
+										<a href="RestReturn_Board.kh?board_type=복학&rrrb_check=처리">복학 처리내역확인</a>
 									</dd>
 								</dl>
 							</li>

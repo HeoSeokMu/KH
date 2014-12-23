@@ -19,7 +19,7 @@
 	<jsp:include page="/main/s_sidebar.jsp" />
 		<div id="box3">
 			<center>
-			<form action="restInsert.kh" method="post">
+			<form action="RestRequestInsert.kh" method="post">
 				<br/><br/>
 				<h2>휴학신청서</h2>
 				<table width="700">
@@ -108,6 +108,7 @@
 				<input type="hidden" name="email" value="${mDTO.email}"/>
 				<input type="hidden" name="phone" value="${mDTO.s_phone}"/>
 				<input type="hidden" name="addr" value="${mDTO.addr}"/>
+				<input type="hidden" name="board_type" value="휴학"/>
 			</form>
 			</center>
 			<br/><br/>

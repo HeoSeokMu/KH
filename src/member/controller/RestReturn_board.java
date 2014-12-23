@@ -119,10 +119,10 @@ public class RestReturn_board {
 		return mv;
 	}
 	
-	@RequestMapping(value="/restInsert.kh")
+	@RequestMapping(value="/RestRequestInsert.kh")
 	public ModelAndView restInsert(HttpServletRequest req) throws Exception{
 		
-		System.out.println("restInsert =================== : ");
+		System.out.println("RestRequestInsert =================== : ");
 		RestReturnBoard_DTO rrb_DTO = new RestReturnBoard_DTO();  
 		
 		rrb_DTO.setMajor(req.getParameter("major"));
@@ -209,6 +209,7 @@ public class RestReturn_board {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("pagingHtml", pagingHtml);
 		mv.addObject("blockCount", blockCount);
+		mv.addObject("rrrb_check", rrrb_check);
 		mv.setViewName(view);
 		
 		return mv;
@@ -221,34 +222,33 @@ public class RestReturn_board {
 		String id = req.getParameter("id");
 		String result = req.getParameter("result");
 		int num = Integer.parseInt(req.getParameter("num"));
-		String board = req.getParameter("board");
+		String board_type = req.getParameter("board_type");
 		
 		System.out.println("id : " + id);
 		System.out.println("result : " + result);
 		System.out.println("num : " + num);
-		System.out.println("board : " + board);
+		System.out.println("board_type : " + board_type);
 		
 		MemberDAO mDAO = MemberDAO.getInstance();
 				
 		String status = "";
 		String view = "";
-		if(board.equals("ÈÞÇÐ")) {
-			mDAO.modify_RestBoard(result, num);
+		if(board_type.equals("ÈÞÇÐ")) {
+			
 			if(result.equals("½ÂÀÎ")) {
 				status = "ÈÞÇÐ";
 			} else if(result.equals("°ÅÀý")) {
 				status = "ÀçÇÐ";
 			}
 			
-		} else if(board.equals("º¹ÇÐ")) {
-			mDAO.modify_ReturnBoard(result, num);
+		} else if(board_type.equals("º¹ÇÐ")) {
 			if(result.equals("½ÂÀÎ")) {
 				status = "ÀçÇÐ";
 			} else if(result.equals("°ÅÀý")) {
 				status = "ÈÞÇÐ";
 			}
 		}
-		
+		mDAO.modify_RestReturnBoard(result, num, board_type);
 		mDAO.modify_MerberRest(status, id);
 		
 		ModelAndView mv = new ModelAndView();

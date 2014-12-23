@@ -16,10 +16,11 @@
 	<script src="/KH_School/member/script/noticeView.js"></script>
 	
 	<script type="text/javascript">
-		function Processing(processing, num, id) {
-			var result = processing.result.value; 
-			if(result == "승인" || result == "거절") {
-				window.location = "RestReturn_Pro.kh?board=휴학&num="+num+"&id="+id+"&result="+result;	
+		function Processing(processing, num, id, board_type, value) {
+			alert("Pro");
+			alert("result : " + result + " / " + value);
+			if(value == "승인" || value == "거절") {
+				window.location = "RestReturn_Pro.kh?board_type="+board_type+"&num="+num+"&id="+id+"&result="+value;	
 			}
 		}
 	</script>
@@ -103,13 +104,15 @@
 					<tr>
 						<td><br/></td>
 					</tr>
+					<c:if test="${rrrb_check == '신청'}">
 					<tr>
 						<td align="center">
-							<input type="button" name="result" value="승인" onclick="Processing(this.form, ${rrb_DTO.num}, ${rrb_DTO.id});"/>
+							<input type="button" name="result" value="승인" onclick="Processing(this.form, ${rrb_DTO.num}, ${rrb_DTO.id}, this.value);"/>
 							&nbsp;&nbsp;
-							<input type="button" name="result" value="거절" onclick="Processing(this.form, ${rrb_DTO.num}, ${rrb_DTO.id});"/>
+							<input type="button" name="result" value="거절" onclick="Processing(this.form, ${rrb_DTO.num}, ${rrb_DTO.id}, this.value););"/>
 						</td>
 					</tr>
+					</c:if>
 				</table>
 			</form>
 			</center>

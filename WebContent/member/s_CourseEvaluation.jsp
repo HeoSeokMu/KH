@@ -19,7 +19,7 @@
 	<jsp:include page="/main/s_sidebar.jsp" />
 		<div id="box3">
 			<center>
-			<form action="restInsert.kh" method="post">
+			<form action="RestRequestInsert.kh" method="post">
 				<br/><br/>
 				<h2>강의평가</h2>
 				
