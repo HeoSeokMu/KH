@@ -2,8 +2,11 @@ package library.controller;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +45,7 @@ public class libraryController {
 			
 			dto.setReg_date(new Timestamp(System.currentTimeMillis()));
 			
-			String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/book_img/";
+			String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/librarNotice/";
 			
 			bookInsertDAO notice_dao = bookInsertDAO.getInstance();
 			
@@ -515,6 +518,13 @@ public ModelAndView myRequestList(HttpSession session, HttpServletRequest req) t
 		String keyword = req.getParameter("keyword");
 		String pageNum = req.getParameter("currentPage");
 		
+		Calendar calendar = Calendar.getInstance(); 
+		calendar.add(Calendar.DAY_OF_MONTH, -7); 
+		Date date = calendar.getTime(); 
+		//date가 일주일전 Date 객체 입니다. 
+	
+		String now = new SimpleDateFormat("yyyy-MM-dd").format(date);
+		
 		if (pageNum == null) {
 			pageNum = "1";
 	    }
@@ -562,6 +572,7 @@ public ModelAndView myRequestList(HttpSession session, HttpServletRequest req) t
 	    mv.addObject("totalCount", totalCount);
 	    mv.addObject("currentPage", currentPage);
 	    mv.addObject("pagingHtml", pagingHtml);
+	    mv.addObject("now", now);
 	 
 		
 		mv.setViewName("/library/libraryNoticeList.jsp");
@@ -569,11 +580,12 @@ public ModelAndView myRequestList(HttpSession session, HttpServletRequest req) t
 	}
 	//도서관 메인 
 		@RequestMapping(value="/libraryMain.kh")
-		public ModelAndView libraryMainNoticeList(HttpServletRequest req) throws Exception{
+		public ModelAndView libraryMainNoticeList(HttpServletRequest req,HttpSession session) throws Exception{
 			
 			String searchType = req.getParameter("searchType");
 			String keyword = req.getParameter("keyword");
 			String pageNum = req.getParameter("currentPage");
+			String id = (String)session.getAttribute("memId");
 			
 			if (pageNum == null) {
 				pageNum = "1";
@@ -630,10 +642,11 @@ public ModelAndView myRequestList(HttpSession session, HttpServletRequest req) t
 		
 		//공지사항 내역 보기
 		@RequestMapping("/libraryNoticeView.kh")
-		public ModelAndView libraryNoticeView(HttpServletRequest req, @ModelAttribute libraryDTO dto) throws Exception{
+		public ModelAndView libraryNoticeView(HttpServletRequest req,HttpSession session, @ModelAttribute libraryDTO dto) throws Exception{
 			
-			String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/book_img/";
+			String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/libraryNotice/";
 				
+			String id = (String)session.getAttribute("memId");
 			bookInsertDAO book_dao = bookInsertDAO.getInstance();
 			int no = Integer.parseInt(req.getParameter("no"));
 			
@@ -649,5 +662,49 @@ public ModelAndView myRequestList(HttpSession session, HttpServletRequest req) t
 			
 			return mv;
 		}
+	//공지사항 내용 수정
+		@RequestMapping("/libraryNoticeModify.kh")
+		public ModelAndView libraryNoticeModify(HttpServletRequest req) throws Exception{
+			
+			bookInsertDAO book_dao = bookInsertDAO.getInstance();
+			int no = Integer.parseInt(req.getParameter("no"));
+			libraryDTO notice = book_dao.noticeView(no);
+			
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("notice", notice);
+			mv.setViewName("/library/libraryNoticeModify.jsp");
+			
+			return mv;
+	}
+	//공지사항 수정 처리
+	@RequestMapping("/libraryNoticeModifyFormPro.kh")
+	public String libraryNoticeModifyFormPro(HttpServletRequest req, @ModelAttribute libraryDTO dto, MultipartHttpServletRequest request) throws Exception{
+		
+		dto.setReg_date(new Timestamp(System.currentTimeMillis()));
+
+		String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/libraryNotice/";
+		
+		bookInsertDAO book_dao = bookInsertDAO.getInstance();
+		
+		if(!request.getFile("upload").isEmpty()){
+			MultipartFile file = request.getFile("upload");
+		}
+			
+		book_dao.libraryNoticeModify(dto);
+		return "redirect:libraryNoticeList.kh";
+		}
+
+	//공지사항 삭제
+	@RequestMapping("/libraryNoticeDelete.kh")
+	public String libraryNoticeDelete(HttpServletRequest req) throws Exception{
+		
+		bookInsertDAO book_dao = bookInsertDAO.getInstance();
+		int no = Integer.parseInt(req.getParameter("no"));
+		libraryDTO book = book_dao.libraryNoticeDelete(no);
+		
+		
+		return "redirect:libraryNoticeList.kh";
+	}
+
 
 }
