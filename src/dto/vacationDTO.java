@@ -2,7 +2,6 @@ package dto;
 
 import java.sql.Timestamp;
 
-import org.apache.tomcat.util.buf.TimeStamp;
 
 public class vacationDTO {
 	private int no;

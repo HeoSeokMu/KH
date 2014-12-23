@@ -7,13 +7,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>휴학신청 게시판</title>
+<title>휴학신청 처리 게시판</title>
 <link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
 <link rel="stylesheet" href="css/left_menu.css"></link>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="js/leftMenu_jquery.js"></script>
-
 </head>
 <body>
 	<jsp:include page="/main/e_sidebar.jsp"/>
@@ -21,7 +20,7 @@
 		<center>
 		<br/><br/>
 			<form method="post" name="chartForm">
-				<h1>휴학신청내역</h1>
+				<h1>휴학신청 처리내역</h1>
 				<hr width="880px" size="1" color="gray" align="center" />
 				<hr width="880px" size="1" align="center" />
 				<table align="center">
@@ -32,6 +31,7 @@
 						<td width="120px"><g>학년</g></td>
 						<td width="120px"><g>신청자</g></td>
 						<td width="230px"><g>신청일자</g></td>
+						<td width="120px"><g>처리</g></td>
 					</tr>
 				</table>
 				<hr width="880px" size="3" color="#CC3D3D" align="center" />
@@ -55,13 +55,14 @@
 								<td width="120px">${list.id}</td>
 								<td width="120px">${list.grade}</td>
 								<td width="120px">
-									<a href="RestContent.kh?num=${list.num}&rrrb_check=${rrrb_check}">${list.name}</a>
+									<a href="RestContent.kh?num=${list.num}">${list.name}</a>
 								</td>
 								<td width="230px">${list.reg_date}</td>
+								<td width="120px">${list.result}</td>
 							</tr>
 						</table>
 						<hr width="880px" size="1" color="gray" align="center" />
-						<%-- <input type="hidden" name="num" value="${list.num}" /> --%>
+						<input type="hidden" name="num" value="${list.num}" />
 					</c:forEach>
 				</c:if>
 				<hr width="880px" size="1" align="center" />

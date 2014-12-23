@@ -464,7 +464,7 @@ public class MemberDAO {
             conn = getConnection();
             
             pstmt = conn.prepareStatement(
-            	"insert into kh_restreturn_school_board values(kh_restreturn_num.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?)");
+            	"insert into kh_restreturn_school_board values(kh_restreturn_num.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pstmt.setString(1, rrb.getId());
             pstmt.setString(2, rrb.getName());
             pstmt.setString(3, rrb.getMajor());
@@ -477,6 +477,7 @@ public class MemberDAO {
             pstmt.setString(10, rrb.getWhy_detail());
             pstmt.setString(11, rrb.getResult());
             pstmt.setTimestamp(12, rrb.getReg_date());
+            pstmt.setString(13, rrb.getBoard_type());
             pstmt.executeUpdate();
         } catch(Exception ex) {
             ex.printStackTrace();
@@ -553,30 +554,8 @@ public class MemberDAO {
 		return rrb_List;
 	}
 	
-	// 휴학 결과 수정하는 쿼리
-	public void modify_RestBoard(String result, int num) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(
-			"update kh_restreturn_school_board set result=? where num = ?");
-			pstmt.setString(1, result);
-			pstmt.setInt(2, num);
-			rs = pstmt.executeQuery();
-
-		} catch(Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-		}
-	}
-	
-	// 복학 결과 수정하는 쿼리
-	public void modify_ReturnBoard(String result, int num) throws Exception {
+	// 휴학, 복학 결과 수정하는 쿼리
+	public void modify_RestReturnBoard(String result, int num, String board_type) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -644,6 +623,7 @@ public class MemberDAO {
 				article.setWhy_detail(rs.getString("why_detail"));
 				article.setResult(rs.getString("result"));
 				article.setReg_date(rs.getTimestamp("reg_date"));
+				article.setBoard_type(rs.getString("board_type"));
 			}
 		} catch(Exception ex) {
 			ex.printStackTrace();
