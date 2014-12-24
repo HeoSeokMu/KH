@@ -446,7 +446,7 @@ public class bookInsertDAO {
 					        Connection conn = null;
 					        PreparedStatement pstmt = null;
 					        ResultSet rs = null;
-					        String id = library.getId();
+					        
 					        int number=0;
 					        String sql ="";
 
@@ -579,8 +579,6 @@ public class bookInsertDAO {
 					PreparedStatement pstmt = null;
 					ResultSet rs = null;
 					
-					System.out.println(book.getSubject());
-					System.out.println(book.getNo());
 					try{
 						conn = getConnection();
 						pstmt = conn.prepareStatement("update librarynotice set subject=?,content=?,libraryfile=?, reg_date=? where no=?");
