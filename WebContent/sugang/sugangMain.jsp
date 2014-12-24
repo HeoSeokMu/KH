@@ -1,22 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script   language="javascript" src="sugang/sugang.js">
+<script  charset="UTF-8" language="javascript" src="sugang/sugang.js">
 </script>
 
 <body onload="body()">
-
-<c:if test="${type == '교직원'}">
-			<jsp:include page="/main/e_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '교수'}">
-			<jsp:include page="/main/p_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '학생'}">
-			<jsp:include page="/main/s_sidebar.jsp" />
-		</c:if>
-
-<div id="box3">
 <form name='sugangForm' action="sugangPro.kh" method="post" onsubmit="return chk_it()"> 	
 
 	<table width="700" border="1" bordercolor="gray" cellspacing="0" cellpadding="3">
@@ -195,9 +183,6 @@
 					<input type="hidden" name="q_name" value="${list.l_name}"/> <!-- 과목 이름 -->
 					<input type="hidden" name="q_hakjum" value="${list.f_grade}"/> <!-- 학 점 -->
 					<input type="hidden" name="q_professor" value="${list.professor}"/> <!-- 담당 교수 -->
-					<input type="text" name="q_sch" value="${list.l_start}"/> <!-- 담당 교수 -->
-					<input type="text" name="q_time" value="${list.l_end}"/> <!-- 담당 교수 -->
-					
 				</c:forEach>
 				
 	<c:forEach var="i" begin="0" end="9" step="1">  	                 
@@ -213,7 +198,14 @@
 						
 						<input type="text" style="width:50; text-align: center;" readonly="readonly" name="subject${i}" /></td>
 					<td align="center" width="120"><input type="text" style="width:120; text-align: center;" readonly="readonly" name="${i}" /></td>
-
+					<td align="center" width="50"><input type="text" style="width:50; text-align: center;" readonly="readonly" name="hakjum${i}" /></td>
+					<td align="center" width="80"><input type="text" style="width:80; text-align: center;" readonly="readonly" name="professor${i}" /></td>
+					<td align="center" width="100"></td>
+					<td align="center" width="50" bgcolor="#b1b1b1">
+						<input type="button" value="취소 " onclick="no('${i}',set_sch${i}.value)"/>
+					</td>
+				</tr>
+				
 			<%-- </c:forEach> --%>
 			
 		</table>
@@ -252,6 +244,5 @@
 </tr>
 </table> <!--     전체 테이블             -->
 </form>
-</div>
-</div>
+
 </body>
