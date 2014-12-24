@@ -35,6 +35,7 @@ public class libraryController {
 		@RequestMapping(value="libraryNoticeForm.kh")
 		public String libraryNotice(){
 			
+			
 			return "/library/libraryNoticeForm.jsp";
 		}
 	//도서관 공지사항 처리
@@ -289,6 +290,18 @@ public String bookRequestDelete(HttpSession session, HttpServletRequest req) thr
 	
 	
 	return "redirect:bookRequest.kh";
+}
+//신청한 책 삭제
+@RequestMapping("/myBookRequestDelete.kh")
+public String myBookRequestDelete(HttpSession session, HttpServletRequest req) throws Exception{
+	String id = (String)session.getAttribute("memId");
+	
+	bookInsertDAO book_dao = bookInsertDAO.getInstance();
+	String bookid = req.getParameter("book_id");
+	libraryDTO book = book_dao.bookRequestDelete(bookid);
+	
+	
+	return "redirect:libraryMain.kh";
 }
 
 //신청내역 목록처리
@@ -594,7 +607,7 @@ public ModelAndView myRequestList(HttpSession session, HttpServletRequest req) t
 			List<libraryDTO> list = new ArrayList<libraryDTO>();	 
 			int currentPage = Integer.parseInt(pageNum);
 			int totalCount; 		// 총 게시물의 수
-			int blockCount = 10;	// 한 페이지의  게시물의 수
+			int blockCount = 5;	// 한 페이지의  게시물의 수
 			int blockPage = 5; 	// 한 화면에 보여줄 페이지 수
 			String pagingHtml; 	//페이징을 구현한 HTML
 			pagingAction page; 	// 페이징 클래스

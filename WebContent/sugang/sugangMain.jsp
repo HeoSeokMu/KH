@@ -1,22 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script   language="javascript" src="sugang/sugang.js">
+<script  charset="UTF-8" language="javascript" src="sugang/sugang.js">
 </script>
 
 <body onload="body()">
-
-<c:if test="${type == '교직원'}">
-			<jsp:include page="/main/e_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '교수'}">
-			<jsp:include page="/main/p_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '학생'}">
-			<jsp:include page="/main/s_sidebar.jsp" />
-		</c:if>
-
-<div id="box3">
 <form name='sugangForm' action="sugangPro.kh" method="post" onsubmit="return chk_it()"> 	
 
 	<table width="700" border="1" bordercolor="gray" cellspacing="0" cellpadding="3">
@@ -256,6 +244,5 @@
 </tr>
 </table> <!--     전체 테이블             -->
 </form>
-</div>
-</div>
+
 </body>

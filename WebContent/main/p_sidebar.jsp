@@ -120,7 +120,7 @@
 									<dd><a href="#">개인 시간표 조회</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="p_menu4">도서관</a></li>
+							<li class="btn"><a href="libraryMain.kh" class="p_menu4">도서관</a></li>
 							<li class="ly">
 								<dl>
 									<dt><a href="libraryMain.kh">도서관</a></dt>
@@ -128,7 +128,7 @@
 									<dd><a href="#">책 대여 신청</a></dd>
 									<dd><a href="#">책 대여 리스트</a></dd>
 									<dd><a href="#">책 예약 취소</a></dd>
-									<ad><c:if test="${memId == 'liadmin' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
+									<ad><c:if test="${type == '교직원' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
 								</dl>
 							</li>
 							<li class="btn"><a class="p_menu5">휴가신청</a></li>
