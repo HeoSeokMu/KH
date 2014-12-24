@@ -3,12 +3,12 @@ package dto;
 import java.sql.Timestamp;
 
 public class lectureBoardDTO {
-	private int no;
-	private String l_name;
-	private String professor;
-	private String content;
-	private Timestamp reg_date;
-	private String result;
+	private int no;//시퀀스 넘버
+	private String l_name;//강의명
+	private String professor;//교수 이름
+	private String content;//신청 강의 내용
+	private Timestamp reg_date;//등록일자
+	private String result;//신청결과
 	
 	public int getNo() {
 		return no;
