@@ -22,7 +22,6 @@
 			<form action="RestRequestInsert.kh" method="post">
 				<br/><br/>
 				<h2>출석조회</h2>
-				
 			</form>
 			</center>
 			<br/><br/>

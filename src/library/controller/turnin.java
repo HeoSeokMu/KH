@@ -20,7 +20,8 @@ public class turnin {
 		dbPro.turnin(book_id);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/bookList.kh");
+		mv.addObject("book_id", book_id);
+		mv.setViewName("/email.kh");
 		return mv;
 	}
 }

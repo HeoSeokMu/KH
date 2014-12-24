@@ -20,7 +20,7 @@
 		<div id="box3">
 			<center>
 			<form action="RestRequestInsert.kh" method="post">
-				<br/><br/>
+				<br/>
 				<h2>성적조회</h2>
 				
 			</form>

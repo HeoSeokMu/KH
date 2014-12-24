@@ -11,24 +11,7 @@
 	<div id="box">
 		<div id="header">
 			<div id="header_1">
-				<ul class="menu">
-					<li><a href="ChartBoard.action?category=chart"><img src="main/bbu_main_img/chart.png" name="chart" border="0" class="rollover"/></a></li>
-					<li><a href="NewChartBoard.action?category=new"><img src="main/bbu_main_img/new.png"  name="new" border="0" class="rollover"/></a></li>
-	
-					<li><a href="GenreChartBoard.action?category=genre"><img src="main/bbu_main_img/genre.png" name="genre" border="0" class="rollover"/></a>
-						<ul class="sub">
-							<li><a href="GenreChartBoard.action?category=genre&type=dance"><img src="main/bbu_main_img/dance.png" name="dance" border="0" class="rollover"/></a></li>
-							<li><a href="GenreChartBoard.action?category=genre&type=balad"><img src="main/bbu_main_img/balad.png" name="balad" border="0" class="rollover"/></a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="#"><img src="main/bbu_main_img/payment.png" name="payment_buy" class="rollover" border="0"/></a>
-						<ul class="sub">
-							<li><a href="payBuyList.action?buy_id="><img src="main/bbu_main_img/bbu_payment.png" name="payment" border="0" class="rollover"/></a></li>
-							<li><a href="cashCharge.action?my_id=" onclick="return idCheck();"><img src="main/bbu_main_img/cash.png" name="cash" border="0" class="rollover"/></a></li>
-						</ul>
-					</li>
-				</ul>
+				
 			</div>
 			<div id="header_2">
 				<center>
@@ -50,14 +33,14 @@
 	    		<c:if test="${memId != null}">
 		    		<div id="tab_menu">					
 						<ul>
-							<li class="btn"><a class="s_menu1">공지사항</a></li>
+							<li class="btn"><a class="s_menu1" href="notice_board.kh">공지사항</a></li>
 							<li class="ly" style="display:list-item;">
 								<dl>
 									<dt>공지사항</dt>
 									<dd><a href="notice_board.kh">공지사항</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="s_menu2">학적</a></li>
+							<li class="btn"><a class="s_menu2" href="myInfo.kh">학적</a></li>
 							<li class="ly">
 								<dl>
 									<dt>학적</dt>
@@ -68,8 +51,12 @@
 							<li class="ly">
 								<dl>
 									<dt>휴학/복학</dt>
-									<dd><a href="restSchool.kh?id=${memId}">휴학신청</a></dd>
-									<dd><a href="returnSchool.kh?id=${memId}">복학신청</a></dd>
+									<c:if test="${status == '재학'}">
+										<dd><a href="restSchool.kh?id=${memId}">휴학신청</a></dd>
+									</c:if>
+									<c:if test="${status == '휴학'}">
+										<dd><a href="returnSchool.kh?id=${memId}">복학신청</a></dd>
+									</c:if>
 								</dl>
 							</li>
 							<li class="btn"><a class="s_menu4">교과/수강</a></li>
@@ -105,7 +92,7 @@
 									<dd><a href="#">분납등록금 고지서</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="s_menu7">도서관</a></li>
+							<li class="btn"><a href="libraryMain.kh" class="s_menu7">도서관</a></li>
 							<li class="ly">
 								<dl>
 									<dt><a href="libraryMain.kh">도서관</a></dt>
@@ -113,7 +100,7 @@
 									<dd><a href="bookRequest.kh">책 대여 신청</a></dd>
 									<dd><a href="myBookRequestList.kh">책 대여 신청내역 확인</a></dd>
 									<dd><a href="#">책 예약 취소</a></dd>
-									<ad><c:if test="${memId == 'liadmin' } }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
+									<ad><c:if test="${type == '교직원' } }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
 								</dl>
 							</li>
 							<li class="btn"><a class="s_menu8">예비군</a></li>

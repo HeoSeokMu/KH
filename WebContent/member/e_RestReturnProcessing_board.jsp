@@ -7,30 +7,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>휴학신청 게시판</title>
+<title>${board_type}신청 처리 게시판</title>
 <link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
 <link rel="stylesheet" href="css/left_menu.css"></link>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="js/leftMenu_jquery.js"></script>
-
-<script type="text/javascript">
-	function Processing(processing, num, id) {
-		var result = processing.result.value; 
-		if(result == "승인" || result == "거절") {
-			window.location = "RestReturn_Pro.kh?board=휴학&num="+num+"&id="+id+"&result="+result;	
-		}
-	}
-</script>
-
 </head>
 <body>
 	<jsp:include page="/main/e_sidebar.jsp"/>
 	<div id="box3">
 		<center>
-		<br/><br/>
+		<br/>
 			<form method="post" name="chartForm">
-				<h1>휴학신청내역</h1>
+				<h1>${board_type}신청 처리내역</h1>
 				<hr width="880px" size="1" color="gray" align="center" />
 				<hr width="880px" size="1" align="center" />
 				<table align="center">
@@ -65,20 +55,14 @@
 								<td width="120px">${list.id}</td>
 								<td width="120px">${list.grade}</td>
 								<td width="120px">
-									<a href="RestContent.kh?num=${list.num}&rrrb_check=${rrrb_check}">${list.name}</a>
+									<a href="RestContent.kh?num=${list.num}">${list.name}</a>
 								</td>
 								<td width="230px">${list.reg_date}</td>
-								<%-- <td width="120px">
-									<select name="result" onchange="Processing(this.form, ${list.num}, ${list.id});">
-										<option value="미처리" selected>미처리</option>
-										<option value="승인">승인</option>
-										<option value="거절">거절</option>
-									</select>
-								</td> --%>
+								<td width="120px">${list.result}</td>
 							</tr>
 						</table>
 						<hr width="880px" size="1" color="gray" align="center" />
-						<%-- <input type="hidden" name="num" value="${list.num}" /> --%>
+						<input type="hidden" name="num" value="${list.num}" />
 					</c:forEach>
 				</c:if>
 				<hr width="880px" size="1" align="center" />

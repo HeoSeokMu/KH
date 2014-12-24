@@ -20,7 +20,7 @@
 		<div id="box3">
 			<center>
 			<form action="RestRequestInsert.kh" method="post">
-				<br/><br/>
+				<br/>
 				<h2>휴학신청서</h2>
 				<table width="700">
 					<tr>

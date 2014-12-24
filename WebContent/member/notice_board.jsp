@@ -40,21 +40,20 @@
 </head>
 
 <body>
-		<c:if test="${type == '교직원'}">
-			<jsp:include page="/main/e_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '교수'}">
-			<jsp:include page="/main/p_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '학생'}">
-			<jsp:include page="/main/s_sidebar.jsp" />
-		</c:if>
+	<c:if test="${type == '교직원'}">
+		<jsp:include page="/main/e_sidebar.jsp" />
+	</c:if>
+	<c:if test="${type == '교수'}">
+		<jsp:include page="/main/p_sidebar.jsp" />
+	</c:if>
+	<c:if test="${type == '학생'}">
+		<jsp:include page="/main/s_sidebar.jsp" />
+	</c:if>
 		<div id="box3">
 			<center>
 			<form method="post" name="chartForm">
 			<fmt:formatDate value="<%=new java.util.Date()%>" var="toDate" pattern="yy-MM-dd" />
-			
-				<br/><br/>
+				<br/>
 				<h1>공지사항</h1>
 				<table align="center" width="900" >
 					<c:if test="${type == '교직원'}">
