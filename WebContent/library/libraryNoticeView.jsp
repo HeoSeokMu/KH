@@ -16,8 +16,14 @@
 	
 </tr>
 <tr>
-	<td><input type="button" name="list" value="목록으로" onClick="javascript:location.href='libraryNoticeList.kh'"></td>
+	<td><input type="button" name="list" value="목록으로" onClick="javascript:location.href='libraryNoticeList.kh'">
+	<c:if test="${memId =='liadmin'}">
+	
+	<input type="button" name="modify" value="수정하기" onClick="javascript:location.href='libraryNoticeModify.kh?no=${notice.no}'">
+	<input type="button" name="delete" value="삭제하기" onClick="javascript:location.href='libraryNoticeDelete.kh?no=${notice.no}'">
+	</c:if></td>
 	</tr>
 	
 	</table>
 </font>
+

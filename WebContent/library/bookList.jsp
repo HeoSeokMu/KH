@@ -47,19 +47,15 @@
 		}
 	}
 </script>
-
-<body>
-
 <c:if test="${type == '교직원'}">
-			<jsp:include page="/main/e_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '교수'}">
-			<jsp:include page="/main/p_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '학생'}">
-			<jsp:include page="/main/s_sidebar.jsp" />
-		</c:if>
-<div id="box3">
+      <jsp:include page="/main/e_sidebar.jsp" />
+   </c:if>
+   <c:if test="${type == '교수'}">
+      <jsp:include page="/main/p_sidebar.jsp" />
+   </c:if>
+   <c:if test="${type == '학생'}">
+      <jsp:include page="/main/s_sidebar.jsp" />
+   </c:if><div id="box3">
 <center>
 <br/>
 도서검색 <form action="bookList.kh" method="get">
@@ -157,7 +153,7 @@
     </td>
     <td align="center" width="100" >
     	<c:if test="${article.loan=='대출가능'}">
-    		<c:if test="${memId=='2014001002'}">
+    		<c:if test="${memId=='2014001001'}">
       			<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">대출</a>
       		</c:if>
       		<c:out value=""/>
@@ -165,7 +161,7 @@
     	<c:if test="${article.loan=='대출중'}">
     		<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">대출</a>
     		<a href="/KH_School/notice.kh?b_num=${article.book_id}&s_num=${memId}" onclick="return checkIt()">반납알림받기</a>
-    		<c:if test="${memId=='2014001002'}">
+    		<c:if test="${memId=='2014001001'}">
       			<a href="/KH_School/turnin.kh?book_id=${article.book_id}">반납</a>
       		</c:if>
     	</c:if>

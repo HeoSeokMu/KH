@@ -36,6 +36,7 @@ public class notice_board {
 		list = mDAO.notice_BoardList();
 		
 		String view = "/member/notice_board.jsp";
+		
 		if(list == null){
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("totalCount", 0);

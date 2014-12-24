@@ -198,4 +198,55 @@ public class bookDAO {
 	            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 	        }
 		}
+		
+		public List getEmailList(String book_id) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List list = new ArrayList();
+			try {
+				conn = getConnection();
+				
+					pstmt = conn.prepareStatement("select email from kh_reserve where b_num = ?");
+					pstmt.setString(1, book_id); 
+					rs = pstmt.executeQuery();
+					System.out.println(book_id);
+					if (rs.next()) {
+						do{
+							System.out.println(rs.getString("email"));
+							list.add(rs.getString("email"));
+						}while(rs.next());
+					}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			return list;
+		}
+		public String getBook_name(int book_id) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String book_name = null;
+			try {
+				conn = getConnection();
+				
+					pstmt = conn.prepareStatement("select book_title from kh_library where book_id = ?");
+					pstmt.setInt(1, book_id); 
+						rs = pstmt.executeQuery();
+						if (rs.next()) {
+								book_name = rs.getString("book_title");
+						}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			return book_name;
+		}
 }

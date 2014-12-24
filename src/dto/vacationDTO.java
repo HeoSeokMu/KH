@@ -2,15 +2,18 @@ package dto;
 
 import java.sql.Timestamp;
 
-import org.apache.tomcat.util.buf.TimeStamp;
 
 public class vacationDTO {
 	private int no;
 	private String name;
 	private String type;
 	private String major;
-	private String vacation_start;
-	private String vacation_end;
+	private String vacStart_yy;
+	private String vacStart_mm;
+	private String vacStart_dd;
+	private String vacEnd_yy;
+	private String vacEnd_mm;
+	private String vacEnd_dd;
 	private String vacation_reason;
 	private Timestamp reg_date;
 	private String result;
@@ -26,12 +29,6 @@ public class vacationDTO {
 	}
 	public String getMajor() {
 		return major;
-	}
-	public String getVacation_start() {
-		return vacation_start;
-	}
-	public String getVacation_end() {
-		return vacation_end;
 	}
 	public String getVacation_reason() {
 		return vacation_reason;
@@ -51,12 +48,6 @@ public class vacationDTO {
 	public void setMajor(String major) {
 		this.major = major;
 	}
-	public void setVacation_start(String vacation_start) {
-		this.vacation_start = vacation_start;
-	}
-	public void setVacation_end(String vacation_end) {
-		this.vacation_end = vacation_end;
-	}
 	public void setVacation_reason(String vacation_reason) {
 		this.vacation_reason = vacation_reason;
 	}
@@ -69,5 +60,42 @@ public class vacationDTO {
 	public void setReg_date(Timestamp reg_date) {
 		this.reg_date = reg_date;
 	}
+	public String getVacStart_yy() {
+		return vacStart_yy;
+	}
+	public String getVacStart_mm() {
+		return vacStart_mm;
+	}
+	public String getVacStart_dd() {
+		return vacStart_dd;
+	}
+	public String getVacEnd_yy() {
+		return vacEnd_yy;
+	}
+	public String getVacEnd_mm() {
+		return vacEnd_mm;
+	}
+	public String getVacEnd_dd() {
+		return vacEnd_dd;
+	}
+	public void setVacStart_yy(String vacStart_yy) {
+		this.vacStart_yy = vacStart_yy;
+	}
+	public void setVacStart_mm(String vacStart_mm) {
+		this.vacStart_mm = vacStart_mm;
+	}
+	public void setVacStart_dd(String vacStart_dd) {
+		this.vacStart_dd = vacStart_dd;
+	}
+	public void setVacEnd_yy(String vacEnd_yy) {
+		this.vacEnd_yy = vacEnd_yy;
+	}
+	public void setVacEnd_mm(String vacEnd_mm) {
+		this.vacEnd_mm = vacEnd_mm;
+	}
+	public void setVacEnd_dd(String vacEnd_dd) {
+		this.vacEnd_dd = vacEnd_dd;
+	}
+	
 
 }

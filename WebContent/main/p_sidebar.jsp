@@ -123,10 +123,12 @@
 							<li class="btn"><a class="p_menu4">도서관</a></li>
 							<li class="ly">
 								<dl>
-									<dt>도서관</dt>
+									<dt><a href="libraryMain.kh">도서관</a></dt>
+									<dd><a href="bookList.kh">도서검색</a></dd>
 									<dd><a href="#">책 대여 신청</a></dd>
 									<dd><a href="#">책 대여 리스트</a></dd>
 									<dd><a href="#">책 예약 취소</a></dd>
+									<ad><c:if test="${memId == 'liadmin' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
 								</dl>
 							</li>
 							<li class="btn"><a class="p_menu5">휴가신청</a></li>
@@ -134,7 +136,7 @@
 								<dl>
 									<dt>휴가신청</dt>
 									<dd><a href="vacationForm.kh">휴가신청</a></dd>
-									<dd><a href="#">휴가신청 확인</a></dd>
+									<dd><a href="vacationResult.kh">휴가신청 확인</a></dd>
 								</dl>
 							</li>
 						</ul>
