@@ -226,7 +226,7 @@ public String bookDelete(HttpServletRequest req) throws Exception{
 	libraryDTO book = book_dao.bookDelete(id);
 	
 	
-	return "redirect:bookInsertForm.kh";
+	return "redirect:libraryAdmin.kh";
 }
 
 //책신청하기
