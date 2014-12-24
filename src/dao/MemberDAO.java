@@ -218,7 +218,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		memberDTO mDTO = null;
-
+		
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement("select * from kh_member where id = ?");

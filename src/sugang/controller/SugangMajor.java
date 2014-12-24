@@ -28,11 +28,11 @@ public class SugangMajor {
 		sugangDAO dao = sugangDAO.getInstance();
 		
 		String stu_num = req.getParameter("stu_num");
-		String stu_grade = req.getParameter("stu_grade");
+		String semester = req.getParameter("semester");
 		
-		codelist = dao.getCode(stu_grade, stu_num); // 코드 가져오기
+		codelist = dao.getCode(semester, stu_num); // 코드 가져오기
 		if(codelist != null){
-			stu = dao.getstu(stu_grade, stu_num);
+			stu = dao.getstu(semester, stu_num);
 		}
 		
 		String code = req.getParameter("m_code");

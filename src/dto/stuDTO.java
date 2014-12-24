@@ -9,7 +9,22 @@ public class stuDTO {
 	int hakjum_sum;
 	String allcode;
 	
+	int year;
+	int semester;
 	
+	
+	public int getYear() {
+		return year;
+	}
+	public void setYear(int year) {
+		this.year = year;
+	}
+	public int getSemester() {
+		return semester;
+	}
+	public void setSemester(int semester) {
+		this.semester = semester;
+	}
 	public String getStu_grade() {
 		return stu_grade;
 	}

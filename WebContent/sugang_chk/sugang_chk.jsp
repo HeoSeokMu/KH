@@ -1,6 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<script>
+function body(){
+
+	for(var i=0; i<=9; i++){
+		var type = document.getElementsByName("q_type")[i].value;
+		var code = document.getElementsByName("q_code")[i].value;
+		var table = document.getElementsByName("q_table")[i].value;
+		var name = document.getElementsByName("q_name")[i].value;
+		var hakjum = document.getElementsByName("q_hakjum")[i].value;
+		var professor = document.getElementsByName("q_professor")[i].value;
+		
+		var day = document.getElementsByName("q_day")[i].value;
+		var sch = document.getElementsByName("q_sch")[i].value;
+		var time = document.getElementsByName("q_time")[i].value;
+		
+		var num = document.getElementsByName("num")[i].value;
+		
+		var j = (Math.round(Math.random()*6));
+		
+		for(var k=0; k<time; k++){   			// 시간표에 색 표시
+			var i_sch = Number(day)+Number(sch)+Number(k);
+			var c = document.getElementById(i_sch);
+			var color = ["#FF5E00","FFBB00","FFE400","#ABF200","#1DDB16","#0054FF","#0100FF"];
+			c.style.backgroundColor=color[j]; 
+			
+			document.getElementsByName("sch_"+i_sch)[0].value = name;
+		}
+	}
+}
+
+</script>
+
+<body onload="body()">
+
 <c:if test="${type == '교직원'}">
 			<jsp:include page="/main/e_sidebar.jsp" />
 		</c:if>
@@ -16,13 +50,13 @@
 
 	<tr align="center" height="30">
 		<td width="13%"><font size="2"><b>학과</b></font></td>
-		<td bgcolor="#F3F3F3" width="15%"><font size="2">${stu.stu_code}</font></td>
+		<td bgcolor="#F3F3F3" width="15%"><font size="2">${member.major }</font></td>
 		<td width="13%"><font size="2"><b>학년</b></font></td>
-		<td bgcolor="#F3F3F3" width="15%"><font size="2">${stu.stu_grade}</font></td>
+		<td bgcolor="#F3F3F3" width="15%"><font size="2">${member.grade }</font></td>
 		<td width="7%"><font size="2"><b>학번</b></font></td>
-		<td bgcolor="#F3F3F3" width="15%"><font size="2">${stu.stu_num}</font></td>
+		<td bgcolor="#F3F3F3" width="15%"><font size="2">${member.id }</font></td>
 		<td width="7%"><font size="2"><b>이름</b></font></td>
-		<td bgcolor="#F3F3F3" width="15%"><font size="2">${stu.stu_name}</font></td>
+		<td bgcolor="#F3F3F3" width="15%"><font size="2">${member.name }</font></td>
 	</tr>
 							
 	<tr bgcolor="#777777">
@@ -118,5 +152,60 @@
 </c:forEach>
 
 </table>
+
+<br/>
+
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+               <!--    
+									시간표     
+											        -->
+											        
+				<c:forEach var="list" items="${list}">
+					<input type="hidden" name="q_type" value="${list.l_type}"/> <!-- 전 선, 전 필 -->
+					<input type="hidden" name="q_code" value="${list.l_code}"/> <!-- 과목 코드 -->
+					<input type="hidden" name="q_table" value="${list.m_code}"/> <!--  테이블 이름 -->
+					<input type="hidden" name="q_name" value="${list.l_name}"/> <!-- 과목 이름 -->
+					<input type="hidden" name="q_hakjum" value="${list.f_grade}"/> <!-- 학 점 -->
+					<input type="hidden" name="q_professor" value="${list.professor}"/> <!-- 담당 교수 -->
+		
+					<input type="hidden" name="q_day" value="${list.time_day}"/> <!-- 요일 String -->
+					<input type="hidden" name="q_sch" value="${list.l_start}"/> <!-- 교시 -->
+					<input type="hidden" name="q_time" value="${list.l_end}"/> <!-- 시간 -->
+					<input type="hidden" name="num" value="${list.num}"/> <!-- 시간 -->
+					
+					<c:forEach  var="i" begin="1" end="${list.l_end}"  >     <!--     요일  + 시간 = 시간표위치 값을 히든값으로 가져옴       -->
+						<input type="hidden" name="q_sch_time${list.num}" value="${list.time_day + list.l_start+(i-1)}"/>
+					</c:forEach>
+				</c:forEach>
+<tr> 
+	<td>
+		<table align="center" border="1" bordercolor="gray" cellpadding="3" cellspacing="0">
+		
+			<tr>
+				<td width="80"></td>
+				<td width="150" bgcolor="#b1b1b1" align="center"><font size="2"><b>월</b></font></td>
+				<td width="150" bgcolor="#b1b1b1" align="center"><font size="2"><b>화</b></font></td>
+				<td width="150" bgcolor="#b1b1b1" align="center"><font size="2"><b>수</b></font></td>
+				<td width="150" bgcolor="#b1b1b1" align="center"><font size="2"><b>목</b></font></td>
+				<td width="150" bgcolor="#b1b1b1" align="center"><font size="2"><b>금</b></font></td>
+			</tr>
+			<c:forEach var="i" begin="1" end="12"  step="1">
+				<tr>
+					<td bgcolor="#b1b1b1" align="center" height="50"><font size="2"><b>${i}교시</b></font></td>
+					<td id="${100+i}"><input type="text" readonly="readonly" style="width:150; height:50; text-align:center;" name="sch_${100+i}" /></td>
+					<td id="${200+i}"><input type="text" readonly="readonly" style="width:150; height:50; text-align:center;" name="sch_${200+i}" /></td>
+					<td id="${300+i}"><input type="text" readonly="readonly" style="width:150; height:50; text-align:center;" name="sch_${300+i}" /></td>
+					<td id="${400+i}"><input type="text" readonly="readonly" style="width:150; height:50; text-align:center;" name="sch_${400+i}" /></td>
+					<td id="${500+i}"><input type="text" readonly="readonly" style="width:150; height:50; text-align:center;" name="sch_${500+i}" /></td>
+				</tr>
+			</c:forEach>
+				
+		</table>
+		
+	</td>
+</tr>
+</table>
 </div>
 </div>
+
+</body>

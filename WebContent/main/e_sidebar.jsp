@@ -141,7 +141,7 @@
 									<dd>
 										<a href="#">책 대여 리스트</a>
 									</dd>
-									<ad><c:if test="${type == '교직원' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
+									<ad><c:if test="${memId == 'liadmin' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
 								</dl>
 							</li>
 							<li class="btn"><a class="e_menu9">예비군</a></li>

@@ -1,27 +1,6 @@
-<%@ page contentType="text/html; charset=utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>책 신청</title>
-	<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
-	<link rel="stylesheet" href="css/left_menu.css"></link>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="js/leftMenu_jquery.js"></script>
-	<script src="/KH_School/library/script/bookrequest.js"></script>    
-</head>
-
-<body>
-	<jsp:include page="/main/s_sidebar.jsp" />
-		<div id="box3">
-			<center>
-			<form action="RestRequestInsert.kh" method="post">
-				<br/><br/>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<script src="/KH_School/library/script/bookrequest.js"></script>    
     
 <h2>책 신청</h2>
 
@@ -51,8 +30,7 @@
 	<td>${s_phone}</td>
 </tr>
 <tr>
-	<td colspan="10" align="center"><input type="button" name="reqeust" value="책신청하기" onClick="bookR();">
-	<input type="button" name="Main" value="취소하기" onClick="javascript:location.href='libraryMain.kh'"/>
+	<td colspan="10" align="center"><input type="button" name="reqeust" value="책신청하기" onClick="bookR();"><br/>
 	
 	</td>
 </tr>
@@ -60,8 +38,3 @@
 
 </table>
 </form>
-		</div>
-		<div id="box4"> <center><br/><br/></center> </div>
-	</div>
-</body>
-</html>
