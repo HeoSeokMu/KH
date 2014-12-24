@@ -183,6 +183,9 @@
 					<input type="hidden" name="q_name" value="${list.l_name}"/> <!-- 과목 이름 -->
 					<input type="hidden" name="q_hakjum" value="${list.f_grade}"/> <!-- 학 점 -->
 					<input type="hidden" name="q_professor" value="${list.professor}"/> <!-- 담당 교수 -->
+					<input type="text" name="q_sch" value="${list.l_start}"/> <!-- 담당 교수 -->
+					<input type="text" name="q_time" value="${list.l_end}"/> <!-- 담당 교수 -->
+					
 				</c:forEach>
 				
 	<c:forEach var="i" begin="0" end="9" step="1">  	                 
@@ -198,14 +201,7 @@
 						
 						<input type="text" style="width:50; text-align: center;" readonly="readonly" name="subject${i}" /></td>
 					<td align="center" width="120"><input type="text" style="width:120; text-align: center;" readonly="readonly" name="${i}" /></td>
-					<td align="center" width="50"><input type="text" style="width:50; text-align: center;" readonly="readonly" name="hakjum${i}" /></td>
-					<td align="center" width="80"><input type="text" style="width:80; text-align: center;" readonly="readonly" name="professor${i}" /></td>
-					<td align="center" width="100"></td>
-					<td align="center" width="50" bgcolor="#b1b1b1">
-						<input type="button" value="취소 " onclick="no('${i}',set_sch${i}.value)"/>
-					</td>
-				</tr>
-				
+
 			<%-- </c:forEach> --%>
 			
 		</table>

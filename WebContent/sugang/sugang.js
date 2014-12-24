@@ -30,6 +30,19 @@
 			document.getElementsByName("professor"+i)[0].value = professor;
 		
 		}
+	/*	var name = "sch_time"+num;
+		var subject = "sugangsubject"+num;
+		var value = document.getElementsByName(name);
+		var j = (Math.round(Math.random()*6));
+		
+		for(var i=0; i<value.length; i++){   			// 시간표에 색 표시
+			var sch = document.getElementsByName(name)[i].value;
+			var c = document.getElementById(sch);
+			var color = ["#FF5E00","FFBB00","FFE400","#ABF200","#1DDB16","#0054FF","#0100FF"];
+			c.style.backgroundColor=color[j]; 
+			
+			document.getElementsByName("sch_"+sch)[0].value = document.getElementsByName(subject)[0].value;
+		}*/
 	}
 	
 	function hakjum_check(num, sch){
