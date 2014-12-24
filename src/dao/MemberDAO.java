@@ -211,6 +211,7 @@ public class MemberDAO {
 
 		return postList;
 	}
+	
 	//id로 회원 정보 가져오는 쿼리.
 	public memberDTO member_info(String id) throws Exception {
 		Connection conn = null;
@@ -462,7 +463,6 @@ public class MemberDAO {
 	        
         try {
             conn = getConnection();
-            
             pstmt = conn.prepareStatement(
             	"insert into kh_restreturn_school_board values(kh_restreturn_num.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pstmt.setString(1, rrb.getId());
@@ -487,15 +487,16 @@ public class MemberDAO {
         }
     }
 	
-	// 휴학신청 리스트
-	public List<RestReturnBoard_DTO> RestReturn_BoardList() throws Exception {
+	// 휴ㆍ복학 신청 리스트
+	public List<RestReturnBoard_DTO> RestReturn_BoardList(String board_type) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<RestReturnBoard_DTO> rrb_List = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select num, major, name, id, grade, reg_date from kh_restreturn_school_board where result = '미처리' order by num desc");
+			pstmt = conn.prepareStatement("select num, major, name, id, grade, reg_date from kh_restreturn_school_board where board_type = ? and result = '미처리' order by num desc");
+			pstmt.setString(1, board_type);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				rrb_List = new ArrayList<RestReturnBoard_DTO>();
@@ -520,15 +521,16 @@ public class MemberDAO {
 		return rrb_List;
 	}
 	
-	// 휴학신청 처리 리스트
-	public List<RestReturnBoard_DTO> RestReturn_Board_Processing_List() throws Exception {
+	// 휴ㆍ복학 처리 리스트
+	public List<RestReturnBoard_DTO> RestReturn_Board_Processing_List(String board_type) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<RestReturnBoard_DTO> rrb_List = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select num, major, name, id, grade, result, reg_date from kh_restreturn_school_board where result != '미처리' order by num desc");
+			pstmt = conn.prepareStatement("select num, major, name, id, grade, result, reg_date from kh_restreturn_school_board where board_type = ? and result != '미처리' order by num desc");
+			pstmt.setString(1, board_type);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				rrb_List = new ArrayList<RestReturnBoard_DTO>();

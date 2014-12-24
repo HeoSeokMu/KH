@@ -36,9 +36,9 @@ public class RestReturn_board {
 	public ModelAndView notice_board(HttpServletRequest req) throws Exception{
 		
 		System.out.println("RestReturnRequest_board =================== : ");
-		
+		String board_type = req.getParameter("board_type");
 		MemberDAO mDAO = MemberDAO.getInstance();
-		list = mDAO.RestReturn_BoardList();
+		list = mDAO.RestReturn_BoardList(board_type);
 		totalCount = list.size(); // 전체 글 갯수를 구한다.
 		
 		System.out.println("totalCount : " + totalCount);
@@ -119,11 +119,13 @@ public class RestReturn_board {
 		return mv;
 	}
 	
-	@RequestMapping(value="/RestRequestInsert.kh")
+	@RequestMapping(value="/RestReturnRequestInsert.kh")
 	public ModelAndView restInsert(HttpServletRequest req) throws Exception{
 		
-		System.out.println("RestRequestInsert =================== : ");
-		RestReturnBoard_DTO rrb_DTO = new RestReturnBoard_DTO();  
+		System.out.println("RestReturnRequestInsert.kh =================== : ");
+		RestReturnBoard_DTO rrb_DTO = new RestReturnBoard_DTO();
+		
+		String board_type = req.getParameter("board_type");
 		
 		rrb_DTO.setMajor(req.getParameter("major"));
 		rrb_DTO.setAddr(req.getParameter("addr"));
@@ -138,6 +140,7 @@ public class RestReturn_board {
 		rrb_DTO.setWhy_detail(req.getParameter("why_detail"));
 		rrb_DTO.setResult("미처리");
 		rrb_DTO.setReg_date(new Timestamp(System.currentTimeMillis()));
+		rrb_DTO.setBoard_type(req.getParameter("board_type"));
 		
 		System.out.println("rrb_DTO.getReg = "+rrb_DTO.getReg_date());
 		System.out.println("rrb_DTO.getPhone = "+rrb_DTO.getPhone());
@@ -159,15 +162,17 @@ public class RestReturn_board {
 		MemberDAO mDAO = MemberDAO.getInstance();
 		
 		String rrrb_check = req.getParameter("rrrb_check");
+		String board_type = req.getParameter("board_type");
 		System.out.println("rrrb_check : "+rrrb_check);
+		System.out.println("board_type : "+board_type);
 		
 		String view = "";
 		if(rrrb_check.equals("신청")) {
-			list = mDAO.RestReturn_BoardList();
-			view = "/member/e_RestRequest_board.jsp";
+			list = mDAO.RestReturn_BoardList(board_type);
+			view = "/member/e_RestReturnRequest_board.jsp";
 		} else if(rrrb_check.equals("처리")) {
-			list = mDAO.RestReturn_Board_Processing_List();
-			view = "/member/e_RestProcessing_board.jsp";
+			list = mDAO.RestReturn_Board_Processing_List(board_type);
+			view = "/member/e_RestReturnProcessing_board.jsp";
 		}
 		
 		System.out.println("view : " + view);
@@ -176,6 +181,7 @@ public class RestReturn_board {
 			System.out.println("list null?");
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("totalCount", 0);
+			mv.addObject("board_type", board_type);
 			mv.setViewName(view);
 			
 			return mv;
@@ -210,6 +216,7 @@ public class RestReturn_board {
 		mv.addObject("pagingHtml", pagingHtml);
 		mv.addObject("blockCount", blockCount);
 		mv.addObject("rrrb_check", rrrb_check);
+		mv.addObject("board_type", board_type);
 		mv.setViewName(view);
 		
 		return mv;
@@ -234,13 +241,11 @@ public class RestReturn_board {
 		String status = "";
 		String view = "";
 		if(board_type.equals("휴학")) {
-			
 			if(result.equals("승인")) {
 				status = "휴학";
 			} else if(result.equals("거절")) {
 				status = "재학";
 			}
-			
 		} else if(board_type.equals("복학")) {
 			if(result.equals("승인")) {
 				status = "재학";
@@ -252,7 +257,7 @@ public class RestReturn_board {
 		mDAO.modify_MerberRest(status, id);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/RestReturn_Board.kh?rrrd_check=처리");
+		mv.setViewName("redirect:/RestReturn_Board.kh?board_type="+board_type+"&rrrd_check=처리");
 		return mv;
 	}
 	

@@ -7,21 +7,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>휴학신청 게시판</title>
+<title>${board_type}신청 게시판</title>
 <link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
 <link rel="stylesheet" href="css/left_menu.css"></link>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="js/leftMenu_jquery.js"></script>
-
-<script type="text/javascript">
-	function Processing(processing, num, id) {
-		var result = processing.result.value; 
-		if(result == "승인" || result == "거절") {
-			window.location = "RestReturn_Pro.kh?board=휴학&num="+num+"&id="+id+"&result="+result;	
-		}
-	}
-</script>
 
 </head>
 <body>
@@ -30,7 +21,7 @@
 		<center>
 		<br/><br/>
 			<form method="post" name="chartForm">
-				<h1>휴학신청내역</h1>
+				<h1>${board_type}신청내역</h1>
 				<hr width="880px" size="1" color="gray" align="center" />
 				<hr width="880px" size="1" align="center" />
 				<table align="center">
@@ -41,7 +32,6 @@
 						<td width="120px"><g>학년</g></td>
 						<td width="120px"><g>신청자</g></td>
 						<td width="230px"><g>신청일자</g></td>
-						<td width="120px"><g>처리</g></td>
 					</tr>
 				</table>
 				<hr width="880px" size="3" color="#CC3D3D" align="center" />
@@ -68,13 +58,6 @@
 									<a href="RestContent.kh?num=${list.num}&rrrb_check=${rrrb_check}">${list.name}</a>
 								</td>
 								<td width="230px">${list.reg_date}</td>
-								<%-- <td width="120px">
-									<select name="result" onchange="Processing(this.form, ${list.num}, ${list.id});">
-										<option value="미처리" selected>미처리</option>
-										<option value="승인">승인</option>
-										<option value="거절">거절</option>
-									</select>
-								</td> --%>
 							</tr>
 						</table>
 						<hr width="880px" size="1" color="gray" align="center" />

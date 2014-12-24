@@ -68,8 +68,12 @@
 							<li class="ly">
 								<dl>
 									<dt>휴학/복학</dt>
-									<dd><a href="restSchool.kh?id=${memId}">휴학신청</a></dd>
-									<dd><a href="returnSchool.kh?id=${memId}">복학신청</a></dd>
+									<c:if test="${status == '재학'}">
+										<dd><a href="restSchool.kh?id=${memId}">휴학신청</a></dd>
+									</c:if>
+									<c:if test="${status == '휴학'}">
+										<dd><a href="returnSchool.kh?id=${memId}">복학신청</a></dd>
+									</c:if>
 								</dl>
 							</li>
 							<li class="btn"><a class="s_menu4">교과/수강</a></li>
