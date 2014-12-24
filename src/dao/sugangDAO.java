@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import dto.stuDTO;
@@ -67,6 +68,7 @@ public class sugangDAO {
 				dto.setLimit_stu(rs.getInt("limit_stu"));	
 				dto.setS_date(rs.getString("s_date"));	
 				dto.setL_date(rs.getString("l_date"));
+				dto.setNum(rs.getInt("num"));
 				countList += 1;
 				dto.setCount(countList);
 				list.add(dto);
@@ -86,9 +88,24 @@ public class sugangDAO {
 	public int setStu(stuDTO stu){
 		
 		int result = 0;
+		int count = 0;
+		String table = stu.getYear()+"_"+stu.getSemester();
 		try{	
-			conn = getConnection();			
-			pstmt = conn.prepareStatement("insert into grade_"+stu.getStu_grade()+" values (?,?,?,?,?,?,?)");
+			conn = getConnection();		
+			pstmt = conn.prepareStatement("select count(*) from grade_"+table+" where num=?");
+			pstmt.setInt(1, Integer.parseInt(stu.getStu_num()));
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1); 
+			}
+			
+			if(count > 0 ){
+				pstmt = conn.prepareStatement("delete from grade_"+table+" where num=?");
+				pstmt.setInt(1, Integer.parseInt(stu.getStu_num()));
+				pstmt.executeUpdate();
+			}
+			
+			pstmt = conn.prepareStatement("insert into grade_"+table+" values (?,?,?,?,?,?,?,?,?)");
 			pstmt.setString(1,stu.getStu_num());
 			pstmt.setString(2,stu.getStu_code());
 			pstmt.setString(3,stu.getStu_grade());
@@ -96,6 +113,8 @@ public class sugangDAO {
 			pstmt.setInt(5,stu.getSubject_sum());
 			pstmt.setInt(6,stu.getHakjum_sum() );
 			pstmt.setString(7,stu.getAllcode());
+			pstmt.setInt(8,stu.getYear());
+			pstmt.setInt(9,stu.getSemester());
 			
 			result = pstmt.executeUpdate();
 			
@@ -110,17 +129,17 @@ public class sugangDAO {
 		return result;
 	}
 	
-	public List<sugangDTO> getSugangList(String number, String grade){
+	public List<sugangDTO> getSugangList(String number, String semester){
 		List<sugangDTO> list = new ArrayList<sugangDTO>();
 		sugangDTO dto = null;
-		
+		String table = "2014_"+semester;
 		int countList = 0;
 		
 		String code = null;
 		String sub_code[] = null;
 		try{
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select code from grade_"+grade+" where num=?");
+			pstmt = conn.prepareStatement("select code from grade_"+table+" where num=?");
 			pstmt.setString(1, number);
 			rs = pstmt.executeQuery();
 	
@@ -155,6 +174,7 @@ public class sugangDAO {
 					dto.setLimit_stu(rs.getInt("limit_stu"));	
 					dto.setS_date(rs.getString("s_date"));	
 					dto.setL_date(rs.getString("l_date"));
+					dto.setNum(rs.getInt("num"));
 					countList += 1;
 					dto.setCount(countList);
 					list.add(dto);
@@ -174,13 +194,14 @@ public class sugangDAO {
 		return list;
 	}
 	
-	public stuDTO getstu(String grade, String number){
+	public stuDTO getstu(String semester, String number){
 		stuDTO stu = new stuDTO();
 		
-		
+		semester = "2014_"+semester;
+
 		try{
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select * from grade_"+grade+" where num=?");
+			pstmt = conn.prepareStatement("select * from grade_"+semester+" where num=?");
 			pstmt.setString(1, number);
 			rs = pstmt.executeQuery();
 			
@@ -223,15 +244,16 @@ public class sugangDAO {
 		}
 	}
 	
-	public List<String> getCode(String grade, String number){
+	public List<String> getCode(String semester, String number){
 		List<String> list = new ArrayList<String>();
 		
 		String code = null;
 		String sub_code[] = null;
+		semester = "2014_"+semester;
 		
 		try{
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select code from grade_"+grade+" where num=?");
+			pstmt = conn.prepareStatement("select code from grade_"+semester+" where num=?");
 			pstmt.setString(1, number);
 			rs = pstmt.executeQuery();
 			
@@ -258,6 +280,13 @@ public class sugangDAO {
 		}
 		
 		return list;
+	}
+	
+	public int setStu_hakjum(List list){
+		int result = 0;
+		
+		
+		return result;
 	}
 }
 

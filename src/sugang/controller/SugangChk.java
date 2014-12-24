@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import dao.MemberDAO;
 import dao.sugangDAO;
+import dto.memberDTO;
 import dto.stuDTO;
 import dto.sugangDTO;
 
@@ -15,17 +17,20 @@ import dto.sugangDTO;
 public class SugangChk {
 	
 	@RequestMapping(value="/sugangchk.kh")
-	public ModelAndView chk_form(){
+	public ModelAndView chk_form() throws Exception{
+		
+		memberDTO member = new memberDTO();
+		MemberDAO memberdao = MemberDAO.getInstance();
 		
 		stuDTO stu = new stuDTO();
 		List<sugangDTO> list = new ArrayList<sugangDTO>();
 		
-		String number = "2014001001";
-		String grade = "1";
+		String number = "2014001001";  //접속 학생 정보
+		String semester = "1"; //학기
 		
 		sugangDAO dao = sugangDAO.getInstance();
 		
-		list = dao.getSugangList(number, grade);
+		list = dao.getSugangList(number, semester);
 		for(sugangDTO dto : list){
 			
 			String y = dto.getL_type();
@@ -36,14 +41,24 @@ public class SugangChk {
 			}
 			dto.setS_date(dto.getS_date().substring(0,11));
 			dto.setL_date(dto.getL_date().substring(0,11));
+			
+			String day = dto.getL_day();
+			switch(day){
+				case "월" : dto.setTime_day("100"); break;
+				case "화" : dto.setTime_day("200"); break;
+				case "수" : dto.setTime_day("300"); break;
+				case "목" : dto.setTime_day("400"); break;
+				case "금" : dto.setTime_day("500"); break;
+			}
 		}
-		
-		stu = dao.getstu(grade, number);
-		
-		
+				
+		stu = dao.getstu(semester, number);
+		member = memberdao.member_info(number);
+	
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("list", list);
+		mv.addObject("member", member);
 		mv.addObject("stu", stu);
 		mv.setViewName("sugang_chk/sugang_chk.jsp");	
 		

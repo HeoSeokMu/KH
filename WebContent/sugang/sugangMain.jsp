@@ -7,6 +7,17 @@
 <body onload="body()">
 <form name='sugangForm' action="sugangPro.kh" method="post" onsubmit="return chk_it()"> 	
 
+<table width="700" border="1" bordercolor="gray" cellspacing="0" cellpadding="3">
+	<tr>
+		<td align="center">
+			<input type="text"  name="year" readonly="readonly" style="width:80; font-size: large; text-align: center;" value="2014"> 년  
+			<input type="text"  name="semester" readonly="readonly" style="width:40; font-size: large; text-align: center;" value="1"> 학기
+		</td>
+	</tr>
+</table>
+
+<br/>
+
 	<table width="700" border="1" bordercolor="gray" cellspacing="0" cellpadding="3">
 		<tr height="30" bgcolor="#b1b1b1">
 			<td align="center" width="100"><font size="2"><b>학 번</b></font></td>
@@ -17,10 +28,10 @@
 			<td align="center" bgcolor="#b1b1b1"><font size="2"><b>신청학점 (최저/학점/최고)</b></font></td>
 		</tr>
 		<tr height="30">
-			<td align="center" ><input type="text" readonly="readonly" name="stu_num" value="${stu.stu_num }"  style="width:120; text-align:center;"/><font size="2"></font></td>
-			<td align="center" ><input type="text" readonly="readonly" name="stu_code" value="${stu.stu_code }" style="width:120; text-align:center;"/><font size="2"></font></td>
-			<td align="center" ><input type="text" readonly="readonly" name="stu_grade" value="${stu.stu_grade }" style="width:30; text-align:center;"/><font size="2"></font></td>
-			<td align="center" ><input type="text" readonly="readonly" name="stu_name" value="${stu.stu_name }" style="width:60; text-align:center;"/><font size="2"></font></td>	
+			<td align="center" ><input type="text" readonly="readonly" name="stu_num" value="${member.id }"  style="width:120; text-align:center;"/><font size="2"></font></td>
+			<td align="center" ><input type="text" readonly="readonly" name="stu_code" value="${member.major }" style="width:120; text-align:center;"/><font size="2"></font></td>
+			<td align="center" ><input type="text" readonly="readonly" name="stu_grade" value="${member.grade }" style="width:30; text-align:center;"/><font size="2"></font></td>
+			<td align="center" ><input type="text" readonly="readonly" name="stu_name" value="${member.name }" style="width:60; text-align:center;"/><font size="2"></font></td>	
 			<td align="center">
 						<c:if test="${stu.subject_sum != null}">
 							<input type="text" readonly="readonly" style="width:40; font-size: large; text-align: center;" name="subject_sum" value="${stu.subject_sum}"></td>
@@ -31,13 +42,8 @@
 						</c:if>
 						
 			<td align="center">16/
-						
-						<c:if test="${stu.hakjum_sum != null}">
-							<input type="text" readonly="readonly" style="width:40; font-size: large; text-align: center;" name="hakjum_sum" value="${stu.hakjum_sum}">
-						</c:if>
-						<c:if test="${stu.hakjum_sum == null}">
-							<input type="text" readonly="readonly" style="width:40; font-size: large; text-align: center;" name="hakjum_sum">
-						</c:if>
+							<input type="hidden"  name="get_hakjum_sum" value="${stu.hakjum_sum}">	
+							<input type="text" readonly="readonly" style="width:40; font-size: large; text-align: center;" name="hakjum_sum" >	
 						
 						/23
 				<input type="hidden" name="lowlimit_hakjum" value="16"/>   <!-- 최저 요구 학점 -->    
@@ -183,6 +189,16 @@
 					<input type="hidden" name="q_name" value="${list.l_name}"/> <!-- 과목 이름 -->
 					<input type="hidden" name="q_hakjum" value="${list.f_grade}"/> <!-- 학 점 -->
 					<input type="hidden" name="q_professor" value="${list.professor}"/> <!-- 담당 교수 -->
+		
+					<input type="hidden" name="q_day" value="${list.l_day}"/> <!-- 요일 String -->
+					<input type="hidden" name="q_sch" value="${list.l_start}"/> <!-- 교시 -->
+					<input type="hidden" name="q_time" value="${list.l_end}"/> <!-- 시간 -->
+					<input type="hidden" name="num" value="${list.num}"/> <!-- 시간 -->
+					
+					<c:forEach  var="i" begin="1" end="${list.l_end}"  >     <!--     요일  + 시간 = 시간표위치 값을 히든값으로 가져옴       -->
+						<input type="hidden" name="q_sch_time${list.num}" value="${list.l_day + list.l_start+(i-1)}"/>
+					</c:forEach>
+		
 				</c:forEach>
 				
 	<c:forEach var="i" begin="0" end="9" step="1">  	                 
@@ -192,7 +208,7 @@
 					<td align="center" width="50">
 					
 						<input type="hidden" name="sugang"/> <!-- list.length값  -->
-						<input type="hidden" name="set_sch${i}" /> <!-- 전 선, 전 필 -->
+						<input type="hidden" name="set_sch${i}" /><!-- num -->
 						<input type="hidden" name="code${i}"/>  <!--  과목 코드  -->
 						<input type="hidden" name="table${i}"/> <!--  테이블 이름 -->
 						

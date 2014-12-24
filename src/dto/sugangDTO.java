@@ -20,7 +20,21 @@ public class sugangDTO {
 	
 	int count;
 	int day;
+	int num;
+	String time_day;
 	
+	public String getTime_day() {
+		return time_day;
+	}
+	public void setTime_day(String time_day) {
+		this.time_day = time_day;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public int getDay() {
 		return day;
 	}
