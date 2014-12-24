@@ -482,7 +482,7 @@ public class bookInsertDAO {
 					List articleList=null;
 					try {
 						conn = getConnection();
-							pstmt = conn.prepareStatement("select * from librarynotice order by reg_date desc ");
+							pstmt = conn.prepareStatement("select * from librarynotice order by no desc ");
 								rs = pstmt.executeQuery();
 								if (rs.next()) {
 									articleList = new ArrayList(); 

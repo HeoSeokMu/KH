@@ -30,26 +30,26 @@
 <c:if test="${totalCount > 0}">
 <table cellpadding="0" cellspacing="0" align="center"  style="border-collapse:collapse; border:0 solid slategray;"> 
 <tr>
-		<td colspan="6"><hr width="500"></td>
+		<td colspan="6"><hr width="600"></td>
 	</tr>
 	
     <tr height="30" bgcolor="${value_c}">
-      <td align="center"  width="100" >번호</td>
-      <td align="center"  width="100" >제목</td>
+      <td align="center"  width="30" >번호</td>
+      <td align="center"  width="220" >제목</td>
       <td align="center"  width="100" >작성자</td>
-      <td align="center"  width="100" >등록일</td>
+      <td align="center"  width="130" >등록일</td>
       <td align="center"  width="100" >조회수</td>
 	</tr>
 	<tr>
-		<td colspan="6"><hr width="500"></td>
+		<td colspan="6"><hr width="600"></td>
 	</tr>
 		
    <c:forEach var="article" items="${list}">
    <tr height="60">
-   <td align="center" width="100" >
+   <td align="center" width="30" >
 		${article.no}
 	</td>
-    <td align="center" width="100" >
+    <td align="center" width="220" >
 		<a href="libraryNoticeView.kh?no=${article.no}" style="text-decoration:none"/>${article.subject}
 	</td>
 	<td align="center"  width="100"> 
@@ -65,7 +65,7 @@
 	</td>
   </tr>
   <tr>
-		<td colspan="6"><hr width="500"></td>
+		<td colspan="6"><hr width="600"></td>
 	</tr>
 	
   </c:forEach>
