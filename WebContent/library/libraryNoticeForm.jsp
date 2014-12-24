@@ -20,7 +20,6 @@
 	<jsp:include page="/main/s_sidebar.jsp" />
 		<div id="box3">
 			<center>
-			<form action="RestRequestInsert.kh" method="post">
 				<br/><br/>
 
     
