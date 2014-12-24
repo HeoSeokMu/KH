@@ -6,33 +6,8 @@
 	<link rel="stylesheet" href="css/left_menu.css"></link>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/leftMenu_jquery.js"></script>
-	<style>
-		.login{
-			background-color:#7eb813;
-			color:#ffffff;
-			border:1px #dddddd dashed;
-			width:70px;
-			height:60px;
-			text-align:center;
-			padding:3px;
-		}
-		.trTitle {
-			height:15px;
-		}
-		.input{
-			size: 15px;
-		}
-		
-		.lineX {
-			border-bottom: 1px solid #dddddd;
-		}
-		.tablepadding {
-			padding-left: 15px;
-			padding-right: 15px;
-		}
-	</style>
 	
-<body onload="focusIt();">
+<body>
 	<div id="box">
 		<div id="header">
 			<div id="header_1">
@@ -102,9 +77,9 @@
 								<dl>
 									<dt>교과/수강</dt>
 									<dd><a href="#">교과과정</a></dd>
-									<dd><a href="#">수강신청</a></dd>
+									<dd><a href="sugang.kh">수강신청</a></dd>
 									<dd><a href="#">개설과목 조회</a></dd>
-									<dd><a href="#">수강신청 내역조회</a></dd>
+									<dd><a href="sugangchk.kh">수강신청 내역조회</a></dd>
 									<dd><a href="#">개인 시간표 조회</a></dd>
 								</dl>
 							</li>
@@ -112,10 +87,10 @@
 							<li class="ly">
 								<dl>
 									<dt>수업/성적</dt>
-									<dd><a href="#">강의평가</a></dd>
-									<dd><a href="#">금학기 성적조회</a></dd>
-									<dd><a href="#">전체 성적조회</a></dd>
-									<dd><a href="#">출석조회</a></dd>
+									<dd><a href="CourseEvaluation.kh">강의평가</a></dd>
+									<dd><a href="CurrentSemester_gradeView.kh">금학기 성적조회</a></dd>
+									<dd><a href="FullSemester_gradeView.kh">전체 성적조회</a></dd>
+									<dd><a href="AttendanceView.kh">출석조회</a></dd>
 								</dl>
 							</li>
 							<li class="btn"><a class="s_menu6">등록/장학</a></li>
@@ -133,11 +108,12 @@
 							<li class="btn"><a class="s_menu7">도서관</a></li>
 							<li class="ly">
 								<dl>
-									<dt>도서관</dt>
+									<dt><a href="libraryMain.kh">도서관</a></dt>
 									<dd><a href="bookList.kh">도서검색</a></dd>
-									<dd><a href="#">책 대여 신청</a></dd>
-									<dd><a href="#">책 대여 리스트</a></dd>
+									<dd><a href="bookRequest.kh">책 대여 신청</a></dd>
+									<dd><a href="myBookRequestList.kh">책 대여 신청내역 확인</a></dd>
 									<dd><a href="#">책 예약 취소</a></dd>
+									<ad><c:if test="${memId == 'liadmin' } }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
 								</dl>
 							</li>
 							<li class="btn"><a class="s_menu8">예비군</a></li>

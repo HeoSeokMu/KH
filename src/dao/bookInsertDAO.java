@@ -473,5 +473,156 @@ public class bookInsertDAO {
 					        }
 					        
 					    }
+				
+				//도서관 공지사항 리스트
+				public List<libraryDTO> getNoticeArticles() throws Exception {
+					Connection conn = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					List articleList=null;
+					try {
+						conn = getConnection();
+							pstmt = conn.prepareStatement("select * from librarynotice order by reg_date desc ");
+								rs = pstmt.executeQuery();
+								if (rs.next()) {
+									articleList = new ArrayList(); 
+									do{ 
+										libraryDTO article= new libraryDTO();
+										article.setNo(rs.getInt("no"));
+										article.setWriter(rs.getString("WRITER"));
+										article.setSubject(rs.getString("SUBJECT"));
+										article.setContent(rs.getString("CONTENT"));
+										article.setReadhit(rs.getInt("READHIT"));
+										article.setReg_date(rs.getTimestamp("REG_DATE"));
+										articleList.add(article); 
+									}while(rs.next());
+								}
+					} catch(Exception ex) {
+						ex.printStackTrace();
+					} finally {
+						if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+						if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+						if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+					}
+
+					
+					return articleList;
+				}
+				
+				//등록한 공지사항 내역 보기
+				public libraryDTO getNoticeView(int no) throws Exception{
+					Connection conn = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					libraryDTO notice =null;
+					try{
+						conn = getConnection();
+						pstmt = conn.prepareStatement("update librarynotice set readhit = readhit+1 where no = ?");
+						pstmt.setInt(1, no);
+						pstmt.executeUpdate();
+						pstmt = conn.prepareStatement("select * from librarynotice where no = ?");
+						pstmt.setInt(1, no);
+						rs = pstmt.executeQuery();
+						if(rs.next()){
+							notice = new libraryDTO();
+							notice.setNo(rs.getInt("no"));
+							notice.setWriter(rs.getString("writer"));
+							notice.setSubject(rs.getString("subject"));
+							notice.setContent(rs.getString("content"));
+							notice.setLibraryfile(rs.getString("libraryfile"));
+							notice.setReadhit(rs.getInt("readhit"));
+							notice.setReg_date(rs.getTimestamp("reg_date"));
+							
+						}
+					}catch(Exception ex){
+						ex.printStackTrace();
+					} finally {
+						if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+						if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+						if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+					}return notice;
+				}
+				//등록한 공지사항 내역 보기(수정)
+				public libraryDTO noticeView(int no) throws Exception{
+					Connection conn = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					libraryDTO notice =null;
+					try{
+						conn = getConnection();
+						pstmt = conn.prepareStatement("select * from librarynotice where no = ?");
+						pstmt.setInt(1, no);
+						rs = pstmt.executeQuery();
+						if(rs.next()){
+							notice = new libraryDTO();
+							notice.setNo(rs.getInt("no"));
+							notice.setWriter(rs.getString("writer"));
+							notice.setSubject(rs.getString("subject"));
+							notice.setContent(rs.getString("content"));
+							notice.setLibraryfile(rs.getString("libraryfile"));
+							notice.setReadhit(rs.getInt("readhit"));
+							notice.setReg_date(rs.getTimestamp("reg_date"));
+							
+						}
+					}catch(Exception ex){
+						ex.printStackTrace();
+					} finally {
+						if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+						if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+						if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+					}return notice;
+				}
+				
+				//공지사항 수정
+				public libraryDTO libraryNoticeModify(libraryDTO book) throws Exception{
+					Connection conn = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					
+					System.out.println(book.getSubject());
+					System.out.println(book.getNo());
+					try{
+						conn = getConnection();
+						pstmt = conn.prepareStatement("update librarynotice set subject=?,content=?,libraryfile=?, reg_date=? where no=?");
+				        pstmt.setString(1, book.getSubject());
+				        pstmt.setString(2, book.getContent());
+				        pstmt.setString(3, book.getLibraryfile());
+				        pstmt.setTimestamp(4, book.getReg_date());
+				        pstmt.setInt(5, book.getNo());
+				        pstmt.executeUpdate();
+						
+					}catch(Exception ex){
+						ex.printStackTrace();
+					} finally {
+						if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+						if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+						if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+					}return book;
+				}
+				
+				
+				
+				//공지사항 삭제
+				public libraryDTO libraryNoticeDelete (int no) throws Exception{
+					Connection conn = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					libraryDTO book=null;
+					try{
+						conn = getConnection();
+						pstmt = conn.prepareStatement("delete from librarynotice where no = ?");
+						pstmt.setInt(1, no);
+						rs = pstmt.executeQuery();
+						
+					}catch(Exception ex){
+						ex.printStackTrace();
+					} finally {
+						if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+						if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+						if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+					}return book;
+				}
+				
 		
+
 	}

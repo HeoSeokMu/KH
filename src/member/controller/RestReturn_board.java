@@ -5,14 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.MemberDAO;
 import dto.RestReturnBoard_DTO;
 import dto.memberDTO;
+import dto.noticeboard_DTO;
+
+import javax.servlet.http.HttpServletRequest;
+
 
 @Controller
 public class RestReturn_board {
@@ -63,7 +70,7 @@ public class RestReturn_board {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("pagingHtml", pagingHtml);
 		mv.addObject("blockCount", blockCount);
-		mv.setViewName("/member/RestReturnRequest_board.jsp");
+		mv.setViewName("/member/e_RestReturnRequest_board.jsp");
 		
 		System.out.println(mv.getViewName());
 		
@@ -85,7 +92,7 @@ public class RestReturn_board {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("mDTO", mDTO);
-		mv.setViewName("/member/returnSchool.jsp");
+		mv.setViewName("/member/s_returnSchool.jsp");
 	
 		return mv;
 	}
@@ -107,15 +114,15 @@ public class RestReturn_board {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("mDTO", mDTO);						
-		mv.setViewName("/member/restSchool.jsp");
+		mv.setViewName("/member/s_restSchool.jsp");
 	
 		return mv;
 	}
 	
-	@RequestMapping(value="/restInsert.kh")
+	@RequestMapping(value="/RestRequestInsert.kh")
 	public ModelAndView restInsert(HttpServletRequest req) throws Exception{
 		
-		System.out.println("restInsert =================== : ");
+		System.out.println("RestRequestInsert =================== : ");
 		RestReturnBoard_DTO rrb_DTO = new RestReturnBoard_DTO();  
 		
 		rrb_DTO.setMajor(req.getParameter("major"));
@@ -145,7 +152,7 @@ public class RestReturn_board {
 		return mv;
 	}
 	
-	@RequestMapping(value="/RestReturn_Processing_board.kh")
+	@RequestMapping(value="/RestReturn_Board.kh")
 	public ModelAndView RestReturn_Board(HttpServletRequest req) throws Exception{
 		
 		System.out.println("RestReturn_Board =================== : ");
@@ -157,10 +164,10 @@ public class RestReturn_board {
 		String view = "";
 		if(rrrb_check.equals("Ω≈√ª")) {
 			list = mDAO.RestReturn_BoardList();
-			view = "/member/RestReturnRequest_board.jsp";
+			view = "/member/e_RestRequest_board.jsp";
 		} else if(rrrb_check.equals("√≥∏Æ")) {
 			list = mDAO.RestReturn_Board_Processing_List();
-			view = "/member/RestReturn_Processing_board.jsp";
+			view = "/member/e_RestProcessing_board.jsp";
 		}
 		
 		System.out.println("view : " + view);
@@ -202,7 +209,64 @@ public class RestReturn_board {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("pagingHtml", pagingHtml);
 		mv.addObject("blockCount", blockCount);
+		mv.addObject("rrrb_check", rrrb_check);
 		mv.setViewName(view);
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/RestReturn_Pro.kh")
+	public ModelAndView RestReturn_Pro(HttpServletRequest req) throws Exception{
+		System.out.println("RestReturn_Pro =================== : ");
+		
+		String id = req.getParameter("id");
+		String result = req.getParameter("result");
+		int num = Integer.parseInt(req.getParameter("num"));
+		String board_type = req.getParameter("board_type");
+		
+		System.out.println("id : " + id);
+		System.out.println("result : " + result);
+		System.out.println("num : " + num);
+		System.out.println("board_type : " + board_type);
+		
+		MemberDAO mDAO = MemberDAO.getInstance();
+				
+		String status = "";
+		String view = "";
+		if(board_type.equals("»ﬁ«–")) {
+			
+			if(result.equals("Ω¬¿Œ")) {
+				status = "»ﬁ«–";
+			} else if(result.equals("∞≈¿˝")) {
+				status = "¿Á«–";
+			}
+			
+		} else if(board_type.equals("∫π«–")) {
+			if(result.equals("Ω¬¿Œ")) {
+				status = "¿Á«–";
+			} else if(result.equals("∞≈¿˝")) {
+				status = "»ﬁ«–";
+			}
+		}
+		mDAO.modify_RestReturnBoard(result, num, board_type);
+		mDAO.modify_MerberRest(status, id);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/RestReturn_Board.kh?rrrd_check=√≥∏Æ");
+		return mv;
+	}
+	
+	@RequestMapping("/RestContent.kh")
+	public ModelAndView RestContentView(HttpServletRequest request) throws Exception{
+		MemberDAO mDAO = MemberDAO.getInstance();
+		int num = Integer.parseInt(request.getParameter("num"));
+		
+		ModelAndView mv = new ModelAndView();
+		RestReturnBoard_DTO rrb_DTO = mDAO.Rest_Content(num);
+
+		mv.addObject("rrb_DTO", rrb_DTO);
+		
+		mv.setViewName("/member/e_Rest_Content.jsp");
 		
 		return mv;
 	}

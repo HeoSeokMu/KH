@@ -14,17 +14,36 @@
 <script src="js/leftMenu_jquery.js"></script>
 </head>
 
-<body>
+<body onload="focusIt();">
 	<div id="box">
 		<div id="header">
-			<div id="header_1"></div>
+			<div id="header_1">
+				<ul class="menu">
+					<li><a href="ChartBoard.action?category=chart"><img src="main/bbu_main_img/chart.png" name="chart" border="0" class="rollover"/></a></li>
+					<li><a href="NewChartBoard.action?category=new"><img src="main/bbu_main_img/new.png"  name="new" border="0" class="rollover"/></a></li>
+	
+					<li><a href="GenreChartBoard.action?category=genre"><img src="main/bbu_main_img/genre.png" name="genre" border="0" class="rollover"/></a>
+						<ul class="sub">
+							<li><a href="GenreChartBoard.action?category=genre&type=dance"><img src="main/bbu_main_img/dance.png" name="dance" border="0" class="rollover"/></a></li>
+							<li><a href="GenreChartBoard.action?category=genre&type=balad"><img src="main/bbu_main_img/balad.png" name="balad" border="0" class="rollover"/></a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#"><img src="main/bbu_main_img/payment.png" name="payment_buy" class="rollover" border="0"/></a>
+						<ul class="sub">
+							<li><a href="payBuyList.action?buy_id="><img src="main/bbu_main_img/bbu_payment.png" name="payment" border="0" class="rollover"/></a></li>
+							<li><a href="cashCharge.action?my_id=" onclick="return idCheck();"><img src="main/bbu_main_img/cash.png" name="cash" border="0" class="rollover"/></a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
 			<div id="header_2">
 				<center>
 					<c:if test="${memId != null}">
-                  ${memId} 님 어서오세요 ~~~ 
-               
-                  <form name="logout" method="post" action="LoginOut.kh">
-							<input type="submit" name="logout" value="로그아웃" />
+						${memId} 님 어서오세요 ~~~ 
+					
+						<form name="logout" method="post" action="LoginOut.kh">
+							<input type="submit" name="logout" value="로그아웃"/>
 						</form>
 					</c:if>
 				</center>
@@ -85,13 +104,13 @@
 								<dl>
 									<dt>휴가신청 및 처리</dt>
 									<dd>
-										<a href="#">휴가 신청</a>
+										<a href="vacationForm.kh">휴가 신청</a>
 									</dd>
 									<dd>
-										<a href="#">휴가 신청내역 확인</a>
+										<a href="vacationConfirm.kh">휴가 신청내역 확인</a>
 									</dd>
 									<dd>
-										<a href="#">휴가 처리내역 확인</a>
+										<a href="vacationResult.kh">휴가 처리내역 확인</a>
 									</dd>
 								</dl>
 							</li>
@@ -100,16 +119,16 @@
 								<dl>
 									<dt>휴학 및 복학처리</dt>
 									<dd>
-										<a href="RestReturn_Board.kh?rrrb_check=신청">휴학 신청내역 확인</a>
+										<a href="RestReturn_Board.kh?board_type=휴학&rrrb_check=신청">휴학 신청내역 확인</a>
 									</dd>
 									<dd>
-										<a href="RestReturn_Board.kh?rrrb_check=처리">휴학 처리내역 확인</a>
+										<a href="RestReturn_Board.kh?board_type=휴학&rrrb_check=처리">휴학 처리내역 확인</a>
 									</dd>
 									<dd>
-										<a href="#">복학 신청내역 확인</a>
+										<a href="RestReturn_Board.kh?board_type=복학&rrrb_check=신청">복학 신청내역 확인</a>
 									</dd>
 									<dd>
-										<a href="#">복학 처리내역확인</a>
+										<a href="RestReturn_Board.kh?board_type=복학&rrrb_check=처리">복학 처리내역확인</a>
 									</dd>
 								</dl>
 							</li>
@@ -125,16 +144,19 @@
 									</dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="e_menu8">도서관</a></li>
+							<li class="btn"><a href="libraryMain.kh" class="e_menu8">도서관</a></li>
 							<li class="ly">
 								<dl>
-									<dt>도서관</dt>
+									<dt><a href="libraryMain.kh">도서관</a></dt>
+									<dd><a href="bookList.kh">도서검색</a></dd>
+									<dd><a href="bookRequest.kh">책 대여 신청</a></dd>
 									<dd>
-										<a href="#">책 대여 신청내역 확인</a>
+										<a href="myBookRequestList.kh">책 대여 신청내역 확인</a>
 									</dd>
 									<dd>
 										<a href="#">책 대여 리스트</a>
 									</dd>
+									<ad><c:if test="${memId == 'liadmin' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
 								</dl>
 							</li>
 							<li class="btn"><a class="e_menu9">예비군</a></li>

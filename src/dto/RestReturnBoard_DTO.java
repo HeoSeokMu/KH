@@ -16,6 +16,7 @@ public class RestReturnBoard_DTO {
 	private String why_detail;
 	private String result;
 	private Timestamp reg_date;
+	private String board_type;
 	
 	public int getNum() {
 		return num;
@@ -94,5 +95,11 @@ public class RestReturnBoard_DTO {
 	}
 	public void setReg_date(Timestamp reg_date) {
 		this.reg_date = reg_date;
+	}
+	public String getBoard_type() {
+		return board_type;
+	}
+	public void setBoard_type(String board_type) {
+		this.board_type = board_type;
 	}
 }
