@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +59,6 @@ public class MemberDAO {
 	}
 
 	//회원등록 쿼리.
-	
 	public void insertMember(memberDTO member) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -116,7 +114,6 @@ public class MemberDAO {
     }
 	
 	//회원등록에 쓰이는 번호 자동증가 쿼리. 학과, 부서와 회원 유형을 기준으로 가장 큰 번호를 가져온다. 자바 클래스에서  +1을 처리 한다.
-	
 	public int plusNum3(String num2, String type) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -143,6 +140,7 @@ public class MemberDAO {
 		}
 		return x;
 	}
+	
 	//로그인 쿼리. 학번, 비밀번호, 회원유형을 가져와 체크.
 	public int Login_check(String id, String pw, String type) throws Exception {
 		Connection conn = null;
@@ -213,7 +211,7 @@ public class MemberDAO {
 
 		return postList;
 	}
-	
+	//id로 회원 정보 가져오는 쿼리.
 	public memberDTO member_info(String id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -319,8 +317,30 @@ public class MemberDAO {
             if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
             if (conn != null) try { conn.close(); } catch(SQLException ex) {}
         }
-        
     }
+	
+	//
+	public void myInfo_Edit(String id, String email, String s_phone){
+		Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try {
+            conn = getConnection();
+            
+            pstmt = conn.prepareStatement(
+            	"update kh_member set email = ?, s_phone = ? where id = ?");
+            pstmt.setString(1, email);
+            pstmt.setString(2, s_phone);
+            pstmt.setString(3, id);
+            
+            pstmt.executeUpdate();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+	}
 	
 	// 공지 내용을 DB에서 가져옴
 	public List<noticeboard_DTO> notice_BoardList() throws Exception {
@@ -355,31 +375,6 @@ public class MemberDAO {
 		return noticeBoard_List;
 	}
 	
-	//세션 id로 이름만 가져오는 쿼리.
-	public String getName(String id) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String name = "";
-		
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement("select name from KH_MEMBER where id = ?");
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				name = rs.getString("name");
-				System.out.println("name == " + name);
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-		}
-		return name;
-	}
 	//시퀀스 넘버로 게시글을 가져오는 쿼리.
 	public noticeboard_DTO getArticle(int num) throws Exception {
 		Connection conn = null;
@@ -436,6 +431,7 @@ public class MemberDAO {
 		
 		return article;
 	}
+	
 	//공지사항 삭제 쿼리.
 	public noticeboard_DTO deleteArticle(int num) throws Exception {
 		Connection conn = null;
@@ -468,7 +464,7 @@ public class MemberDAO {
             conn = getConnection();
             
             pstmt = conn.prepareStatement(
-            	"insert into kh_restreturn_school_board values(kh_restreturn_num.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?)");
+            	"insert into kh_restreturn_school_board values(kh_restreturn_num.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pstmt.setString(1, rrb.getId());
             pstmt.setString(2, rrb.getName());
             pstmt.setString(3, rrb.getMajor());
@@ -481,6 +477,7 @@ public class MemberDAO {
             pstmt.setString(10, rrb.getWhy_detail());
             pstmt.setString(11, rrb.getResult());
             pstmt.setTimestamp(12, rrb.getReg_date());
+            pstmt.setString(13, rrb.getBoard_type());
             pstmt.executeUpdate();
         } catch(Exception ex) {
             ex.printStackTrace();
@@ -490,15 +487,15 @@ public class MemberDAO {
         }
     }
 	
-	// 
-	public List<RestReturnBoard_DTO> restreturn_BoardList() throws Exception {
+	// 휴학신청 리스트
+	public List<RestReturnBoard_DTO> RestReturn_BoardList() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<RestReturnBoard_DTO> rrb_List = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select * from kh_restreturn_school_board order by num desc");
+			pstmt = conn.prepareStatement("select num, major, name, id, grade, reg_date from kh_restreturn_school_board where result = '미처리' order by num desc");
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				rrb_List = new ArrayList<RestReturnBoard_DTO>();
@@ -509,12 +506,39 @@ public class MemberDAO {
 					dto.setName(rs.getString("name"));
 					dto.setId(rs.getString("id"));
 					dto.setGrade(rs.getInt("grade"));
-					dto.setEmail(rs.getString("email"));
-					dto.setPhone(rs.getString("phone"));
-					dto.setAddr(rs.getString("addr"));
-					dto.setTime(rs.getString("time"));
-					dto.setWhy(rs.getString("why"));
-					dto.setWhy_detail(rs.getString("why_detail"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+					rrb_List.add(dto);
+				} while (rs.next());
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		return rrb_List;
+	}
+	
+	// 휴학신청 처리 리스트
+	public List<RestReturnBoard_DTO> RestReturn_Board_Processing_List() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<RestReturnBoard_DTO> rrb_List = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select num, major, name, id, grade, result, reg_date from kh_restreturn_school_board where result != '미처리' order by num desc");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				rrb_List = new ArrayList<RestReturnBoard_DTO>();
+				do {
+					RestReturnBoard_DTO dto = new RestReturnBoard_DTO();
+					dto.setNum(rs.getInt("num"));
+					dto.setMajor(rs.getString("major"));
+					dto.setName(rs.getString("name"));
+					dto.setId(rs.getString("id"));
+					dto.setGrade(rs.getInt("grade"));
 					dto.setResult(rs.getString("result"));
 					dto.setReg_date(rs.getTimestamp("reg_date"));
 					rrb_List.add(dto);
@@ -527,7 +551,88 @@ public class MemberDAO {
 			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
-
 		return rrb_List;
+	}
+	
+	// 휴학, 복학 결과 수정하는 쿼리
+	public void modify_RestReturnBoard(String result, int num, String board_type) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(
+			"update kh_restreturn_school_board set result=? where num = ?");
+			pstmt.setString(1, result);
+			pstmt.setInt(2, num);
+			rs = pstmt.executeQuery();
+
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+	}
+	
+	// 학생의 상태를 수정하는 쿼리
+	public void modify_MerberRest(String status, String id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(
+			"update kh_member set status=? where id = ?");
+			pstmt.setString(1, status);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+	}
+	
+	public RestReturnBoard_DTO Rest_Content(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		RestReturnBoard_DTO article = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from kh_restreturn_school_board where num = ?"); 
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				article = new RestReturnBoard_DTO();
+				article.setNum(rs.getInt("num"));
+				article.setMajor(rs.getString("major"));
+				article.setName(rs.getString("name"));
+				article.setId(rs.getString("id"));
+				article.setGrade(rs.getInt("grade"));
+				article.setEmail(rs.getString("email"));
+				article.setPhone(rs.getString("phone"));
+				article.setAddr(rs.getString("addr"));
+				article.setTime(rs.getString("time"));
+				article.setWhy(rs.getString("why"));
+				article.setWhy_detail(rs.getString("why_detail"));
+				article.setResult(rs.getString("result"));
+				article.setReg_date(rs.getTimestamp("reg_date"));
+				article.setBoard_type(rs.getString("board_type"));
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		
+		return article;
 	}
 }

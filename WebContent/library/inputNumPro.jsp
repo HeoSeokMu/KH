@@ -37,6 +37,7 @@
 		}
 	</style>
 </head>
+<jsp:include page="/member/sidebar.jsp" />
 <c:if test="${type == '교직원'}">
       <jsp:include page="/main/e_sidebar.jsp" />
    </c:if>
@@ -45,9 +46,7 @@
    </c:if>
    <c:if test="${type == '학생'}">
       <jsp:include page="/main/s_sidebar.jsp" />
-   </c:if>
-<div id="box3">
-<body>
+   </c:if><div id="box3">
 <br/>
 <table>	
 			<tr>

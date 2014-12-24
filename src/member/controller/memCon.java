@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -109,7 +110,6 @@ public class memCon{
 			
 			Date end_date = cal.getTime();
 			Timestamp end_timestamp = new Timestamp(end_date.getTime());
-			System.out.println("end_timestamp == " + end_timestamp);	
 			dto.setEnd_date(end_timestamp);
 			
 			dto.setStatus("재직");
@@ -147,27 +147,24 @@ public class memCon{
 		
 		
 	//교직원일 경우 공과 문과 구분처리를 하지 않고 졸업이수학점도 비운다.	
-	if(!dto.getType().equals("교직원")){	
+	if(!dto.getType().equals("교직원")){
 			//문과 공과 구분해서 컬럼에 추가. 영문, 국문, 경영학은 문과, 컴공, 정보학과는 공과
-			if(dto.getMajor().equals("영어영문학과") || dto.getMajor().equals("국어영문학과") || 
+			if(dto.getMajor().equals("영어영문학과") || dto.getMajor().equals("국어국문학과") || 
 					dto.getMajor().equals("경제경영학과")) {
-				
+				//문과는 졸업이수 학점 140.
 				dto.setMajor_kind("문과");
-				
+				if(dto.getType() != null && dto.getType().equals("학생")){
+				dto.setFinish_point(140);
+				}
 			}else if(dto.getMajor().equals("컴퓨터공학과") || 
 					dto.getMajor().equals("정보보안학과")){
-				
+				//공과는 졸업이수 학점 130.
 				dto.setMajor_kind("공과");
+				if(dto.getType() != null && dto.getType().equals("학생")){
+					dto.setFinish_point(130);
+					}
 			}
 		
-			//문과는 졸업이수학점 140, 공과는 졸업이수학점 130.
-		if(dto.getMajor_kind() != null && !dto.getType().equals("교수")){	
-			if(dto.getMajor_kind().equals("문과")){
-				dto.setFinish_point(140);
-			}else if(dto.getMajor_kind().equals("공과")){
-				dto.setFinish_point(130);
-			}
-		}
 	}
 		
 		//DB에 insert.
@@ -176,11 +173,12 @@ public class memCon{
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("dto", dto);
 		
-		mv.setViewName("/member/test.jsp");
+		mv.setViewName("/main/e_main.jsp");
 	
 		return mv;
 	}
 	
+	// 개인정보
 	@RequestMapping("/myInfo.kh")
 	public ModelAndView selectMember(HttpSession session, HttpServletRequest request) throws Exception{
 		
@@ -195,6 +193,23 @@ public class memCon{
 	
 		return mv;
 	}
+	
+	@RequestMapping(value="/myInfo_Edit.kh", method=RequestMethod.POST)
+	public ModelAndView myInfo_Edit(HttpServletRequest request) throws Exception{
+		String id = request.getParameter("id");
+		String email = request.getParameter("email");
+		String s_phone = request.getParameter("s_phone");
+		
+		System.out.println("id : "+id+" / email : "+email+" / s_phone : "+s_phone);
+		MemberDAO m_dao = MemberDAO.getInstance();
+		m_dao.myInfo_Edit(id, email, s_phone);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/notice_board.kh");
+	
+		return mv;
+	}
+	
 	//주소검색 새 창 띄우기
 	@RequestMapping(value="/searchAddr.kh")
 	public String searchAddr() throws Exception{

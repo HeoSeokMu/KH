@@ -2,8 +2,11 @@ package library.controller;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +29,47 @@ import dto.memberDTO;
 @Controller
 public class libraryController {
 
+
+	
+	//도서관 공지사항 폼
+		@RequestMapping(value="libraryNoticeForm.kh")
+		public String libraryNotice(){
+			
+			return "/library/libraryNoticeForm.jsp";
+		}
+	//도서관 공지사항 처리
+		@RequestMapping(value="libraryNoticeFormPro.kh")
+		public String libraryNoticeFormPro(HttpSession session, HttpServletRequest req, @ModelAttribute libraryDTO dto, MultipartHttpServletRequest request) throws Exception{
+			MemberDAO m_dao = MemberDAO.getInstance();
+			String id = (String)session.getAttribute("memId");
+			
+			dto.setReg_date(new Timestamp(System.currentTimeMillis()));
+			
+			String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/librarNotice/";
+			
+			bookInsertDAO notice_dao = bookInsertDAO.getInstance();
+			
+			//파일 업로드
+			if(!request.getFile("upload").isEmpty()){
+				MultipartFile file = request.getFile("upload");
+			}
+			
+			notice_dao.libraryNotice(dto);
+			
+//			ModelAndView mv = new ModelAndView();
+//			
+//			mv.addObject("dto", dto);
+//			mv.addObject("no", request.getParameter("no"));
+//			mv.addObject("subject", request.getParameter("subject"));
+//			mv.addObject("content", request.getParameter("content"));
+//			mv.addObject("libraryfile", request.getParameter("libraryfile"));
+//			mv.addObject("readhit", request.getParameter("readhit"));
+//			mv.addObject("writer", request.getParameter("writer"));
+//			mv.setViewName("/library/libraryNoticeForm.kh");
+			
+			return "redirect:libraryMain.kh";
+		}
+		
 	//책 등록 폼
 	@RequestMapping(value="bookInsertForm.kh")
 	public String form(){
@@ -465,4 +509,202 @@ public ModelAndView myRequestList(HttpSession session, HttpServletRequest req) t
 		
 		return "redirect:bookRequestList.kh";
 	}
+	
+	//도서관 공지사항 리스트
+	@RequestMapping(value="/libraryNoticeList.kh")
+	public ModelAndView libraryNoticeList(HttpServletRequest req) throws Exception{
+		
+		String searchType = req.getParameter("searchType");
+		String keyword = req.getParameter("keyword");
+		String pageNum = req.getParameter("currentPage");
+		
+		Calendar calendar = Calendar.getInstance(); 
+		calendar.add(Calendar.DAY_OF_MONTH, -7); 
+		Date date = calendar.getTime(); 
+		//date가 일주일전 Date 객체 입니다. 
+	
+		String now = new SimpleDateFormat("yyyy-MM-dd").format(date);
+		
+		if (pageNum == null) {
+			pageNum = "1";
+	    }
+		
+		List<libraryDTO> list = new ArrayList<libraryDTO>();	 
+		int currentPage = Integer.parseInt(pageNum);
+		int totalCount; 		// 총 게시물의 수
+		int blockCount = 10;	// 한 페이지의  게시물의 수
+		int blockPage = 5; 	// 한 화면에 보여줄 페이지 수
+		String pagingHtml; 	//페이징을 구현한 HTML
+		pagingAction page; 	// 페이징 클래스
+		
+		// 게시판 LIST 액션
+		
+			bookInsertDAO dbPro = bookInsertDAO.getInstance(); 
+			// 모든 글을 가져와 list에 넣는다.
+			list = dbPro.getNoticeArticles();
+			if(list == null){
+				totalCount = 0;
+			}else{
+				totalCount = list.size(); // 전체 글 갯수를 구한다.
+			}
+			page = new pagingAction(currentPage, totalCount, blockCount, blockPage, searchType, keyword); // pagingAction 객체 생성.
+			pagingHtml = page.getPagingHtml().toString(); // 페이지 HTML 생성.
+
+			// 현재 페이지에서 보여줄 마지막 글의 번호 설정.
+			int lastCount = totalCount;
+
+			// 현재 페이지의 마지막 글의 번호가 전체의 마지막 글 번호보다 작으면 lastCount를 +1 번호로 설정.
+			if (page.getEndCount() < totalCount)
+				lastCount = page.getEndCount() + 1;
+
+			// 전체 리스트에서 현재 페이지만큼의 리스트만 가져온다.
+			if(list != null){
+				list = list.subList(page.getStartCount(), lastCount);
+			}else{
+				list = Collections.emptyList();
+			}
+			
+			
+			
+		//해당 뷰에서 사용할 속성
+		ModelAndView mv = new ModelAndView();
+	    mv.addObject("list", list);
+	    mv.addObject("totalCount", totalCount);
+	    mv.addObject("currentPage", currentPage);
+	    mv.addObject("pagingHtml", pagingHtml);
+	    mv.addObject("now", now);
+	 
+		
+		mv.setViewName("/library/libraryNoticeList.jsp");
+		return mv;
+	}
+	//도서관 메인 
+		@RequestMapping(value="/libraryMain.kh")
+		public ModelAndView libraryMainNoticeList(HttpServletRequest req,HttpSession session) throws Exception{
+			
+			String searchType = req.getParameter("searchType");
+			String keyword = req.getParameter("keyword");
+			String pageNum = req.getParameter("currentPage");
+			String id = (String)session.getAttribute("memId");
+			
+			if (pageNum == null) {
+				pageNum = "1";
+		    }
+			
+			List<libraryDTO> list = new ArrayList<libraryDTO>();	 
+			int currentPage = Integer.parseInt(pageNum);
+			int totalCount; 		// 총 게시물의 수
+			int blockCount = 10;	// 한 페이지의  게시물의 수
+			int blockPage = 5; 	// 한 화면에 보여줄 페이지 수
+			String pagingHtml; 	//페이징을 구현한 HTML
+			pagingAction page; 	// 페이징 클래스
+			
+			// 게시판 LIST 액션
+			
+				bookInsertDAO dbPro = bookInsertDAO.getInstance(); 
+				// 모든 글을 가져와 list에 넣는다.
+				list = dbPro.getNoticeArticles();
+				if(list == null){
+					totalCount = 0;
+				}else{
+					totalCount = list.size(); // 전체 글 갯수를 구한다.
+				}
+				page = new pagingAction(currentPage, totalCount, blockCount, blockPage, searchType, keyword); // pagingAction 객체 생성.
+				pagingHtml = page.getPagingHtml().toString(); // 페이지 HTML 생성.
+
+				// 현재 페이지에서 보여줄 마지막 글의 번호 설정.
+				int lastCount = totalCount;
+
+				// 현재 페이지의 마지막 글의 번호가 전체의 마지막 글 번호보다 작으면 lastCount를 +1 번호로 설정.
+				if (page.getEndCount() < totalCount)
+					lastCount = page.getEndCount() + 1;
+
+				// 전체 리스트에서 현재 페이지만큼의 리스트만 가져온다.
+				if(list != null){
+					list = list.subList(page.getStartCount(), lastCount);
+				}else{
+					list = Collections.emptyList();
+				}
+				
+				
+				
+			//해당 뷰에서 사용할 속성
+			ModelAndView mv = new ModelAndView();
+		    mv.addObject("list", list);
+		    mv.addObject("totalCount", totalCount);
+		    mv.addObject("currentPage", currentPage);
+		    mv.addObject("pagingHtml", pagingHtml);
+		 
+			
+			mv.setViewName("/library/libraryMain.jsp");
+			return mv;
+		}
+		
+		//공지사항 내역 보기
+		@RequestMapping("/libraryNoticeView.kh")
+		public ModelAndView libraryNoticeView(HttpServletRequest req,HttpSession session, @ModelAttribute libraryDTO dto) throws Exception{
+			
+			String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/libraryNotice/";
+				
+			String id = (String)session.getAttribute("memId");
+			bookInsertDAO book_dao = bookInsertDAO.getInstance();
+			int no = Integer.parseInt(req.getParameter("no"));
+			
+			
+			libraryDTO notice = book_dao.getNoticeView(no);
+			
+			
+			
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("notice", notice);
+			
+			mv.setViewName("/library/libraryNoticeView.jsp");
+			
+			return mv;
+		}
+	//공지사항 내용 수정
+		@RequestMapping("/libraryNoticeModify.kh")
+		public ModelAndView libraryNoticeModify(HttpServletRequest req) throws Exception{
+			
+			bookInsertDAO book_dao = bookInsertDAO.getInstance();
+			int no = Integer.parseInt(req.getParameter("no"));
+			libraryDTO notice = book_dao.noticeView(no);
+			
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("notice", notice);
+			mv.setViewName("/library/libraryNoticeModify.jsp");
+			
+			return mv;
+	}
+	//공지사항 수정 처리
+	@RequestMapping("/libraryNoticeModifyFormPro.kh")
+	public String libraryNoticeModifyFormPro(HttpServletRequest req, @ModelAttribute libraryDTO dto, MultipartHttpServletRequest request) throws Exception{
+		
+		dto.setReg_date(new Timestamp(System.currentTimeMillis()));
+
+		String FileUploadPath = "/Users/Parkjongheon/git/KH/WebContent/upload/libraryNotice/";
+		
+		bookInsertDAO book_dao = bookInsertDAO.getInstance();
+		
+		if(!request.getFile("upload").isEmpty()){
+			MultipartFile file = request.getFile("upload");
+		}
+			
+		book_dao.libraryNoticeModify(dto);
+		return "redirect:libraryNoticeList.kh";
+		}
+
+	//공지사항 삭제
+	@RequestMapping("/libraryNoticeDelete.kh")
+	public String libraryNoticeDelete(HttpServletRequest req) throws Exception{
+		
+		bookInsertDAO book_dao = bookInsertDAO.getInstance();
+		int no = Integer.parseInt(req.getParameter("no"));
+		libraryDTO book = book_dao.libraryNoticeDelete(no);
+		
+		
+		return "redirect:libraryNoticeList.kh";
+	}
+
+
 }

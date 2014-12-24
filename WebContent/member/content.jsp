@@ -81,7 +81,7 @@
 				</c:if>
 				<!-- 수정 페이지 일 때. 파라미터 name을 writer로 넘김으로 수정이 되게 함. -->
 				<c:if test="${empty article.writer}">
-					<input type="hidden" name="writer" value="${name}"></input>
+					<input type="hidden" name="writer" value="${mDTO.name}"></input>
 				</c:if>
 				<!-- 뷰페이지 -->
 				<c:if test="${not empty article.num}">
@@ -112,7 +112,7 @@
 							<td width="150px">${article.writer}</td>
 						</c:if>
 						<c:if test="${empty article.writer}">
-							<td width="150px">${name}</td>
+							<td width="150px">${mDTO.name}</td>
 						</c:if>
 						<c:if test="${not empty article.reg_date}">
 							<td width="50px"><g>날짜</g></td><td width="150px">

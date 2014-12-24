@@ -39,7 +39,7 @@
 
 </head>
 
-<body onload="focusIt();">
+<body>
 		<c:if test="${type == '교직원'}">
 			<jsp:include page="/main/e_sidebar.jsp" />
 		</c:if>

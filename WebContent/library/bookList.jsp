@@ -55,10 +55,8 @@
    </c:if>
    <c:if test="${type == '학생'}">
       <jsp:include page="/main/s_sidebar.jsp" />
-   </c:if>
-<div id="box3">
+   </c:if><div id="box3">
 <center>
-<body>
 <br/>
 도서검색 <form action="bookList.kh" method="get">
 	<select name="searchType" >

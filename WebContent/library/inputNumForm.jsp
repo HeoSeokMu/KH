@@ -50,9 +50,7 @@
    </c:if>
    <c:if test="${type == '학생'}">
       <jsp:include page="/main/s_sidebar.jsp" />
-   </c:if>
-<div id="box3">
-<body>
+   </c:if><div id="box3">
 <br/>
 	<form action="inputNumPro.kh" method="post" name="userinput">
 		<table>	
