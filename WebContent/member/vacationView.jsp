@@ -39,7 +39,7 @@
 	
 </head>
 
-<body onload="auto_default('${mDTO.type}', '${mDTO.major}');">
+<body onload="viewSet('${article.type}','${article.major}');">
 
 		<c:if test="${type == '교직원'}">
 			<jsp:include page="/main/e_sidebar.jsp" />
@@ -52,7 +52,6 @@
 		</c:if>
 		 
 		<div id="box3">
-		
 		<form action="#" method="post" name="user_input">
 			<table border=1 align="center" width="600">
 				<tr bgcolor="77CC55" height=50>
@@ -67,23 +66,33 @@
 						&nbsp;<input type="radio" name="type" value="교수" checked disabled>교수
 						&nbsp;<input type="radio" name="type" value="교직원" disabled>교직원
 					</td>
-					<input type="hidden" value="${mDTO.name}" name="name">
-					<input type="hidden" value="${mDTO.type}" name="type">
+					<input type="hidden" value="${article.name}" name="name">
+					<input type="hidden" value="${article.type}" name="type">
 				</tr>
 				
 				<tr bgcolor="BBEE99" height=40>
 					<th width = 130 align="center">소속</th>
 					<td>
-						&nbsp;&nbsp;&nbsp;<select name="part">
-							<option value="${mDTO.major}" selected>${mDTO.major}</option>
+						&nbsp;&nbsp;&nbsp;<select name="part" disabled>
+							<option value="${article.major}" selected>${article.major}</option>
 						</select>
 					</td>
-					<input type="hidden" value="${mDTO.major}" name="major">
+					<input type="hidden" value="${article.major}" name="major">
 				</tr>
 				
 				<tr bgcolor="BBEE99" height=40>
-					<th width = 130 align=center>희망일자</th>
-					<td onchange="dateSum();">
+					<th width = 130 align=center>희망일자
+					<br />
+							<sub>
+								&nbsp;<input type="checkbox" id="changeCheck" value="1" onclick="ChangeDate();">희망 일자 변경
+							</sub>
+					</th>
+					<td id="original">
+						&nbsp;&nbsp;
+						<input type="text" value="${article.vacation_start} 부터 ~ ${article.vacation_end} 까지" readOnly style="width:270px; padding:7px">
+					</td>
+				
+					<td id="newDate" onchange="dateSum();" style="display:none;">
 						&nbsp;&nbsp;
 						<select name="vacStart_yy">
 							<option>연도</option>
@@ -98,7 +107,6 @@
 						</select>
 						<select name="vacStart_mm">
 							<option >월</option>
-							
 								<c:forEach var="m" begin="1" end="12">
 									<option value="${m}">${m}</option>
 								</c:forEach>
@@ -142,16 +150,14 @@
 						<span id="dateError" style="display:none;"><font color="red" size="2">&nbsp;&nbsp;#날짜를 확인해주세요.</font></span>
 						<span id="dateOk" style="display:none;"><font color="blue" size="2">&nbsp;&nbsp;#신청 가능한 날짜입니다.</font></span>
 					</td>
-				<input type="hidden" name="vacation_start">
-				<input type="hidden" name="vacation_end">
 				</tr>
 		
 				<tr bgcolor="BBEE99" height=40 >
 					<th width = 130 align=center>휴가사유</th>
 						
-					<td>
+					<td height="300px">
 						&nbsp;&nbsp;
-						<textarea name="vacation_reason" cols="55" rows="15" style="padding:10px;"></textarea>
+						${article.vacation_reason}
 					</td>
 				</tr>
 						
@@ -162,7 +168,7 @@
 							&nbsp;&nbsp;
 							<font size="4">
 							<b>
-							${mDTO.name}
+							${article.name}
 							</b>
 							</font>
 					</td>
@@ -171,15 +177,15 @@
 					<td align="center">		
 							<font size="3">
 							<b> 
-							<fmt:formatDate value="<%=new java.util.Date()%>" pattern="yyyy년  MM월  dd일"/>
+							<fmt:formatDate value="${article.reg_date}" pattern="yyyy년  MM월  dd일"/>
 							</b>
 							</font>
 					</td>
 				</tr>
 				<tr bgcolor="77CC55" height=40>
 					<td width = 500 colspan=2 align=center>
-						<input type="button" value="작성" onClick="hugaGo();">
-						<input type="button" value="취소" onclick="window.history.go(-1)">
+						<input type="button" value="수정" onClick="hugaModify();">
+						<input type="button" value="삭제" onclick="">
 					</td>
 				</tr>
 		

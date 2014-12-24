@@ -16,6 +16,7 @@ public class pagingAction {
 
 	// 페이징 생성자
 	public pagingAction(int currentPage, int totalCount, int blockCount, int blockPage) {
+		System.out.println("blockCount : " + blockCount);
 
 		this.blockCount = blockCount;
 		this.blockPage = blockPage;
@@ -43,6 +44,7 @@ public class pagingAction {
 		startPage = (int) ((currentPage - 1) / blockPage) * blockPage + 1;	//1
 		endPage = startPage + blockPage - 1;								//2
 		
+		System.out.println("current : " + currentPage);
 		
 		// 마지막 페이지가 전체 페이지 수보다 크면 전체 페이지 수로 설정
 		if (endPage > totalPage) {
@@ -62,14 +64,17 @@ public class pagingAction {
 		//페이지 번호.현재 페이지는 빨간색으로 강조하고 링크를 제거.
 		for (int i = startPage; i <= endPage; i++) {
 			if (i > totalPage) {
+				System.out.println("i : " + i);
 				
 				break;
 			}
 			if (i == currentPage) {
+				System.out.println("i : " + i);
 				pagingHtml.append("&nbsp;<b><font color='red'>");
 				pagingHtml.append(i);
 				pagingHtml.append("</font></b>");
 			} else {
+				System.out.println("i : " + i);
 				pagingHtml.append("&nbsp;<a href=notice_board.kh?currentPage=");
 				pagingHtml.append(i);
 				pagingHtml.append(">");

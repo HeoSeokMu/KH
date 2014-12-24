@@ -1,32 +1,22 @@
-<%@ page contentType="text/html; charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <title>도서관 메인페이지</title>
-<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
-	<link rel="stylesheet" href="css/left_menu.css"></link>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="js/leftMenu_jquery.js"></script>
 </head>
 
 <body>
-<jsp:include page="/main/s_sidebar.jsp" />
-		<div id="box3">
-			<center>
 <h1>KH대학교 학술 정보원</h1>
 <form action="libraryNotice.kh">
 	<table border="1" width="300">
 		<tr align="center">
 		<td>공지사항</td>
 		<td><input type="button" value="More" onClick="javascript:location.href='libraryNoticeList.kh'"></td>
-		<input type="button" value="학교메인페이지로" onClick="javascript:location.href='KHInfo.kh'">
-		<c:if test="${type == '교직원' }">
+		<c:if test="${memId == 'liadmin' }">
 		<input type="button" value="공지사항 쓰기" onClick="javascript:location.href='libraryNoticeForm.kh'">
-		<input tyep="button" value="관리자 페이지" onClick="javascript:location.href='libraryAdmin.kh'">
 		</c:if></tr>
 		<tr>
 		<td colspan="2">
@@ -53,16 +43,5 @@
 	<input type="text" name="keyword" />
 	<input type="submit" value="검색" />
 </form>
-<table border="1">
-<tr>
-	<td><input type="button" name="List" value="도서리스트" onClick="javascript:location.href='bookList.kh'"></td>
-	<c:if test="${memId!=null }"><td><input type="button" name="Request" value="도서구입신청" onClick="javascript:location.href='bookRequest.kh'"></td>
-	<td><input type="button" name="MyRequest" value="도서구입신청내역" onClick="javascript:location.href='myBookRequestList.kh'"></td></c:if>
-</tr>
-</table>
 
-</div>
-		<div id="box4"> <center><br/><br/></center> </div>
-	</div>
 </body>
-</html>
