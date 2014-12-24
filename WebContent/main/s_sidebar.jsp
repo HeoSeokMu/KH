@@ -92,7 +92,7 @@
 									<dd><a href="#">분납등록금 고지서</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="s_menu7">도서관</a></li>
+							<li class="btn"><a href="libraryMain.kh" class="s_menu7">도서관</a></li>
 							<li class="ly">
 								<dl>
 									<dt><a href="libraryMain.kh">도서관</a></dt>
@@ -100,7 +100,7 @@
 									<dd><a href="bookRequest.kh">책 대여 신청</a></dd>
 									<dd><a href="myBookRequestList.kh">책 대여 신청내역 확인</a></dd>
 									<dd><a href="#">책 예약 취소</a></dd>
-									<ad><c:if test="${memId == 'liadmin' } }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
+									<ad><c:if test="${type == '교직원' } }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
 								</dl>
 							</li>
 							<li class="btn"><a class="s_menu8">예비군</a></li>
