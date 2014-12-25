@@ -57,7 +57,16 @@
 								<td width="120px">
 									<a href="RestContent.kh?num=${list.num}">${list.name}</a>
 								</td>
-								<td width="230px">${list.reg_date}</td>
+								<td width="230px">
+									<fmt:formatDate value="<%=new java.util.Date()%>" var="toDate" pattern="yy-MM-dd" />
+									<fmt:formatDate value="${list.reg_date}" type="date" pattern="yy-MM-dd" var="writeDate"/>
+									<c:if test="${writeDate == toDate}">
+										<fmt:formatDate value="${list.reg_date}" type="both" pattern="HH시 mm분"/>
+									</c:if>
+									<c:if test="${writeDate != toDate}">
+										<fmt:formatDate value="${list.reg_date}" type="date" pattern="yy년 MM월 dd일"/>
+									</c:if>
+								</td>
 								<td width="120px">${list.result}</td>
 							</tr>
 						</table>

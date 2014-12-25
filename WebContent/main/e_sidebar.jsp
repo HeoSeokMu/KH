@@ -14,7 +14,7 @@
 <script src="js/leftMenu_jquery.js"></script>
 </head>
 
-<body onload="focusIt();">
+<body>
 	<div id="box">
 		<div id="header">
 			<div id="header_1">
@@ -117,22 +117,10 @@
 									</dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="e_menu7">장학 처리</a></li>
+							<li class="btn"><a href="libraryMain.kh" class="e_menu7">도서관</a></li>
 							<li class="ly">
 								<dl>
-									<dt>장학 처리</dt>
-									<dd>
-										<a href="#">장학금 신청내역 확인</a>
-									</dd>
-									<dd>
-										<a href="#">장학금 처리내역 확인</a>
-									</dd>
-								</dl>
-							</li>
-							<li class="btn"><a href="libraryMain.kh" class="e_menu8">도서관</a></li>
-							<li class="ly">
-								<dl>
-									<dt><a href="libraryMain.kh">도서관</a></dt>
+									<dt><a>도서관</a></dt>
 									<dd><a href="bookList.kh">도서검색</a></dd>
 									<dd><a href="bookRequest.kh">책 대여 신청</a></dd>
 									<dd>
@@ -142,21 +130,6 @@
 										<a href="#">책 대여 리스트</a>
 									</dd>
 									<ad><c:if test="${memId == 'liadmin' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
-								</dl>
-							</li>
-							<li class="btn"><a class="e_menu9">예비군</a></li>
-							<li class="ly">
-								<dl>
-									<dt>예비군</dt>
-									<dd>
-										<a href="#">예비군 신청내역 확인</a>
-									</dd>
-									<dd>
-										<a href="#">훈련일자 처리</a>
-									</dd>
-									<dd>
-										<a href="#">훈련결과 처리</a>
-									</dd>
 								</dl>
 							</li>
                      	</ul>
