@@ -60,14 +60,13 @@
 			<td width="60"><font size="2"><b>전 공</b></font><input type="radio" id="A" name="A" value="m_code,y_grade" onclick="thisA()" checked /></td>
 			<td width="60"><font size="2"><b>교 양</b></font><input type="radio" id="B" name="A" value="t_code,z_grade" onclick="thisB()"/></td>
 			<td align="center" >
-				<select name="">
-					<option value="">검색 조건</option>
-					<option value=""></option>
-					<option value=""></option>
-					<option value=""></option>	
+				<select name="search_sugang">
+					<option >검색 조건</option>
+					<option value="l_name">과목 명</option>
+					<option value="professor">교수 명</option>
 				</select>
 				<input type="search" name="search" />
-				<input type="button" value="검 색"/>
+				<input type="button" value="검 색" onclick="selectSearch( search_sugang.value, search.value, stu_num.value, semester.value )"/>
 			</td>
 		</tr>
 	</table>
@@ -96,7 +95,7 @@
 				<font size="2"><b>학년 선택</b></font>
 			</td>
 			<td width="100">
-				<input type="button" value="확 인" onclick="selectRadio('major', m_code.value, y_grade.value, stu_num.value, stu_grade.value )" />
+				<input type="button" value="확 인" onclick="selectRadio('major', m_code.value, y_grade.value, stu_num.value, semester.value )" />
 			</td>
 		</tr>
 	</table>
@@ -123,7 +122,7 @@
 				<font size="2"><b>학년 선택</b></font>
 			</td>
 			<td width="100">
-				<input type="button" value="확 인" onclick="selectRadio('liberal', t_code.value, z_grade.value, stu_num.value, stu_grade.value)"/>
+				<input type="button" value="확 인" onclick="selectRadio('liberal', t_code.value, z_grade.value, stu_num.value, semester.value)"/>
 			</td>
 		</tr>
 	</table>

@@ -15,11 +15,11 @@ import dto.stuDTO;
 import dto.sugangDTO;
 
 @Controller
-public class SugangMajor {
+public class sugangSearch {
 	
-	@RequestMapping(value="/selectMajor.kh")
+	@RequestMapping(value="/sugangSearch.kh")
 	public ModelAndView form(HttpServletRequest req) throws SQLException{
-		
+
 		stuDTO stu = new stuDTO();
 		
 		List<sugangDTO> sugangList = new ArrayList<sugangDTO>();
@@ -31,11 +31,14 @@ public class SugangMajor {
 		String semester = req.getParameter("semester");
 		
 		codelist = dao.getCode(semester, stu_num); // 코드 가져오기
-
-		String code = req.getParameter("m_code");
-		int grade = Integer.parseInt(req.getParameter("y_grade"));
-	
-		sugangList = dao.getList(code, grade);
+		if(codelist != null){
+			stu = dao.getstu(semester, stu_num);
+		}
+		
+		String search_sugang = req.getParameter("search_sugang");
+		String search = req.getParameter("search");
+		
+		sugangList = dao.getList(search_sugang, search);
 
 		for(sugangDTO dto: sugangList){
 			
