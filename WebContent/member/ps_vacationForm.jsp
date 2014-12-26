@@ -52,7 +52,6 @@
 		</c:if>
 		 
 		<div id="box3">
-		
 		<form action="#" method="post" name="user_input">
 			<table border=1 align="center" width="600">
 				<tr bgcolor="77CC55" height=50>
@@ -69,6 +68,7 @@
 					</td>
 					<input type="hidden" value="${mDTO.name}" name="name">
 					<input type="hidden" value="${mDTO.type}" name="type">
+					<input type="hidden" value="${mDTO.id}" name="id">
 				</tr>
 				
 				<tr bgcolor="BBEE99" height=40>

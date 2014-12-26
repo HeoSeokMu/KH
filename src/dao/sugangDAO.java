@@ -57,7 +57,8 @@ public class sugangDAO {
 				dto.setL_type(rs.getString("l_type"));
 				dto.setL_code(rs.getString("l_code"));	
 				dto.setL_name(rs.getString("l_name"));	
-				dto.setProfessor(rs.getString("professor"));	
+				dto.setProfessor(rs.getString("professor"));
+				dto.setP_code(rs.getInt("p_code"));
 				dto.setL_room(rs.getString("l_room"));	
 				dto.setY_grade(rs.getInt("y_grade"));	
 				dto.setF_grade(rs.getInt("f_grade"));	
@@ -163,7 +164,8 @@ public class sugangDAO {
 					dto.setL_type(rs.getString("l_type"));
 					dto.setL_code(rs.getString("l_code"));	
 					dto.setL_name(rs.getString("l_name"));	
-					dto.setProfessor(rs.getString("professor"));	
+					dto.setProfessor(rs.getString("professor"));
+					dto.setP_code(rs.getInt("p_code"));
 					dto.setL_room(rs.getString("l_room"));	
 					dto.setY_grade(rs.getInt("y_grade"));	
 					dto.setF_grade(rs.getInt("f_grade"));	
@@ -345,8 +347,7 @@ public class sugangDAO {
 			pstmt.setString(2,list.get(i).getL_code());
 			pstmt.setString(3,list.get(i).getL_name());
 			pstmt.setString(4,list.get(i).getProfessor());
-//			pstmt.setInt(5,list.get(i).getP_code());
-			pstmt.setInt(5,code);
+			pstmt.setInt(5,list.get(i).getP_code());
 			pstmt.setInt(6,member.getGrade());
 			pstmt.setString(7,member.getName());
 			pstmt.setString(8,member.getId());
@@ -364,6 +365,71 @@ public class sugangDAO {
 			}catch (Exception s){s.printStackTrace();}
 			
 		}	
+	}
+	
+	public List<sugangDTO> getList(String column, String search) throws SQLException{
+		List<sugangDTO> list = new ArrayList<sugangDTO>();
+		sugangDTO dto = null;
+		int countList = 0;
+	
+		search = "%"+search+"%";
+
+		try{
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from lecture_001 where "+column+" like ?");
+			pstmt.setString(1, search);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				dto = new sugangDTO();
+				dto.setM_code(rs.getString("m_code"));	
+				dto.setL_type(rs.getString("l_type"));
+				dto.setL_code(rs.getString("l_code"));	
+				dto.setL_name(rs.getString("l_name"));	
+				dto.setProfessor(rs.getString("professor"));	
+				dto.setP_code(rs.getInt("p_code"));
+				dto.setL_room(rs.getString("l_room"));	
+				dto.setY_grade(rs.getInt("y_grade"));	
+				dto.setF_grade(rs.getInt("f_grade"));	
+				dto.setSemester(rs.getInt("semester"));
+				dto.setL_start(rs.getInt("l_start")); 	
+				dto.setL_end(rs.getInt("l_end"));	
+				dto.setL_day(rs.getString("l_day"));	
+				dto.setIn_stu(rs.getInt("in_stu"));	
+				dto.setLimit_stu(rs.getInt("limit_stu"));	
+				dto.setS_date(rs.getString("s_date"));	
+				dto.setL_date(rs.getString("l_date"));
+				dto.setNum(rs.getInt("num"));
+				countList += 1;
+				dto.setCount(countList);
+				list.add(dto);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				rs.close();
+				pstmt.close();
+				conn.close();
+			}catch(Exception s){}
+		}	
+		return list;
+	}
+	public void delete(String number){
+		
+		try{
+			conn = getConnection();
+			pstmt = conn.prepareStatement("delete from hakjum_2014_1 where s_code=?");
+			pstmt.setString(1,number);
+			pstmt.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				conn.close();
+				pstmt.close();
+			}catch(Exception s){s.printStackTrace();}
+		}
 	}
 }
 

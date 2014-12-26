@@ -78,6 +78,7 @@
 					</td>
 					<input type="hidden" value="${article.name}" name="name">
 					<input type="hidden" value="${article.type}" name="type">
+					<input type="hidden" value="${article.id}" name="id">
 				</tr>
 				
 				<tr bgcolor="BBEE99" height=40>
