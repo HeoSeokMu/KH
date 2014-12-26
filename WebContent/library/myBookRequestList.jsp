@@ -1,18 +1,37 @@
-<%@ page contentType = "text/html; charset=utf-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<html>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>나의도서신청목록</title>
+<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
+	<link rel="stylesheet" href="css/left_menu.css"></link>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/leftMenu_jquery.js"></script>
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <center>
-<body>
+나의도서신청목록<br/><br/>
 
+<body onload="">
+		<c:if test="${type == '교직원'}">
+			<jsp:include page="/main/e_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '교수'}">
+			<jsp:include page="/main/p_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '학생'}">
+			<jsp:include page="/main/s_sidebar.jsp" />
+		</c:if>
+		<div id="box3">
 <tr>
 	<td>
-	<input type="button" name="ok" value="확인">
+	<input type="button" name="ok" value="돌아가기" onClick="javascript:location.href='libraryMain.kh'"/>
 	</td>
 </tr>
 <c:if test="${totalCount > 0}">
@@ -29,7 +48,7 @@
     </tr>
 
    <c:forEach var="article" items="${list}">
-   <tr height="60">
+      <tr height="60">
    <td align="center" width="100" >
 		<c:out value="${article.book_id}"/>
 	</td>
@@ -50,7 +69,9 @@
     	<c:out value="${article.isbn}"/>
     </td>
     <td align="center"  width="100">
-    	<c:if test="${article.bookcheck=='0'}">구입신청중</c:if>
+    	<c:if test="${article.bookcheck=='0'}">구입신청중
+    	<input type="button" name="cencle" value="취소하기" onClick="javascript:location.href='myBookRequestDelete.kh?book_id=${article.book_id}'">
+    	</c:if>
     	<c:if test="${article.bookcheck=='1'}">도서구입중</c:if>
     	<c:if test="${article.bookcheck=='2'}">취소상태</c:if>
     </td>
@@ -59,11 +80,21 @@
   </c:forEach>
 </table>
 </c:if>
+<c:if test="${totalCount == 0}">
+<table width="700" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center">
+    	신청내역이 없습니다.
+    </td>
+  </tr>
+</table>
+</c:if>
 <c:if test="${totalCount > 0}">
 	${pagingHtml}
 </c:if>
 
+	</div>
+		<div id="box4"> <center><br/><br/></center> </div>
+	</div>
 </body>
-
-</center>
 </html>
