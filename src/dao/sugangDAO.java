@@ -57,7 +57,8 @@ public class sugangDAO {
 				dto.setL_type(rs.getString("l_type"));
 				dto.setL_code(rs.getString("l_code"));	
 				dto.setL_name(rs.getString("l_name"));	
-				dto.setProfessor(rs.getString("professor"));	
+				dto.setProfessor(rs.getString("professor"));
+				dto.setP_code(rs.getInt("p_code"));
 				dto.setL_room(rs.getString("l_room"));	
 				dto.setY_grade(rs.getInt("y_grade"));	
 				dto.setF_grade(rs.getInt("f_grade"));	
@@ -163,7 +164,8 @@ public class sugangDAO {
 					dto.setL_type(rs.getString("l_type"));
 					dto.setL_code(rs.getString("l_code"));	
 					dto.setL_name(rs.getString("l_name"));	
-					dto.setProfessor(rs.getString("professor"));	
+					dto.setProfessor(rs.getString("professor"));
+					dto.setP_code(rs.getInt("p_code"));
 					dto.setL_room(rs.getString("l_room"));	
 					dto.setY_grade(rs.getInt("y_grade"));	
 					dto.setF_grade(rs.getInt("f_grade"));	
@@ -345,8 +347,7 @@ public class sugangDAO {
 			pstmt.setString(2,list.get(i).getL_code());
 			pstmt.setString(3,list.get(i).getL_name());
 			pstmt.setString(4,list.get(i).getProfessor());
-//			pstmt.setInt(5,list.get(i).getP_code());
-			pstmt.setInt(5,code);
+			pstmt.setInt(5,list.get(i).getP_code());
 			pstmt.setInt(6,member.getGrade());
 			pstmt.setString(7,member.getName());
 			pstmt.setString(8,member.getId());
@@ -386,6 +387,7 @@ public class sugangDAO {
 				dto.setL_code(rs.getString("l_code"));	
 				dto.setL_name(rs.getString("l_name"));	
 				dto.setProfessor(rs.getString("professor"));	
+				dto.setP_code(rs.getInt("p_code"));
 				dto.setL_room(rs.getString("l_room"));	
 				dto.setY_grade(rs.getInt("y_grade"));	
 				dto.setF_grade(rs.getInt("f_grade"));	
