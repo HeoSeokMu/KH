@@ -17,7 +17,7 @@
 </head>
 <center>
 <body>
-<jsp:include page="/main/e_sidebar.jsp" />
+
 		<div id="box3">
 도서검색 <form action="bookList.kh" method="get">
 	<select name="searchType" >
@@ -29,6 +29,7 @@
 	<input type="submit" value="검색" />
 </form>
 <input type="button" name="bookInsert" value="책 등록" onClick="javascript:location.href='bookInsertForm.kh'">
+
 <input type="button" name="bookRequest" value="구입신청내역" onClick="javascript:location.href='bookRequestList.kh'">
 <input tyep="button" name="retrun" value="메인페이지" onClick="javascript:location.href='libraryMain.kh'">
 <table width="700" border="0" cellpadding="0" cellspacing="0">

@@ -129,7 +129,11 @@
 									<dd>
 										<a href="bookRequestList.kh">책 대여 리스트</a>
 									</dd>
+<<<<<<< HEAD
 									<ad><c:if test="${type == '교직원' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
+=======
+									<ad><c:if test="${memId == 'liadmin' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
+>>>>>>> branch 'master' of https://github.com/HeoSeokMu/KH
 								</dl>
 							</li>
                      	</ul>

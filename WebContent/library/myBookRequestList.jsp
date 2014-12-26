@@ -16,6 +16,7 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <center>
+
 	나의도서신청목록<br/><br/>
 		<div id="box3">
 <body onload="">

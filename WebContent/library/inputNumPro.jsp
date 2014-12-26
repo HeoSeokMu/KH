@@ -37,6 +37,10 @@
 		}
 	</style>
 </head>
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/HeoSeokMu/KH
 <c:if test="${type == '±³Á÷¿ø'}">
       <jsp:include page="/main/e_sidebar.jsp" />
    </c:if>

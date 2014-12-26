@@ -15,7 +15,6 @@
 	<script src="js/leftMenu_jquery.js"></script>
 </head>
 <body>
-	<jsp:include page="/main/e_sidebar.jsp" />
 		<div id="box3">
 <center><b>도서 수정</b>
 <br/>
