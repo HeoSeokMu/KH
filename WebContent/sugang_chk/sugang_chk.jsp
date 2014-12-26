@@ -2,10 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
 <title>공지사항</title>
 	<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
 	<link rel="stylesheet" href="css/left_menu.css"></link>
@@ -204,11 +200,11 @@
 			<c:forEach var="i" begin="1" end="12"  step="1">
 				<tr>
 					<td bgcolor="#b1b1b1" align="center" height="50"><font size="2"><b>${i}교시</b></font></td>
-					<td id="${100+i}"><input type="text" readonly="readonly" style="width:150; height:50; text-align:center;" name="sch_${100+i}" /></td>
-					<td id="${200+i}"><input type="text" readonly="readonly" style="width:150; height:50; text-align:center;" name="sch_${200+i}" /></td>
-					<td id="${300+i}"><input type="text" readonly="readonly" style="width:150; height:50; text-align:center;" name="sch_${300+i}" /></td>
-					<td id="${400+i}"><input type="text" readonly="readonly" style="width:150; height:50; text-align:center;" name="sch_${400+i}" /></td>
-					<td id="${500+i}"><input type="text" readonly="readonly" style="width:150; height:50; text-align:center;" name="sch_${500+i}" /></td>
+					<td id="${100+i}"><input type="text" readonly="readonly" style="width:150; height:100%; text-align:center;" name="sch_${100+i}" /></td>
+					<td id="${200+i}"><input type="text" readonly="readonly" style="width:150; height:100%; text-align:center;" name="sch_${200+i}" /></td>
+					<td id="${300+i}"><input type="text" readonly="readonly" style="width:150; height:100%; text-align:center;" name="sch_${300+i}" /></td>
+					<td id="${400+i}"><input type="text" readonly="readonly" style="width:150; height:100%; text-align:center;" name="sch_${400+i}" /></td>
+					<td id="${500+i}"><input type="text" readonly="readonly" style="width:150; height:100%; text-align:center;" name="sch_${500+i}" /></td>
 				</tr>
 			</c:forEach>
 				
