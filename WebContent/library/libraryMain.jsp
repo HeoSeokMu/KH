@@ -24,7 +24,6 @@
 			<jsp:include page="/main/s_sidebar.jsp" />
 		</c:if>
 
-<body>
 		<div id="box3">
 			<center>
 <h1>KH대학교 학술 정보원</h1>
