@@ -241,6 +241,7 @@ public class RestReturn_board {
 		String id = req.getParameter("id");
 		String result = req.getParameter("result");
 		int num = Integer.parseInt(req.getParameter("num"));
+		int rest_count = Integer.parseInt(req.getParameter("rest_count"));
 		String board_type = req.getParameter("board_type");
 		
 		System.out.println("id : " + id);
@@ -267,9 +268,13 @@ public class RestReturn_board {
 		}
 		mDAO.modify_RestReturnBoard(result, num, board_type);
 		mDAO.modify_MerberRest(status, id);
+		mDAO.RestCount_Update(id);
+		rest_count = mDAO.RestCount(id);
 		
 		session.removeAttribute("status");
 		session.setAttribute("status", status);
+		session.removeAttribute("rest_count");
+		session.setAttribute("rest_count", rest_count);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/RestReturn_Board.kh?board_type="+board_type+"&rrrd_check=Ã³¸®");

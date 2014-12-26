@@ -55,6 +55,7 @@ public class Login{
 			session.setAttribute("memId", id); 	//技记 积己
 			session.setAttribute("type", type);
 			session.setAttribute("status", mDTO.getStatus());
+			session.setAttribute("rest_count", mDTO.getRest_count());
 			view = "redirect:/notice_board.kh";
 			mv.addObject("check", check);
 		}
@@ -76,6 +77,7 @@ public class Login{
 		
 		session.removeAttribute("memId");
 		session.removeAttribute("type");
+		session.removeAttribute("rest_count");
 		session.removeAttribute("status");
 
 		return "/main/Login_form.jsp";
