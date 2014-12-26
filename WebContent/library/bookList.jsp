@@ -47,19 +47,17 @@
 		}
 	}
 </script>
-
 <body>
-
-<c:if test="${type == '교직원'}">
-			<jsp:include page="/main/e_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '교수'}">
-			<jsp:include page="/main/p_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '학생'}">
-			<jsp:include page="/main/s_sidebar.jsp" />
-		</c:if>
-<div id="box3">
+	<c:if test="${type == '교직원'}">
+      <jsp:include page="/main/e_sidebar.jsp" />
+   </c:if>
+   <c:if test="${type == '교수'}">
+      <jsp:include page="/main/p_sidebar.jsp" />
+   </c:if>
+   <c:if test="${type != '교수' && type != '교직원'}">
+      <jsp:include page="/main/s_sidebar.jsp" />
+   </c:if>
+   <div id="box3">
 <center>
 <br/>
 도서검색 <form action="bookList.kh" method="get">
@@ -113,16 +111,17 @@
       <td align="center"  width="100" >제목</td>
       <td align="center"  width="100" >저자</td>
       <td align="center"  width="100" >출판사</td>
-      <td align="center"  width="100" >출판년도</td>
-      <td align="center"  width="100" >부록</td>
-      <td align="center"  width="100" >위치</td>
-      <td align="center"  width="100" >등록번호</td>
-      <td align="center"  width="100" >대출여부</td>
-      <c:if test="${memId=='book_admin'}">
-      	<td align="center"  width="100" >대출</td>
+      <td align="center"  width="80" >출판년도</td>
+      <td align="center"  width="80" >부록</td>
+      <td align="center"  width="80" >위치</td>
+      <td align="center"  width="80" >등록번호</td>
+      <td align="center"  width="100" >반납예정일</td>
+      <td align="center"  width="80" >대출여부</td>
+      <c:if test="${type == '교직원'}">
+      	<td align="center"  width="80" >대출</td>
       </c:if>
-      <c:if test="${memId!='book_admin'}">
-      	<td align="center" width="100" >알림서비스</td>
+      <c:if test="${type != '교직원'}">
+      	<td align="center" width="80" >알림서비스</td>
       </c:if>
     </tr>
 
@@ -140,35 +139,44 @@
     <td align="center"  width="100">
     	<c:out value="${article.book_publisher}"/>
 	</td>
-    <td align="center"  width="100">
+    <td align="center"  width="80">
     	<c:out value="${article.book_year}"/>
     </td>
-    <td align="center"  width="100">
+    <td align="center"  width="80">
     	<c:out value="${article.book_supplement}"/>
     </td>
-    <td align="center"  width="100">
+    <td align="center"  width="80">
     	<c:out value="${article.book_location}"/>
     </td>
-    <td align="center"  width="100">
+    <td align="center"  width="80">
     	<c:out value="${article.book_id}"/>
     </td>
     <td align="center"  width="100">
+    	<c:if test="${article.turnin == null}">
+    		<c:out value=""/>
+    	</c:if>
+    	<c:if test="${article.turnin != null}">
+    		<c:out value="${article.turnin}"/>
+    	</c:if>
+    	
+    </td>
+    <td align="center"  width="80">
     	<c:out value="${article.loan}"/>
     </td>
-    <td align="center" width="100" >
+    <td align="center" width="80" >
+    <c:if test="${type == '교직원'}">
     	<c:if test="${article.loan=='대출가능'}">
-    		<c:if test="${memId=='2014001002'}">
-      			<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">대출</a>
-      		</c:if>
-      		<c:out value=""/>
+    		<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">대출</a>
     	</c:if>
     	<c:if test="${article.loan=='대출중'}">
-    		<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">대출</a>
-    		<a href="/KH_School/notice.kh?b_num=${article.book_id}&s_num=${memId}" onclick="return checkIt()">반납알림받기</a>
-    		<c:if test="${memId=='2014001002'}">
-      			<a href="/KH_School/turnin.kh?book_id=${article.book_id}">반납</a>
-      		</c:if>
+    		<a href="/KH_School/turnin.kh?book_id=${article.book_id}">반납</a>
     	</c:if>
+    </c:if>
+    <c:if test="${type != '교직원'}">
+    	<c:if test="${article.loan=='대출중'}">
+    		<a href="/KH_School/notice.kh?b_num=${article.book_id}&s_num=${memId}" onclick="return checkIt()">반납알림받기</a>
+    	</c:if>
+    </c:if>
     </td>
   </tr>
   </c:forEach>

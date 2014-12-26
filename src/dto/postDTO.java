@@ -1,9 +1,9 @@
 package dto;
 
 public class postDTO {
-	private String addr;
-	private String zipcode;
-	private String type;
+	private String addr;//주소
+	private String zipcode;//우편번호
+	private String type;//지번 타입
 	
 	public String getAddr() {
 		return addr;

@@ -5,8 +5,9 @@ import java.sql.Timestamp;
 public class reserveDTO {
 	private String s_num;
 	private String b_num;
+	private String book_img;
 	private String email;
-	private Timestamp date;
+	private Timestamp rent;
 	
 	public String getS_num() {
 		return s_num;
@@ -26,11 +27,17 @@ public class reserveDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Timestamp getDate() {
-		return date;
+	public Timestamp getRent() {
+		return rent;
 	}
-	public void setDate(Timestamp date) {
-		this.date = date;
+	public void setRent(Timestamp rent) {
+		this.rent = rent;
+	}
+	public String getBook_img() {
+		return book_img;
+	}
+	public void setBook_img(String book_img) {
+		this.book_img = book_img;
 	}
 	
 }
