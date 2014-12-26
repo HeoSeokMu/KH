@@ -76,7 +76,7 @@
 							<li class="ly">
 								<dl>
 									<dt>휴가신청</dt>
-									<dd><a href="vacationForm.kh">휴가신청</a></dd>
+									<dd><a href="vacationForm.kh" onclick="return vacationCount_chk('${rest_count}');">휴가신청</a></dd>
 									<dd><a href="vacationResult.kh">휴가신청 확인</a></dd>
 								</dl>
 							</li>

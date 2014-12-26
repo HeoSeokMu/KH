@@ -190,12 +190,14 @@ public class memCon{
 		private String pagingHtml; 		// 페이징을 구현한 HTML
 		
 		@RequestMapping(value="/memberList.kh")
-		public ModelAndView memberList(HttpServletRequest req) throws Exception{
+		public ModelAndView memberList(HttpServletRequest req, HttpSession session) throws Exception{
 			
 			MemberDAO mDAO = MemberDAO.getInstance();
+			String id = (String)session.getAttribute("memId");
+			int origin_rest = mDAO.RestCount(id);
 			list;
 			
-			String view = "/member/ps_vacationConfirm.jsp";
+			String view = "/member/e_memberList.jsp";
 			
 			if(list == null){
 				ModelAndView mv = new ModelAndView();
