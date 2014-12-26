@@ -34,6 +34,9 @@
 <jsp:include page="/main/s_sidebar.jsp" />
 		<div id="box3">
 			<center>
+<jsp:include page="/main/s_sidebar.jsp" />
+		<div id="box3">
+			<center>
 <h1>KH대학교 학술 정보원</h1>
 <form action="libraryNotice.kh">
 	<table border="1" width="300">

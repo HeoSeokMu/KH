@@ -35,6 +35,8 @@
 		<div id="box3">
 	<jsp:include page="/main/s_sidebar.jsp" />
 		<div id="box3">
+	<jsp:include page="/main/s_sidebar.jsp" />
+		<div id="box3">
 <tr><td>
 <input type="button" name="libraryBack" value="돌아가기" onClick="javascript:location.href='libraryMain.kh'">
 <c:if test="${type == '교직원' }">
