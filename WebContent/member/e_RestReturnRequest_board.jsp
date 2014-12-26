@@ -60,23 +60,13 @@
 								<td width="230px">
 									<%-- <fmt:formatDate value="<%=new java.util.Date()%>" var="toDate" pattern="yy-MM-dd HH:mm:ss" />
 									<fmt:formatDate value="${list.reg_date}" type="date" pattern="yy-MM-dd HH:mm:ss" var="writeDate"/> --%>
-<<<<<<< HEAD
-									<fmt:formatDate value="<%=new java.util.Date()%>" var="toDate" pattern="HH" />
-									<fmt:formatDate value="${list.reg_date}" type="date" pattern="HH" var="writeDay"/>
-									<c:out value="${toDate}"/>
-									<c:out value="${writeDay}"/>
-									<c:if test="${writeDay != 24}">
-										<fmt:formatDate value="${list.reg_date}" type="date" pattern="HH시 mm분"/>
-									</c:if>
-									<c:if test="'${writeDay   24}'">
-=======
+
 									<fmt:formatDate value="<%=new java.util.Date()%>" var="toDate" pattern="dd" />
 									<fmt:formatDate value="${list.reg_date}" type="date" pattern="dd" var="writeDay"/>
 									<c:if test="${writeDay == toDate}">
 										<fmt:formatDate value="${list.reg_date}" type="date" pattern="HH시 mm분"/>
 									</c:if>
 									<c:if test="${writeDay != toDate}">
->>>>>>> branch 'master' of https://github.com/HeoSeokMu/KH
 										<fmt:formatDate value="${list.reg_date}" type="date" pattern="yy년 MM월 dd일"/>
 									</c:if>
 								</td>
