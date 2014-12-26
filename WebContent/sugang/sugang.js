@@ -1,12 +1,12 @@
 	function body(){
 		
-		var hide = document.getElementById("typeB"); // 교양 탭 숨김(default)
+		var hide = document.getElementById("typeB"); // ���� �� ����(default)
 		hide.style.display = 'none';
 		
 	/* 	var c = document.getElementById("101");
 		c.style.backgroundColor="blue"; */
 		
-		var hakjum_sum = document.getElementsByName("get_hakjum_sum")[0].value; // 총 학점
+		var hakjum_sum = document.getElementsByName("get_hakjum_sum")[0].value; // �� ����
 		if(hakjum_sum > 0){
 			document.getElementsByName("hakjum_sum")[0].value = hakjum_sum;
 		}
@@ -25,25 +25,25 @@
 			
 			var num = document.getElementsByName("num")[i].value;
 			
-			document.getElementsByName(i)[0].value = name; /*과목 이름*/
+			document.getElementsByName(i)[0].value = name; /*���� �̸�*/
 			document.getElementsByName("code"+i)[0].value = code;
 			document.getElementsByName("table"+i)[0].value = table;
 			
 			document.getElementsByName("set_sch"+i)[0].value = num;
 			
 			if(type == "e"){
-				type="전 필";
+				type="�� ��";
 			}else{
-				type="전 선";
+				type="�� ��";
 			}
 			
-			document.getElementsByName("subject"+i)[0].value = type; /*전선, 전필*/
+			document.getElementsByName("subject"+i)[0].value = type; /*����, ����*/
 			document.getElementsByName("hakjum"+i)[0].value = hakjum;
 			document.getElementsByName("professor"+i)[0].value = professor;	
 			
 			var j = (Math.round(Math.random()*6));
 			
-			for(var k=0; k<time; k++){   			// 시간표에 색 표시
+			for(var k=0; k<time; k++){   			// �ð�ǥ�� �� ǥ��
 				var i_sch = Number(day)+Number(sch)+Number(k);
 				var c = document.getElementById(i_sch);
 				var color = ["#FF5E00","FFBB00","FFE400","#ABF200","#1DDB16","#0054FF","#0100FF"];
@@ -56,10 +56,10 @@
 	
 	function hakjum_check(num, sch){
 		
-		var sugang = document.getElementsByName("sugang"); //  배열로 담아 .length 1부터 시작하기때무에 -1
+		var sugang = document.getElementsByName("sugang"); //  �迭�� ��� .length 1���� �����ϱ⶧���� -1
 		var size = sugang.length -1;
 
-		var hakjum_sum = 0;   				// 학점 덧셈
+		var hakjum_sum = 0;   				// ���� ����
 		for(var i=0; i<=size; i++){
 			var hakjumName = "hakjum"+i;
 			var hakjum = Number(document.getElementsByName(hakjumName)[0].value);
@@ -70,11 +70,11 @@
 			 hakjum_sum = "";
 		}
 	
-		lowlimit_hakjum = Number(document.getElementsByName("lowlimit_hakjum")[0].value); // 최저 요구 학점
-		highlimit_hakjum = Number(document.getElementsByName("highlimit_hakjum")[0].value); // 최고 요구 학점
-		if(hakjum_sum > highlimit_hakjum){ // 요구 학점 확인 및 덧셈
-			alert("최대 필요 학점이 초과했습니다.");
-			no(num);	 			// 학점이 초과 했을때 신청 목록에서 자동 삭제	
+		lowlimit_hakjum = Number(document.getElementsByName("lowlimit_hakjum")[0].value); // ���� �䱸 ����
+		highlimit_hakjum = Number(document.getElementsByName("highlimit_hakjum")[0].value); // �ְ� �䱸 ����
+		if(hakjum_sum > highlimit_hakjum){ // �䱸 ���� Ȯ�� �� ����
+			alert("�ִ� �ʿ� ������ �ʰ��߽��ϴ�.");
+			no(num);	 			// ������ �ʰ� ������ ��û ��Ͽ��� �ڵ� ����	
 		}else if(hakjum_sum < lowlimit_hakjum){
 			document.getElementsByName("hakjum_sum")[0].value = hakjum_sum;
 			
@@ -92,7 +92,7 @@
 		return;
 	}
 	
-	function ok(num){     // 같은 시간대에 수강신청이 되어있는지 확인
+	function ok(num){     // ���� �ð��뿡 ������û�� �Ǿ��ִ��� Ȯ��
 		var name = "sch_time"+num;
 		var subject = "sugangsubject"+num;
 		var value = document.getElementsByName(name);
@@ -109,46 +109,46 @@
 		if(check == 0){
 			add(num);
 		}else{
-			alert("수강 시간표를 확인하세요 !!");
+			alert("���� �ð�ǥ�� Ȯ���ϼ��� !!");
 		}
 	}
 	
 	function add(num){
-		var text = document.getElementsByName("suganglist")[num-1].value; // 과목
-		var subject = document.getElementsByName("subjectlist")[num-1].value; // 구분
-		var professor = document.getElementsByName("professorlist")[num-1].value; // 담당 교수
-		var hakjum = document.getElementsByName("hakjumlist")[num-1].value; // 학점
-		var code =  document.getElementsByName("l_code")[num-1].value; //과목코드
-		var table =  document.getElementsByName("tablename")[num-1].value; //테이블 이름
+		var text = document.getElementsByName("suganglist")[num-1].value; // ����
+		var subject = document.getElementsByName("subjectlist")[num-1].value; // ����
+		var professor = document.getElementsByName("professorlist")[num-1].value; // ��� ����
+		var hakjum = document.getElementsByName("hakjumlist")[num-1].value; // ����
+		var code =  document.getElementsByName("l_code")[num-1].value; //�����ڵ�
+		var table =  document.getElementsByName("tablename")[num-1].value; //���̺� �̸�
 		
-		var sugang = document.getElementsByName("sugang"); //  배열로 담아 .length 1부터 시작하기때무에 -1
+		var sugang = document.getElementsByName("sugang"); //  �迭�� ��� .length 1���� �����ϱ⶧���� -1
 		
 		for(var i=0; i<=sugang.length; i++){	
 			var value = document.getElementsByName(i)[0].value;
 			
 			if(value == ""){
-				document.getElementsByName(i)[0].value = text; // 과목 insert
+				document.getElementsByName(i)[0].value = text; // ���� insert
 				
 				var subjectName = "subject"+i;
-				document.getElementsByName(subjectName)[0].value = subject; // 구분 insert
+				document.getElementsByName(subjectName)[0].value = subject; // ���� insert
 				
 				var professorName = "professor"+i;
-				document.getElementsByName(professorName)[0].value = professor; // 담당 교수  insert
+				document.getElementsByName(professorName)[0].value = professor; // ��� ����  insert
 				
 				var hakjumName = "hakjum"+i;
-				document.getElementsByName(hakjumName)[0].value = hakjum; // 학점 insert
+				document.getElementsByName(hakjumName)[0].value = hakjum; // ���� insert
 				
 				var codeName = "code"+i;
-				document.getElementsByName(codeName)[0].value = code; // 과목 코드 insert
+				document.getElementsByName(codeName)[0].value = code; // ���� �ڵ� insert
 				
 				var tableName = "table"+i;
-				document.getElementsByName(tableName)[0].value = table; // 과목 코드 insert
+				document.getElementsByName(tableName)[0].value = table; // ���� �ڵ� insert
 				
 				var check = document.getElementById(num);
 				check.style.display = 'none';
 				
 				
-				var subject_sum = document.getElementsByName("subject_sum")[0].value; // 과목수  덧셈
+				var subject_sum = document.getElementsByName("subject_sum")[0].value; // �����  ����
 				if(subject_sum == ""){
 					document.getElementsByName("subject_sum")[0].value = 1;
 				}else{
@@ -156,7 +156,7 @@
 					sum = sum+1;
 					document.getElementsByName("subject_sum")[0].value = sum;	
 				}
-				hakjum_check(i, num);  	// 학점 초과시 입력된 리스트의 자리수 num 를 보내 취소 시킨다
+				hakjum_check(i, num);  	// ���� �ʰ��� �Էµ� ����Ʈ�� �ڸ��� num �� ���� ��� ��Ų��
 				var k = Number(i);	
 				document.getElementsByName("set_sch"+k)[0].value = num;
 				break;
@@ -169,7 +169,7 @@
 		var text = document.getElementsByName(name)[0].value;
 
 		if(text != ""){
-			var sum = Number(document.getElementsByName("subject_sum")[0].value); // 과목수 뺄셈
+			var sum = Number(document.getElementsByName("subject_sum")[0].value); // ����� ����
 			sum = sum-1;	
 			if(sum <= 0){
 				document.getElementsByName("subject_sum")[0].value = "";
@@ -178,7 +178,7 @@
 			}
 		}
 		
-		var suganglist = document.getElementsByName("suganglist"); //  배열로 담아 .length 1부터 시작하기때무에 -1
+		var suganglist = document.getElementsByName("suganglist"); //  �迭�� ��� .length 1���� �����ϱ⶧���� -1
 		var size = suganglist.length -1;
 
 		for(var i=0; i<=size; i++){
@@ -190,7 +190,7 @@
 				var show = document.getElementById(f);
 				show.style.display = 'block';
 						
-/*				var sum = Number(document.getElementsByName("subject_sum")[0].value); // 과목수 뺄셈
+/*				var sum = Number(document.getElementsByName("subject_sum")[0].value); // ����� ����
 				sum = sum-1;	
 				if(sum <= 0){
 					document.getElementsByName("subject_sum")[0].value = "";
@@ -200,11 +200,11 @@
 			}
 		}
 	
-		document.getElementsByName(name)[0].value = "";	// 과목 초기화
-		document.getElementsByName("subject"+name)[0].value = "";	// 구분 초기화
-		document.getElementsByName("professor"+name)[0].value = ""; // 담당교수 초기화
-		document.getElementsByName("hakjum"+name)[0].value = ""; // 학점 초기화
-		document.getElementsByName("code"+name)[0].value = ""; //과목 코드 초기화
+		document.getElementsByName(name)[0].value = "";	// ���� �ʱ�ȭ
+		document.getElementsByName("subject"+name)[0].value = "";	// ���� �ʱ�ȭ
+		document.getElementsByName("professor"+name)[0].value = ""; // ��米�� �ʱ�ȭ
+		document.getElementsByName("hakjum"+name)[0].value = ""; // ���� �ʱ�ȭ
+		document.getElementsByName("code"+name)[0].value = ""; //���� �ڵ� �ʱ�ȭ
 		
 		hakjum_check(name);
 		var k = Number(name);
@@ -219,7 +219,7 @@
 		var value = document.getElementsByName(name);
 		var j = (Math.round(Math.random()*6));
 		
-		for(var i=0; i<value.length; i++){   			// 시간표에 색 표시
+		for(var i=0; i<value.length; i++){   			// �ð�ǥ�� �� ǥ��
 			var sch = document.getElementsByName(name)[i].value;
 			var c = document.getElementById(sch);
 			var color = ["#FF5E00","FFBB00","FFE400","#ABF200","#1DDB16","#0054FF","#0100FF"];
@@ -239,7 +239,7 @@
 			value = document.getElementsByName(name);
 		}
 		
-		for(var i=0; i<value.length; i++){   			//시간표에 색  초기화
+		for(var i=0; i<value.length; i++){   			//�ð�ǥ�� ��  �ʱ�ȭ
 			var sch = document.getElementsByName(name)[i].value;
 			var c = document.getElementById(sch); 
 			c.style.backgroundColor="white"; 
@@ -264,8 +264,8 @@
 		A.style.display = 'none';
 	}
 	
-	setInterval("hideSubject()", 500); // 초 마다 자동 실행
-	setInterval("hideButton()", 500); // 초 마다 자동 실행
+	setInterval("hideSubject()", 500); // �� ���� �ڵ� ����
+	setInterval("hideButton()", 500); // �� ���� �ڵ� ����
 	
 	function selectRadio(select, m_code, y_grade, stu_num, stu_grade) {
 		
@@ -351,15 +351,15 @@
 	} 
 	
 	function chk_it(){
-		var lowlimit_hakjum = Number(document.getElementsByName("lowlimit_hakjum")[0].value); // 최저 요구 학점
-		var hakjum = Number(document.getElementsByName("hakjum_sum")[0].value); //신청한 학점
+		var lowlimit_hakjum = Number(document.getElementsByName("lowlimit_hakjum")[0].value); // ���� �䱸 ����
+		var hakjum = Number(document.getElementsByName("hakjum_sum")[0].value); //��û�� ����
 		
 		if(hakjum < lowlimit_hakjum){
-			alert("신청 학점이 모자랍니다.");
+			alert("��û ������ ���ڶ��ϴ�.");
 			return false;
 		}else{
 			return true;
 		}
 	}
 	
-	window.history.forward(); // 뒤로가기 방지
+	window.history.forward(); // �ڷΰ��� ����

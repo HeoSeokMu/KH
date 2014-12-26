@@ -62,21 +62,27 @@ public class SugangMain {
 	
 	//(value="/sugangPro.kh", method=RequestMethod.POST)
 	@RequestMapping(value="/sugangPro.kh")
-	public ModelAndView sugangPro(HttpServletRequest req, @ModelAttribute stuDTO stu) throws SQLException{
+	public ModelAndView sugangPro(HttpServletRequest req, @ModelAttribute stuDTO stu) throws Exception{
 		
 		String number = req.getParameter("stu_num");  //접속 학생 정보
 		String semester = "1";
 		
 		List<sugangDTO> list = new ArrayList<sugangDTO>();
+		memberDTO member = new memberDTO();
+		
 		sugangDAO dao = sugangDAO.getInstance();
+		MemberDAO memberdao = MemberDAO.getInstance();
+		
 		String value = "";
 		
 		for(int i=0; i<=9; i++){
 			String code = req.getParameter("code"+i);
 			String tableName = req.getParameter("table"+i);
 			
+			
 			if(code != "" && tableName != ""){
-				dao.setIn_stu(code, tableName);
+				dao.setIn_stu_mi(code, tableName);
+				dao.setIn_stu_pl(code, tableName);
 				value += code+"="+tableName+",";	
 			}
 		}
@@ -84,9 +90,9 @@ public class SugangMain {
 		stu.setAllcode(value);
 		
 		int result = dao.setStu(stu);
-		
+		member = memberdao.member_info(number);
 		list = dao.getSugangList(number, semester);
-		dao.setStu_hakjum(list);
+		dao.setStu_hakjum(list, member);
 		
 		ModelAndView mv = new ModelAndView();
 		
