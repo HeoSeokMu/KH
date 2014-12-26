@@ -52,7 +52,6 @@
 		</c:if>
 		 
 		<div id="box3">
-		
 		<form action="#" method="post" name="user_input">
 			<table border=1 align="center" width="600">
 				<tr bgcolor="77CC55" height=50>
