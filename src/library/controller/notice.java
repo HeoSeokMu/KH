@@ -24,14 +24,9 @@ public class notice {
 		public ModelAndView reserve(HttpServletRequest req, @ModelAttribute reserveDTO dto) throws Exception{
 			
 			Calendar date = Calendar.getInstance();
-			date.set(Calendar.MONTH, date.get(Calendar.MONTH));
-			date.set(Calendar.DATE, date.get(Calendar.DATE)+14);
-			date.set(Calendar.HOUR_OF_DAY, 18);
-			date.set(Calendar.MINUTE, 0);
-			date.set(Calendar.SECOND, 0);
 			java.util.Date uDate = date.getTime();		//calender -> util.date 형변환
 			java.sql.Timestamp tDate = new java.sql.Timestamp(uDate.getTime());	//util.date -> Timestamp 변환
-			dto.setDate(tDate);	//현재시간 입력
+			dto.setRent(tDate);	//현재시간 입력
 			
 			System.out.println(dto.getB_num());
 			System.out.println(dto.getS_num());
