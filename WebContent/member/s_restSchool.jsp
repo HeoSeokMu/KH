@@ -19,8 +19,8 @@
 	<jsp:include page="/main/s_sidebar.jsp" />
 		<div id="box3">
 			<center>
-			<form action="RestRequestInsert.kh" method="post">
-				<br/><br/>
+			<form action="RestReturnRequestInsert.kh" method="post">
+				<br/>
 				<h2>휴학신청서</h2>
 				<table width="700">
 					<tr>

@@ -14,28 +14,11 @@
 <script src="js/leftMenu_jquery.js"></script>
 </head>
 
-<body onload="focusIt();">
+<body>
 	<div id="box">
 		<div id="header">
 			<div id="header_1">
-				<ul class="menu">
-					<li><a href="ChartBoard.action?category=chart"><img src="main/bbu_main_img/chart.png" name="chart" border="0" class="rollover"/></a></li>
-					<li><a href="NewChartBoard.action?category=new"><img src="main/bbu_main_img/new.png"  name="new" border="0" class="rollover"/></a></li>
-	
-					<li><a href="GenreChartBoard.action?category=genre"><img src="main/bbu_main_img/genre.png" name="genre" border="0" class="rollover"/></a>
-						<ul class="sub">
-							<li><a href="GenreChartBoard.action?category=genre&type=dance"><img src="main/bbu_main_img/dance.png" name="dance" border="0" class="rollover"/></a></li>
-							<li><a href="GenreChartBoard.action?category=genre&type=balad"><img src="main/bbu_main_img/balad.png" name="balad" border="0" class="rollover"/></a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="#"><img src="main/bbu_main_img/payment.png" name="payment_buy" class="rollover" border="0"/></a>
-						<ul class="sub">
-							<li><a href="payBuyList.action?buy_id="><img src="main/bbu_main_img/bbu_payment.png" name="payment" border="0" class="rollover"/></a></li>
-							<li><a href="cashCharge.action?my_id=" onclick="return idCheck();"><img src="main/bbu_main_img/cash.png" name="cash" border="0" class="rollover"/></a></li>
-						</ul>
-					</li>
-				</ul>
+				
 			</div>
 			<div id="header_2">
 				<center>
@@ -57,7 +40,7 @@
 				<c:if test="${memId != null}">
 					<div id="tab_menu">
 						<ul>
-							<li class="btn"><a class="e_menu1">공지사항</a></li>
+							<li class="btn"><a class="e_menu1" href="notice_board.kh">공지사항</a></li>
 							<li class="ly" style="display: list-item;">
 								<dl>
 									<dt>공지사항</dt>
@@ -78,12 +61,14 @@
 							<li class="btn"><a class="e_menu3">개인정보 변경처리</a></li>
 							<li class="ly">
 								<dl>
-									<dt>개인정보 변경처리</dt>
+									<dt>개인정보 등록 및 변경처리</dt>
+									<dd><a href="joinForm.kh">교적부 등록</a></dd>
+                           			<dd><a href="#">교적부 명단</a></dd>
 									<dd>
-										<a href="#">신청내역 확인</a>
+										<a href="#">변경 신청내역 확인</a>
 									</dd>
 									<dd>
-										<a href="#">처리내역 확인</a>
+										<a href="#">변경 처리내역 확인</a>
 									</dd>
 								</dl>
 							</li>
@@ -132,22 +117,10 @@
 									</dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="e_menu7">장학 처리</a></li>
+							<li class="btn"><a href="libraryMain.kh" class="e_menu7">도서관</a></li>
 							<li class="ly">
 								<dl>
-									<dt>장학 처리</dt>
-									<dd>
-										<a href="#">장학금 신청내역 확인</a>
-									</dd>
-									<dd>
-										<a href="#">장학금 처리내역 확인</a>
-									</dd>
-								</dl>
-							</li>
-							<li class="btn"><a href="libraryMain.kh" class="e_menu8">도서관</a></li>
-							<li class="ly">
-								<dl>
-									<dt><a href="libraryMain.kh">도서관</a></dt>
+									<dt><a>도서관</a></dt>
 									<dd><a href="bookList.kh">도서검색</a></dd>
 									<dd><a href="bookRequest.kh">책 대여 신청</a></dd>
 									<dd>
@@ -159,30 +132,7 @@
 									<ad><c:if test="${memId == 'liadmin' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
 								</dl>
 							</li>
-							<li class="btn"><a class="e_menu9">예비군</a></li>
-							<li class="ly">
-								<dl>
-									<dt>예비군</dt>
-									<dd>
-										<a href="#">예비군 신청내역 확인</a>
-									</dd>
-									<dd>
-										<a href="#">훈련일자 처리</a>
-									</dd>
-									<dd>
-										<a href="#">훈련결과 처리</a>
-									</dd>
-								</dl>
-							</li>
-                     <li class="btn"><a class="e_menu10">교적부 등록</a></li>
-                      <li class="ly">
-                        <dl>
-                           <dt>교적부</dt>
-                           <dd><a href="joinForm.kh">교적부 등록</a></dd>
-                           <dd><a href="#">교적부 명단</a></dd>
-                        </dl>
-                      </li>
-						</ul>
+                     	</ul>
 					</div>
 				</c:if>
 			</div>

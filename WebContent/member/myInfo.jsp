@@ -8,6 +8,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>학적</title>
+	<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
+	<link rel="stylesheet" href="css/left_menu.css"></link>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/leftMenu_jquery.js"></script>
 </head>
 <body>
 	<c:if test="${type == '교직원'}">
@@ -23,8 +27,15 @@
 	<div id="box3">
 		<br/><br/>
 		<form action="myInfo_Edit.kh" method="post">
-		<table align="center" border="1">
-			<tr><td>학적기본정보</td></tr>
+		<table align="center">
+			<tr>
+				<td>
+					<c:if test="${type == '학생'}">학적</c:if>
+					<c:if test="${type == '교수'}">교수</c:if>
+					<c:if test="${type == '교직원'}">직원</c:if>
+					기본정보
+				</td>
+				</tr>
 			<tr>
 				<td width="130px" height="70px" align="center">
 					<table border="1">
@@ -38,7 +49,10 @@
 				<td colspan="5">
 					<table border="1">
 						<tr align="center">
-							<td>학번&nbsp;</td><td width="170px">${mDTO.id}
+							<td>
+								<c:if test="${type == '교직원' || type == '교수'}">교번</c:if>
+								<c:if test="${type == '학생'}">학번</c:if>
+								&nbsp;</td><td width="170px">${mDTO.id}
 								<input name="id" type="hidden" value="${mDTO.id}"/>
 							</td>
 							<td>성명(국)&nbsp;</td><td width="170px">${mDTO.name}</td>
@@ -46,13 +60,25 @@
 						</tr>
 						<tr align="center">
 							<td>이메일&nbsp;</td><td><input type="text" name="email" value="${mDTO.email}"/></td>
-							<td>학과&nbsp;</td><td>${mDTO.major}</td>
-							<td>교육과정년도&nbsp;</td><td>${mDTO.birth_yy}</td>
+							<td>
+								<c:if test="${type == '학생' || type == '교수'}">학과</c:if>
+								<c:if test="${type == '교직원'}">근무부서</c:if>
+								&nbsp;</td><td>${mDTO.major}</td>
+							<td>
+								<c:if test="${type == '교수' || type == '교직원'}">	재직</c:if>
+								<c:if test="${type == '학생'}">교육과정</c:if>
+								년도
+							</td><td>${mDTO.birth_yy}</td>
 						</tr>
 						<tr align="center">
-							<td>학적상태&nbsp;</td><td>${mDTO.status}</td>
+							<c:if test="${type == '교직원' || type == '교수'}">
+								<td>재적상태&nbsp;</td><td>${mDTO.status}</td>
+							</c:if>
+							<c:if test="${type == '학생'}">
+								<td>학적상태&nbsp;</td><td>${mDTO.status}</td>
 							<td>학년&nbsp;</td><td>${mDTO.grade}</td>
 							<td>이수학기&nbsp;</td><td>${mDTO.semester}</td>
+							</c:if>
 						</tr>
 						<tr align="center">
 							<td>연락처&nbsp;</td><td><input type="text" name="s_phone" value="${mDTO.s_phone}"/></td>
@@ -60,6 +86,7 @@
 					</table>
 				</td>	
 			</tr>
+			<c:if test="${type == '학생'}">
 			<tr><td height="30px"></td></tr>
 			<tr><td>신상정보</td></tr>
 			<tr>
@@ -93,6 +120,7 @@
 					</table>
 				</td>
 			</tr>
+			</c:if>
 		</table>
 		<br/>
 		<center>

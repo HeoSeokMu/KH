@@ -12,7 +12,7 @@
 		<c:if test="${sugangList.count%2 != 0}">
 			<table width="480" border="1" bordercolor="gray" cellpadding="3" cellspacing="0"  id="${sugangList.count}" bgcolor="#E7E7E7">
 		</c:if>
-
+	
 		
 		<tr>
 			<td align="center" rowspan="2" width="50" bgcolor="#b1b1b1" id="Abutton${sugangList.count}">
@@ -22,19 +22,11 @@
 			
 	<!-- ------------------    -->
 	
-			<c:if test="${chk == 0 }">
 				<td align="center" rowspan="2" width="50" bgcolor="#b1b1b1" id="Bbutton${sugangList.count}">
 					<font size="2" color="red"><b>신청 불가</b></font>
 				</td>
-			</c:if>
-			
-			<c:if test="${chk == 1 }">
-				<td align="center" rowspan="2" width="50" bgcolor="#b1b1b1" id="Bbutton${sugangList.count}">
-					<font size="2" color="blue"><b>신청 됨</b></font>
-				</td>
-			</c:if>
 				
-	<!-- ------------------    -->		
+	<!-- ------------------    -->	
 				
 				<td align="center" width="100">
 				
@@ -45,6 +37,7 @@
 					<font size="2">${sugangList.l_type}</font></b></font>
 					<input type="hidden" name="subjectlist" value="${sugangList.l_type}"/>
 					<input type="hidden" name="tablename" value="${sugangList.m_code}"/>
+					<input type="hidden" name="thisnum" value="${sugangList.num}"/>
 				</td>
 				<td align="center" width="120"><font size="2">
 					<input type="hidden" id="suganglist" name="suganglist" value="${sugangList.l_name}"/>
@@ -65,7 +58,7 @@
 				<td align="center" colspan="2"><font size="2"><b>${sugangList.l_day}</b> 요일  / <b>${sugangList.l_start}, ${sugangList.l_start+sugangList.l_end-1}</b> 교시</font>
 					
 					<c:forEach  var="i" begin="1" end="${sugangList.l_end}"  >     <!--     요일  + 시간 = 시간표위치 값을 히든값으로 가져옴       -->
-						<input type="hidden" name="sch_time${sugangList.count}" value="${sugangList.day + sugangList.l_start+(i-1)}"/>
+						<input type="hidden" name="sch_time${sugangList.num}" value="${sugangList.day + sugangList.l_start+(i-1)}"/>
 					</c:forEach>
 				</td>
 				

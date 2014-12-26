@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.opensymphony.xwork2.Action;
 
 import dao.MemberDAO;
+import dto.memberDTO;
 
 @Controller
 public class Login{
@@ -32,6 +33,9 @@ public class Login{
 		MemberDAO mDAO = new MemberDAO().getInstance();
 		check = mDAO.Login_check(id, passwd, type);
 		
+		memberDTO mDTO = new memberDTO();
+		mDTO = mDAO.member_info(id);
+		
 		System.out.println("LoginPro check : " + check);
 		System.out.println("LoginPro id : " + id);
 				
@@ -39,27 +43,20 @@ public class Login{
 		session.removeAttribute("memId");			//지정된 세션만 삭제
 		session.invalidate();						//모든 세션을 삭제
 		*/
-		
+		String view = "";
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("id", id);						//책번호와 제목을 파라미터로 보네줌
 		if(check != 1) {
 			mv.addObject("check", check);
+			view = "/main/Login_form.jsp";
 			System.out.println("check : 0으로 간다!!!");
 		} else {
 			System.out.println("check : 1로 간다!!!");
 			session.setAttribute("memId", id); 	//세션 생성
 			session.setAttribute("type", type);
+			session.setAttribute("status", mDTO.getStatus());
+			view = "redirect:/notice_board.kh";
 			mv.addObject("check", check);
-		}
-		String view = "";
-		if(type.equals("학생")) {
-			view = "/main/s_main.jsp";
-		} else if(type.equals("교수")){
-			view = "/main/p_main.jsp";
-		} else if(type.equals("교직원")) {
-			view = "/main/e_main.jsp";
-		} else {
-			view = "/main/main.jsp";
 		}
 		
 		mv.setViewName(view);
@@ -79,8 +76,8 @@ public class Login{
 		
 		session.removeAttribute("memId");
 		session.removeAttribute("type");
-		
-		
-		return "/main/main.jsp";
+		session.removeAttribute("status");
+
+		return "/main/Login_form.jsp";
 	}
 }

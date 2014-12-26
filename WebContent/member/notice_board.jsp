@@ -11,50 +11,23 @@
 	<link rel="stylesheet" href="css/left_menu.css"></link>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/leftMenu_jquery.js"></script>
-	<style>
-		.login{
-			background-color:#7eb813;
-			color:#ffffff;
-			border:1px #dddddd dashed;
-			width:70px;
-			height:60px;
-			text-align:center;
-			padding:3px;
-		}
-		.trTitle {
-			height:15px;
-		}
-		.input{
-			size: 15px;
-		}
-		
-		.lineX {
-			border-bottom: 1px solid #dddddd;
-		}
-		.tablepadding {
-			padding-left: 15px;
-			padding-right: 15px;
-		}
-	</style>
-
 </head>
 
 <body>
-		<c:if test="${type == '교직원'}">
-			<jsp:include page="/main/e_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '교수'}">
-			<jsp:include page="/main/p_sidebar.jsp" />
-		</c:if>
-		<c:if test="${type == '학생'}">
-			<jsp:include page="/main/s_sidebar.jsp" />
-		</c:if>
+	<c:if test="${type == '교직원'}">
+		<jsp:include page="/main/e_sidebar.jsp" />
+	</c:if>
+	<c:if test="${type == '교수'}">
+		<jsp:include page="/main/p_sidebar.jsp" />
+	</c:if>
+	<c:if test="${type == '학생'}">
+		<jsp:include page="/main/s_sidebar.jsp" />
+	</c:if>
 		<div id="box3">
 			<center>
 			<form method="post" name="chartForm">
 			<fmt:formatDate value="<%=new java.util.Date()%>" var="toDate" pattern="yy-MM-dd" />
-			
-				<br/><br/>
+				<br/>
 				<h1>공지사항</h1>
 				<table align="center" width="900" >
 					<c:if test="${type == '교직원'}">

@@ -184,8 +184,8 @@ public class boardDAO {
 	            pstmt.setString(2, vDTO.getType());
 	            pstmt.setString(3, vDTO.getMajor());
 	            pstmt.setString(4, vDTO.getVacStart_yy());
-	            pstmt.setString(5, vDTO.getVacStart_yy());
-	            pstmt.setString(6, vDTO.getVacStart_yy());
+	            pstmt.setString(5, vDTO.getVacStart_mm());
+	            pstmt.setString(6, vDTO.getVacStart_dd());
 	            pstmt.setString(7, vDTO.getVacEnd_yy());
 	            pstmt.setString(8, vDTO.getVacEnd_mm());
 	            pstmt.setString(9, vDTO.getVacEnd_dd());
@@ -294,7 +294,7 @@ public class boardDAO {
 			try {
 				conn = getConnection();
 				pstmt = conn.prepareStatement(
-				"update kh_vacation set VacStart_yy=?, VacStart_mm=?, VacStart_dd=?, VacEnd_yy=?, VacEnd_mm=?, VacEnd_dd=?, vacation_reason=?, reg_date=?, result=? where no=?"); 
+				"update kh_vacation set VacStart_yy=?, VacStart_mm=?, VacStart_dd=?, VacEnd_yy=?, VacEnd_mm=?, VacEnd_dd=?, vacation_reason=?, reg_date=? where no=?"); 
 				pstmt.setString(1, vDTO.getVacStart_yy());
 	            pstmt.setString(2, vDTO.getVacStart_mm());
 	            pstmt.setString(3, vDTO.getVacStart_dd());
@@ -303,8 +303,7 @@ public class boardDAO {
 	            pstmt.setString(6, vDTO.getVacEnd_dd());
 				pstmt.setString(7, vDTO.getVacation_reason());
 				pstmt.setTimestamp(8, vDTO.getReg_date());
-				pstmt.setString(9, vDTO.getResult());
-				pstmt.setInt(10, vDTO.getNo());
+				pstmt.setInt(9, vDTO.getNo());
 				rs = pstmt.executeQuery();
 
 			} catch(Exception ex) {
@@ -360,8 +359,8 @@ public class boardDAO {
 					article.setType(rs.getString("type"));
 					article.setMajor(rs.getString("major"));
 					article.setVacStart_yy(rs.getString("vacStart_yy"));
-					article.setVacStart_mm(rs.getString("vacStart_yy"));
-					article.setVacStart_dd(rs.getString("vacStart_yy"));
+					article.setVacStart_mm(rs.getString("vacStart_mm"));
+					article.setVacStart_dd(rs.getString("vacStart_dd"));
 					article.setVacEnd_yy(rs.getString("vacEnd_yy"));
 					article.setVacEnd_mm(rs.getString("vacEnd_mm"));
 					article.setVacEnd_dd(rs.getString("vacEnd_dd"));
@@ -369,6 +368,31 @@ public class boardDAO {
 					article.setReg_date(rs.getTimestamp("reg_date"));
 					article.setResult(rs.getString("result"));
 				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			
+			return article;
+		}
+		
+		//»ﬁ∞° Ω≈√ª¿ª Ω¬¿Œ√≥∏Æ «ÿ¡÷¥¬ ƒı∏Æ
+		public vacationDTO VacationResultSet(vacationDTO vDTO) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			vacationDTO article=null;
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement(
+				"update kh_vacation set result=? where no=?"); 
+				pstmt.setString(1, vDTO.getResult());
+				pstmt.setInt(2, vDTO.getNo());
+				rs = pstmt.executeQuery();
+	
 			} catch(Exception ex) {
 				ex.printStackTrace();
 			} finally {

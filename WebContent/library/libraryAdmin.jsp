@@ -1,15 +1,24 @@
-<%@ page contentType = "text/html; charset=utf-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<html>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>도서관리자페이지</title>
+<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
+	<link rel="stylesheet" href="css/left_menu.css"></link>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/leftMenu_jquery.js"></script>
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <center>
 <body>
-
+<jsp:include page="/main/s_sidebar.jsp" />
+		<div id="box3">
 도서검색 <form action="bookList.kh" method="get">
 	<select name="searchType" >
 		<option value="all">전체</option>
@@ -20,7 +29,9 @@
 	<input type="submit" value="검색" />
 </form>
 <input type="button" name="bookInsert" value="책 등록" onClick="javascript:location.href='bookInsertForm.kh'">
+>
 <input type="button" name="bookRequest" value="구입신청내역" onClick="javascript:location.href='bookRequestList.kh'">
+<input tyep="button" name="retrun" value="메인페이지" onClick="javascript:location.href='libraryMain.kh'">
 <table width="700" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
@@ -90,6 +101,8 @@
 	${pagingHtml}
 </c:if>
 
+	</div>
+		<div id="box4"> <center><br/><br/></center> </div>
+	</div>
 </body>
-</center>
 </html>
