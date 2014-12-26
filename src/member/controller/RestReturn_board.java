@@ -2,6 +2,8 @@ package member.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -244,6 +246,7 @@ public class RestReturn_board {
 		int num = Integer.parseInt(req.getParameter("num"));
 		int rest_count = Integer.parseInt(req.getParameter("rest_count"));
 		String board_type = req.getParameter("board_type");
+		String why = req.getParameter("why");
 		
 		System.out.println("id : " + id);
 		System.out.println("result : " + result);
@@ -277,6 +280,33 @@ public class RestReturn_board {
 		session.setAttribute("status", status);
 		System.out.println("rest_count : " + rest_count);
 		session.setAttribute("rest_count", rest_count);
+		
+		// 졸업 예상일자 가져오기
+		memberDTO mDTO = mDAO.member_info(id);
+		Timestamp end_date = mDTO.getEnd_date();
+		
+		// 졸업 예상일자 연장하기
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(end_date.getTime());
+		if(why.equals("군입대")) {
+			cal.set(Calendar.YEAR,  cal.get(Calendar.YEAR) + 2);
+		} else if(why.equals("학 비")) {
+			cal.set(Calendar.MONTH,  cal.get(Calendar.MONTH) + 6);
+		} else if(why.equals("유 학")) {
+			cal.set(Calendar.YEAR,  cal.get(Calendar.YEAR) + 1);
+		}
+		
+		// 오늘이 이번주의 몇번째 날인지 구함. 일요일이 1, 월요일은 2..
+		if(cal.get(Calendar.DAY_OF_WEEK) == 1) {
+			cal.add(Calendar.DATE, 1);
+		} else if(cal.get(Calendar.DAY_OF_WEEK) == 7){
+			cal.add(Calendar.DATE, 2);
+		}
+		
+		Date endDate_Cal = cal.getTime();
+		Timestamp endDate_Plus = new Timestamp(endDate_Cal.getTime());
+		
+		mDAO.EndDate_Update(endDate_Plus, id);
 		
 		ModelAndView mv = new ModelAndView();
 		//mv.setViewName("redirect:/RestReturn_Board.kh?board_type="+board_type+"&rrrb_check=처리");

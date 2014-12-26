@@ -21,7 +21,13 @@
 			<center>
 			<form action="RestRequestInsert.kh" method="post">
 				<br/>
-				<h2>강의평가</h2>
+				<h2>성적등록</h2>
+				<table>
+					<tr>
+						<td></td>
+					</tr>
+				</table>
+				
 			</form>
 			</center>
 			<br/><br/>

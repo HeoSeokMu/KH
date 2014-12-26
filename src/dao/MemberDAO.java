@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -681,6 +682,26 @@ public class MemberDAO {
 			conn = getConnection();
 			pstmt = conn.prepareStatement("update kh_member set rest_count = rest_count + 1 where id = ?"); 
 			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+			
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+	}
+	
+	// 졸업예정일자 연장하기
+	public void EndDate_Update(Timestamp end_date, String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+				
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("update kh_member set end_date = ? where id = ?"); 
+			pstmt.setTimestamp(1, end_date);
+			pstmt.setString(2, id);
 			pstmt.executeUpdate();
 			
 		} catch(Exception ex) {

@@ -16,11 +16,11 @@
 	<script src="/KH_School/member/script/noticeView.js"></script>
 	
 	<script type="text/javascript">
-		function Processing(processing, num, id, board_type, value, rest_count) {
+		function Processing(processing, num, id, board_type, value, rest_count, why) {
 			alert("Pro");
 			alert("result : " + value +" / " + board_type);
 			if(value == "승인" || value == "거절") {
-				window.location = "RestReturn_Pro.kh?board_type="+board_type+"&num="+num+"&id="+id+"&result="+value+"&rest_count="+rest_count;	
+				window.location = "RestReturn_Pro.kh?board_type="+board_type+"&num="+num+"&id="+id+"&result="+value+"&rest_count="+rest_count+"&why"+why;	
 			}
 		}
 	</script>
@@ -99,9 +99,9 @@
 					<c:if test="${rrrb_check == '신청'}">
 					<tr>
 						<td align="center">
-							<input type="button" name="result" value="승인" onclick="Processing(this.form, '${rrb_DTO.num}', '${rrb_DTO.id}', '휴학', this.value, '${rest_count}');"/>
+							<input type="button" name="result" value="승인" onclick="Processing(this.form, '${rrb_DTO.num}', '${rrb_DTO.id}', '휴학', this.value, '${rest_count}', '${rrb_DTO.why}');"/>
 							&nbsp;&nbsp;
-							<input type="button" name="result" value="거절" onclick="Processing(this.form, '${rrb_DTO.num}', '${rrb_DTO.id}', '재학', this.value, '${rest_count}');"/>
+							<input type="button" name="result" value="거절" onclick="Processing(this.form, '${rrb_DTO.num}', '${rrb_DTO.id}', '재학', this.value, '${rest_count}', '${rrb_DTO.why}');"/>
 						</td>
 					</tr>
 					</c:if>

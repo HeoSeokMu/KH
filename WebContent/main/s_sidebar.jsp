@@ -83,11 +83,7 @@
 									<dd><a href="bookRequest.kh">책 대여 신청</a></dd>
 									<dd><a href="myBookRequestList.kh">책 대여 신청내역 확인</a></dd>
 									<dd><a href="#">책 예약 취소</a></dd>
-<<<<<<< HEAD
-									
-=======
 									<ad><c:if test="${memId == 'liadmin' } }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
->>>>>>> branch 'master' of https://github.com/HeoSeokMu/KH
 								</dl>
 							</li>
 						</ul>

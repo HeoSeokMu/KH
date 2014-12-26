@@ -13,13 +13,29 @@
 	<link rel="stylesheet" href="css/left_menu.css"></link>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/leftMenu_jquery.js"></script>
+	<script type="text/javascript">
+		function sub_chk(form) {
+			if(document.restForm.time.value == "") {
+				alert("휴학 유형에 체크를 해주세요");
+				return false;
+			}
+			if(document.restForm.why.value == "") {
+				alert("사유에 체크를 해주세요");
+				return false;
+			}
+			if(document.restForm.why_detail.value == "") {
+				alert("사유를 상세히 적어주세요");
+				return false;
+			}
+		}
+	</script>
 </head>
 
 <body>
 	<jsp:include page="/main/s_sidebar.jsp" />
 		<div id="box3">
 			<center>
-			<form action="RestReturnRequestInsert.kh" method="post">
+			<form action="RestReturnRequestInsert.kh" method="post" name="restForm" onsubmit="return sub_chk(this.form)">
 				<br/>
 				<h2>휴학신청서</h2>
 				<table width="700">
