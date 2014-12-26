@@ -98,22 +98,19 @@ public class memCon{
 			}
 			System.out.println("Calendar.DATE..."+ cal.get(Calendar.DATE));
 			
-			Date end_date = cal.getTime();
-			Timestamp end_timestamp = new Timestamp(end_date.getTime());
-			
-			dto.setEnd_date(end_timestamp);
 			dto.setStatus("재학");
 		} else {
 			cal.set(Calendar.YEAR,  9999);
 			cal.set(Calendar.MONTH,  12);
 			cal.set(Calendar.DATE,  31);
-			
-			Date end_date = cal.getTime();
-			Timestamp end_timestamp = new Timestamp(end_date.getTime());
-			dto.setEnd_date(end_timestamp);
-			
+
 			dto.setStatus("재직");
 		}
+		
+		Date end_date = cal.getTime();
+		Timestamp end_timestamp = new Timestamp(end_date.getTime());
+		dto.setEnd_date(end_timestamp);
+		
 		dto.setGrade(1);
 		dto.setSemester(0);
 		dto.setRest_count(0);

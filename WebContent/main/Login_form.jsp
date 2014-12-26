@@ -64,7 +64,6 @@
 	
 	<script language="javascript">
 		function focusIt() {
-			alert("${check}");
 			if("${check}"== 2){
 				alert("아이디 또는 패스워드가 틀렸습니다.");
 			}else if("${check}" == 3){
