@@ -31,18 +31,18 @@ public class MemberDAO {
 		DataSource ds = (DataSource) envCtx.lookup("jdbc/orcl");
 		return ds.getConnection();
 	}
-
-	public List<memberDTO> memberList() throws Exception {
+	//교적부 리스트 불러오는 쿼리0. 0은 전체 리스트
+	public List<memberDTO> memberList0() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<memberDTO> articleList = null;
+		List<memberDTO> list = null;
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement("select * from kh_member order by reg_date desc");
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				articleList = new ArrayList<memberDTO>();
+				list = new ArrayList<memberDTO>();
 				do {
 					memberDTO mDTO = new memberDTO();
 					mDTO.setType(rs.getString("type"));
@@ -54,7 +54,11 @@ public class MemberDAO {
 					mDTO.setReg_date(rs.getTimestamp("reg_date"));
 					mDTO.setPro_img(rs.getString("pro_img"));
 					mDTO.setMajor(rs.getString("major"));
-					articleList.add(mDTO);
+					mDTO.setEnter_way(rs.getString("enter_way"));
+					mDTO.setGrade(rs.getInt("grade"));
+					mDTO.setStatus(rs.getString("status"));
+					mDTO.setEnd_date(rs.getTimestamp("end_date"));
+					list.add(mDTO);
 				} while (rs.next());
 			}
 		} catch (Exception ex) {
@@ -65,7 +69,130 @@ public class MemberDAO {
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
 
-		return articleList;
+		return list;
+	}
+	
+//교적부 리스트 불러오는 쿼리1. 1은 학생 리스트
+	public List<memberDTO> memberList1() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<memberDTO> list = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from kh_member where type='학생' order by reg_date desc");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				list = new ArrayList<memberDTO>();
+				do {
+					memberDTO mDTO = new memberDTO();
+					mDTO.setType(rs.getString("type"));
+					mDTO.setId(rs.getString("id"));
+					mDTO.setName(rs.getString("name"));
+					mDTO.setSex(rs.getString("sex"));
+					mDTO.setEmail(rs.getString("email"));
+					mDTO.setS_phone(rs.getString("s_phone"));
+					mDTO.setReg_date(rs.getTimestamp("reg_date"));
+					mDTO.setPro_img(rs.getString("pro_img"));
+					mDTO.setMajor(rs.getString("major"));
+					mDTO.setEnter_way(rs.getString("enter_way"));
+					mDTO.setGrade(rs.getInt("grade"));
+					mDTO.setStatus(rs.getString("status"));
+					mDTO.setEnd_date(rs.getTimestamp("end_date"));
+					list.add(mDTO);
+				} while (rs.next());
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+
+		return list;
+	}
+		
+	//교적부 리스트 불러오는 쿼리2. 2는 교수 리스트
+	public List<memberDTO> memberList2() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<memberDTO> list = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from kh_member where type='교수' order by reg_date desc");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				list = new ArrayList<memberDTO>();
+				do {
+					memberDTO mDTO = new memberDTO();
+					mDTO.setType(rs.getString("type"));
+					mDTO.setId(rs.getString("id"));
+					mDTO.setName(rs.getString("name"));
+					mDTO.setSex(rs.getString("sex"));
+					mDTO.setEmail(rs.getString("email"));
+					mDTO.setS_phone(rs.getString("s_phone"));
+					mDTO.setReg_date(rs.getTimestamp("reg_date"));
+					mDTO.setPro_img(rs.getString("pro_img"));
+					mDTO.setMajor(rs.getString("major"));
+					mDTO.setEnter_way(rs.getString("enter_way"));
+					mDTO.setGrade(rs.getInt("grade"));
+					mDTO.setStatus(rs.getString("status"));
+					mDTO.setEnd_date(rs.getTimestamp("end_date"));
+					list.add(mDTO);
+				} while (rs.next());
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+
+		return list;
+	}
+	
+//교적부 리스트 불러오는 쿼리3. 3은 교직원 리스트
+	public List<memberDTO> memberList3() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<memberDTO> list = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from kh_member where type='교직원' order by reg_date desc");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				list = new ArrayList<memberDTO>();
+				do {
+					memberDTO mDTO = new memberDTO();
+					mDTO.setType(rs.getString("type"));
+					mDTO.setId(rs.getString("id"));
+					mDTO.setName(rs.getString("name"));
+					mDTO.setSex(rs.getString("sex"));
+					mDTO.setEmail(rs.getString("email"));
+					mDTO.setS_phone(rs.getString("s_phone"));
+					mDTO.setReg_date(rs.getTimestamp("reg_date"));
+					mDTO.setPro_img(rs.getString("pro_img"));
+					mDTO.setMajor(rs.getString("major"));
+					mDTO.setEnter_way(rs.getString("enter_way"));
+					mDTO.setGrade(rs.getInt("grade"));
+					mDTO.setStatus(rs.getString("status"));
+					mDTO.setEnd_date(rs.getTimestamp("end_date"));
+					list.add(mDTO);
+				} while (rs.next());
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+
+		return list;
 	}
 
 	//회원등록 쿼리.

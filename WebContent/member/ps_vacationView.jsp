@@ -133,10 +133,12 @@
 				<tr bgcolor="77CC55" height=40>
 					<td width = 500 colspan=2 align=center>
 						<c:if test="${article.result == '미처리'}">
-						<input type="button" value="승인" onClick="acceptHuga();">
-						<input type="button" value="거절" onClick="denyHuga();">
-						<input type="button" value="수정" onClick="hugaModify();">
-						<input type="button" value="삭제" onclick="delHuga();">
+							<c:if test="${type == '교직원'}">
+								<input type="button" value="승인" onClick="acceptHuga();">
+								<input type="button" value="거절" onClick="denyHuga();">
+							</c:if>
+								<input type="button" value="수정" onClick="hugaModify();">
+								<input type="button" value="삭제" onclick="delHuga();">
 						</c:if>
 					</td>
 				</tr>

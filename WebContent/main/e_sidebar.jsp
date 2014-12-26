@@ -62,7 +62,7 @@
 								<dl>
 									<dt>개인정보 등록 및 변경처리</dt>
 									<dd><a href="joinForm.kh">교적부 등록</a></dd>
-                           			<dd><a href="#">교적부 명단</a></dd>
+                           			<dd><a href="memberList.kh">교적부 명단</a></dd>
 									<dd>
 										<a href="#">변경 신청내역 확인</a>
 									</dd>

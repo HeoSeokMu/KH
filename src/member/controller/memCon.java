@@ -186,14 +186,35 @@ public class memCon{
 		private int totalCount;			// 총 게시물의 수
 		private int blockCount = 10;	// 한 페이지의  게시물의 수
 		private int blockPage = 10; 	// 한 화면에 보여줄 페이지 수
-		private pagingAction page; 		// 페이징 클래스
+		private memListPagingAction page; 		// 페이징 클래스
 		private String pagingHtml; 		// 페이징을 구현한 HTML
 		
 		@RequestMapping(value="/memberList.kh")
 		public ModelAndView memberList(HttpServletRequest req, HttpSession session) throws Exception{
 			
 			MemberDAO mDAO = MemberDAO.getInstance();
+			list = null;
 			
+			String memSel = req.getParameter("memSel");
+			
+			if(memSel != null){
+				switch(memSel){
+				case "0" : list = mDAO.memberList0(); break;
+				case "1" : list = mDAO.memberList1(); break;
+				case "2" : list = mDAO.memberList2(); break;
+				case "3" : list = mDAO.memberList3(); break;
+				}
+	/*			if(req.getParameter("memSel") == "1"){
+					System.out.println("aaa");
+					list = mDAO.memberList1();
+				}else if(req.getParameter("memSel") == "2"){
+					list = mDAO.memberList2();
+				}else if(req.getParameter("memSel") == "3"){
+					list = mDAO.memberList3();
+				}*/
+			}else{
+				list = mDAO.memberList0();
+			}
 			
 			String view = "/member/e_memberList.jsp";
 			
@@ -213,7 +234,7 @@ public class memCon{
 			} else {
 				currentPage = Integer.parseInt(req.getParameter("currentPage"));
 			}
-			page = new pagingAction(currentPage, totalCount, blockCount, blockPage); // pagingAction 객체 생성.
+			page = new memListPagingAction(currentPage, totalCount, blockCount, blockPage); // pagingAction 객체 생성.
 				
 			pagingHtml = page.getPagingHtml().toString();  // 페이지 HTML 생성.
 		
@@ -233,6 +254,7 @@ public class memCon{
 			mv.addObject("currentPage", currentPage);
 			mv.addObject("pagingHtml", pagingHtml);
 			mv.addObject("blockCount", blockCount);
+			mv.addObject("memSel", memSel);
 			mv.setViewName(view);
 			
 			return mv;
@@ -253,6 +275,22 @@ public class memCon{
 	
 		return mv;
 	}
+	
+	// 파라미터로 id를 넘겨받아 보는 개인정보뷰
+		@RequestMapping("/memberInfo.kh")
+		public ModelAndView memberView(HttpSession session, HttpServletRequest request) throws Exception{
+			
+			MemberDAO m_dao = MemberDAO.getInstance();
+			String id = request.getParameter("id");
+			memberDTO mDTO = m_dao.member_info(id);
+			
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("mDTO", mDTO);
+			
+			mv.setViewName("/member/myInfo.jsp");
+		
+			return mv;
+		}
 	
 	@RequestMapping(value="/myInfo_Edit.kh", method=RequestMethod.POST)
 	public ModelAndView myInfo_Edit(HttpServletRequest request) throws Exception{

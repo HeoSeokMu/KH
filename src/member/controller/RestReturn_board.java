@@ -30,7 +30,7 @@ public class RestReturn_board {
 	private int totalCount;			// 총 게시물의 수
 	private int blockCount = 10;	// 한 페이지의  게시물의 수
 	private int blockPage = 10; 	// 한 화면에 보여줄 페이지 수
-	private pagingAction page; 		// 페이징 클래스
+	private noticePagingAction page; 		// 페이징 클래스
 	private String pagingHtml; 		// 페이징을 구현한 HTML
 	
 	@RequestMapping(value="/RestReturnRequest_board.kh")
@@ -50,7 +50,7 @@ public class RestReturn_board {
 		} else {
 			currentPage = Integer.parseInt(req.getParameter("currentPage"));
 		}
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage); // pagingAction 객체 생성.
+		page = new noticePagingAction(currentPage, totalCount, blockCount, blockPage); // pagingAction 객체 생성.
 			
 		pagingHtml = page.getPagingHtml().toString();  // 페이지 HTML 생성.
 		System.out.println("pagingHtml : " + pagingHtml);
@@ -208,7 +208,7 @@ public class RestReturn_board {
 		} else {
 			currentPage = Integer.parseInt(req.getParameter("currentPage"));
 		}
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage); // pagingAction 객체 생성.
+		page = new noticePagingAction(currentPage, totalCount, blockCount, blockPage); // pagingAction 객체 생성.
 			
 		pagingHtml = page.getPagingHtml().toString();  // 페이지 HTML 생성.
 	
