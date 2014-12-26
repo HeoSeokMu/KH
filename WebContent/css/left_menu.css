@@ -11,9 +11,7 @@ p,ul,li,ol,h2,dl,dt,dd	{margin:0; padding:0; list-style:none;}
 #tab_menu .s_menu3,
 #tab_menu .s_menu4,
 #tab_menu .s_menu5,
-#tab_menu .s_menu6,
-#tab_menu .s_menu7,
-#tab_menu .s_menu8{width:190px; cursor:pointer; height:35px; display:block; overflow:hidden; text-indent:-999px; background:url("../main/main_img/tab_stu.png") no-repeat;}
+#tab_menu .s_menu6{width:190px; cursor:pointer; height:35px; display:block; overflow:hidden; text-indent:-999px; background:url("../main/main_img/tab_stu.png") no-repeat;}
 #tab_menu .on a {cursor:default;}
 #tab_menu .s_menu1{background-position:-190px top;}
 #tab_menu .s_menu2 {background-position:-190px -35px;}
@@ -21,24 +19,18 @@ p,ul,li,ol,h2,dl,dt,dd	{margin:0; padding:0; list-style:none;}
 #tab_menu .s_menu4 {background-position:-190px -105px;}
 #tab_menu .s_menu5 {background-position:-190px -140px;}
 #tab_menu .s_menu6 {background-position:-190px -175px;}
-#tab_menu .s_menu7 {background-position:-190px -210px;}
-#tab_menu .s_menu8 {background-position:-190px -245px;}
 #tab_menu .s_menu1:hover {background-position:-380px top;}
 #tab_menu .s_menu2:hover {background-position:-380px -35px;}
 #tab_menu .s_menu3:hover {background-position:-380px -70px;}
 #tab_menu .s_menu4:hover {background-position:-380px -105px;}
 #tab_menu .s_menu5:hover {background-position:-380px -140px;}
 #tab_menu .s_menu6:hover {background-position:-380px -175px;}
-#tab_menu .s_menu7:hover {background-position:-380px -210px;}
-#tab_menu .s_menu8:hover {background-position:-380px -245px;}
 #tab_menu .on a.s_menu1 {background-position:left top;}
 #tab_menu .on a.s_menu2 {background-position:left -35px;}
 #tab_menu .on a.s_menu3 {background-position:left -70px;}
 #tab_menu .on a.s_menu4 {background-position:left -105px;}
 #tab_menu .on a.s_menu5 {background-position:left -140px;}
 #tab_menu .on a.s_menu6 {background-position:left -175px;}
-#tab_menu .on a.s_menu7 {background-position:left -210px;}
-#tab_menu .on a.s_menu8 {background-position:left -245px;}
 
 #tab_menu .p_menu1,
 #tab_menu .p_menu2,
@@ -67,9 +59,7 @@ p,ul,li,ol,h2,dl,dt,dd	{margin:0; padding:0; list-style:none;}
 #tab_menu .e_menu4,
 #tab_menu .e_menu5,
 #tab_menu .e_menu6,
-#tab_menu .e_menu7,
-#tab_menu .e_menu8,
-#tab_menu .e_menu9{width:190px; cursor:pointer; height:35px; display:block; overflow:hidden; text-indent:-999px; background:url("../main/main_img/tab_emp.png") no-repeat;}
+#tab_menu .e_menu7{width:190px; cursor:pointer; height:35px; display:block; overflow:hidden; text-indent:-999px; background:url("../main/main_img/tab_emp.png") no-repeat;},
 #tab_menu .e_menu1{background-position:-190px top;}
 #tab_menu .e_menu2 {background-position:-190px -35px;}
 #tab_menu .e_menu3 {background-position:-190px -70px;}
@@ -77,8 +67,6 @@ p,ul,li,ol,h2,dl,dt,dd	{margin:0; padding:0; list-style:none;}
 #tab_menu .e_menu5 {background-position:-190px -140px;}
 #tab_menu .e_menu6 {background-position:-190px -175px;}
 #tab_menu .e_menu7 {background-position:-190px -210px;}
-#tab_menu .e_menu8 {background-position:-190px -245px;}
-#tab_menu .e_menu9 {background-position:-190px -280px;}
 #tab_menu .e_menu1:hover {background-position:-380px top;}
 #tab_menu .e_menu2:hover {background-position:-380px -35px;}
 #tab_menu .e_menu3:hover {background-position:-380px -70px;}
@@ -86,8 +74,6 @@ p,ul,li,ol,h2,dl,dt,dd	{margin:0; padding:0; list-style:none;}
 #tab_menu .e_menu5:hover {background-position:-380px -140px;}
 #tab_menu .e_menu6:hover {background-position:-380px -175px;}
 #tab_menu .e_menu7:hover {background-position:-380px -210px;}
-#tab_menu .e_menu8:hover {background-position:-380px -245px;}
-#tab_menu .e_menu9:hover {background-position:-380px -280px;}
 #tab_menu .on a.e_menu1 {background-position:left top;}
 #tab_menu .on a.e_menu2 {background-position:left -35px;}
 #tab_menu .on a.e_menu3 {background-position:left -70px;}
@@ -95,8 +81,6 @@ p,ul,li,ol,h2,dl,dt,dd	{margin:0; padding:0; list-style:none;}
 #tab_menu .on a.e_menu5 {background-position:left -140px;}
 #tab_menu .on a.e_menu6 {background-position:left -175px;}
 #tab_menu .on a.e_menu7 {background-position:left -210px;}
-#tab_menu .on a.e_menu8 {background-position:left -245px;}
-#tab_menu .on a.e_menu9 {background-position:left -280px;}
 
 #tab_menu li.ly,
 #tab_menu dt{display:none;}

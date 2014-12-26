@@ -3,11 +3,11 @@ package dto;
 import java.sql.Timestamp;
 
 public class noticeboard_DTO {
-	private int num;
-	private String title;
-	private String content;
-	private String writer;
-	private Timestamp reg_date;
+	private int num;//시퀀스 넘버
+	private String title;//공지사항 제목
+	private String content;//공지사항 내용
+	private String writer;//공지사항 글쓴이
+	private Timestamp reg_date;//공지사항 등록일자
 	
 	
 	public int getNum() {

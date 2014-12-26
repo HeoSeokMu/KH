@@ -8,6 +8,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>학적</title>
+	<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
+	<link rel="stylesheet" href="css/left_menu.css"></link>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/leftMenu_jquery.js"></script>
 </head>
 <body>
 	<c:if test="${type == '교직원'}">
@@ -23,7 +27,7 @@
 	<div id="box3">
 		<br/><br/>
 		<form action="myInfo_Edit.kh" method="post">
-		<table align="center" border="1">
+		<table align="center">
 			<tr>
 				<td>
 					<c:if test="${type == '학생'}">학적</c:if>
