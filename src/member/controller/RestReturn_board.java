@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class RestReturn_board {
+	
 	private static List<RestReturnBoard_DTO> list = new ArrayList<RestReturnBoard_DTO>();
 	
 	private int currentPage = 1;	// 泅犁 其捞瘤
@@ -272,12 +273,14 @@ public class RestReturn_board {
 		rest_count = mDAO.RestCount(id);
 		
 		session.removeAttribute("status");
-		session.setAttribute("status", status);
 		session.removeAttribute("rest_count");
+		session.setAttribute("status", status);
+		System.out.println("rest_count : " + rest_count);
 		session.setAttribute("rest_count", rest_count);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/RestReturn_Board.kh?board_type="+board_type+"&rrrd_check=贸府");
+		//mv.setViewName("redirect:/RestReturn_Board.kh?board_type="+board_type+"&rrrb_check=贸府");
+		mv.setViewName("redirect:/notice_board.kh");
 		return mv;
 	}
 	

@@ -657,7 +657,9 @@ public class MemberDAO {
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			
-			rest_count = rs.getInt("rest_count");
+			while(rs.next()) {
+				rest_count = rs.getInt("rest_count");
+			}
 			
 		} catch(Exception ex) {
 			ex.printStackTrace();
