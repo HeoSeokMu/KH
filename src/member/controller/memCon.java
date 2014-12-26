@@ -193,8 +193,6 @@ public class memCon{
 		public ModelAndView memberList(HttpServletRequest req, HttpSession session) throws Exception{
 			
 			MemberDAO mDAO = MemberDAO.getInstance();
-			String id = (String)session.getAttribute("memId");
-			int origin_rest = mDAO.RestCount(id);
 			list;
 			
 			String view = "/member/e_memberList.jsp";

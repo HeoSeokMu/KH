@@ -32,19 +32,29 @@ public class MemberDAO {
 		return ds.getConnection();
 	}
 
-	public List<String> getId() throws Exception {
+	public List<memberDTO> memberList() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<String> articleList = null;
+		List<memberDTO> articleList = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select * from kh_member");
+			pstmt = conn.prepareStatement("select * from kh_member order by reg_date desc");
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				articleList = new ArrayList<String>();
+				articleList = new ArrayList<memberDTO>();
 				do {
-					articleList.add(rs.getString("name"));
+					memberDTO mDTO = new memberDTO();
+					mDTO.setType(rs.getString("type"));
+					mDTO.setId(rs.getString("id"));
+					mDTO.setName(rs.getString("name"));
+					mDTO.setSex(rs.getString("sex"));
+					mDTO.setEmail(rs.getString("email"));
+					mDTO.setS_phone(rs.getString("s_phone"));
+					mDTO.setReg_date(rs.getTimestamp("reg_date"));
+					mDTO.setPro_img(rs.getString("pro_img"));
+					mDTO.setMajor(rs.getString("major"));
+					articleList.add(mDTO);
 				} while (rs.next());
 			}
 		} catch (Exception ex) {

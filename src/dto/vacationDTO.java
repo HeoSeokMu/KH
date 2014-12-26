@@ -17,6 +17,7 @@ public class vacationDTO {
 	private String vacation_reason;//휴가 사유
 	private Timestamp reg_date;//등록 일자 및 수정 일자
 	private String result;//처리 상태
+	private String id;
 	
 	public int getNo() {
 		return no;
@@ -96,6 +97,11 @@ public class vacationDTO {
 	public void setVacEnd_dd(String vacEnd_dd) {
 		this.vacEnd_dd = vacEnd_dd;
 	}
-	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 
 }
