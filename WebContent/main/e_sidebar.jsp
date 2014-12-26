@@ -7,11 +7,10 @@
 
 <head>
 <title>KH 통합정보시스템</title>
-<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
-<link rel="stylesheet" href="css/left_menu.css"></link>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="js/leftMenu_jquery.js"></script>
+	<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
+	<link rel="stylesheet" href="css/left_menu.css"></link>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/leftMenu_jquery.js"></script>
 </head>
 
 <body>
@@ -129,11 +128,8 @@
 									<dd>
 										<a href="bookRequestList.kh">책 대여 리스트</a>
 									</dd>
-<<<<<<< HEAD
 									<ad><c:if test="${type == '교직원' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
-=======
 									<ad><c:if test="${memId == 'liadmin' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
->>>>>>> branch 'master' of https://github.com/HeoSeokMu/KH
 								</dl>
 							</li>
                      	</ul>
