@@ -193,7 +193,7 @@ public class memCon{
 		public ModelAndView memberList(HttpServletRequest req, HttpSession session) throws Exception{
 			
 			MemberDAO mDAO = MemberDAO.getInstance();
-			list;
+			
 			
 			String view = "/member/e_memberList.jsp";
 			

@@ -60,6 +60,7 @@
 								<td width="230px">
 									<%-- <fmt:formatDate value="<%=new java.util.Date()%>" var="toDate" pattern="yy-MM-dd HH:mm:ss" />
 									<fmt:formatDate value="${list.reg_date}" type="date" pattern="yy-MM-dd HH:mm:ss" var="writeDate"/> --%>
+
 									<fmt:formatDate value="<%=new java.util.Date()%>" var="toDate" pattern="dd" />
 									<fmt:formatDate value="${list.reg_date}" type="date" pattern="dd" var="writeDay"/>
 									<c:if test="${writeDay == toDate}">
