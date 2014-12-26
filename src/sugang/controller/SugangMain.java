@@ -89,6 +89,7 @@ public class SugangMain {
 		value = value.substring(0,value.lastIndexOf(","));
 		stu.setAllcode(value);
 		
+		dao.delete(number);
 		int result = dao.setStu(stu);
 		member = memberdao.member_info(number);
 		list = dao.getSugangList(number, semester);

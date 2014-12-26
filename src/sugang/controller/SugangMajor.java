@@ -31,10 +31,7 @@ public class SugangMajor {
 		String semester = req.getParameter("semester");
 		
 		codelist = dao.getCode(semester, stu_num); // 코드 가져오기
-		if(codelist != null){
-			stu = dao.getstu(semester, stu_num);
-		}
-		
+
 		String code = req.getParameter("m_code");
 		int grade = Integer.parseInt(req.getParameter("y_grade"));
 	
