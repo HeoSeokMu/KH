@@ -4,19 +4,20 @@ import java.sql.Timestamp;
 
 
 public class vacationDTO {
-	private int no;
-	private String name;
-	private String type;
-	private String major;
-	private String vacStart_yy;
-	private String vacStart_mm;
-	private String vacStart_dd;
-	private String vacEnd_yy;
-	private String vacEnd_mm;
-	private String vacEnd_dd;
-	private String vacation_reason;
-	private Timestamp reg_date;
-	private String result;
+	private int no;//시퀀스 넘버
+	private String name;//휴가 신청자
+	private String type;//휴가 신청자 구분
+	private String major;//휴가 신청자 소속
+	private String vacStart_yy;//휴가 시작 연도
+	private String vacStart_mm;//휴가 시작 월
+	private String vacStart_dd;//휴가 시작 일
+	private String vacEnd_yy;//휴가 끝 연도
+	private String vacEnd_mm;//휴가 끝 월
+	private String vacEnd_dd;//휴가 끝 일
+	private String vacation_reason;//휴가 사유
+	private Timestamp reg_date;//등록 일자 및 수정 일자
+	private String result;//처리 상태
+	private String id;
 	
 	public int getNo() {
 		return no;
@@ -96,6 +97,11 @@ public class vacationDTO {
 	public void setVacEnd_dd(String vacEnd_dd) {
 		this.vacEnd_dd = vacEnd_dd;
 	}
-	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 
 }

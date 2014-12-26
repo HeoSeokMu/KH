@@ -43,6 +43,11 @@ public class inputNum{
 		
 		bookDAO dbPro = bookDAO.getInstance();
 		dbPro.insertLoan(dto);
+		int i = dbPro.getNoticeCount(String.valueOf(dto.getBook_id()), dto.getS_num());
+		if(i>0){
+			dbPro.noticeDelete(String.valueOf(dto.getBook_id()), dto.getS_num());
+		}
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("dto", dto);
 		mv.addObject("s_name", req.getParameter("s_name"));

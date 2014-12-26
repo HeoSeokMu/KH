@@ -16,10 +16,19 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <center>
-나의도서신청목록<br/><br/>
 
-<body>
-<jsp:include page="/main/s_sidebar.jsp" />
+	나의도서신청목록<br/><br/>
+		<div id="box3">
+<body onload="">
+		<c:if test="${type == '교직원'}">
+			<jsp:include page="/main/e_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '교수'}">
+			<jsp:include page="/main/p_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '학생'}">
+			<jsp:include page="/main/s_sidebar.jsp" />
+		</c:if>
 		<div id="box3">
 <tr>
 	<td>

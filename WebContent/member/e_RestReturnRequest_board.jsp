@@ -58,6 +58,7 @@
 									<a href="RestContent.kh?num=${list.num}&rrrb_check=${rrrb_check}">${list.name}</a>
 								</td>
 								<td width="230px">
+
 									<fmt:formatDate value="<%=new java.util.Date()%>" var="toDate" pattern="dd" />
 									<fmt:formatDate value="${list.reg_date}" type="date" pattern="dd" var="writeDay"/>
 									<c:if test="${writeDay == toDate}">
