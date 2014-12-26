@@ -16,19 +16,7 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <center>
-나의도서신청목록<br/><br/>
-
-나의도서신청목록<br/><br/>
-<jsp:include page="/main/s_sidebar.jsp" />
-		<div id="box3">
-나의도서신청목록<br/><br/>
-<jsp:include page="/main/s_sidebar.jsp" />
-		<div id="box3">
-나의도서신청목록<br/><br/>
-<jsp:include page="/main/s_sidebar.jsp" />
-		<div id="box3">
-나의도서신청목록<br/><br/>
-<jsp:include page="/main/s_sidebar.jsp" />
+	나의도서신청목록<br/><br/>
 		<div id="box3">
 <body onload="">
 		<c:if test="${type == '교직원'}">
