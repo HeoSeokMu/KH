@@ -142,7 +142,7 @@ public class bookDAO {
 	            pstmt.setString(1, dto.getB_num());
 	            pstmt.setString(2, dto.getS_num());
 	            pstmt.setString(3, dto.getEmail());
-	            pstmt.setTimestamp(4, dto.getDate());
+	            pstmt.setTimestamp(4, dto.getRent());
 	            
 	            pstmt.executeUpdate();
 	        } catch(Exception ex) {
@@ -210,10 +210,8 @@ public class bookDAO {
 					pstmt = conn.prepareStatement("select email from kh_reserve where b_num = ?");
 					pstmt.setString(1, book_id); 
 					rs = pstmt.executeQuery();
-					System.out.println(book_id);
 					if (rs.next()) {
 						do{
-							System.out.println(rs.getString("email"));
 							list.add(rs.getString("email"));
 						}while(rs.next());
 					}
@@ -248,5 +246,35 @@ public class bookDAO {
 				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 			}
 			return book_name;
+		}
+		public List getNoticeList(String memId) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List list = new ArrayList();
+			try {
+				conn = getConnection();
+				
+					pstmt = conn.prepareStatement("select li.book_img, li.book_title, li.book_id, re.email, re.rent from kh_library li, kh_reserve re where re.s_num = ? and li.book_id = re.b_num");
+					pstmt.setString(1, memId);
+					rs = pstmt.executeQuery();
+					if (rs.next()) {
+						do{
+							reserveDTO article= new reserveDTO();
+							article.setBook_img(rs.getString("book_img"));
+							article.setB_num(rs.getString("book_title"));
+							article.setEmail(rs.getString("email"));
+							article.setRent(rs.getTimestamp("rent"));
+							list.add(article); 
+						}while(rs.next());
+					}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			return list;
 		}
 }

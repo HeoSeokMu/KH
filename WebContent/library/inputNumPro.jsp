@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Insert title here</title>
@@ -37,8 +35,9 @@
 		}
 	</style>
 </head>
-<jsp:include page="/member/sidebar.jsp" />
-<c:if test="${type == '교직원'}">
+<body>
+
+   <c:if test="${type == '교직원'}">
       <jsp:include page="/main/e_sidebar.jsp" />
    </c:if>
    <c:if test="${type == '교수'}">
