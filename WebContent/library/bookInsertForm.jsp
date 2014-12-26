@@ -30,7 +30,9 @@
 	<td><input type="text" name="isbn" value=""></td>
 	<td>책 이미지 </td>
 	<td><input type="file" name="upload" id="upload" accept="image/*" onChange="hideDefaultPic()"></td>
-	<td colspan="2" align="center"><input type="button" name="join" value="책등록하기" onClick="enter();"></td>
+	<td colspan="2" align="center"><input type="button" name="join" value="책등록하기" onClick="enter();">
+	<input type="button" name="no" value="취소하기" onClick="javascript:location.href='libraryAdmin.kh'">
+	</td>
 </tr>
 
 
