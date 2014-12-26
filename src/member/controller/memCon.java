@@ -178,7 +178,7 @@ public class memCon{
 		return mv;
 	}
 	
-	//휴가신청 게시판 리스트
+	//교적부 리스트
 	
 		private static List<memberDTO> list = new ArrayList<memberDTO>();
 		
@@ -189,11 +189,11 @@ public class memCon{
 		private pagingAction page; 		// 페이징 클래스
 		private String pagingHtml; 		// 페이징을 구현한 HTML
 		
-		@RequestMapping(value="/vacationConfirm.kh")
-		public ModelAndView vacationReqList(HttpServletRequest req) throws Exception{
+		@RequestMapping(value="/memberList.kh")
+		public ModelAndView memberList(HttpServletRequest req) throws Exception{
 			
-			memberDAO mDAO = memberDAO.getInstance();
-			list = mDAO.vacationReqList();
+			MemberDAO mDAO = MemberDAO.getInstance();
+			list;
 			
 			String view = "/member/ps_vacationConfirm.jsp";
 			
