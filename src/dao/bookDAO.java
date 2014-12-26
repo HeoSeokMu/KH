@@ -247,6 +247,30 @@ public class bookDAO {
 			}
 			return book_name;
 		}
+		public int getNoticeListCount(String memId) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int i=0;
+			try {
+				conn = getConnection();
+				
+					pstmt = conn.prepareStatement("select count(*) from kh_library li, kh_reserve re where re.s_num = ? and li.book_id = re.b_num");
+					pstmt.setString(1, memId);
+					rs = pstmt.executeQuery();
+					if (rs.next()) {
+						i= rs.getInt(1);
+					}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			return i;
+		}
+		
 		public List getNoticeList(String memId) {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -265,6 +289,75 @@ public class bookDAO {
 							article.setB_num(rs.getString("book_title"));
 							article.setEmail(rs.getString("email"));
 							article.setRent(rs.getTimestamp("rent"));
+							list.add(article); 
+						}while(rs.next());
+					}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			return list;
+		}
+		public void noticeDelete(String memId, String b_num) {
+			Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        
+	        try {
+	            conn = getConnection();
+	            
+	            pstmt = conn.prepareStatement("delete kh_reserve where b_num = ? and s_num = ?");
+	            pstmt.setString(1, b_num);
+	            pstmt.setString(2, memId);
+	            pstmt.executeUpdate();
+	        } catch(Exception ex) {
+	            ex.printStackTrace();
+	        } finally {
+	            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+	            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+	        }
+			
+		}
+		public int getNoticeCount(String b_num, String s_num) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int i=0;
+			try {
+				conn = getConnection();
+				
+					pstmt = conn.prepareStatement("select count(*) from kh_reserve where b_num = ? and s_num = ?");
+					pstmt.setString(1, b_num);
+					pstmt.setString(2, s_num);
+					rs = pstmt.executeQuery();
+					if (rs.next()) {
+						i= rs.getInt(1);
+					}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+			return i;
+		}
+		
+		public List getTurnin(Timestamp tDate ) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List list = new ArrayList();
+			try {
+				conn = getConnection();
+					pstmt = conn.prepareStatement("select li.book_title, mem.email from kh_library li, kh_member mem where turnin < ? and mem.id = li.s_num");
+					pstmt.setTimestamp(1, tDate);
+					rs = pstmt.executeQuery();
+					if (rs.next()) {
+						do{
+							libraryDTO article= new libraryDTO();
 							list.add(article); 
 						}while(rs.next());
 					}

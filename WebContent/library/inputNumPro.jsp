@@ -35,7 +35,6 @@
 		}
 	</style>
 </head>
-<jsp:include page="/member/sidebar.jsp" />
 <body>
    <c:if test="${type == '±³Á÷¿ø'}">
       <jsp:include page="/main/e_sidebar.jsp" />

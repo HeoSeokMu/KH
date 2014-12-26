@@ -111,16 +111,17 @@
       <td align="center"  width="100" >제목</td>
       <td align="center"  width="100" >저자</td>
       <td align="center"  width="100" >출판사</td>
-      <td align="center"  width="100" >출판년도</td>
-      <td align="center"  width="100" >부록</td>
-      <td align="center"  width="100" >위치</td>
-      <td align="center"  width="100" >등록번호</td>
-      <td align="center"  width="100" >대출여부</td>
+      <td align="center"  width="80" >출판년도</td>
+      <td align="center"  width="80" >부록</td>
+      <td align="center"  width="80" >위치</td>
+      <td align="center"  width="80" >등록번호</td>
+      <td align="center"  width="100" >반납예정일</td>
+      <td align="center"  width="80" >대출여부</td>
       <c:if test="${type == '교직원'}">
-      	<td align="center"  width="100" >대출</td>
+      	<td align="center"  width="80" >대출</td>
       </c:if>
       <c:if test="${type != '교직원'}">
-      	<td align="center" width="100" >알림서비스</td>
+      	<td align="center" width="80" >알림서비스</td>
       </c:if>
     </tr>
 
@@ -138,22 +139,31 @@
     <td align="center"  width="100">
     	<c:out value="${article.book_publisher}"/>
 	</td>
-    <td align="center"  width="100">
+    <td align="center"  width="80">
     	<c:out value="${article.book_year}"/>
     </td>
-    <td align="center"  width="100">
+    <td align="center"  width="80">
     	<c:out value="${article.book_supplement}"/>
     </td>
-    <td align="center"  width="100">
+    <td align="center"  width="80">
     	<c:out value="${article.book_location}"/>
     </td>
-    <td align="center"  width="100">
+    <td align="center"  width="80">
     	<c:out value="${article.book_id}"/>
     </td>
     <td align="center"  width="100">
+    	<c:if test="${article.turnin == null}">
+    		<c:out value=""/>
+    	</c:if>
+    	<c:if test="${article.turnin != null}">
+    		<c:out value="${article.turnin}"/>
+    	</c:if>
+    	
+    </td>
+    <td align="center"  width="80">
     	<c:out value="${article.loan}"/>
     </td>
-    <td align="center" width="100" >
+    <td align="center" width="80" >
     <c:if test="${type == '교직원'}">
     	<c:if test="${article.loan=='대출가능'}">
     		<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">대출</a>
