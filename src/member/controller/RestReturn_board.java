@@ -120,19 +120,20 @@ public class RestReturn_board {
 	}
 	
 	@RequestMapping(value="/RestReturnRequestInsert.kh")
-	public ModelAndView restInsert(HttpServletRequest req) throws Exception{
+	public ModelAndView restInsert(HttpSession session, HttpServletRequest req) throws Exception{
 		
 		System.out.println("RestReturnRequestInsert.kh =================== : ");
 		RestReturnBoard_DTO rrb_DTO = new RestReturnBoard_DTO();
 		
 		String board_type = req.getParameter("board_type");
+		String id = req.getParameter("id");
 		
 		rrb_DTO.setMajor(req.getParameter("major"));
 		rrb_DTO.setAddr(req.getParameter("addr"));
 		rrb_DTO.setEmail(req.getParameter("email"));
 		int grade = Integer.parseInt(req.getParameter("grade"));
 		rrb_DTO.setGrade(grade);
-		rrb_DTO.setId(req.getParameter("id"));
+		rrb_DTO.setId(id);
 		rrb_DTO.setName(req.getParameter("name"));
 		rrb_DTO.setPhone(req.getParameter("phone"));
 		rrb_DTO.setTime(req.getParameter("time"));
@@ -140,13 +141,23 @@ public class RestReturn_board {
 		rrb_DTO.setWhy_detail(req.getParameter("why_detail"));
 		rrb_DTO.setResult("미처리");
 		rrb_DTO.setReg_date(new Timestamp(System.currentTimeMillis()));
-		rrb_DTO.setBoard_type(req.getParameter("board_type"));
+		rrb_DTO.setBoard_type(board_type);
 		
 		System.out.println("rrb_DTO.getReg = "+rrb_DTO.getReg_date());
 		System.out.println("rrb_DTO.getPhone = "+rrb_DTO.getPhone());
 		
 		MemberDAO mDAO = new MemberDAO().getInstance();
 		mDAO.insertRestReturnBoard(rrb_DTO);
+		String status = "";
+		if(board_type.equals("휴학")){
+			status = "휴학신청중";
+		} else if(board_type.equals("복학")) {
+			status = "복학신청중";
+		}
+		mDAO.modify_MerberRest(status, id);
+		
+		session.removeAttribute("status");
+		session.setAttribute("status", status);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("mDTO", rrb_DTO);						
@@ -167,6 +178,7 @@ public class RestReturn_board {
 		System.out.println("board_type : "+board_type);
 		
 		String view = "";
+		String status = "";
 		if(rrrb_check.equals("신청")) {
 			list = mDAO.RestReturn_BoardList(board_type);
 			view = "/member/e_RestReturnRequest_board.jsp";
@@ -223,12 +235,13 @@ public class RestReturn_board {
 	}
 	
 	@RequestMapping(value="/RestReturn_Pro.kh")
-	public ModelAndView RestReturn_Pro(HttpServletRequest req) throws Exception{
+	public ModelAndView RestReturn_Pro(HttpSession session, HttpServletRequest req) throws Exception{
 		System.out.println("RestReturn_Pro =================== : ");
 		
 		String id = req.getParameter("id");
 		String result = req.getParameter("result");
 		int num = Integer.parseInt(req.getParameter("num"));
+		int rest_count = Integer.parseInt(req.getParameter("rest_count"));
 		String board_type = req.getParameter("board_type");
 		
 		System.out.println("id : " + id);
@@ -255,6 +268,13 @@ public class RestReturn_board {
 		}
 		mDAO.modify_RestReturnBoard(result, num, board_type);
 		mDAO.modify_MerberRest(status, id);
+		mDAO.RestCount_Update(id);
+		rest_count = mDAO.RestCount(id);
+		
+		session.removeAttribute("status");
+		session.setAttribute("status", status);
+		session.removeAttribute("rest_count");
+		session.setAttribute("rest_count", rest_count);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/RestReturn_Board.kh?board_type="+board_type+"&rrrd_check=처리");
@@ -265,11 +285,13 @@ public class RestReturn_board {
 	public ModelAndView RestContentView(HttpServletRequest request) throws Exception{
 		MemberDAO mDAO = MemberDAO.getInstance();
 		int num = Integer.parseInt(request.getParameter("num"));
+		String rrrb_check = request.getParameter("rrrb_check");
 		
 		ModelAndView mv = new ModelAndView();
 		RestReturnBoard_DTO rrb_DTO = mDAO.Rest_Content(num);
 
 		mv.addObject("rrb_DTO", rrb_DTO);
+		mv.addObject("rrrb_check", rrrb_check);
 		
 		mv.setViewName("/member/e_Rest_Content.jsp");
 		

@@ -1,37 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script>
-function body(){
 
-	for(var i=0; i<=9; i++){
-		var type = document.getElementsByName("q_type")[i].value;
-		var code = document.getElementsByName("q_code")[i].value;
-		var table = document.getElementsByName("q_table")[i].value;
-		var name = document.getElementsByName("q_name")[i].value;
-		var hakjum = document.getElementsByName("q_hakjum")[i].value;
-		var professor = document.getElementsByName("q_professor")[i].value;
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>공지사항</title>
+	<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
+	<link rel="stylesheet" href="css/left_menu.css"></link>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/leftMenu_jquery.js"></script>
+	
+	<script>
+		function body(){
 		
-		var day = document.getElementsByName("q_day")[i].value;
-		var sch = document.getElementsByName("q_sch")[i].value;
-		var time = document.getElementsByName("q_time")[i].value;
-		
-		var num = document.getElementsByName("num")[i].value;
-		
-		var j = (Math.round(Math.random()*6));
-		
-		for(var k=0; k<time; k++){   			// 시간표에 색 표시
-			var i_sch = Number(day)+Number(sch)+Number(k);
-			var c = document.getElementById(i_sch);
-			var color = ["#FF5E00","FFBB00","FFE400","#ABF200","#1DDB16","#0054FF","#0100FF"];
-			c.style.backgroundColor=color[j]; 
-			
-			document.getElementsByName("sch_"+i_sch)[0].value = name;
+			for(var i=0; i<=9; i++){
+				var type = document.getElementsByName("q_type")[i].value;
+				var code = document.getElementsByName("q_code")[i].value;
+				var table = document.getElementsByName("q_table")[i].value;
+				var name = document.getElementsByName("q_name")[i].value;
+				var hakjum = document.getElementsByName("q_hakjum")[i].value;
+				var professor = document.getElementsByName("q_professor")[i].value;
+				
+				var day = document.getElementsByName("q_day")[i].value;
+				var sch = document.getElementsByName("q_sch")[i].value;
+				var time = document.getElementsByName("q_time")[i].value;
+				
+				var num = document.getElementsByName("num")[i].value;
+				
+				var j = (Math.round(Math.random()*6));
+				
+				for(var k=0; k<time; k++){   			// 시간표에 색 표시
+					var i_sch = Number(day)+Number(sch)+Number(k);
+					var c = document.getElementById(i_sch);
+					var color = ["#FF5E00","FFBB00","FFE400","#ABF200","#1DDB16","#0054FF","#0100FF"];
+					c.style.backgroundColor=color[j]; 
+					
+					document.getElementsByName("sch_"+i_sch)[0].value = name;
+				}
+			}
 		}
-	}
-}
-
 </script>
+</head>
+
 
 <body onload="body()">
 
@@ -46,8 +58,8 @@ function body(){
 		</c:if>
 
 <div id="box3">
+	<br/>
 <table width="900" border="0" cellspacing="0" cellpadding="0" bgcolor="#C9C9C9" >
-
 	<tr align="center" height="30">
 		<td width="13%"><font size="2"><b>학과</b></font></td>
 		<td bgcolor="#F3F3F3" width="15%"><font size="2">${member.major }</font></td>

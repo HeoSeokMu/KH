@@ -19,7 +19,7 @@
 	<jsp:include page="/main/e_sidebar.jsp"/>
 	<div id="box3">
 		<center>
-		<br/><br/>
+		<br/>
 			<form method="post" name="chartForm">
 				<h1>${board_type}신청내역</h1>
 				<hr width="880px" size="1" color="gray" align="center" />
@@ -57,7 +57,18 @@
 								<td width="120px">
 									<a href="RestContent.kh?num=${list.num}&rrrb_check=${rrrb_check}">${list.name}</a>
 								</td>
-								<td width="230px">${list.reg_date}</td>
+								<td width="230px">
+									<%-- <fmt:formatDate value="<%=new java.util.Date()%>" var="toDate" pattern="yy-MM-dd HH:mm:ss" />
+									<fmt:formatDate value="${list.reg_date}" type="date" pattern="yy-MM-dd HH:mm:ss" var="writeDate"/> --%>
+									<fmt:formatDate value="<%=new java.util.Date()%>" var="toDate" pattern="dd" />
+									<fmt:formatDate value="${list.reg_date}" type="date" pattern="dd" var="writeDay"/>
+									<c:if test="${writeDay == toDate}">
+										<fmt:formatDate value="${list.reg_date}" type="date" pattern="HH시 mm분"/>
+									</c:if>
+									<c:if test="${writeDay != toDate}">
+										<fmt:formatDate value="${list.reg_date}" type="date" pattern="yy년 MM월 dd일"/>
+									</c:if>
+								</td>
 							</tr>
 						</table>
 						<hr width="880px" size="1" color="gray" align="center" />
