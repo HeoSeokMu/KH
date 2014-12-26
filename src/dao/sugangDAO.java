@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import dto.memberDTO;
 import dto.stuDTO;
 import dto.sugangDTO;
 
@@ -25,7 +26,7 @@ public class sugangDAO {
 		
 		
 	}
-	
+	 
 	private Connection getConnection(){
 		try{
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -226,7 +227,7 @@ public class sugangDAO {
 		return stu;
 	}
 	
-	public void setIn_stu(String code, String tableName){
+	public void setIn_stu_pl(String code, String tableName){
 		
 		try{
 			conn = getConnection();
@@ -238,6 +239,40 @@ public class sugangDAO {
 			e.printStackTrace();
 		}finally{
 			try{
+				pstmt.close();
+				conn.close();
+			}catch (Exception s){s.printStackTrace();}
+		}
+	}
+	
+	public void setIn_stu_mi(String code, String tableName){
+		
+		int in = 0;
+		try{
+			conn = getConnection();
+			pstmt = conn.prepareStatement("update lecture_"+tableName+" set in_stu=in_stu-1 where l_code=?");
+			pstmt.setString(1, code);
+			pstmt.executeUpdate();
+			
+			pstmt = conn.prepareStatement("select in_stu from lecture_"+tableName+"  where l_code=?");
+			pstmt.setString(1, code);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				in = rs.getInt("in_stu");
+			}
+		
+			if(in < 0){
+				pstmt = conn.prepareStatement("update lecture_"+tableName+" set in_stu=0 where l_code=?");
+				pstmt.setString(1, code);
+				pstmt.executeUpdate();
+			}
+			
+		}catch (Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				rs.close();
 				pstmt.close();
 				conn.close();
 			}catch (Exception s){s.printStackTrace();}
@@ -282,11 +317,53 @@ public class sugangDAO {
 		return list;
 	}
 	
-	public int setStu_hakjum(List list){
+	public void setStu_hakjum(List <sugangDTO>list, memberDTO member){
 		int result = 0;
+		int code = 2014401001;
+/*		
+  		seq num
+		1 구분(전선,전필....)
+		2 강의 코드번호
+		3 강의명(과목)
+		4 교수
+		5 교수번호
+		6 학년
+		7 이름
+		8 학번
+		9 학점
+		10 성적A default
+		11 성적B default
+		12 학점 인정 여부 default
+	*/
 		
-		
-		return result;
+		try{
+			conn = getConnection();
+			
+		for(int i=0; i<list.size(); i++){
+			pstmt = conn.prepareStatement("insert into hakjum_2014_1 values (hakjum_2014_1_seq.NEXTVAL,?,?,?,?,?,?,?,?,?,default,default,default)");
+			pstmt.setString(1,list.get(i).getL_type());
+			pstmt.setString(2,list.get(i).getL_code());
+			pstmt.setString(3,list.get(i).getL_name());
+			pstmt.setString(4,list.get(i).getProfessor());
+//			pstmt.setInt(5,list.get(i).getP_code());
+			pstmt.setInt(5,code);
+			pstmt.setInt(6,member.getGrade());
+			pstmt.setString(7,member.getName());
+			pstmt.setString(8,member.getId());
+			pstmt.setInt(9,list.get(i).getF_grade());
+
+			pstmt.executeUpdate();
+		}
+					
+		}catch (Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				pstmt.close();
+				conn.close();
+			}catch (Exception s){s.printStackTrace();}
+			
+		}	
 	}
 }
 

@@ -18,8 +18,18 @@
 
 <center>
 도서관공지사항<br/><br/>
-<body>
-	<jsp:include page="/main/s_sidebar.jsp" />
+
+<body onload="">
+		<c:if test="${type == '교직원'}">
+			<jsp:include page="/main/e_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '교수'}">
+			<jsp:include page="/main/p_sidebar.jsp" />
+		</c:if>
+		<c:if test="${type == '학생'}">
+			<jsp:include page="/main/s_sidebar.jsp" />
+		</c:if>
+
 		<div id="box3">
 <tr><td>
 <input type="button" name="libraryBack" value="돌아가기" onClick="javascript:location.href='libraryMain.kh'">

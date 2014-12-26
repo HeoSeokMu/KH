@@ -560,19 +560,18 @@ public class MemberDAO {
 	public void modify_RestReturnBoard(String result, int num, String board_type) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(
 			"update kh_restreturn_school_board set result=? where num = ?");
 			pstmt.setString(1, result);
 			pstmt.setInt(2, num);
-			rs = pstmt.executeQuery();
+			pstmt.executeUpdate();
 
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
 			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
@@ -582,19 +581,17 @@ public class MemberDAO {
 	public void modify_MerberRest(String status, String id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(
 			"update kh_member set status=? where id = ?");
 			pstmt.setString(1, status);
 			pstmt.setString(2, id);
-			rs = pstmt.executeQuery();
+			pstmt.executeUpdate();
 
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
 			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
@@ -636,5 +633,49 @@ public class MemberDAO {
 		}
 		
 		return article;
+	}
+	
+	// ÈÞÇÐ or ÈÞ°¡ È½¼ö¸¦ °¡Á®¿À±â
+	public int RestCount(String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int rest_count = 0;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select rest_count from kh_member where id = ?"); 
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			rest_count = rs.getInt("rest_count");
+			
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		
+		return rest_count;
+	}
+	
+	// ÈÞÇÐ or ÈÞ°¡ È½¼ö Áõ°¡½ÃÅ°±â
+	public void RestCount_Update(String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+				
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("update kh_member set rest_count = rest_count + 1 where id = ?"); 
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+			
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
 	}
 }
