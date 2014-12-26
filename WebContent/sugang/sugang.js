@@ -387,4 +387,3 @@
 		}
 	}
 	
-	window.history.forward(); // 뒤로가기 방지

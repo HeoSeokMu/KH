@@ -42,15 +42,15 @@
 									<dd><a href="myInfo.kh">학적기본사항조회 및 수정</a></dd>
 								</dl>
 							</li>
-							<li class="btn"><a class="s_menu3" onclick="link_chk('${status}', '${memId}')">휴학/복학</a></li>
+							<li class="btn"><a class="s_menu3" onclick="link_chk('${status}', '${memId}', '${rest_count}')">휴학/복학</a></li>
 							<li class="ly">
 								<dl>
 									<dt>휴학/복학</dt>
 									<c:if test="${status == '재학' || status == '휴학신청중'}">
-										<dd><a href="restSchool.kh?id=${memId}" onclick="return status_chk('${status}')">휴학신청</a></dd>
+										<dd><a href="restSchool.kh?id=${memId}" onclick="return status_chk('${status}', '${rest_count}')">휴학신청</a></dd>
 									</c:if>
 									<c:if test="${status == '휴학' || status == '복학신청중'}">
-										<dd><a href="returnSchool.kh?id=${memId}" onclick="return status_chk('${status}')">복학신청</a></dd>
+										<dd><a href="returnSchool.kh?id=${memId}" onclick="return status_chk('${status}', '${rest_count}')">복학신청</a></dd>
 									</c:if>
 								</dl>
 							</li>
@@ -83,11 +83,7 @@
 									<dd><a href="bookRequest.kh">책 대여 신청</a></dd>
 									<dd><a href="myBookRequestList.kh">책 대여 신청내역 확인</a></dd>
 									<dd><a href="#">책 예약 취소</a></dd>
-<<<<<<< HEAD
-									
-=======
 									<ad><c:if test="${memId == 'liadmin' } }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
->>>>>>> branch 'master' of https://github.com/HeoSeokMu/KH
 								</dl>
 							</li>
 						</ul>

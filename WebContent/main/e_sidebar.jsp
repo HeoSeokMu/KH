@@ -7,11 +7,10 @@
 
 <head>
 <title>KH 통합정보시스템</title>
-<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
-<link rel="stylesheet" href="css/left_menu.css"></link>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="js/leftMenu_jquery.js"></script>
+	<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
+	<link rel="stylesheet" href="css/left_menu.css"></link>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/leftMenu_jquery.js"></script>
 </head>
 
 <body>
@@ -89,7 +88,7 @@
 								<dl>
 									<dt>휴가신청 및 처리</dt>
 									<dd>
-										<a href="vacationForm.kh">휴가 신청</a>
+										<a href="vacationForm.kh" onclick="return vacationCount_chk('${rest_count}');">휴가 신청</a>
 									</dd>
 									<dd>
 										<a href="vacationConfirm.kh">휴가 신청내역 확인</a>
@@ -129,11 +128,8 @@
 									<dd>
 										<a href="bookRequestList.kh">책 대여 리스트</a>
 									</dd>
-<<<<<<< HEAD
 									<ad><c:if test="${type == '교직원' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
-=======
 									<ad><c:if test="${memId == 'liadmin' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
->>>>>>> branch 'master' of https://github.com/HeoSeokMu/KH
 								</dl>
 							</li>
                      	</ul>

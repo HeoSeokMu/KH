@@ -56,7 +56,7 @@ public class boardDAO {
     }
 	
 	// 개설 신청 강의 리스트
-	public List<lectureBoardDTO> notice_BoardList() throws Exception {
+	public List<lectureBoardDTO> lecture_BoardList() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -179,7 +179,7 @@ public class boardDAO {
 	            conn = getConnection();
 	            
 	            pstmt = conn.prepareStatement(
-	            	"insert into kh_vacation values (kh_vacation_seq.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?)");
+	            	"insert into kh_vacation values (kh_vacation_seq.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 	            pstmt.setString(1, vDTO.getName());
 	            pstmt.setString(2, vDTO.getType());
 	            pstmt.setString(3, vDTO.getMajor());
@@ -192,6 +192,7 @@ public class boardDAO {
 	            pstmt.setString(10, vDTO.getVacation_reason());
 	            pstmt.setTimestamp(11, vDTO.getReg_date());
 	            pstmt.setString(12, vDTO.getResult());
+	            pstmt.setString(13, vDTO.getId());
 	            
 	            pstmt.executeUpdate();
 	        } catch(Exception ex) {
@@ -230,6 +231,7 @@ public class boardDAO {
 						vDTO.setVacation_reason(rs.getString("vacation_reason"));
 						vDTO.setReg_date(rs.getTimestamp("reg_date"));
 						vDTO.setResult(rs.getString("result"));
+						vDTO.setId(rs.getString("id"));
 						list.add(vDTO);
 					} while (rs.next());
 				}
@@ -271,6 +273,7 @@ public class boardDAO {
 						vDTO.setVacation_reason(rs.getString("vacation_reason"));
 						vDTO.setReg_date(rs.getTimestamp("reg_date"));
 						vDTO.setResult(rs.getString("result"));
+						vDTO.setId(rs.getString("id"));
 						list.add(vDTO);
 					} while (rs.next());
 				}
@@ -367,6 +370,7 @@ public class boardDAO {
 					article.setVacation_reason(rs.getString("vacation_reason"));
 					article.setReg_date(rs.getTimestamp("reg_date"));
 					article.setResult(rs.getString("result"));
+					article.setId(rs.getString("id"));
 				}
 			} catch(Exception ex) {
 				ex.printStackTrace();
