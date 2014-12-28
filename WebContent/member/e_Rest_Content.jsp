@@ -18,9 +18,9 @@
 	<script type="text/javascript">
 		function Processing(processing, num, id, board_type, value, rest_count, why) {
 			alert("Pro");
-			alert("result : " + value +" / " + board_type);
+			alert("result : " + value +" / " + board_type + " / " + why);
 			if(value == "승인" || value == "거절") {
-				window.location = "RestReturn_Pro.kh?board_type="+board_type+"&num="+num+"&id="+id+"&result="+value+"&rest_count="+rest_count+"&why"+why;	
+				window.location = "RestReturn_Pro.kh?board_type="+board_type+"&num="+num+"&id="+id+"&result="+value+"&rest_count="+rest_count+"&why="+why;	
 			}
 		}
 	</script>
