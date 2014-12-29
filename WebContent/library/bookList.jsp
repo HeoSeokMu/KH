@@ -46,8 +46,13 @@
 			return false;
 		}
 	}
+	function checkNotice() {
+		if("${noticeCK}"=="check"){
+			alert("알림서비스가 등록되었습니다.");
+		}
+	}
 </script>
-<body>
+<body onload="return checkNotice()">
 	<c:if test="${type == '교직원'}">
       <jsp:include page="/main/e_sidebar.jsp" />
    </c:if>
@@ -118,10 +123,10 @@
       <td align="center"  width="100" >반납예정일</td>
       <td align="center"  width="80" >대출여부</td>
       <c:if test="${type == '교직원'}">
-      	<td align="center"  width="80" >대출</td>
+      	<td align="center"  width="100" >대출</td>
       </c:if>
       <c:if test="${type != '교직원'}">
-      	<td align="center" width="80" >알림서비스</td>
+      	<td align="center" width="100" >알림서비스</td>
       </c:if>
     </tr>
 
@@ -163,7 +168,7 @@
     <td align="center"  width="80">
     	<c:out value="${article.loan}"/>
     </td>
-    <td align="center" width="80" >
+    <td align="center" width="100" >
     <c:if test="${type == '교직원'}">
     	<c:if test="${article.loan=='대출가능'}">
     		<a href="/KH_School/inputNumForm.kh?book_id=${article.book_id}&book_title=${article.book_title}">대출</a>

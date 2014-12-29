@@ -69,7 +69,7 @@
 <table width="700" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td align="center">
-    	검색결과가 없습니다.
+    	알림서비스 신청 내역이 없습니다.
     </td>
   </tr>
 </table>

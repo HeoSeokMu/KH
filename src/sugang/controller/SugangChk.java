@@ -3,6 +3,8 @@ package sugang.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +19,7 @@ import dto.sugangDTO;
 public class SugangChk {
 	
 	@RequestMapping(value="/sugangchk.kh")
-	public ModelAndView chk_form() throws Exception{
+	public ModelAndView chk_form(HttpSession session) throws Exception{
 		
 		memberDTO member = new memberDTO();
 		MemberDAO memberdao = MemberDAO.getInstance();
@@ -25,7 +27,8 @@ public class SugangChk {
 		stuDTO stu = new stuDTO();
 		List<sugangDTO> list = new ArrayList<sugangDTO>();
 		
-		String number = "2014001001";  //접속 학생 정보
+		String number = (String) session.getAttribute("memId");
+		//String number = "2014001001";  //접속 학생 정보
 		String semester = "1"; //학기
 		
 		sugangDAO dao = sugangDAO.getInstance();

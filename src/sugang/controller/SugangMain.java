@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,14 +23,16 @@ import dto.sugangDTO;
 public class SugangMain {
 		
 	@RequestMapping(value="/sugang.kh")
-	public ModelAndView sugangForm(HttpServletRequest req) throws Exception{
+	public ModelAndView sugangForm(HttpServletRequest req, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		
 		List<sugangDTO> list = new ArrayList<sugangDTO>();
 		stuDTO stu = new stuDTO();
 		memberDTO member = new memberDTO();
 		
-		String number = "2014001001";  //접속 학생 정보
+		String number = (String) session.getAttribute("memId");
+		
+		//String number = "2014001001";  //접속 학생 정보
 		String semester = "1"; //학기
 		
 		sugangDAO dao = sugangDAO.getInstance();

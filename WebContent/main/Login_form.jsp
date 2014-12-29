@@ -148,7 +148,6 @@
 						<tr>
 							<td colspan="2" class="lineX">
 								<font style="font-size: 8pt">
-								<a href="joinForm.kh" title="회원가입" style="color: gray;">회원가입</a>
 								&nbsp;&nbsp;<a href="findIdForm.action" title="아이디/비밀번호 찾기" style="color: gray;">아이디/비밀번호 찾기</a>
 								</font>
 							</td>
