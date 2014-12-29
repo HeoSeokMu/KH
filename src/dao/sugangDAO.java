@@ -41,6 +41,72 @@ public class sugangDAO {
 		return conn;
 	}
 	
+	public void insertSugang(sugangDTO s_DTO) throws Exception {
+		
+		Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try {
+            conn = getConnection();
+            
+            pstmt = conn.prepareStatement(
+            	"insert into lecture_001 values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,lecture_001_seq.NEXTVAL)");
+            pstmt.setString(1, s_DTO.getM_code());
+            pstmt.setString(2, s_DTO.getL_type());
+            pstmt.setString(3, s_DTO.getL_code());
+            pstmt.setString(4, s_DTO.getL_name());
+            pstmt.setString(5, s_DTO.getProfessor());
+            pstmt.setInt(6, s_DTO.getP_code());
+            pstmt.setString(7, s_DTO.getL_room());
+            pstmt.setInt(8, s_DTO.getY_grade());
+            pstmt.setInt(9, s_DTO.getF_grade());
+            pstmt.setInt(10, s_DTO.getSemester());
+            pstmt.setInt(11, s_DTO.getL_start());
+            pstmt.setInt(12, s_DTO.getL_end());
+            pstmt.setString(13, s_DTO.getL_day());
+            pstmt.setInt(14, s_DTO.getIn_stu());
+            pstmt.setInt(15, s_DTO.getLimit_stu());
+            pstmt.setString(16, s_DTO.getS_date());
+            pstmt.setString(17, s_DTO.getL_date());
+        	
+            pstmt.executeUpdate();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+	}
+	
+	public List<String> selectL_Code(){
+		List<String> list = new ArrayList<String>();
+		
+		String code = null;
+		String sub_code[] = null;
+		try{
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select l_code from lecture_001");
+			rs = pstmt.executeQuery();
+	
+			while(rs.next()){
+				list.add(rs.getString("l_code"));
+			}
+			
+			System.out.println("list size : " + list.size());
+						
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				rs.close();
+				pstmt.close();
+				conn.close();
+			}catch(Exception s){s.printStackTrace();}
+		}
+	
+		return list;
+	}
+	
 	public List<sugangDTO> getList(String code, int grade) throws SQLException{
 		List<sugangDTO> list = new ArrayList<sugangDTO>();
 		sugangDTO dto = null;
