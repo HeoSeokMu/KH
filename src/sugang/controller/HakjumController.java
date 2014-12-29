@@ -28,9 +28,9 @@ public class HakjumController {
 	public ModelAndView hakjumForm(HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		
-/*		String code = (String) session.getAttribute("memId");
-		int p_code = Integer.parseInt(code);*/
-		int p_code = 2014401001; // 교수 코드
+	String code = (String) session.getAttribute("memId");
+		int p_code = Integer.parseInt(code);
+		//int p_code = 2014401001; // 교수 코드
 		
 		List<sugangDTO> suganglist = new ArrayList<sugangDTO>();
 		sugangDTO sugangdto = new sugangDTO();
@@ -65,11 +65,11 @@ public class HakjumController {
 	}
 	
 	@RequestMapping(value="/hakjumPro.kh")
-	public ModelAndView hakjumForm(HttpServletRequest req) throws SQLException{
+	public ModelAndView hakjumForm(HttpServletRequest req, HttpSession session) throws SQLException{
 		
-/*		String code = (String) session.getAttribute("memId");
-		int p_code = Integer.parseInt(code);*/
-		int p_code = 2014401001; // 교수 코드
+		String codenumber = (String) session.getAttribute("memId");
+		int p_code = Integer.parseInt(codenumber);
+		//int p_code = 2014401001; // 교수 코드
 		
 		
 		String code = req.getParameter("code");
@@ -103,14 +103,14 @@ public class HakjumController {
 	}
 	
 	@RequestMapping(value="/hakjumInsert.kh")
-	public ModelAndView hakjumInsert(HttpServletRequest req) throws Exception{
+	public ModelAndView hakjumInsert(HttpServletRequest req, HttpSession session) throws Exception{
 
 		hakjumDAO dao = hakjumDAO.getInstance();
 		
-/*		String code = (String) session.getAttribute("memId");
-		int p_code = Integer.parseInt(code);
-	*/
-		int p_code = 2014401001; // 교수 코드
+		String codenumber = (String) session.getAttribute("memId");
+		int p_code = Integer.parseInt(codenumber);
+	
+		//int p_code = 2014401001; // 교수 코드
 		
 		String num[] = req.getParameterValues("num");
 		int result = 0;

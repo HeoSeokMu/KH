@@ -59,7 +59,14 @@
 
 				--%>
 
-<script>
+<head>
+<title>공지사항</title>
+	<link rel="stylesheet" href="css/Mainpage_Frame.css"></link>
+	<link rel="stylesheet" href="css/left_menu.css"></link>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/leftMenu_jquery.js"></script>
+	
+	<script>
 function select(code) {
 	
 	var param = "code="+code;
@@ -103,6 +110,20 @@ function result(num){
 
 </script>
 
+</head>
+
+<body>
+	<c:if test="${type == '교직원'}">
+		<jsp:include page="/main/e_sidebar.jsp" />
+	</c:if>
+	<c:if test="${type == '교수'}">
+		<jsp:include page="/main/p_sidebar.jsp" />
+	</c:if>
+	<c:if test="${type == '학생'}">
+		<jsp:include page="/main/s_sidebar.jsp" />
+	</c:if>
+		<div id="box3">
+
 <table border="1" cellspacing="0" cellpadding="3" bordercolor="gray" >
 	<tr>
 		<td bgcolor="#b1b1b1" align="center"  width="130"><font size="2"><b>담당 교수</b></font></td>
@@ -121,7 +142,7 @@ function result(num){
 	<tr >
 		<c:forEach var="list" items="${suganglist}">
 			
-				<td align="center" width="150">
+				<td align="center" width="150" style="cursor:pointer;">
 					<a onclick="select('${list.l_code}')">${list.l_name}</a>	
 				</td>
 			
@@ -136,6 +157,10 @@ function result(num){
 		<div id="selected">
 		
 		</div>
+	</div>
+</div>	
+</body>
+
 
 
 
