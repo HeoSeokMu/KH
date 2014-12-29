@@ -170,7 +170,7 @@ public class memCon{
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("dto", dto);
 		
-		mv.setViewName("/main/e_main.jsp");
+		mv.setViewName("/member/notice_board.jsp");
 	
 		return mv;
 	}
