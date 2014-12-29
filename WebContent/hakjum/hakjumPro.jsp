@@ -8,8 +8,8 @@
 			<td bgcolor="#b1b1b1" align="center" width="80"><font size="2"><b>학 번</b></font></td>
 			<td bgcolor="#b1b1b1" align="center" width="80"><font size="2"><b>학 년</b></font></td>	
 			<td bgcolor="#b1b1b1" align="center" width="80"><font size="2"><b>이 름</b></font></td>	
-			<td bgcolor="#b1b1b1" align="center"><font size="2"><b></b></font></td>
-			<td bgcolor="#b1b1b1" align="center"><font size="2"><b></b></font></td>
+			<td bgcolor="#b1b1b1" align="center"><font size="2"><b>점 수</b></font></td>
+			<td bgcolor="#b1b1b1" align="center"><font size="2"><b>결 과</b></font></td>
 		</tr>
 	<c:forEach var="list" items="${list}">
 		<tr>		

@@ -1,7 +1,10 @@
 package sugang.controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dao.MemberDAO;
 import dao.hakjumDAO;
+import dao.sugangDAO;
 import dto.hakjumDTO;
 import dto.memberDTO;
+import dto.sugangDTO;
 
 @Controller
 public class HakjumController {
@@ -27,10 +32,15 @@ public class HakjumController {
 		int p_code = Integer.parseInt(code);*/
 		int p_code = 2014401001; // 교수 코드
 		
+		List<sugangDTO> suganglist = new ArrayList<sugangDTO>();
+		sugangDTO sugangdto = new sugangDTO();
 		
 		List<hakjumDTO> list = new ArrayList<hakjumDTO>();
 		hakjumDTO dto = new hakjumDTO();
 		hakjumDAO dao = hakjumDAO.getInstance();
+		
+		sugangDAO sugangdao = sugangDAO.getInstance();
+		suganglist = sugangdao.getList(p_code);
 		
 		MemberDAO memdao = MemberDAO.getInstance();
 		memberDTO memdto = new memberDTO();
@@ -48,19 +58,32 @@ public class HakjumController {
 		}
 		
 		mv.addObject("memdto",memdto);
+		mv.addObject("suganglist",suganglist);	
 		mv.addObject("list",list);
 		mv.setViewName("hakjum/hakjum.jsp");
 		return mv;
 	}
 	
 	@RequestMapping(value="/hakjumPro.kh")
-	public ModelAndView hakjumForm(HttpServletRequest req){
+	public ModelAndView hakjumForm(HttpServletRequest req) throws SQLException{
+		
+/*		String code = (String) session.getAttribute("memId");
+		int p_code = Integer.parseInt(code);*/
+		int p_code = 2014401001; // 교수 코드
+		
 		
 		String code = req.getParameter("code");
 		List<hakjumDTO> list = new ArrayList<hakjumDTO>();
+		
+		List<sugangDTO> suganglist = new ArrayList<sugangDTO>();
+		sugangDTO sugangdto = new sugangDTO();
+		
 		hakjumDTO dto = new hakjumDTO();
 		hakjumDAO dao = hakjumDAO.getInstance();
 		
+		sugangDAO sugangdao = sugangDAO.getInstance();
+		
+		suganglist = sugangdao.getList(p_code);
 		list = dao.getList(code);
 		
 		for(hakjumDTO hakjum : list){
@@ -73,6 +96,7 @@ public class HakjumController {
 		}
 		
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("suganglist",suganglist);	
 		mv.addObject("list",list);	
 		mv.setViewName("hakjum/hakjumPro.jsp");
 		return mv;

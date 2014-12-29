@@ -119,10 +119,10 @@ function result(num){
 	</tr>
 	
 	<tr >
-		<c:forEach var="list" items="${list}">
+		<c:forEach var="list" items="${suganglist}">
 			
 				<td align="center" width="150">
-					<a onclick="select('${list.code}')">${list.name}</a>	
+					<a onclick="select('${list.l_code}')">${list.l_name}</a>	
 				</td>
 			
 		</c:forEach> 
