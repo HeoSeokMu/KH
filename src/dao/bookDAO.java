@@ -370,4 +370,37 @@ public class bookDAO {
 			}
 			return list;
 		}
+		
+		public List<libraryDTO> getLoanList(String memId) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List articleList=null;
+			try{
+				conn = getConnection();
+				pstmt = conn.prepareStatement("select *from kh_library where s_num = ?");
+				pstmt.setString(1, memId);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					articleList = new ArrayList(); 
+					do{ 
+						libraryDTO article= new libraryDTO();
+						article.setBook_id(rs.getInt("BOOK_ID"));
+						article.setBook_title(rs.getString("BOOK_TITLE"));
+						article.setBook_img(rs.getString("Book_img"));
+						article.setTurnin(rs.getDate("TURNIN"));
+						articleList.add(article); 
+					}while(rs.next());
+				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+				if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+				if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+			}
+
+			
+			return articleList;
+		}
 }

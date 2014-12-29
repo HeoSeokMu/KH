@@ -121,12 +121,12 @@
 								<dl>
 									<dt><a>도서관</a></dt>
 									<dd><a href="bookList.kh">도서검색</a></dd>
-									<dd><a href="bookRequest.kh">책 대여 신청</a></dd>
+									<dd><a href="bookRequest.kh">도서 자료 신청</a></dd>
 									<dd>
-										<a href="myBookRequestList.kh">책 대여 신청내역 확인</a>
+										<a href="bookRequestList.kh">도서 자료 신청내역</a>
 									</dd>
 									<dd>
-										<a href="bookRequestList.kh">책 대여 리스트</a>
+										<a href="myBookRequestList.kh">내 구입 신청 내역</a>
 									</dd>
 									<ad><c:if test="${type == '교직원' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>
 									<ad><c:if test="${memId == 'liadmin' }"><a href="libraryAdmin.kh">관리자페이지</a></c:if></ad>

@@ -68,8 +68,7 @@ public class pagingAction {
 				pagingHtml.append(i);
 				pagingHtml.append("</font></b>");
 			} else {
-				pagingHtml
-						.append("&nbsp;<a href='listTest.kh?currentPage=");
+				pagingHtml.append("&nbsp;<a href='listTest.kh?currentPage=");
 				pagingHtml.append(i);
 				pagingHtml.append("&keyword="+keyword+"&searchType="+searchType+">");
 				pagingHtml.append(i);
