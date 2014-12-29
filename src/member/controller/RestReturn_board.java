@@ -284,13 +284,15 @@ public class RestReturn_board {
 		// 졸업 예상일자 가져오기
 		memberDTO mDTO = mDAO.member_info(id);
 		Timestamp end_date = mDTO.getEnd_date();
+		System.out.println("why : " + why);
+		System.out.println("end_date : " + end_date);
 		
 		// 졸업 예상일자 연장하기
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(end_date.getTime());
 		if(why.equals("군입대")) {
 			cal.set(Calendar.YEAR,  cal.get(Calendar.YEAR) + 2);
-		} else if(why.equals("학 비")) {
+		} else if(why.equals("학 비") || why.equals("기 타")) {
 			cal.set(Calendar.MONTH,  cal.get(Calendar.MONTH) + 6);
 		} else if(why.equals("유 학")) {
 			cal.set(Calendar.YEAR,  cal.get(Calendar.YEAR) + 1);
