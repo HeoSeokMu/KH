@@ -36,8 +36,8 @@ public class notice {
 			dbPro.insertNotice(dto);
 			
 			ModelAndView mv = new ModelAndView();
-			
-			mv.setViewName("/library/notice.jsp");
+			mv.addObject("noticeCK", "check");
+			mv.setViewName("/library/bookList.jsp");
 			return mv;
 		}
 }

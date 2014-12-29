@@ -46,8 +46,13 @@
 			return false;
 		}
 	}
+	function checkNotice() {
+		if("${noticeCK}"=="check"){
+			alert("알림서비스가 등록되었습니다.");
+		}
+	}
 </script>
-<body>
+<body onload="return checkNotice()">
 	<c:if test="${type == '교직원'}">
       <jsp:include page="/main/e_sidebar.jsp" />
    </c:if>
