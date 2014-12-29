@@ -99,7 +99,7 @@
 				</td>
 				<td>
 					<input type="text" name="s_num" value="${s_num}" maxlength="10" onkeydown="idcheck()"/>
-					<input type="text" name="id_check" value="${id_check}"/>
+					<input type="hidden" name="id_check" value="${id_check}"/>
 					<input type="button" value="입력" onclick="return selectInform(this.form)"/>
 				</td>
 				<td>

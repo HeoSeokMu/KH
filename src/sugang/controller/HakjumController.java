@@ -3,6 +3,8 @@ package sugang.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,9 +16,12 @@ import dto.hakjumDTO;
 public class HakjumController {
 
 	@RequestMapping(value="/hakjumForm.kh")
-	public ModelAndView hakjumForm(){
+	public ModelAndView hakjumForm(HttpSession session){
 		ModelAndView mv = new ModelAndView();
-		int p_code = 2014401001; // 교수 코드
+		
+		String code = (String) session.getAttribute("memId");
+		int p_code = Integer.parseInt(code);
+		//int p_code = 2014401001; // 교수 코드
 		
 		List<hakjumDTO> list = new ArrayList<hakjumDTO>();
 		hakjumDTO dto = new hakjumDTO();

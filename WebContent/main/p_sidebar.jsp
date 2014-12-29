@@ -56,7 +56,7 @@
 									<dd><a href="#">강의 확인</a></dd>
 									<dd><a href="#">강의 개설</a></dd>
 									<dd><a href="#">출석 등록</a></dd>
-									<dd><a href="#">성적 등록</a></dd>
+									<dd><a href="hakjumForm.kh">성적 등록</a></dd>
 									<dd><a href="#">개설신청 확인</a></dd>
 									<dd><a href="#">개인 시간표 조회</a></dd>
 								</dl>
