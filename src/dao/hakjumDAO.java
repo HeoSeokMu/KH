@@ -77,4 +77,69 @@ public class hakjumDAO {
 				
 		return list;
 	}
+	
+	public List getList(String code){
+		hakjumDTO dto = null;
+		
+		List<hakjumDTO> list = new ArrayList<hakjumDTO>();
+		
+		
+		try{
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from hakjum_2014_1 where code=?");
+			pstmt.setString(1,code);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				dto = new hakjumDTO();
+				dto.setNum(rs.getInt("num"));
+				dto.setType(rs.getString("type"));
+				dto.setCode(rs.getString("code"));	
+				dto.setName(rs.getString("name"));	
+				dto.setProfessor(rs.getString("professor"));	
+				dto.setP_code(rs.getInt("p_code"));	
+				dto.setS_grade(rs.getInt("s_grade"));	
+				dto.setS_name(rs.getString("s_name"));	
+				dto.setS_code(rs.getString("s_code"));	
+				dto.setF_grade(rs.getInt("f_grade"));	
+				dto.setResultA(rs.getInt("resultA"));	
+				dto.setResultB(rs.getString("resultB"));
+				dto.setChk(rs.getInt("chk"));
+			
+				list.add(dto);
+			}
+				
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				conn.close();
+				pstmt.close();
+			}catch(Exception s){s.printStackTrace();}
+		}
+				
+		return list;
+	}
+	
+	public int insert(int num, int A, String B){
+		
+		int result = 0;
+		try{
+			
+			conn = getConnection();
+			pstmt = conn.prepareStatement("update hakjum_2014_1 set resultA=?, resultB=? where num=?");
+			pstmt.setInt(1,A);
+			pstmt.setString(2,B);
+			pstmt.setInt(3,num);
+			result = pstmt.executeUpdate();		
+			
+		}catch (Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				pstmt.close();
+				conn.close();		
+			}catch(Exception s){s.printStackTrace();}
+		}
+		return result;
+	}
 }
